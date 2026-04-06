@@ -36,6 +36,7 @@ Whether you’re managing a strict monthly budget or simply trying to gain clari
 - [🧱 Architecture Overview](#-architecture-overview)
 - [🛠 Tech Stack](#-tech-stack)
 - [📦 Getting Started](#-getting-started)
+- [⬇️ Download Builds](#️-download-builds)
 - [⚙️ Environment Setup](#️-environment-setup)
 - [🏃 Run the App](#-run-the-app)
 - [🏗 Build for Release](#-build-for-release)
@@ -142,6 +143,32 @@ cd BUDGET-AND-EXPENSE-TRACKER
 
 ```bash
 flutter pub get
+```
+
+---
+
+## ⬇️ Download Builds
+
+You can distribute prebuilt binaries from this section so users can install Zpendr without setting up Flutter locally.
+
+> Replace `#` links below with your real release artifacts (GitHub Releases, website CDN, or app store links).
+
+| Platform | Architecture / Target | Download | Notes |
+|---|---|---|---|
+| 🤖 Android Phone | ARM64 (APK/AAB) | [Download Android Phone Build](#) | Optimized for modern Android phones. |
+| 📱 Android Tablet | ARM64 + large-screen optimized APK/AAB | [Download Android Tablet Build](#) | Tablet UI and layout optimized build. |
+| 🪟 Windows | x86_64 | [Download Windows x86_64](#) | Standard desktop/laptop release. |
+| 🪟 Windows | ARM64 | [Download Windows ARM64](#) | For Snapdragon/ARM-based Windows devices. |
+| 🍎 macOS | Apple Silicon + Intel (Universal) | [Download macOS Build](#) | Signed `.dmg` or `.pkg` recommended. |
+
+### Recommended release naming
+
+```text
+zpendr-android-phone-arm64.apk
+zpendr-android-tablet-arm64.apk
+zpendr-windows-x86_64.zip
+zpendr-windows-arm64.zip
+zpendr-macos-universal.dmg
 ```
 
 ---
@@ -358,3 +385,9 @@ Please read the [LICENSE](LICENSE) file before using, redistributing, or modifyi
 MSc Cybersecurity Graduate · Flutter Developer · Burnaby, BC, Canada
 
 ---
+
+<div align="center">
+
+### ⭐ If you like this project, consider starring the repository!
+
+</div>
