@@ -1,2 +1,7 @@
-# BUDGET-AND-EXPENSE-TRACKER
+![BUDGET-AND-EXPENSE-TRACKER](https://socialify.git.ci/Nihar16/BUDGET-AND-EXPENSE-TRACKER/image?custom_description=Track+income%2C+set+budgets+%26+take+control+of+your+finances+%E2%80%94+organized+by+category+with+smart+reminders.%0AAnalyze+spending+with+charts%2C+support+multiple+currencies%2C+and+export+reports.+&description=1&font=Source+Code+Pro&name=1&pattern=Circuit+Board&theme=Dark)
+
 Track income and expenses, set budgets, and take full control of your finances. Organize spending by category, monitor upcoming bills, and never miss a payment with smart reminders. Analyze your money with powerful charts, support multiple currencies, and export reports to PDF or Excel. Your finances, finally simplified.
+Track income and expenses, create budgets, and take full control of your finances across all your devices. This cross-platform personal finance application helps users organize spending by category, monitor upcoming bills, and receive smart reminders to avoid missed payments.
+Analyze financial habits using interactive charts and detailed reports. The system supports multiple currencies and allows exporting financial summaries to PDF or Excel for easy record keeping and sharing.
+The application is designed to run seamlessly across modern platforms, including Android, iOS, iPadOS, macOS, Windows, and the web, ensuring your financial data is always accessible wherever you are.
+Your finances, organized and simplified."
