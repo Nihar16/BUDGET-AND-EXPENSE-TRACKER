@@ -331,7 +331,6 @@ Example markdown:
 - [x] Docker-ready web deployment
 - [ ] Cloud sync with Firebase
 - [ ] Shared household budgets
-- [ ] Bank integrations (e.g., Plaid/Open Banking)
 - [ ] AI-assisted spending insights
 - [ ] Home-screen widgets (iOS/Android)
 
@@ -359,9 +358,3 @@ Please read the [LICENSE](LICENSE) file before using, redistributing, or modifyi
 MSc Cybersecurity Graduate · Flutter Developer · Burnaby, BC, Canada
 
 ---
-
-<div align="center">
-
-### ⭐ If you like this project, consider starring the repository!
-
-</div>
