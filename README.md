@@ -392,8 +392,3 @@ MSc Cybersecurity Graduate · Flutter Developer · Burnaby, BC, Canada
 
 ---
 
-<div align="center">
-
-### ⭐ If you like this project, consider starring the repository!
-
-</div>
