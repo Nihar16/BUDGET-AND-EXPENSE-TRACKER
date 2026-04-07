@@ -1,0 +1,17 @@
+# Flutter build and dependency files
+.dart_tool/
+.buildlog
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-versions
+
+# Project files
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+
+# Environment variables
+.env
