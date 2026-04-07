@@ -359,17 +359,25 @@ Example markdown:
 
 ## 🗺 Product Roadmap
 
-- [x] Income & expense tracking
-- [x] Category-aware budgeting
-- [x] Bill reminder system
-- [x] Multi-currency support
-- [x] Analytics and charting
-- [x] PDF/Excel export
-- [x] Docker-ready web deployment
-- [ ] Cloud sync with Firebase
-- [ ] Shared household budgets
-- [ ] AI-assisted spending insights
-- [ ] Home-screen widgets (iOS/Android)
+<div align="center">
+
+
+
+| Status | Feature | Description |
+| :---: | :--- | :--- |
+| ✅ | **Core Tracking** | ✨ Income & expense tracking with complete ledger management. |
+| ✅ | **Smart Budgeting** | 📊 Category-aware limits for different spending habits. |
+| ✅ | **Bill Reminders** | 🔔 Never miss a payment with local notifications. |
+| ✅ | **Multi-currency** | 💱 Global spending tracking for international use. |
+| ✅ | **Analytics** | 📈 Visual data breakdown via sync-friendly charts. |
+| ✅ | **Data Export** | 📄 Portability via PDF and Excel/CSV formats. |
+| ✅ | **Docker Ready** | 🐳 Seamless web deployment and hosting. |
+| ⏳ | **Cloud Sync** | ☁️ Real-time Firebase persistence across all devices. |
+| ⏳ | **Shared Budgets** | 👨‍👩‍👧‍👦 Collaborative tracking for household members. |
+| 💎 | **AI Insights** | 🤖 Personalized financial advice (Subscription-based). |
+| ⏳ | **App Widgets** | 📱 Quick-view balance and spending for iOS/Android. |
+
+</div>
 
 ---
 
@@ -396,8 +404,3 @@ MSc Cybersecurity Graduate · Flutter Developer · Burnaby, BC, Canada
 
 ---
 
-<div align="center">
-
-### ⭐ If you like this project, consider starring the repository!
-
-</div>
