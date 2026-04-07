@@ -155,22 +155,26 @@ Use this section to share prebuilt installers so users can download and install 
 
 | Platform | Architecture / Target | Download | Notes |
 |---|---|---|---|
-| 🤖 Android Phone | ARM64 (APK/AAB) | [Download Android Phone Build](#) | Optimized for modern Android phones. |
-| 📱 Android Tablet | ARM64 + large-screen optimized APK/AAB | [Download Android Tablet Build](#) | Tablet UI and layout optimized build. |
+| 🤖 Android Phone | Android API 21+ (Lollipop and newer) | [Download Android Phone Build](#) | Built for maximum Android phone compatibility. |
+| 📱 Android Tablet | Android API 21+ (Lollipop and newer) | [Download Android Tablet Build](#) | Built for maximum Android tablet compatibility. |
+| 📱 iPhone | iOS deployment target with widest supported range | [Download iPhone Build](#) | Built for maximum iPhone compatibility. |
+| 📱 iPad | iPadOS deployment target with widest supported range | [Download iPad Build](#) | Built for maximum iPad compatibility. |
 | 🪟 Windows | 64-bit (x64) | [Download Windows 64-bit](#) | Standard desktop/laptop release. |
 | 🪟 Windows | ARM64 | [Download Windows ARM](#) | For Snapdragon/ARM-based Windows devices. |
-| 🍎 macOS | Apple Silicon + Intel (Universal) | [Download macOS Build](#) | Signed `.dmg` or `.pkg` recommended. |
+| 🍎 macOS | Apple Silicon only | [Download macOS (Apple Silicon) Build](#) | Signed `.dmg` or `.pkg` recommended. |
 
 > Tip: host these files on **GitHub Releases** and keep filenames/versioning consistent.
 
 ### Recommended release naming
 
 ```text
-zpendr-android-phone-arm64.apk
-zpendr-android-tablet-arm64.apk
+zpendr-android-phone-universal.apk
+zpendr-android-tablet-universal.apk
 zpendr-windows-64-bit.zip
 zpendr-windows-arm64.zip
-zpendr-macos-universal.dmg
+zpendr-ios-iphone.ipa
+zpendr-ipados-ipad.ipa
+zpendr-macos-apple-silicon.dmg
 ```
 
 ---
@@ -388,8 +392,3 @@ MSc Cybersecurity Graduate · Flutter Developer · Burnaby, BC, Canada
 
 ---
 
-<div align="center">
-
-### ⭐ If you like this project, consider starring the repository!
-
-</div>
