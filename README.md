@@ -10,8 +10,6 @@
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
 ![Web](https://img.shields.io/badge/Web-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)
 [![License](https://img.shields.io/badge/License-Proprietary-7C3AED?style=for-the-badge)](LICENSE)
-[![Dart CI](https://github.com/Nihar16/BUDGET-AND-EXPENSE-TRACKER/actions/workflows/dart.yml/badge.svg)](https://github.com/Nihar16/BUDGET-AND-EXPENSE-TRACKER/actions/workflows/dart.yml)
-[![Docker Build](https://github.com/Nihar16/BUDGET-AND-EXPENSE-TRACKER/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Nihar16/BUDGET-AND-EXPENSE-TRACKER/actions/workflows/docker-publish.yml)
 
 ![BUDGET-AND-EXPENSE-TRACKER](https://socialify.git.ci/Nihar16/BUDGET-AND-EXPENSE-TRACKER/image?custom_description=Track+income%2C+set+budgets+%26+take+control+of+your+finances+organized+by+category+with+smart+reminders.&description=1&font=Source+Code+Pro&name=1&pattern=Circuit+Board&theme=Dark)
 
