@@ -1,1 +1,93 @@
+PROPRIETARY SOFTWARE LICENSE AGREEMENT
+Zpendr — Budget and Expense Tracker
+Effective Date: April 6, 2025
+Copyright Owner: Nihar (GitHub: @Nihar16)
+Repository: https://github.com/Nihar16/BUDGET-AND-EXPENSE-TRACKER
+Governing Jurisdiction: British Columbia, Canada
 
+PREAMBLE
+This Proprietary Software License Agreement ("Agreement") is a legally binding contract between you ("Licensee", "User", or "You") and Nihar, the individual software developer and sole copyright holder ("Licensor", "Owner", or "We"), governing your access to and use of the software application known as "Zpendr — Budget and Expense Tracker" and all associated source code, object code, documentation, assets, data structures, algorithms, and any derivative works thereof (collectively, the "Software").
+By downloading, installing, accessing, copying, viewing, or using the Software in any manner, you acknowledge that you have read, understood, and agree to be legally bound by the terms and conditions of this Agreement. If you do not agree to these terms, you must not access or use the Software in any form.
+This Agreement is intended to be enforceable under the laws of Canada, the Province of British Columbia, and is consistent with international intellectual property treaties including the Berne Convention, the WIPO Copyright Treaty (WCT), the Agreement on Trade-Related Aspects of Intellectual Property Rights (TRIPS), and other applicable international conventions.
+
+SECTION 1 — OWNERSHIP AND COPYRIGHT
+1.1  The Software, including all copies, modifications, enhancements, updates, and derivative works, is and shall remain the exclusive intellectual property of Nihar ("the Owner").
+1.2  The Software is protected under the Copyright Act (R.S.C., 1985, c. C-42) of Canada, the laws of the Province of British Columbia, and applicable international copyright law, including but not limited to the Berne Convention for the Protection of Literary and Artistic Works.
+1.3  All rights, title, and interest in and to the Software, including all intellectual property rights therein, are and shall remain exclusively with the Owner. No title or ownership of the Software is transferred to the Licensee under this Agreement.
+1.4  The Software's trade name, trademarks, service marks, logos, and any branding associated with "Zpendr" are the exclusive property of the Owner. Nothing in this Agreement grants the Licensee any right to use such marks.
+
+SECTION 2 — GRANT OF LICENSE
+2.1  Subject to the terms and conditions of this Agreement, the Owner grants the Licensee a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to:
+•	View the Software's publicly accessible source code hosted on the repository solely for personal, educational, or evaluation purposes.
+•	Install and use the Software on devices owned or controlled by the Licensee for strictly personal, non-commercial purposes.
+2.2  This license does not include the right to distribute, sublicense, sell, rent, lease, transfer, assign, or otherwise commercially exploit the Software or any portion thereof.
+2.3  Any use beyond the scope expressly granted in Section 2.1 requires prior written authorization from the Owner.
+
+SECTION 3 — RESTRICTIONS
+The Licensee expressly agrees NOT to, and shall not permit any third party to:
+•	Copy, reproduce, or duplicate the Software or any portion thereof, except as permitted under Section 2.
+•	Modify, adapt, translate, reverse engineer, decompile, disassemble, or create derivative works based on the Software.
+•	Distribute, publish, sublicense, sell, resell, rent, lease, lend, transfer, or otherwise make available the Software to any third party.
+•	Remove, alter, or obscure any copyright, trademark, or proprietary notices contained in or displayed by the Software.
+•	Use the Software for any commercial purpose, including but not limited to offering it as a service, bundling it with other commercial products, or generating revenue from its use.
+•	Use the Software in any manner that violates applicable local, provincial, national, or international law or regulation.
+•	Attempt to gain unauthorized access to any portion of the Software, its servers, or any connected systems.
+•	Use the Software to build a competing product or service that replicates or mirrors the Software's core functionality.
+•	Use the Software's name, branding, or likeness in any misleading, defamatory, or unauthorized manner.
+
+SECTION 4 — CONTRIBUTIONS AND SUBMISSIONS
+4.1  Any contributions, suggestions, feedback, bug reports, or pull requests submitted to the Software's repository by any party shall be considered unsolicited contributions.
+4.2  By submitting any contribution, the submitter irrevocably assigns all intellectual property rights in that contribution to the Owner, and waives any moral rights therein to the fullest extent permitted by law.
+4.3  The Owner reserves the right to accept, reject, or modify any contribution at their sole discretion, with or without notice, and without any obligation or compensation to the submitter.
+
+SECTION 5 — CONFIDENTIALITY
+5.1  The Software's source code, architecture, algorithms, data models, and technical documentation constitute confidential and proprietary information of the Owner.
+5.2  The Licensee agrees to maintain the confidentiality of such information and to not disclose it to any third party without the prior written consent of the Owner.
+5.3  This obligation of confidentiality shall survive the termination of this Agreement for a period of five (5) years.
+
+SECTION 6 — DISCLAIMER OF WARRANTIES
+6.1  THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, ACCURACY, OR RELIABILITY.
+6.2  THE OWNER DOES NOT WARRANT THAT THE SOFTWARE WILL BE ERROR-FREE, UNINTERRUPTED, SECURE, OR FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
+6.3  THE LICENSEE ASSUMES ALL RISK ASSOCIATED WITH THE USE OF THE SOFTWARE, INCLUDING ANY RISK TO THE LICENSEE'S COMPUTER SYSTEM, DATA, OR OTHER PROPERTY.
+
+SECTION 7 — LIMITATION OF LIABILITY
+7.1  TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL THE OWNER BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT OR THE USE OR INABILITY TO USE THE SOFTWARE.
+7.2  THE OWNER'S TOTAL CUMULATIVE LIABILITY TO THE LICENSEE FOR ANY CLAIMS ARISING UNDER OR RELATED TO THIS AGREEMENT SHALL NOT EXCEED ONE HUNDRED CANADIAN DOLLARS (CAD $100.00).
+7.3  SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES. IN SUCH JURISDICTIONS, THE OWNER'S LIABILITY SHALL BE LIMITED TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW.
+
+SECTION 8 — INDEMNIFICATION
+The Licensee agrees to indemnify, defend, and hold harmless the Owner and any affiliates, successors, and assigns from and against any and all claims, damages, losses, costs, and expenses (including reasonable legal fees) arising out of or relating to: (a) the Licensee's use or misuse of the Software; (b) the Licensee's breach of this Agreement; or (c) the Licensee's violation of any applicable law or the rights of any third party.
+
+SECTION 9 — TERMINATION
+9.1  This Agreement is effective until terminated. The Owner may terminate this Agreement immediately and without notice if the Licensee breaches any provision of this Agreement.
+9.2  Upon termination, the Licensee must immediately cease all use of the Software and destroy all copies in their possession or control.
+9.3  Sections 1, 3, 5, 6, 7, 8, 10, and 11 shall survive the termination of this Agreement.
+
+SECTION 10 — GOVERNING LAW AND DISPUTE RESOLUTION
+10.1  This Agreement shall be governed by and construed in accordance with the laws of the Province of British Columbia and the federal laws of Canada applicable therein, without regard to conflict of law principles.
+10.2  Any dispute, claim, or controversy arising out of or relating to this Agreement shall first be submitted to good-faith negotiation between the parties.
+10.3  If the dispute is not resolved within thirty (30) days of written notice, it shall be submitted to binding arbitration in Vancouver, British Columbia, in accordance with the Arbitration Act (R.S.B.C. 1996, c. 55).
+10.4  The parties expressly consent to the exclusive jurisdiction of the courts of British Columbia for the purposes of enforcing any arbitration award or seeking interim injunctive relief.
+
+SECTION 11 — GENERAL PROVISIONS
+11.1  Entire Agreement. This Agreement constitutes the entire agreement between the parties with respect to the Software and supersedes all prior or contemporaneous agreements, representations, warranties, and understandings.
+11.2  Severability. If any provision of this Agreement is found to be invalid, illegal, or unenforceable, the remaining provisions shall continue in full force and effect.
+11.3  Waiver. The failure of the Owner to enforce any right or provision of this Agreement shall not constitute a waiver of such right or provision.
+11.4  Amendment. The Owner reserves the right to modify this Agreement at any time. Continued use of the Software following notice of any modification constitutes acceptance of the modified terms.
+11.5  Assignment. The Licensee may not assign or transfer any rights or obligations under this Agreement without the prior written consent of the Owner. The Owner may freely assign this Agreement.
+11.6  Language. This Agreement is written in English. In the event of any conflict between an English version and any translated version, the English version shall prevail.
+11.7  Force Majeure. The Owner shall not be liable for any failure or delay in performance resulting from causes beyond their reasonable control.
+11.8  No Partnership. Nothing in this Agreement creates a partnership, joint venture, agency, franchise, or employment relationship between the parties.
+
+SECTION 12 — CONTACT AND PERMISSIONS
+For licensing inquiries, commercial use requests, permissions beyond the scope of this Agreement, or any legal matters, please contact the Owner via:
+•	GitHub: https://github.com/Nihar16
+•	Repository: https://github.com/Nihar16/BUDGET-AND-EXPENSE-TRACKER
+Written permission from the Owner is required for any use not expressly authorized by this Agreement.
+
+ACKNOWLEDGEMENT
+BY ACCESSING, DOWNLOADING, INSTALLING, OR USING THE SOFTWARE, YOU ACKNOWLEDGE THAT YOU HAVE READ THIS AGREEMENT, UNDERSTAND IT, AND AGREE TO BE BOUND BY ITS TERMS AND CONDITIONS.
+Owner / Copyright Holder
+Nihar (@Nihar16)
+Effective Date: April 6, 2025
+Jurisdiction: British Columbia, Canada
