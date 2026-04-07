@@ -33,37 +33,22 @@ Whether you’re managing a strict monthly budget or simply trying to gain clari
 
 ## 📚 Table of Contents
 
-<table>
-  <tr>
-    <td valign="top" width="50%">
-      <ul>
-        <li>✨ <a href="#what-is-zpendr">What is Zpendr?</a></li>
-        <li>🚀 <a href="#feature-highlights">Feature Highlights</a></li>
-        <li>🧱 <a href="#architecture-overview">Architecture Overview</a></li>
-        <li>🛠️ <a href="#tech-stack">Tech Stack</a></li>
-        <li>📦 <a href="#getting-started">Getting Started</a></li>
-        <li>⬇️ <a href="#download-software">Download Software</a></li>
-        <li>⚙️ <a href="#environment-setup">Environment Setup</a></li>
-        <li>🏃 <a href="#run-the-app">Run the App</a></li>
-        <li>🏗️ <a href="#build-for-release">Build for Release</a></li>
-      </ul>
-    </td>
-    <td valign="top" width="50%">
-      <ul>
-        <li>🐳 <a href="#run-web-with-docker">Run Web with Docker</a></li>
-        <li>📁 <a href="#project-structure">Project Structure</a></li>
-        <li>🗒️ <a href="#core-data-models">Core Data Models</a></li>
-        <li>🖼️ <a href="#screenshots">Screenshots</a></li>
-        <li>🗺️ <a href="#product-roadmap">Product Roadmap</a></li>
-        <li>🤝 <a href="#contributing">Contributing</a></li>
-        <li>📄 <a href="#license">License</a></li>
-        <li>👨‍💻 <a href="#author">Author</a></li>
-      </ul>
-    </td>
-  </tr>
-</table>
+<div align="center">
 
----
+| | |
+| :--- | :--- |
+| ✨ [What is Zpendr?](#what-is-zpendr) | 🐳 [Run Web with Docker](#run-web-with-docker) |
+| 🚀 [Feature Highlights](#feature-highlights) | 📁 [Project Structure](#project-structure) |
+| <nobr>🧱 [Architecture Overview](#architecture-overview)</nobr> | 🗒️ [Core Data Models](#core-data-models) |
+| 🛠️ [Tech Stack](#tech-stack) | 🖼️ [Screenshots](#screenshots) |
+| 📦 [Getting Started](#getting-started) | 🗺️ [Product Roadmap](#product-roadmap) |
+| ⬇️ [Download Software](#download-software) | 🤝 [Contributing](#contributing) |
+| ⚙️ [Environment Setup](#environment-setup) | 📄 [License](#license) |
+| 🏃 [Run the App](#run-the-app) | 👨‍💻 [Author](#author) |
+| 🏗️ [Build for Release](#build-for-release) | |
+
+</div>
+
 
 ## 🚀 Feature Highlights
 
