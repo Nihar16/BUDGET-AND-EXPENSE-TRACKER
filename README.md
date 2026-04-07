@@ -178,6 +178,7 @@ Use this section to share prebuilt installers so users can download and install 
 zpendr-android-phone-universal.apk
 zpendr-android-tablet-universal.apk
 zpendr-windows-64-bit.zip
+zpendr-windows-64-bit.exe
 zpendr-windows-arm64.zip
 zpendr-ios-iphone.ipa
 zpendr-ipados-ipad.ipa
