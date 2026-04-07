@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  zpendr-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    environment:
+      - NGINX_PORT=80
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - zpendr-network
+
+networks:
+  zpendr-network:
+    driver: bridge

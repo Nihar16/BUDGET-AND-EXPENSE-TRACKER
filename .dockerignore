@@ -1,0 +1,52 @@
+# Flutter
+.dart_tool/
+.packages
+.pub/
+build/
+flutter_*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Test
+test/
+coverage/
+
+# Documentation
+README.md
+*.md
+
+# CI/CD
+.github/
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Platform specific
+android/
+ios/
+macos/
+windows/
+linux/
+
+# Assets (will be copied if needed)
+# Keep assets/ if you want to include them, but exclude large files
+assets/screenshots/

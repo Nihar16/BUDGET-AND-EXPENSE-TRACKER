@@ -11,7 +11,6 @@
 ![Web](https://img.shields.io/badge/Web-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)
 [![License](https://img.shields.io/badge/License-Proprietary-7C3AED?style=for-the-badge)](LICENSE)
 
-
 ![BUDGET-AND-EXPENSE-TRACKER](https://socialify.git.ci/Nihar16/BUDGET-AND-EXPENSE-TRACKER/image?custom_description=Track+income%2C+set+budgets+%26+take+control+of+your+finances+organized+by+category+with+smart+reminders.&description=1&font=Source+Code+Pro&name=1&pattern=Circuit+Board&theme=Dark)
 
 </div>
@@ -29,7 +28,6 @@
 - Export financial summaries to **PDF and Excel**.
 
 Whether you’re managing a strict monthly budget or simply trying to gain clarity over your spending, Zpendr gives you a focused, modern experience across mobile, desktop, and web.
-
 
 ## 📚 Table of Contents
 
@@ -52,31 +50,37 @@ Whether you’re managing a strict monthly budget or simply trying to gain clari
 ## 🚀 Feature Highlights
 
 ### 💰 1) Income & Expense Tracking
+
 - Add transactions with title, amount, date, note, and category.
 - Separate **income** and **expense** types for clean reporting.
 - Use filters/search to quickly find historical entries.
 
 ### 📊 2) Budget Planning & Control
+
 - Create periodic budgets per category.
 - View budget usage in real-time.
 - Spot overspending early with visual progress indicators.
 
 ### 🔔 3) Bill Reminders
+
 - Schedule recurring bill reminders (weekly/monthly/yearly).
 - Mark reminders as paid.
 - Keep an overview of upcoming liabilities.
 
 ### 📈 4) Analytics & Reports
+
 - Visualize spending by category and timeline.
 - Compare income vs. expense trends.
 - Export records to **PDF** and **.xlsx** for sharing and bookkeeping.
 
 ### 🌍 5) Multi-Currency Support
+
 - Record transactions in different currencies.
 - Set a preferred base currency.
 - Prepare for conversion-ready financial summaries.
 
 ### 🔒 6) Privacy & Security Focus
+
 - Local-first storage approach.
 - Optional cloud sync architecture.
 - Support for biometric/PIN lock workflows (implementation-dependent).
@@ -94,6 +98,7 @@ Data Layer           → Models, Repositories, Local/Remote Sources
 ```
 
 ### Why this architecture?
+
 - **Scalability:** easy to expand features without rewriting the app.
 - **Testability:** domain logic remains isolated and test-friendly.
 - **Maintainability:** clean separation between UI and data access.
@@ -241,6 +246,20 @@ flutter build windows --release
 
 ## 🐳 Run Web with Docker
 
+### Option 1: Using Docker Compose (Recommended)
+
+```bash
+# Build and run with docker-compose
+docker-compose up --build
+
+# Or run in background
+docker-compose up -d --build
+```
+
+Open: `http://localhost:8080`
+
+### Option 2: Using Docker directly
+
 ```bash
 # Build image
 docker build -t zpendr-web .
@@ -250,6 +269,19 @@ docker run -p 8080:80 zpendr-web
 ```
 
 Open: `http://localhost:8080`
+
+### Additional Commands
+
+```bash
+# Stop containers
+docker-compose down
+
+# View logs
+docker-compose logs -f
+
+# Rebuild after code changes
+docker-compose up --build --force-recreate
+```
 
 ---
 
@@ -361,8 +393,6 @@ Example markdown:
 
 <div align="center">
 
-
-
 | Status | Feature | Description |
 | :---: | :--- | :--- |
 | ✅ | **Core Tracking** | ✨ Income & expense tracking with complete ledger management. |
@@ -403,4 +433,3 @@ Please read the [LICENSE](LICENSE) file before using, redistributing, or modifyi
 MSc Cybersecurity Graduate · Flutter Developer · Burnaby, BC, Canada
 
 ---
-
