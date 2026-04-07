@@ -33,23 +33,35 @@ Whether you’re managing a strict monthly budget or simply trying to gain clari
 
 ## 📚 Table of Contents
 
-- [✨ What is Zpendr?](#-what-is-zpendr)
-- [🚀 Feature Highlights](#-feature-highlights)
-- [🧱 Architecture Overview](#-architecture-overview)
-- [🛠 Tech Stack](#-tech-stack)
-- [📦 Getting Started](#-getting-started)
-- [⬇️ Download Software](#️-download-software)
-- [⚙️ Environment Setup](#️-environment-setup)
-- [🏃 Run the App](#-run-the-app)
-- [🏗 Build for Release](#-build-for-release)
-- [🐳 Run Web with Docker](#-run-web-with-docker)
-- [📁 Project Structure](#-project-structure)
-- [🧾 Core Data Models](#-core-data-models)
-- [🖼 Screenshots](#-screenshots)
-- [🗺 Product Roadmap](#-product-roadmap)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👨‍💻 Author](#-author)
+<table>
+  <tr>
+    <td valign="top" width="50%">
+      <ul>
+        <li>✨ <a href="#what-is-zpendr">What is Zpendr?</a></li>
+        <li>🚀 <a href="#feature-highlights">Feature Highlights</a></li>
+        <li>🧱 <a href="#architecture-overview">Architecture Overview</a></li>
+        <li>🛠️ <a href="#tech-stack">Tech Stack</a></li>
+        <li>📦 <a href="#getting-started">Getting Started</a></li>
+        <li>⬇️ <a href="#download-software">Download Software</a></li>
+        <li>⚙️ <a href="#environment-setup">Environment Setup</a></li>
+        <li>🏃 <a href="#run-the-app">Run the App</a></li>
+        <li>🏗️ <a href="#build-for-release">Build for Release</a></li>
+      </ul>
+    </td>
+    <td valign="top" width="50%">
+      <ul>
+        <li>🐳 <a href="#run-web-with-docker">Run Web with Docker</a></li>
+        <li>📁 <a href="#project-structure">Project Structure</a></li>
+        <li>🗒️ <a href="#core-data-models">Core Data Models</a></li>
+        <li>🖼️ <a href="#screenshots">Screenshots</a></li>
+        <li>🗺️ <a href="#product-roadmap">Product Roadmap</a></li>
+        <li>🤝 <a href="#contributing">Contributing</a></li>
+        <li>📄 <a href="#license">License</a></li>
+        <li>👨‍💻 <a href="#author">Author</a></li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -259,22 +271,22 @@ Open: `http://localhost:8080`
 BUDGET-AND-EXPENSE-TRACKER/
 ├── lib/
 │   ├── core/
-│   │   ├── constants/
-│   │   ├── themes/
-│   │   ├── utils/
-│   │   └── errors/
+│   │   ├── constants/          # App-wide constants
+│   │   ├── themes/             # Light & dark themes
+│   │   ├── utils/              # Helper functions
+│   │   └── errors/             # Error handling
 │   ├── data/
-│   │   ├── models/
-│   │   ├── repositories/
-│   │   ├── local/
-│   │   └── remote/
+│   │   ├── models/             # Data models (Transaction, Budget, etc.)
+│   │   ├── repositories/       # Data access layer
+│   │   ├── local/              # Hive / SQLite storage
+│   │   └── remote/             # Firebase / API services
 │   ├── domain/
-│   │   ├── entities/
-│   │   └── usecases/
+│   │   ├── entities/           # Business entities
+│   │   └── usecases/           # Application use cases
 │   ├── presentation/
-│   │   ├── screens/
-│   │   ├── widgets/
-│   │   └── providers/
+│   │   ├── screens/            # App screens
+│   │   ├── widgets/            # Reusable widgets
+│   │   └── providers/          # Riverpod providers
 │   └── main.dart
 ├── assets/
 │   ├── images/
@@ -292,6 +304,7 @@ BUDGET-AND-EXPENSE-TRACKER/
 ├── Dockerfile
 ├── pubspec.yaml
 └── README.md
+
 ```
 
 ---
