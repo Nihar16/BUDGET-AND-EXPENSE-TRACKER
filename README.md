@@ -4,12 +4,10 @@
 
 ### _Track smarter. Budget better. Spend intentionally._
 
-![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=apple&logoColor=white)
-![macOS](https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white)
-![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
-![Web](https://img.shields.io/badge/Web-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)
-[![License](https://img.shields.io/badge/License-Proprietary-7C3AED?style=for-the-badge)](LICENSE)
+![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![Platforms](https://img.shields.io/badge/Platforms-Android%20%7C%20iOS%20%7C%20macOS%20%7C%20Windows%20%7C%20Web-4C566A?style=for-the-badge)
+![License](https://img.shields.io/badge/License-Proprietary-8B0000?style=for-the-badge)
 
 ![BUDGET-AND-EXPENSE-TRACKER](https://socialify.git.ci/Nihar16/BUDGET-AND-EXPENSE-TRACKER/image?custom_description=Track+income%2C+set+budgets+%26+take+control+of+your+finances+organized+by+category+with+smart+reminders.&description=1&font=Source+Code+Pro&name=1&pattern=Circuit+Board&theme=Dark)
 
@@ -33,22 +31,25 @@ Whether you’re managing a strict monthly budget or simply trying to gain clari
 
 ## 📚 Table of Contents
 
-<div align="center">
+- [✨ What is Zpendr?](#-what-is-zpendr)
+- [🚀 Feature Highlights](#-feature-highlights)
+- [🧱 Architecture Overview](#-architecture-overview)
+- [🛠 Tech Stack](#-tech-stack)
+- [📦 Getting Started](#-getting-started)
+- [⬇️ Download Software](#️-download-software)
+- [⚙️ Environment Setup](#️-environment-setup)
+- [🏃 Run the App](#-run-the-app)
+- [🏗 Build for Release](#-build-for-release)
+- [🐳 Run Web with Docker](#-run-web-with-docker)
+- [📁 Project Structure](#-project-structure)
+- [🧾 Core Data Models](#-core-data-models)
+- [🖼 Screenshots](#-screenshots)
+- [🗺 Product Roadmap](#-product-roadmap)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [👨‍💻 Author](#-author)
 
-| | |
-| :--- | :--- |
-| ✨ [What is Zpendr?](#what-is-zpendr) | 🐳 [Run Web with Docker](#run-web-with-docker) |
-| 🚀 [Feature Highlights](#feature-highlights) | 📁 [Project Structure](#project-structure) |
-| <nobr>🧱 [Architecture Overview](#architecture-overview)</nobr> | 🗒️ [Core Data Models](#core-data-models) |
-| 🛠️ [Tech Stack](#tech-stack) | 🖼️ [Screenshots](#screenshots) |
-| 📦 [Getting Started](#getting-started) | 🗺️ [Product Roadmap](#product-roadmap) |
-| ⬇️ [Download Software](#download-software) | 🤝 [Contributing](#contributing) |
-| ⚙️ [Environment Setup](#environment-setup) | 📄 [License](#license) |
-| 🏃 [Run the App](#run-the-app) | 👨‍💻 [Author](#author) |
-| 🏗️ [Build for Release](#build-for-release) | |
-
-</div>
-
+---
 
 ## 🚀 Feature Highlights
 
@@ -103,6 +104,8 @@ Data Layer           → Models, Repositories, Local/Remote Sources
 
 ## 🛠 Tech Stack
 
+<div align="center">
+
 | Layer | Technology |
 |---|---|
 | Framework | Flutter 3.x |
@@ -116,6 +119,8 @@ Data Layer           → Models, Repositories, Local/Remote Sources
 | Navigation | Go Router |
 | CI/CD | GitHub Actions |
 | Web Deployment | Docker + Nginx |
+
+</div>
 
 ---
 
@@ -256,22 +261,22 @@ Open: `http://localhost:8080`
 BUDGET-AND-EXPENSE-TRACKER/
 ├── lib/
 │   ├── core/
-│   │   ├── constants/          # App-wide constants
-│   │   ├── themes/             # Light & dark themes
-│   │   ├── utils/              # Helper functions
-│   │   └── errors/             # Error handling
+│   │   ├── constants/
+│   │   ├── themes/
+│   │   ├── utils/
+│   │   └── errors/
 │   ├── data/
-│   │   ├── models/             # Data models (Transaction, Budget, etc.)
-│   │   ├── repositories/       # Data access layer
-│   │   ├── local/              # Hive / SQLite storage
-│   │   └── remote/             # Firebase / API services
+│   │   ├── models/
+│   │   ├── repositories/
+│   │   ├── local/
+│   │   └── remote/
 │   ├── domain/
-│   │   ├── entities/           # Business entities
-│   │   └── usecases/           # Application use cases
+│   │   ├── entities/
+│   │   └── usecases/
 │   ├── presentation/
-│   │   ├── screens/            # App screens
-│   │   ├── widgets/            # Reusable widgets
-│   │   └── providers/          # Riverpod providers
+│   │   ├── screens/
+│   │   ├── widgets/
+│   │   └── providers/
 │   └── main.dart
 ├── assets/
 │   ├── images/
@@ -392,3 +397,8 @@ MSc Cybersecurity Graduate · Flutter Developer · Burnaby, BC, Canada
 
 ---
 
+<div align="center">
+
+### ⭐ If you like this project, consider starring the repository!
+
+</div>
