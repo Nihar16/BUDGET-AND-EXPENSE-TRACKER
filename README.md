@@ -325,6 +325,10 @@ BUDGET-AND-EXPENSE-TRACKER/
 ├── web/
 ├── Dockerfile
 ├── pubspec.yaml
+├── .env
+├── .env.example
+├── .gitignore
+├── Code Citations.md
 └── README.md
 
 ```
