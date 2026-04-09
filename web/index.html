@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<script>
-    (function () {
-        var saved = localStorage.getItem('theme');
-        var osIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var html = document.documentElement;
-        html.classList.add('no-transition');
-        if (saved === 'dark' && !osIsDark) {
-            html.classList.add('dark-theme');
-        } else if (saved === 'light' && osIsDark) {
-            html.classList.add('light-theme');
-        } else if (saved) {
-            localStorage.removeItem('theme');
-        }
-        // Re-enable transitions after first paint
-        window.addEventListener('load', function () {
-            requestAnimationFrame(function () {
-                html.classList.remove('no-transition');
-            });
-        });
-    })();
-</script>
 
 <head>
+    <script>
+        (function () {
+            var saved = localStorage.getItem('theme');
+            var osIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var html = document.documentElement;
+            html.classList.add('no-transition');
+            if (saved === 'dark' && !osIsDark) {
+                html.classList.add('dark-theme');
+            } else if (saved === 'light' && osIsDark) {
+                html.classList.add('light-theme');
+            } else if (saved) {
+                localStorage.removeItem('theme');
+            }
+            // Re-enable transitions after first paint
+            window.addEventListener('load', function () {
+                requestAnimationFrame(function () {
+                    html.classList.remove('no-transition');
+                });
+            });
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="web/favicon.svg" />
