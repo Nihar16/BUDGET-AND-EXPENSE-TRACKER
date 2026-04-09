@@ -1,5 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>
+    (function () {
+        var saved = localStorage.getItem('theme');
+        var osIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' && !osIsDark) {
+            document.documentElement.classList.add('dark-theme');
+        } else if (saved === 'light' && osIsDark) {
+            document.documentElement.classList.add('light-theme');
+        } else if (saved) {
+            localStorage.removeItem('theme');
+        }
+    })();
+</script>
 
 <head>
     <meta charset="UTF-8">
@@ -11,18 +24,6 @@
     <meta name="keywords" content="budget, expense tracker, personal finance, money management, financial planning">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Apply theme before first paint to prevent flash of wrong theme -->
-    <script>
-        (function () {
-            const saved = localStorage.getItem('theme');
-            if (saved === 'dark') {
-                document.documentElement.classList.add('dark-theme');
-            } else if (saved === 'light') {
-                document.documentElement.classList.add('light-theme');
-            }
-            // If no saved preference, the @media CSS handles it automatically
-        })();
-    </script>
     <style>
         :root {
             /* Money Theme - Light (Stability & Growth) */
@@ -761,37 +762,58 @@
             }
         });
 
-        // Theme switching functionality
+        // Theme switching — 3 states: system (follow OS) → dark → light → system
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
         const osPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
+        // Returns the current effective state: 'dark' | 'light'
         function isDarkActive() {
-            return html.classList.contains('dark-theme') ||
-                (!html.classList.contains('light-theme') && osPrefersDark.matches);
+            if (html.classList.contains('dark-theme')) return true;
+            if (html.classList.contains('light-theme')) return false;
+            return osPrefersDark.matches; // following OS
         }
 
-        function applyTheme(forceDark) {
-            html.classList.toggle('dark-theme', forceDark);
-            html.classList.toggle('light-theme', !forceDark);
-            document.body.classList.toggle('dark-theme', forceDark);
-            themeToggle.innerHTML = forceDark ? '☀️' : '🌙';
-            localStorage.setItem('theme', forceDark ? 'dark' : 'light');
+        function getSavedMode() {
+            return localStorage.getItem('theme'); // 'dark' | 'light' | null (= system)
         }
 
-        // Sync toggle icon on load
-        themeToggle.innerHTML = isDarkActive() ? '☀️' : '🌙';
+        function updateIcon() {
+            const mode = getSavedMode();
+            if (mode === 'dark') themeToggle.title = 'Dark mode (click for light)';
+            else if (mode === 'light') themeToggle.title = 'Light mode (click for system)';
+            else themeToggle.title = 'System theme (click for dark)';
+            themeToggle.innerHTML = isDarkActive() ? '☀️' : '🌙';
+        }
 
-        // Manual toggle
-        themeToggle.addEventListener('click', () => {
-            applyTheme(!isDarkActive());
-        });
-
-        // Live OS theme change — only if no manual preference saved
-        osPrefersDark.addEventListener('change', (e) => {
-            if (!localStorage.getItem('theme')) {
-                themeToggle.innerHTML = e.matches ? '☀️' : '🌙';
+        function cycleTheme() {
+            const mode = getSavedMode();
+            if (mode === null) {
+                // system → dark
+                html.classList.add('dark-theme');
+                html.classList.remove('light-theme');
+                localStorage.setItem('theme', 'dark');
+            } else if (mode === 'dark') {
+                // dark → light
+                html.classList.add('light-theme');
+                html.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                // light → system
+                html.classList.remove('dark-theme', 'light-theme');
+                localStorage.removeItem('theme');
             }
+            updateIcon();
+        }
+
+        // Sync icon on load
+        updateIcon();
+
+        themeToggle.addEventListener('click', cycleTheme);
+
+        // Live OS change — only update if in system mode
+        osPrefersDark.addEventListener('change', () => {
+            if (!getSavedMode()) updateIcon();
         });
     </script>
 </body>
