@@ -129,26 +129,38 @@
         }
 
         /* Theme Toggle */
-        .theme-toggle {
-            background: none;
-            border: 2px solid white;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            margin-left: 15px;
+        /* Target the theme toggle button specifically */
+        .theme-toggle,
+        .theme-toggle-btn,
+        button:has(.sun-icon),
+        button:has(.moon-icon),
+        a:has(.sun-icon),
+        a:has(.moon-icon) {
+            outline: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            background: transparent !important;
+            -webkit-tap-highlight-color: transparent !important;
         }
 
-        .theme-toggle:hover {
-            background: white;
-            color: #667eea;
-            transform: scale(1.1);
+        /* This kills the ring when the icon is clicked or focused */
+        .theme-toggle:focus,
+        .theme-toggle:active,
+        .theme-toggle:focus-visible,
+        button:focus,
+        a:focus {
+            outline: none !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        /* If the ring is actually a border on the icon itself */
+        .sun-icon,
+        .moon-icon,
+        img,
+        svg {
+            outline: none !important;
+            border: none !important;
         }
 
         /* Hero Section */
@@ -194,11 +206,24 @@
             font-size: 1.1rem;
             transition: all 0.3s;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            /* REMOVES THE RING */
+            border: none;
+            outline: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Ensures the ring doesn't appear when clicking/focusing */
+        .btn-primary:focus,
+        .btn-primary:active {
+            outline: none;
+            border: none;
         }
 
         .btn-secondary {
@@ -207,15 +232,27 @@
             padding: 15px 30px;
             border: 2px solid white;
             border-radius: 50px;
-            text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
+            text-decoration: none;
             transition: all 0.3s;
+            font-size: 1.1rem;
+            display: inline-block;
+            /* REMOVES THE RING */
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+            border: none;
         }
 
         .btn-secondary:hover {
-            background: white;
             color: #667eea;
+            background: white;
+        }
+
+        /* Ensures the ring doesn't appear when clicking/focusing */
+        .btn-secondary:focus,
+        .btn-secondary:active {
+            outline: none;
+            border: none;
         }
 
         /* Features Section */
