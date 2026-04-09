@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="web/favicon.svg" />
+    <title>Zpendr - Budget & Expense Tracker</title>
+    <meta name="description"
+        content="Track smarter. Budget better. Spend intentionally. Zpendr is a cross-platform personal finance app that helps you manage income, expenses, budgets, and bills.">
+    <meta name="keywords" content="budget, expense tracker, personal finance, money management, financial planning">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Light theme variables - Corrected for contrast */
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            /* Darkened from #666666 for readability */
+            --card-bg: #ffffff;
+            --section-bg: #f1f3f5;
+            /* Slightly deeper for better card definition */
+            --header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --header-bg-scrolled: rgba(102, 126, 234, 0.95);
+            --header-bg-scroll: rgba(102, 126, 234, 0.95);
+            --footer-bg: #1a1a1a;
+            --footer-text: #cccccc;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --cta-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .dark-theme {
+            /* Dark theme variables */
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --text-secondary: #cccccc;
+            --card-bg: #1e1e1e;
+            --section-bg: #1a1a1a;
+            --header-bg: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            --header-bg-scroll: rgba(42, 42, 42, 0.95);
+            --footer-bg: #0a0a0a;
+            --footer-text: #888888;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --hero-gradient: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            --cta-gradient: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--header-bg);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px var(--shadow-color);
+            transition: background 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .download-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 2px solid white;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+        }
+
+        .theme-toggle:hover {
+            background: white;
+            color: #667eea;
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--hero-gradient);
+            padding: 140px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            opacity: 1;
+            /* Full opacity for better contrast on gradients */
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 15px 30px;
+            border: 2px solid white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: var(--section-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+            /* Added weight for legibility */
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Platforms Section */
+        .platforms {
+            padding: 100px 0;
+            background: var(--bg-color);
+        }
+
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .platform-item {
+            padding: 20px;
+        }
+
+        .platform-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .platform-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .platform-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            padding: 100px 0;
+            background: var(--section-bg);
+        }
+
+        .screenshot-mockup {
+            text-align: center;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        .mockup-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .mockup-image small {
+            margin-top: 10px;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* Getting Started */
+        .getting-started {
+            padding: 100px 0;
+            background: var(--bg-color);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px;
+            background: var(--section-bg);
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* CTA Section - CENTERED FIX */
+        .cta {
+            padding: 100px 0 1px;
+            background: var(--cta-gradient);
+            text-align: center;
+            color: white;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .section-divider {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+            margin-top: 20px;
+            /* Reduced gap above the line from 60px to 30px */
+            margin-bottom: 0px;
+            /* Reset this to 0 */
+        }
+
+
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">💸 Zpendr</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#platforms">Platforms</a></li>
+                <li><a href="#getting-started">Get Started</a></li>
+            </ul>
+            <div style="display: flex; align-items: center;">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                    🌙
+                </button>
+                <a href="#download" class="download-btn" style="margin-left: 15px;">Download</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1 class="fade-in-up">Take Control of Your Finances</h1>
+            <p class="subtitle fade-in-up">Track income and expenses, set budgets, and take full control of your
+                finances. Organize spending by category, monitor upcoming bills, and never miss a payment with smart
+                reminders.</p>
+            <div class="hero-buttons fade-in-up">
+                <a href="#getting-started" class="btn-primary">Get Started Free</a>
+                <a href="#features" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Powerful Features</h2>
+            <p class="section-subtitle">Everything you need to track, budget, and analyze your finances in one beautiful
+                app.</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">💰</span>
+                    <h3 class="feature-title">Income & Expense Tracking</h3>
+                    <p class="feature-description">Log transactions quickly with categories, amounts, dates, and notes.
+                        Separate income and expense types for clean, organized reporting.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3 class="feature-title">Smart Budget Planning</h3>
+                    <p class="feature-description">Create category-based budgets with spending limits. Monitor progress
+                        in real-time and get alerts when approaching your limits.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔔</span>
+                    <h3 class="feature-title">Bill Reminders</h3>
+                    <p class="feature-description">Schedule recurring bill reminders and never miss a payment. Keep
+                        track of upcoming liabilities with smart notifications.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3 class="feature-title">Analytics & Reports</h3>
+                    <p class="feature-description">Visualize spending patterns with interactive charts. Compare income
+                        vs expenses and export reports to PDF or Excel.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🌍</span>
+                    <h3 class="feature-title">Multi-Currency Support</h3>
+                    <p class="feature-description">Record transactions in different currencies. Set your preferred base
+                        currency and prepare for conversion-ready summaries.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3 class="feature-title">Privacy First</h3>
+                    <p class="feature-description">Your financial data stays private with local-first storage. Optional
+                        cloud sync when you choose to back up your data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="platforms" class="platforms">
+        <div class="container">
+            <h2 class="section-title">Available Everywhere</h2>
+            <p class="section-subtitle">Zpendr works seamlessly across all major platforms</p>
+
+            <div class="platforms-grid">
+                <div class="platform-item">
+                    <span class="platform-icon">📱</span>
+                    <h3 class="platform-name">Android</h3>
+                    <p class="platform-desc">Phones & Tablets</p>
+                </div>
+                <div class="platform-item">
+                    <span class="platform-icon">🍎</span>
+                    <h3 class="platform-name">iOS</h3>
+                    <p class="platform-desc">iPhone & iPad</p>
+                </div>
+                <div class="platform-item">
+                    <span class="platform-icon">🌐</span>
+                    <h3 class="platform-name">Web</h3>
+                    <p class="platform-desc">Any Browser</p>
+                </div>
+                <div class="platform-item">
+                    <span class="platform-icon">🪟</span>
+                    <h3 class="platform-name">Windows</h3>
+                    <p class="platform-desc">Desktop App</p>
+                </div>
+                <div class="platform-item">
+                    <span class="platform-icon">💻</span>
+                    <h3 class="platform-name">macOS</h3>
+                    <p class="platform-desc">Mac Desktop</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="screenshots">
+        <div class="container">
+            <h2 class="section-title">Beautiful, Intuitive Interface</h2>
+            <p class="section-subtitle">Designed for simplicity and powerful functionality</p>
+
+            <div class="screenshot-mockup">
+                <div class="mockup-image">
+                    📱 App Screenshots Coming Soon
+                    <br><small>Dashboard • Transaction List • Budget Overview • Analytics</small>
+                </div>
+                <p style="color: var(--text-secondary); margin-top: 20px;">Experience a clean, modern interface that
+                    makes managing your finances enjoyable and efficient.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="getting-started" class="getting-started">
+        <div class="container">
+            <h2 class="section-title">Get Started in Minutes</h2>
+            <p class="section-subtitle">Three simple steps to take control of your finances</p>
+
+            <div class="steps-grid">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <h3 class="step-title">Download Zpendr</h3>
+                    <p class="step-description">Choose your platform and download the app. No signup required - your
+                        data stays on your device.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <h3 class="step-title">Add Transactions</h3>
+                    <p class="step-description">Start by logging your income and expenses. Categorize transactions to
+                        see spending patterns.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <h3 class="step-title">Set Budgets</h3>
+                    <p class="step-description">Create budgets for different categories and set financial goals. Track
+                        progress with visual indicators.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="cta">
+        <div class="container">
+            <h2>Ready to Transform Your Finances?</h2>
+            <p>Download Zpendr today and start your journey to financial clarity.</p>
+            <div class="hero-buttons">
+                <a href="https://github.com/Nihar16/BUDGET-AND-EXPENSE-TRACKER/releases" class="btn-primary">Download
+                    Now</a>
+            </div>
+
+            <div class="container">
+                <hr class="section-divider">
+            </div>
+
+            <div class="copyright-cta">
+                <p>&copy; 2026 Zpendr - Budget & Expense Tracker.</p>
+            </div>
+        </div>
+    </section>
+    </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.offsetTop;
+                    const offsetPosition = elementPosition - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards
+        document.querySelectorAll('.feature-card, .step, .platform-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'var(--header-bg-scroll)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'var(--header-bg)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Theme switching functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            body.classList.add('dark-theme');
+            themeToggle.innerHTML = '☀️';
+        } else {
+            body.classList.remove('dark-theme');
+            themeToggle.innerHTML = '🌙';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            const isDark = body.classList.contains('dark-theme');
+            themeToggle.innerHTML = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    </script>
+</body>
+
+</html>
