@@ -1,839 +1,852 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zpendr — Budget & Expense Tracker</title>
+    <meta name="description"
+        content="Track spending, plan budgets, and manage bills — all on your device. Zpendr is a privacy-first cross-platform expense tracker." />
+    <meta name="color-scheme" content="light dark" />
     <script>
         (function () {
+            var root = document.documentElement;
             var saved = localStorage.getItem('theme');
             var osIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            var html = document.documentElement;
-            html.classList.add('no-transition');
+            root.classList.add('no-theme-transition');
             if (saved === 'dark' && !osIsDark) {
-                html.classList.add('dark-theme');
+                root.setAttribute('data-theme', 'dark');
             } else if (saved === 'light' && osIsDark) {
-                html.classList.add('light-theme');
-            } else if (saved) {
-                localStorage.removeItem('theme');
+                root.setAttribute('data-theme', 'light');
+            } else {
+                if (saved) localStorage.removeItem('theme');
+                root.setAttribute('data-theme', osIsDark ? 'dark' : 'light');
             }
-            // Re-enable transitions after first paint
             window.addEventListener('load', function () {
                 requestAnimationFrame(function () {
-                    html.classList.remove('no-transition');
+                    root.classList.remove('no-theme-transition');
                 });
             });
-        })();
+        }());
     </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="web/favicon.svg" />
-    <title>Zpendr - Budget & Expense Tracker</title>
-    <meta name="description"
-        content="Track smarter. Budget better. Spend intentionally. Zpendr is a cross-platform personal finance app that helps you manage income, expenses, budgets, and bills.">
-    <meta name="keywords" content="budget, expense tracker, personal finance, money management, financial planning">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
     <style>
-        :root {
-            /* Money Theme - Light (Stability & Growth) */
-            --bg-color: #f8fafc;
-            --text-color: #0f172a;
-            --text-secondary: #475569;
-            --card-bg: #ffffff;
-            --section-bg: #f1f5f9;
-            --header-bg: #064e3b;
-            /* Deep Forest Green */
-            --header-bg-scroll: rgba(6, 78, 59, 0.95);
-            --footer-bg: #0f172a;
-            --footer-text: #94a3b8;
-            --border-color: rgba(0, 0, 0, 0.05);
-            --shadow-color: rgba(15, 23, 42, 0.08);
-
-            /* The "Money" Gradients */
-            --hero-gradient: linear-gradient(135deg, #064e3b 0%, #10b981 100%);
-            --cta-gradient: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
-            --accent-color: #10b981;
-            /* Emerald Green */
+        :root,
+        [data-theme="light"] {
+            --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+            --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+            --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+            --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+            --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+            --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+            --space-1: .25rem;
+            --space-2: .5rem;
+            --space-3: .75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --color-bg: #f6f7f2;
+            --color-surface: #ffffff;
+            --color-surface-2: #edf6ee;
+            --color-border: #d8e3d4;
+            --color-text: #102118;
+            --color-text-muted: #4a5f52;
+            --color-text-faint: #7e9185;
+            --color-text-inverse: #f7fbf7;
+            --color-primary: #157347;
+            --color-primary-hover: #0f5b38;
+            --color-primary-highlight: #d8efe1;
+            --shadow-sm: 0 1px 2px rgba(16, 33, 24, 0.06);
+            --shadow-md: 0 14px 34px rgba(16, 33, 24, 0.09);
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-full: 999px;
+            --content: 1140px;
+            --font-body: 'Instrument Sans', sans-serif;
+            --font-display: 'Instrument Serif', serif;
         }
 
-        /* Auto dark mode via OS preference — works even before JS runs */
-        @media (prefers-color-scheme: dark) {
-            :root:not(.light-theme) {
-                --bg-color: #020617;
-                --text-color: #f8fafc;
-                --text-secondary: #94a3b8;
-                --card-bg: #0f172a;
-                --section-bg: #020617;
-                --header-bg: #020617;
-                --header-bg-scroll: rgba(2, 6, 23, 0.95);
-                --footer-bg: #000000;
-                --border-color: rgba(255, 255, 255, 0.1);
-                --shadow-color: rgba(0, 0, 0, 0.4);
-                --hero-gradient: linear-gradient(135deg, #020617 0%, #064e3b 100%);
-                --cta-gradient: linear-gradient(135deg, #020617 0%, #0f172a 100%);
-            }
-        }
-
-        /* Manual dark override (set via toggle) */
-        :root.dark-theme {
-            --bg-color: #020617;
-            --text-color: #f8fafc;
-            --text-secondary: #94a3b8;
-            --card-bg: #0f172a;
-            --section-bg: #020617;
-            --header-bg: #020617;
-            --header-bg-scroll: rgba(2, 6, 23, 0.95);
-            --footer-bg: #000000;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --shadow-color: rgba(0, 0, 0, 0.4);
-            --hero-gradient: linear-gradient(135deg, #020617 0%, #064e3b 100%);
-            --cta-gradient: linear-gradient(135deg, #020617 0%, #0f172a 100%);
-        }
-
-        .no-transition * {
-            transition: none !important;
+        [data-theme="dark"] {
+            --color-bg: #101712;
+            --color-surface: #162019;
+            --color-surface-2: #1d2a21;
+            --color-border: #314236;
+            --color-text: #e5f0e7;
+            --color-text-muted: #aec1b2;
+            --color-text-faint: #778b7d;
+            --color-text-inverse: #101712;
+            --color-primary: #5fcb8b;
+            --color-primary-hover: #80d6a4;
+            --color-primary-highlight: #24372a;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         *,
         *::before,
         *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         html {
-            background-color: var(--bg-color);
+            scroll-behavior: smooth;
+            background: var(--color-bg);
+        }
+
+        html.no-theme-transition *,
+        html.no-theme-transition *::before,
+        html.no-theme-transition *::after {
+            transition: none !important;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: var(--font-body);
+            font-size: var(--text-base);
             line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            overflow-x: hidden;
-            transition: none;
+            background: var(--color-bg);
+            color: var(--color-text);
+        }
+
+        img,
+        svg {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            width: min(calc(100% - 2rem), var(--content));
+            margin-inline: auto;
         }
 
         /* Header */
-        header {
-            background: var(--header-bg);
-            color: white;
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
+        .site-header {
+            position: sticky;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px var(--shadow-color);
-            transition: background 0.3s ease;
+            z-index: 20;
+            background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--color-border);
         }
 
-        nav {
+        .header-inner {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            padding: var(--space-4) 0;
+            gap: var(--space-4);
         }
 
-        .logo {
-            font-size: 24px;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: .875rem;
             font-weight: 700;
-            color: white;
-            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .brand svg {
+            width: 34px;
+            height: 34px;
+            color: var(--color-primary);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
         }
 
         .nav-links {
             display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s;
+            gap: var(--space-4);
+            color: var(--color-text-muted);
+            font-size: var(--text-sm);
         }
 
         .nav-links a:hover {
-            opacity: 0.8;
+            color: var(--color-text);
         }
 
-        .download-btn {
-            background: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .download-btn:hover {
-            background: #45a049;
-            transform: translateY(-2px);
-        }
-
-        /* Theme Toggle */
-        /* Target the theme toggle button specifically */
-        .theme-toggle,
-        .theme-toggle-btn,
-        button:has(.sun-icon),
-        button:has(.moon-icon),
-        a:has(.sun-icon),
-        a:has(.moon-icon) {
-            outline: none !important;
-            border: none !important;
-            box-shadow: none !important;
-            background: transparent !important;
-            -webkit-tap-highlight-color: transparent !important;
-        }
-
-        /* This kills the ring when the icon is clicked or focused */
-        .theme-toggle:focus,
-        .theme-toggle:active,
-        .theme-toggle:focus-visible,
-        button:focus,
-        a:focus {
-            outline: none !important;
-            border: none !important;
-            box-shadow: none !important;
-        }
-
-        /* If the ring is actually a border on the icon itself */
-        .sun-icon,
-        .moon-icon,
-        img,
-        svg {
-            outline: none !important;
-            border: none !important;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: var(--hero-gradient);
-            padding: 140px 0 80px;
-            text-align: center;
-            color: white;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero .subtitle {
-            font-size: 1.4rem;
-            margin-bottom: 40px;
-            opacity: 1;
-            /* Full opacity for better contrast on gradients */
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 400;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
+        /* Buttons */
+        .btn {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
+            border-radius: var(--radius-full);
+            border: 1px solid transparent;
+            padding: .8rem 1.4rem;
+            font-weight: 600;
+            transition: .2s ease;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-primary {
-            background: white;
-            color: #667eea;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            display: inline-block;
-            /* REMOVES THE RING */
-            border: none;
-            outline: none;
-            -webkit-user-select: none;
-            -webkit-tap-highlight-color: transparent;
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Ensures the ring doesn't appear when clicking/focusing */
-        .btn-primary:focus,
-        .btn-primary:active {
-            outline: none;
-            border: none;
+            background: var(--color-primary-hover);
         }
 
         .btn-secondary {
-            background: transparent;
-            color: white;
-            padding: 15px 30px;
-            border: 2px solid white;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 1.1rem;
-            display: inline-block;
-            /* REMOVES THE RING */
-            -webkit-tap-highlight-color: transparent;
-            outline: none;
-            border: none;
+            background: var(--color-surface);
+            border-color: var(--color-border);
         }
 
         .btn-secondary:hover {
-            color: #667eea;
-            background: white;
+            background: var(--color-surface-2);
         }
 
-        /* Ensures the ring doesn't appear when clicking/focusing */
-        .btn-secondary:focus,
-        .btn-secondary:active {
+        .theme-toggle {
+            min-height: 44px;
+            width: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            transition: .2s ease;
             outline: none;
-            border: none;
+            font-size: 1.1rem;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Features Section */
-        .features {
-            padding: 100px 0;
-            background: var(--section-bg);
+        .theme-toggle:hover {
+            background: var(--color-surface-2);
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--text-color);
+        /* Hero */
+        .hero {
+            padding: clamp(3rem, 7vw, 6rem) 0 var(--space-16);
+            background: radial-gradient(circle at top right, color-mix(in srgb, var(--color-primary) 18%, transparent), transparent 32%), linear-gradient(180deg, color-mix(in srgb, var(--color-primary-highlight) 58%, var(--color-bg)) 0%, var(--color-bg) 72%);
         }
 
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 60px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 500;
-            /* Added weight for legibility */
-        }
-
-        .features-grid {
+        .hero-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: 1.15fr .85fr;
+            gap: var(--space-12);
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            gap: .5rem;
+            align-items: center;
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            padding: .45rem .75rem;
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            line-height: 1.02;
+            max-width: 12ch;
+            margin-top: var(--space-5);
+        }
+
+        .lead {
+            font-size: var(--text-lg);
+            color: var(--color-text-muted);
+            max-width: 52ch;
+            margin-top: var(--space-5);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            margin-top: var(--space-6);
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            margin-top: var(--space-6);
+            color: var(--color-text-faint);
+            font-size: var(--text-sm);
+        }
+
+        .hero-card {
+            background: var(--color-surface);
+            border: 1px solid color-mix(in srgb, var(--color-primary) 12%, var(--color-border));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            padding: var(--space-6);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-4);
+            margin-top: var(--space-5);
+        }
+
+        .stat {
+            padding: var(--space-4);
+            background: var(--color-surface-2);
+            border-radius: var(--radius-md);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: var(--text-xl);
+        }
+
+        /* Sections */
+        .section {
+            padding: var(--space-16) 0;
+        }
+
+        .section h2 {
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            margin-bottom: var(--space-3);
+        }
+
+        .section-intro {
+            color: var(--color-text-muted);
+            max-width: 62ch;
+            margin-bottom: var(--space-8);
+        }
+
+        .muted {
+            color: var(--color-text-muted);
+        }
+
+        .alt-bg {
+            background: var(--color-surface-2);
+        }
+
+        /* Features */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-4);
         }
 
         .feature-card {
-            background: var(--card-bg);
-            padding: 40px 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 30px var(--shadow-color);
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: var(--color-surface);
+            border: 1px solid color-mix(in srgb, var(--color-primary) 12%, var(--color-border));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            padding: var(--space-6);
+            transition: .2s ease;
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px var(--shadow-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-card h3 {
+            font-size: var(--text-lg);
+            margin-bottom: .5rem;
         }
 
         .feature-icon {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
+            font-size: 2rem;
+            margin-bottom: var(--space-4);
             display: block;
         }
 
-        .feature-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-
-        .feature-description {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        /* Platforms Section */
-        .platforms {
-            padding: 100px 0;
-            background: var(--bg-color);
-        }
-
+        /* Platforms */
         .platforms-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 30px;
-            text-align: center;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--space-4);
         }
 
         .platform-item {
-            padding: 20px;
+            padding: var(--space-6) var(--space-4);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            transition: .2s ease;
         }
 
-        .platform-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
+        .platform-item:hover {
+            background: var(--color-surface-2);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .platform-emoji {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-3);
             display: block;
         }
 
         .platform-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-color);
+            font-weight: 700;
+            font-size: var(--text-base);
+            margin-bottom: .25rem;
         }
 
         .platform-desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            font-weight: 500;
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
         }
 
-        /* Screenshots Section */
-        .screenshots {
-            padding: 100px 0;
-            background: var(--section-bg);
+        /* Screenshots */
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-4);
+            margin-top: var(--space-2);
         }
 
-        .screenshot-mockup {
-            text-align: center;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px var(--shadow-color);
-            margin: 0 auto;
-            max-width: 800px;
-        }
-
-        .mockup-image {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border-radius: 10px;
+        .screenshot-slot {
+            aspect-ratio: 9/16;
+            background: var(--color-surface);
+            border: 2px dashed var(--color-border);
+            border-radius: var(--radius-lg);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.8rem;
+            gap: var(--space-3);
+            color: var(--color-text-faint);
+            font-size: var(--text-sm);
+            text-align: center;
+            padding: var(--space-6);
+            transition: .2s ease;
+        }
+
+        .screenshot-slot:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background: var(--color-primary-highlight);
+        }
+
+        .slot-icon {
+            font-size: 2.2rem;
+        }
+
+        .slot-label {
             font-weight: 700;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+            letter-spacing: .06em;
         }
 
-        .mockup-image small {
-            margin-top: 10px;
-            font-size: 1rem;
-            font-weight: 400;
-        }
-
-        /* Getting Started */
-        .getting-started {
-            padding: 100px 0;
-            background: var(--bg-color);
-        }
-
-        .steps-grid {
+        /* Steps */
+        .steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-4);
         }
 
         .step {
-            text-align: center;
-            padding: 30px;
-            background: var(--section-bg);
-            border-radius: 15px;
-            border-left: 5px solid #667eea;
+            background: var(--color-surface);
+            border: 1px solid color-mix(in srgb, var(--color-primary) 12%, var(--color-border));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            padding: var(--space-6);
         }
 
         .step-number {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            background: #667eea;
-            color: white;
-            border-radius: 50%;
-            line-height: 50px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: var(--text-xs);
+            color: var(--color-primary);
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: var(--space-3);
         }
 
-        .step-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--text-color);
+        .step h3 {
+            font-size: var(--text-lg);
+            margin-bottom: .5rem;
         }
 
-        .step-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
+        /* CTA */
+        .cta-section {
+            padding: var(--space-16) 0;
         }
 
-        /* CTA Section - CENTERED FIX */
-        .cta {
-            padding: 100px 0 1px;
-            background: var(--cta-gradient);
-            text-align: center;
-            color: white;
+        .cta-box {
+            background: var(--color-surface);
+            border: 1px solid color-mix(in srgb, var(--color-primary) 12%, var(--color-border));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            padding: var(--space-8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-6);
         }
 
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
+        .cta-box h2 {
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-2);
         }
 
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 25px;
+        /* Footer */
+        footer {
+            padding: var(--space-8) 0 var(--space-12);
+            color: var(--color-text-muted);
+            border-top: 1px solid var(--color-border);
         }
 
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            opacity: 0.8;
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-4);
+            flex-wrap: wrap;
         }
 
-        .section-divider {
-            border: 0;
-            height: 1px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
-            margin-top: 20px;
-            /* Reduced gap above the line from 60px to 30px */
-            margin-bottom: 0px;
-            /* Reset this to 0 */
-        }
+        /* Responsive */
+        @media (max-width: 900px) {
 
-
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+            .hero-grid,
+            .feature-grid,
+            .steps {
+                grid-template-columns: 1fr;
             }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            .platforms-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .screenshots-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-box {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            h1 {
+                max-width: 14ch;
+            }
+
+            .section {
+                padding: var(--space-12) 0;
             }
         }
 
-        .fade-in-up {
-            animation: fadeInUp 0.6s ease-out;
+        @media (max-width: 520px) {
+            .platforms-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                transition: none !important;
+            }
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <nav class="container">
-            <a href="#" class="logo">💸 Zpendr</a>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#platforms">Platforms</a></li>
-                <li><a href="#getting-started">Get Started</a></li>
-                <a href="#Zpendr" target="_blank">Explore Zpendr</a>
-            </ul>
-            <div style="display: flex; align-items: center;">
-                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-                    🌙
-                </button>
-                <a href="#download" class="download-btn" style="margin-left: 15px;">Download</a>
-            </div>
-        </nav>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="#top" aria-label="Zpendr home">
+                <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                    <rect x="6" y="10" width="52" height="44" rx="12" stroke="currentColor" stroke-width="4" />
+                    <path d="M18 24h28M18 32h18M18 40h24" stroke="currentColor" stroke-width="4"
+                        stroke-linecap="round" />
+                </svg>
+                <span>Zpendr</span>
+            </a>
+            <nav class="nav" aria-label="Primary">
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#platforms">Platforms</a>
+                    <a href="#screenshots">Screenshots</a>
+                    <a href="#how-it-works">How it works</a>
+                </div>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"
+                    title="System theme">🌙</button>
+                <a class="btn btn-primary" href="#download">Download</a>
+            </nav>
+        </div>
     </header>
 
-    <section class="hero">
-        <div class="container">
-            <h1 class="fade-in-up">Take Control of Your Finances</h1>
-            <p class="subtitle fade-in-up">Track income and expenses, set budgets, and take full control of your
-                finances. Organize spending by category, monitor upcoming bills, and never miss a payment with smart
-                reminders.</p>
-            <div class="hero-buttons fade-in-up">
-                <a href="#getting-started" class="btn-primary">Get Started Free</a>
-                <a href="#features" class="btn-secondary">Learn More</a>
+    <main id="main">
 
+        <!-- Hero -->
+        <section class="hero" id="top">
+            <div class="container hero-grid">
+                <div>
+                    <span class="eyebrow">💸 Budget & Expense Tracker</span>
+                    <h1>Your money, under control.</h1>
+                    <p class="lead">Track income and expenses, set budgets by category, and never miss a bill. Zpendr
+                        keeps your finances organized across every device you use.</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#download">Download the app</a>
+                        <a class="btn btn-secondary" href="#features">See what it does</a>
+                    </div>
+                    <div class="hero-meta">
+                        <span>🔒 Local-first storage</span>
+                        <span>·</span>
+                        <span>📱 All platforms</span>
+                        <span>·</span>
+                        <span>🆓 Free to use</span>
+                    </div>
+                </div>
+                <aside class="hero-card" aria-label="Product summary">
+                    <p class="muted" style="margin-bottom: var(--space-5);">Everything you need to manage your finances
+                        in one place.</p>
+                    <div class="stat-grid">
+                        <div class="stat"><span class="muted">Track</span><strong>Cash flow</strong><span
+                                class="muted">Income & expenses</span></div>
+                        <div class="stat"><span class="muted">Plan</span><strong>Budgets</strong><span class="muted">By
+                                category</span></div>
+                        <div class="stat"><span class="muted">Never miss</span><strong>Bills</strong><span
+                                class="muted">Smart reminders</span></div>
+                        <div class="stat"><span class="muted">Review</span><strong>Reports</strong><span
+                                class="muted">Charts & exports</span></div>
+                    </div>
+                </aside>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="features" class="features">
-        <div class="container">
-            <h2 class="section-title">Powerful Features</h2>
-            <p class="section-subtitle">Everything you need to track, budget, and analyze your finances in one beautiful
-                app.</p>
-
-            <div class="features-grid">
-                <div class="feature-card">
-                    <span class="feature-icon">💰</span>
-                    <h3 class="feature-title">Income & Expense Tracking</h3>
-                    <p class="feature-description">Log transactions quickly with categories, amounts, dates, and notes.
-                        Separate income and expense types for clean, organized reporting.</p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">🎯</span>
-                    <h3 class="feature-title">Smart Budget Planning</h3>
-                    <p class="feature-description">Create category-based budgets with spending limits. Monitor progress
-                        in real-time and get alerts when approaching your limits.</p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">🔔</span>
-                    <h3 class="feature-title">Bill Reminders</h3>
-                    <p class="feature-description">Schedule recurring bill reminders and never miss a payment. Keep
-                        track of upcoming liabilities with smart notifications.</p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">📊</span>
-                    <h3 class="feature-title">Analytics & Reports</h3>
-                    <p class="feature-description">Visualize spending patterns with interactive charts. Compare income
-                        vs expenses and export reports to PDF or Excel.</p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">🌍</span>
-                    <h3 class="feature-title">Multi-Currency Support</h3>
-                    <p class="feature-description">Record transactions in different currencies. Set your preferred base
-                        currency and prepare for conversion-ready summaries.</p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">🔒</span>
-                    <h3 class="feature-title">Privacy First</h3>
-                    <p class="feature-description">Your financial data stays private with local-first storage. Optional
-                        Subscription-based
-                        cloud sync when you choose to back up your data.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="platforms" class="platforms">
-        <div class="container">
-            <h2 class="section-title">Available Everywhere</h2>
-            <p class="section-subtitle">Zpendr works seamlessly across all major platforms</p>
-
-            <div class="platforms-grid">
-                <div class="platform-item">
-                    <span class="platform-icon">📱</span>
-                    <h3 class="platform-name">Android</h3>
-                    <p class="platform-desc">Phones & Tablets</p>
-                </div>
-                <div class="platform-item">
-                    <span class="platform-icon">🍎</span>
-                    <h3 class="platform-name">iOS</h3>
-                    <p class="platform-desc">iPhone & iPad</p>
-                </div>
-                <div class="platform-item">
-                    <span class="platform-icon">🌐</span>
-                    <h3 class="platform-name">Web</h3>
-                    <p class="platform-desc">Any Browser</p>
-                </div>
-                <div class="platform-item">
-                    <span class="platform-icon">🪟</span>
-                    <h3 class="platform-name">Windows</h3>
-                    <p class="platform-desc">Desktop App</p>
-                </div>
-                <div class="platform-item">
-                    <span class="platform-icon">💻</span>
-                    <h3 class="platform-name">macOS</h3>
-                    <p class="platform-desc">Mac Desktop</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="screenshots">
-        <div class="container">
-            <h2 class="section-title">Beautiful, Intuitive Interface</h2>
-            <p class="section-subtitle">Designed for simplicity and powerful functionality</p>
-
-            <div class="screenshot-mockup">
-                <div class="mockup-image">
-                    📱 App Screenshots Coming Soon
-                    <br><small>Dashboard • Transaction List • Budget Overview • Analytics</small>
-                </div>
-                <p style="color: var(--text-secondary); margin-top: 20px;">Experience a clean, modern interface that
-                    makes managing your finances enjoyable and efficient.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="getting-started" class="getting-started">
-        <div class="container">
-            <h2 class="section-title">Get Started in Minutes</h2>
-            <p class="section-subtitle">Three simple steps to take control of your finances</p>
-
-            <div class="steps-grid">
-                <div class="step">
-                    <span class="step-number">1</span>
-                    <h3 class="step-title">Download Zpendr</h3>
-                    <p class="step-description">Choose your platform and download the app. No signup required - your
-                        data stays on your device.</p>
-                </div>
-                <div class="step">
-                    <span class="step-number">2</span>
-                    <h3 class="step-title">Add Transactions</h3>
-                    <p class="step-description">Start by logging your income and expenses. Categorize transactions to
-                        see spending patterns.</p>
-                </div>
-                <div class="step">
-                    <span class="step-number">3</span>
-                    <h3 class="step-title">Set Budgets</h3>
-                    <p class="step-description">Create budgets for different categories and set financial goals. Track
-                        progress with visual indicators.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="download" class="cta">
-        <div class="container">
-            <h2>Ready to Transform Your Finances?</h2>
-            <p>Download Zpendr today and start your journey to financial clarity.</p>
-            <div class="hero-buttons">
-                <a href="https://github.com/Nihar16/BUDGET-AND-EXPENSE-TRACKER/releases" class="btn-primary">Download
-                    Now</a>
-            </div>
-
+        <!-- Features -->
+        <section class="section" id="features">
             <div class="container">
-                <hr class="section-divider">
+                <h2>Powerful Features</h2>
+                <p class="section-intro">Everything you need to track, budget, and understand your finances in one app.
+                </p>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <span class="feature-icon">💰</span>
+                        <h3>Income & Expense Tracking</h3>
+                        <p class="muted">Log transactions quickly with categories, amounts, dates, and notes. Keep
+                            income and expenses clearly separated.</p>
+                    </article>
+                    <article class="feature-card">
+                        <span class="feature-icon">🎯</span>
+                        <h3>Smart Budget Planning</h3>
+                        <p class="muted">Create category budgets with spending limits. Monitor progress in real-time and
+                            get alerts before you overspend.</p>
+                    </article>
+                    <article class="feature-card">
+                        <span class="feature-icon">🔔</span>
+                        <h3>Bill Reminders</h3>
+                        <p class="muted">Schedule recurring bill reminders and never miss a payment. Stay ahead of
+                            upcoming obligations.</p>
+                    </article>
+                    <article class="feature-card">
+                        <span class="feature-icon">📊</span>
+                        <h3>Analytics & Reports</h3>
+                        <p class="muted">Visualize spending patterns with charts. Compare income vs expenses and export
+                            to PDF or Excel.</p>
+                    </article>
+                    <article class="feature-card">
+                        <span class="feature-icon">🌍</span>
+                        <h3>Multi-Currency</h3>
+                        <p class="muted">Record transactions in any currency. Set a preferred base currency for clear,
+                            consistent summaries.</p>
+                    </article>
+                    <article class="feature-card">
+                        <span class="feature-icon">🔒</span>
+                        <h3>Privacy First</h3>
+                        <p class="muted">Your financial data stays on your device. Cloud sync is optional — you choose
+                            when and if to back up.</p>
+                    </article>
+                </div>
             </div>
+        </section>
 
-            <div class="copyright-cta">
-                <p>&copy; 2026 Zpendr - Budget & Expense Tracker.</p>
+        <!-- Platforms -->
+        <section class="section alt-bg" id="platforms">
+            <div class="container">
+                <h2>Available Everywhere</h2>
+                <p class="section-intro">Zpendr works seamlessly across all your devices.</p>
+                <div class="platforms-grid">
+                    <div class="platform-item">
+                        <span class="platform-emoji">📱</span>
+                        <div class="platform-name">Android</div>
+                        <div class="platform-desc">Phones & Tablets</div>
+                    </div>
+                    <div class="platform-item">
+                        <span class="platform-emoji">🍎</span>
+                        <div class="platform-name">iOS</div>
+                        <div class="platform-desc">iPhone & iPad</div>
+                    </div>
+                    <div class="platform-item">
+                        <span class="platform-emoji">🌐</span>
+                        <div class="platform-name">Web</div>
+                        <div class="platform-desc">Any Browser</div>
+                    </div>
+                    <div class="platform-item">
+                        <span class="platform-emoji">🪟</span>
+                        <div class="platform-name">Windows</div>
+                        <div class="platform-desc">Desktop App</div>
+                    </div>
+                    <div class="platform-item">
+                        <span class="platform-emoji">💻</span>
+                        <div class="platform-name">macOS</div>
+                        <div class="platform-desc">Mac Desktop</div>
+                    </div>
+                </div>
             </div>
+        </section>
+
+        <!-- Screenshots -->
+        <section class="section" id="screenshots">
+            <div class="container">
+                <h2>App Screenshots</h2>
+                <p class="section-intro">See Zpendr in action. Screenshots will be added here as the app develops.</p>
+                <div class="screenshots-grid">
+                    <div class="screenshot-slot">
+                        <span class="slot-icon">🏠</span>
+                        <span class="slot-label">Dashboard</span>
+                        <span>Your finances at a glance</span>
+                    </div>
+                    <div class="screenshot-slot">
+                        <span class="slot-icon">📋</span>
+                        <span class="slot-label">Transactions</span>
+                        <span>Full income & expense history</span>
+                    </div>
+                    <div class="screenshot-slot">
+                        <span class="slot-icon">🎯</span>
+                        <span class="slot-label">Budgets</span>
+                        <span>Category limits & progress</span>
+                    </div>
+                    <div class="screenshot-slot">
+                        <span class="slot-icon">📊</span>
+                        <span class="slot-label">Analytics</span>
+                        <span>Charts, trends & reports</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section class="section alt-bg" id="how-it-works">
+            <div class="container">
+                <h2>Get Started in Minutes</h2>
+                <p class="section-intro">Three simple steps to take control of your finances.</p>
+                <div class="steps">
+                    <article class="step">
+                        <div class="step-number">Step 01</div>
+                        <h3>Download Zpendr</h3>
+                        <p class="muted">Choose your platform and get started instantly. No signup required — your data
+                            stays on your device.</p>
+                    </article>
+                    <article class="step">
+                        <div class="step-number">Step 02</div>
+                        <h3>Log your transactions</h3>
+                        <p class="muted">Add income and expenses as they happen. Use categories to turn daily activity
+                            into a clear monthly picture.</p>
+                    </article>
+                    <article class="step">
+                        <div class="step-number">Step 03</div>
+                        <h3>Set budgets & reminders</h3>
+                        <p class="muted">Create spending limits and keep bills visible. Track progress so your plan
+                            stays active, not forgotten.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section" id="download">
+            <div class="container">
+                <div class="cta-box">
+                    <div>
+                        <h2>Ready to take control of your finances?</h2>
+                        <p class="muted">Download Zpendr for free and start your journey to financial clarity.</p>
+                    </div>
+                    <a class="btn btn-primary" href="https://github.com/Nihar16/BUDGET-AND-EXPENSE-TRACKER/releases"
+                        style="white-space:nowrap;font-size:1rem;padding:1rem 2rem;">Download Now</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <span>© 2026 Zpendr — Budget & Expense Tracker</span>
+            <span style="font-size:var(--text-xs);">Local-first · Privacy-focused · Cross-platform</span>
         </div>
-    </section>
-    </div>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const headerOffset = 80;
-                    const elementPosition = target.offsetTop;
-                    const offsetPosition = elementPosition - headerOffset;
+        (function () {
+            const root = document.documentElement;
+            const toggle = document.getElementById('theme-toggle');
+            const media = window.matchMedia('(prefers-color-scheme: dark)');
 
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+            function getMode() { return localStorage.getItem('theme'); }
+            function isDark() { return root.getAttribute('data-theme') === 'dark'; }
 
-        // Add fade-in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in-up');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all feature cards
-        document.querySelectorAll('.feature-card, .step, .platform-item').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Header background on scroll
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'var(--header-bg-scroll)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'var(--header-bg)';
-                header.style.backdropFilter = 'none';
+            function updateIcon() {
+                const mode = getMode();
+                if (mode === 'dark') { toggle.textContent = '☀️'; toggle.title = 'Dark (click for light)'; }
+                else if (mode === 'light') { toggle.textContent = '🌙'; toggle.title = 'Light (click for system)'; }
+                else { toggle.textContent = isDark() ? '☀️' : '🌙'; toggle.title = 'System (click for dark)'; }
             }
-        });
 
-        // Theme switching — 3 states: system (follow OS) → dark → light → system
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-        const osPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-
-        // Returns the current effective state: 'dark' | 'light'
-        function isDarkActive() {
-            if (html.classList.contains('dark-theme')) return true;
-            if (html.classList.contains('light-theme')) return false;
-            return osPrefersDark.matches; // following OS
-        }
-
-        function getSavedMode() {
-            return localStorage.getItem('theme'); // 'dark' | 'light' | null (= system)
-        }
-
-        function updateIcon() {
-            const mode = getSavedMode();
-            if (mode === 'dark') themeToggle.title = 'Dark mode (click for light)';
-            else if (mode === 'light') themeToggle.title = 'Light mode (click for system)';
-            else themeToggle.title = 'System theme (click for dark)';
-            themeToggle.innerHTML = isDarkActive() ? '☀️' : '🌙';
-        }
-
-        function cycleTheme() {
-            // Enable smooth transition only for manual toggle
-            html.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-            document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
-
-            const mode = getSavedMode();
-            if (mode === null) {
-                html.classList.add('dark-theme');
-                html.classList.remove('light-theme');
-                localStorage.setItem('theme', 'dark');
-            } else if (mode === 'dark') {
-                html.classList.add('light-theme');
-                html.classList.remove('dark-theme');
-                localStorage.setItem('theme', 'light');
-            } else {
-                html.classList.remove('dark-theme', 'light-theme');
-                localStorage.removeItem('theme');
+            function cycleTheme() {
+                root.style.transition = 'background-color 0.3s ease';
+                document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+                const mode = getMode();
+                if (mode === null) {
+                    root.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark');
+                } else if (mode === 'dark') {
+                    root.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light');
+                } else {
+                    localStorage.removeItem('theme');
+                    root.setAttribute('data-theme', media.matches ? 'dark' : 'light');
+                }
+                updateIcon();
             }
+
+            toggle.addEventListener('click', cycleTheme);
+            media.addEventListener('change', function (e) {
+                if (!getMode()) { root.setAttribute('data-theme', e.matches ? 'dark' : 'light'); updateIcon(); }
+            });
             updateIcon();
-        }
-
-        // Sync icon on load
-        updateIcon();
-
-        themeToggle.addEventListener('click', cycleTheme);
-
-        // Live OS change — only update if in system mode
-        osPrefersDark.addEventListener('change', () => {
-            if (!getSavedMode()) updateIcon();
-        });
+        }());
     </script>
 </body>
 
