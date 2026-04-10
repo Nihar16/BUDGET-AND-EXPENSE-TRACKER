@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zpendr — Budget & Expense Tracker</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <meta name="description"
         content="Track spending, plan budgets, and manage bills — all on your device. Zpendr is a privacy-first cross-platform expense tracker." />
     <meta name="color-scheme" content="light dark" />
@@ -139,7 +140,7 @@
             margin-inline: auto;
         }
 
-        /* Header */
+        /* Header & Navigation */
         .site-header {
             position: sticky;
             top: 0;
@@ -241,7 +242,62 @@
             background: var(--color-surface-2);
         }
 
-        /* Hero */
+        /* Filter Navigation Styling */
+        .filter-container {
+            margin-bottom: var(--space-8);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            flex-wrap: wrap;
+        }
+
+        .sub-filter-group {
+            display: none;
+            /* Hidden by default; script will toggle this */
+            gap: var(--space-3);
+            padding-top: var(--space-2);
+            padding-bottom: var(--space-6);
+            border-bottom: 1px solid var(--color-border);
+            flex-wrap: wrap;
+        }
+
+        .sub-filter-group.active {
+            display: flex;
+        }
+
+        .filter-btn,
+        .sub-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            color: var(--color-text-muted);
+            font-weight: 600;
+            font-size: var(--text-sm);
+            transition: 0.2s ease;
+        }
+
+        .filter-btn.active {
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            border-color: var(--color-primary);
+        }
+
+        .sub-btn.active {
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .filter-btn:hover,
+        .sub-btn:hover {
+            border-color: var(--color-primary);
+        }
+
+        /* Hero Section */
         .hero {
             padding: clamp(3rem, 7vw, 6rem) 0 var(--space-16);
             background: radial-gradient(circle at top right, color-mix(in srgb, var(--color-primary) 18%, transparent), transparent 32%), linear-gradient(180deg, color-mix(in srgb, var(--color-primary-highlight) 58%, var(--color-bg)) 0%, var(--color-bg) 72%);
@@ -301,10 +357,7 @@
 
         .hero-card {
             background: var(--color-surface);
-            /* Fallback for old browsers */
-            border: 1px solid #d8e3d4;
-            /* Modern browsers override with this */
-            border: 1px solid color-mix(in srgb, var(--color-primary) 12%, var(--color-border));
+            border: 1px solid var(--color-border);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-sm);
             padding: var(--space-6);
@@ -328,7 +381,7 @@
             font-size: var(--text-xl);
         }
 
-        /* Sections */
+        /* Common Section Layouts */
         .section {
             padding: var(--space-16) 0;
         }
@@ -345,27 +398,26 @@
             margin-bottom: var(--space-8);
         }
 
-        .muted {
-            color: var(--color-text-muted);
-        }
-
         .alt-bg {
             background: var(--color-surface-2);
         }
 
-        /* Features */
-        .feature-grid {
+        .muted {
+            color: var(--color-text-muted);
+        }
+
+        /* Feature & Step Cards */
+        .feature-grid,
+        .steps {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: var(--space-4);
         }
 
-        .feature-card {
+        .feature-card,
+        .step {
             background: var(--color-surface);
-            /* Fallback for old browsers */
-            border: 1px solid #d8e3d4;
-            /* Modern browsers override with this */
-            border: 1px solid color-mix(in srgb, var(--color-primary) 12%, var(--color-border));
+            border: 1px solid var(--color-border);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-sm);
             padding: var(--space-6);
@@ -377,18 +429,22 @@
             box-shadow: var(--shadow-md);
         }
 
-        .feature-card h3 {
-            font-size: var(--text-lg);
-            margin-bottom: .5rem;
-        }
-
         .feature-icon {
             font-size: 2rem;
             margin-bottom: var(--space-4);
             display: block;
         }
 
-        /* Platforms */
+        .step-number {
+            font-size: var(--text-xs);
+            color: var(--color-primary);
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: var(--space-3);
+        }
+
+        /* Platform Icons */
         .platforms-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -419,7 +475,6 @@
         .platform-name {
             font-weight: 700;
             font-size: var(--text-base);
-            margin-bottom: .25rem;
         }
 
         .platform-desc {
@@ -427,91 +482,97 @@
             color: var(--color-text-muted);
         }
 
-        /* Screenshots */
+        /* Screenshots Layout */
         .screenshots-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-4);
-            margin-top: var(--space-2);
+            /* Allows slots to grow but stay readable */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
         }
 
         .screenshot-slot {
-            aspect-ratio: 9/16;
             background: var(--color-surface);
-            border: 2px dashed var(--color-border);
+            border: 1px solid var(--color-border);
             border-radius: var(--radius-lg);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-3);
-            color: var(--color-text-faint);
-            font-size: var(--text-sm);
-            text-align: center;
-            padding: var(--space-6);
+            overflow: hidden;
             transition: .2s ease;
+            /* Forces the entire card to a 16:10 behavior */
+            aspect-ratio: 16 / 10;
         }
 
         .screenshot-slot:hover {
             border-color: var(--color-primary);
-            color: var(--color-primary);
-            background: var(--color-primary-highlight);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
         }
 
-        .slot-icon {
-            font-size: 2.2rem;
+        .slot-media {
+            flex: 1;
+            /* Takes up all available space above the label */
+            background: var(--color-surface-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .slot-media img {
+            width: 100%;
+            height: 100%;
+            /* 'cover' fills the 16:10 space, 'contain' shows the full image with bars */
+            object-fit: cover;
+        }
+
+        .slot-info {
+            padding: var(--space-3) var(--space-4);
+            background: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            /* Keeps the label area small so the image stays the focus */
+            flex-shrink: 0;
+        }
+
+        /* Helper classes - you can keep these or remove them */
+        .portrait,
+        .landscape {
+            aspect-ratio: 16 / 10 !important;
+        }
+
+        .portrait {
+            aspect-ratio: 9/16;
+        }
+
+        .landscape {
+            aspect-ratio: 16/10;
+        }
+
+        .slot-info {
+            padding: var(--space-4);
+            background: var(--color-surface);
+            border-top: 1px solid var(--color-border);
         }
 
         .slot-label {
+            display: block;
             font-weight: 700;
             font-size: var(--text-xs);
             text-transform: uppercase;
             letter-spacing: .06em;
-        }
-
-        /* Steps */
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-4);
-        }
-
-        .step {
-            background: var(--color-surface);
-            /* Fallback for old browsers */
-            border: 1px solid #d8e3d4;
-            /* Modern browsers override with this */
-            border: 1px solid color-mix(in srgb, var(--color-primary) 12%, var(--color-border));
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            padding: var(--space-6);
-        }
-
-        .step-number {
-            font-size: var(--text-xs);
             color: var(--color-primary);
-            font-weight: 700;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            margin-bottom: var(--space-3);
+            margin-bottom: 0.25rem;
         }
 
-        .step h3 {
-            font-size: var(--text-lg);
-            margin-bottom: .5rem;
+        .slot-caption {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
         }
 
-        /* CTA */
-        .cta-section {
-            padding: var(--space-16) 0;
-        }
-
+        /* CTA & Footer */
         .cta-box {
             background: var(--color-surface);
-            /* Fallback for old browsers */
-            border: 1px solid #d8e3d4;
-            /* Modern browsers override with this */
-            border: 1px solid color-mix(in srgb, var(--color-primary) 12%, var(--color-border));
+            border: 1px solid var(--color-border);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-sm);
             padding: var(--space-8);
@@ -521,13 +582,6 @@
             gap: var(--space-6);
         }
 
-        .cta-box h2 {
-            font-family: var(--font-display);
-            font-size: var(--text-xl);
-            margin-bottom: var(--space-2);
-        }
-
-        /* Footer */
         footer {
             padding: var(--space-8) 0 var(--space-12);
             color: var(--color-text-muted);
@@ -538,11 +592,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: var(--space-4);
             flex-wrap: wrap;
         }
 
-        /* Responsive */
+        /* Responsive Overrides */
         @media (max-width: 900px) {
 
             .hero-grid,
@@ -567,19 +620,15 @@
             .nav-links {
                 display: none;
             }
-
-            h1 {
-                max-width: 14ch;
-            }
-
-            .section {
-                padding: var(--space-12) 0;
-            }
         }
 
         @media (max-width: 520px) {
             .platforms-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .screenshots-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -745,27 +794,40 @@
         <section class="section" id="screenshots">
             <div class="container">
                 <h2>App Screenshots</h2>
-                <p class="section-intro">See Zpendr in action. Screenshots will be added here as the app develops.</p>
-                <div class="screenshots-grid">
-                    <div class="screenshot-slot">
-                        <span class="slot-icon">🏠</span>
-                        <span class="slot-label">Dashboard</span>
-                        <span>Your finances at a glance</span>
+                <p class="section-intro">Explore the Zpendr interface across all your devices.</p>
+
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <button class="filter-btn active" data-category="mobile">📱 Mobile</button>
+                        <button class="filter-btn" data-category="tablet">平板 Tablet</button>
+                        <button class="filter-btn" data-category="web-desktop">💻 Website & Desktop</button>
                     </div>
-                    <div class="screenshot-slot">
-                        <span class="slot-icon">📋</span>
-                        <span class="slot-label">Transactions</span>
-                        <span>Full income & expense history</span>
+
+                    <div class="sub-filter-container">
+                        <div class="sub-filter-group active" id="sub-mobile">
+                            <button class="sub-btn active" data-platform="ios">iOS</button>
+                            <button class="sub-btn" data-platform="android">Android</button>
+                        </div>
+
+                        <div class="sub-filter-group" id="sub-tablet">
+                            <button class="sub-btn" data-platform="ipados">iPadOS</button>
+                            <button class="sub-btn" data-platform="android-tablet">Android Tablet</button>
+                        </div>
+
+                        <div class="sub-filter-group" id="sub-web-desktop">
+                            <button class="sub-btn" data-platform="chrome">Chrome</button>
+                            <button class="sub-btn" data-platform="safari">Safari</button>
+                            <button class="sub-btn" data-platform="windows">Windows Desktop</button>
+                            <button class="sub-btn" data-platform="macos">macOS Desktop</button>
+                        </div>
                     </div>
-                    <div class="screenshot-slot">
-                        <span class="slot-icon">🎯</span>
-                        <span class="slot-label">Budgets</span>
-                        <span>Category limits & progress</span>
-                    </div>
-                    <div class="screenshot-slot">
-                        <span class="slot-icon">📊</span>
-                        <span class="slot-label">Analytics</span>
-                        <span>Charts, trends & reports</span>
+                </div>
+
+                <div class="screenshots-grid" id="screenshot-display">
+                    <div class="screenshot-slot portrait">
+                        <div class="slot-media">
+                            <span>Your Screenshot Here</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -858,6 +920,48 @@
                 if (!getMode()) { root.setAttribute('data-theme', e.matches ? 'dark' : 'light'); updateIcon(); }
             });
             updateIcon();
+
+            // --- New Screenshot Filter Logic ---
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // 1. Update active state for primary buttons (Mobile, Tablet, etc.)
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // 2. Hide all sub-groups first, then show the relevant one
+                    const category = btn.getAttribute('data-category');
+                    document.querySelectorAll('.sub-filter-group').forEach(group => {
+                        group.classList.remove('active');
+                        group.style.display = 'none'; // Ensure they are physically hidden
+                    });
+
+                    const activeGroup = document.getElementById(`sub-${category}`);
+                    activeGroup.classList.add('active');
+                    activeGroup.style.display = 'flex'; // Reveal the relevant group
+
+                    // 3. Automatically trigger the first platform in the newly shown group
+                    const firstSub = activeGroup.querySelector('.sub-btn');
+                    if (firstSub) firstSub.click();
+                });
+            });
+
+            document.querySelectorAll('.sub-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active state for sub-buttons (iOS, Android, etc.)
+                    document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const platform = btn.getAttribute('data-platform');
+                    console.log("Switching to platform view:", platform);
+                    // This is where you will add your actual image source swapping later
+                });
+            });
+
+            // Initialize the view by clicking the active primary button on load
+            const initialBtn = document.querySelector('.filter-btn.active');
+            if (initialBtn) initialBtn.click();
+
         }());
     </script>
 </body>
