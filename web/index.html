@@ -674,6 +674,17 @@
             opacity: 0.8;
         }
     </style>
+
+    <link rel="canonical" href="https://your-domain.com" />
+    <meta property="og:title" content="Zpendr — Budget & Expense Tracker" />
+    <meta property="og:description" content="Track spending, plan budgets, and manage bills on every device." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://your-domain.com" />
+    <meta property="og:image" content="https://your-domain.com/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Zpendr — Budget & Expense Tracker" />
+    <meta name="twitter:description" content="Track spending, plan budgets, and manage bills on every device." />
+
 </head>
 
 <body>
@@ -696,7 +707,9 @@
                 </div>
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"
                     title="System theme">🌙</button>
-                <a class="btn btn-primary" href="#download">Download</a>
+                    <a class="btn btn-primary" href="https://your-web-app-url.com" target="_blank" rel="noopener noreferrer">
+                        Open Zpender
+                    </a>
             </nav>
         </div>
     </header>
@@ -909,12 +922,6 @@
 
     </main>
 
-    <footer>
-        <div class="container footer-inner">
-            <p>© 2026 Zpendr — Budget & Expense Tracker</p>
-            <p class="footer-tagline">Local-first · Privacy-focused · Cross-platform</p>
-        </div>
-    </footer>
 
     <script>
         (function () {
@@ -1094,23 +1101,57 @@
         }());
     </script>
 
+    <section class="section" id="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <p class="section-intro">Quick answers for users worldwide.</p>
+            <div class="feature-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+                <article class="feature-card">
+                    <h3>Does Zpendr work offline?</h3>
+                    <p class="muted">Yes. It is local-first and designed to work without constant internet access.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Can I use the web version?</h3>
+                    <p class="muted">Yes. The web version opens in a new tab for browser use.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Is my data private?</h3>
+                    <p class="muted">Your data stays on your device by default, with optional sync if you enable it.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Can I switch languages?</h3>
+                    <p class="muted">Yes. Use the language selector to choose your preferred language.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section alt-bg" id="support">
+        <div class="container">
+            <h2>Support</h2>
+            <p class="section-intro">Need help? Reach out by email or through the support page.</p>
+            <div class="cta-box" style="gap:var(--space-4);">
+                <p class="muted">Email: <a href="mailto:support@your-domain.com">support@your-domain.com</a></p>
+                <a class="btn btn-primary" href="mailto:support@your-domain.com">Contact Support</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-inner">
+            <p>© 2026 Zpendr Budget Expense Tracker</p>
+            <p class="footer-tagline">Local-first • Privacy-focused • Cross-platform</p>
+            <p><a href="#faq">FAQ</a> · <a href="#support">Support</a> · <a href="privacy.html">Privacy Policy</a> · <a
+                    href="terms.html">Terms</a> · <a href="contact.html">Contact</a></p>
+        </div>
+    </footer>
+
 
     <script>
         const langSelect = document.getElementById('lang-select');
-        const translateBtn = document.getElementById('translate-english');
-        function setEnglish() {
-            if (langSelect) langSelect.value = 'en';
-            document.documentElement.lang = 'en';
-        }
         if (langSelect) {
             langSelect.addEventListener('change', () => {
                 document.documentElement.lang = langSelect.value;
-            });
-        }
-        if (translateBtn) {
-            translateBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                setEnglish();
             });
         }
     </script>
