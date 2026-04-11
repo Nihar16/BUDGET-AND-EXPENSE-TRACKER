@@ -953,26 +953,125 @@
             });
             updateIcon();
 
-            // --- New Screenshot Filter Logic ---
+            // ─── Screenshot Labels ───────────────────────────────────────────────────
+            const screenshotLabels = [
+                'Home Dashboard',
+                'Income & Expense Tracking',
+                'Smart Budget Planning',
+                'Bill Reminders',
+                'Analytics & Reports',
+                'Multi-Currency Support',
+            ];
 
+            // ─── Screenshot Data ─────────────────────────────────────────────────────
+            // Each key matches the data-platform attribute on your sub-buttons.
+            // Add your image file paths here for each platform.
+            const screenshotData = {
+                'ios': [
+                    'screenshots/ios/01-dashboard.png',
+                    'screenshots/ios/02-income-expense.png',
+                    'screenshots/ios/03-budget.png',
+                    'screenshots/ios/04-bills.png',
+                    'screenshots/ios/05-analytics.png',
+                    'screenshots/ios/06-currency.png',
+                ],
+                'android': [
+                    'screenshots/android/01-dashboard.png',
+                    'screenshots/android/02-income-expense.png',
+                    'screenshots/android/03-budget.png',
+                    'screenshots/android/04-bills.png',
+                    'screenshots/android/05-analytics.png',
+                    'screenshots/android/06-currency.png',
+                ],
+                'ipados': [
+                    'screenshots/ipados/01-dashboard.png',
+                    'screenshots/ipados/02-income-expense.png',
+                    'screenshots/ipados/03-budget.png',
+                    'screenshots/ipados/04-bills.png',
+                    'screenshots/ipados/05-analytics.png',
+                    'screenshots/ipados/06-currency.png',
+                ],
+                'android-tablet': [
+                    'screenshots/android-tablet/01-dashboard.png',
+                    'screenshots/android-tablet/02-income-expense.png',
+                    'screenshots/android-tablet/03-budget.png',
+                    'screenshots/android-tablet/04-bills.png',
+                    'screenshots/android-tablet/05-analytics.png',
+                    'screenshots/android-tablet/06-currency.png',
+                ],
+                'chrome': [
+                    'screenshots/chrome/01-dashboard.png',
+                    'screenshots/chrome/02-income-expense.png',
+                    'screenshots/chrome/03-budget.png',
+                    'screenshots/chrome/04-bills.png',
+                    'screenshots/chrome/05-analytics.png',
+                    'screenshots/chrome/06-currency.png',
+                ],
+                'safari': [
+                    'screenshots/safari/01-dashboard.png',
+                    'screenshots/safari/02-income-expense.png',
+                    'screenshots/safari/03-budget.png',
+                    'screenshots/safari/04-bills.png',
+                    'screenshots/safari/05-analytics.png',
+                    'screenshots/safari/06-currency.png',
+                ],
+                'windows': [
+                    'screenshots/windows/01-dashboard.png',
+                    'screenshots/windows/02-income-expense.png',
+                    'screenshots/windows/03-budget.png',
+                    'screenshots/windows/04-bills.png',
+                    'screenshots/windows/05-analytics.png',
+                    'screenshots/windows/06-currency.png',
+                ],
+                'macos': [
+                    'screenshots/macos/01-dashboard.png',
+                    'screenshots/macos/02-income-expense.png',
+                    'screenshots/macos/03-budget.png',
+                    'screenshots/macos/04-bills.png',
+                    'screenshots/macos/05-analytics.png',
+                    'screenshots/macos/06-currency.png',
+                ],
+            };
+
+            // ─── Render Screenshots ──────────────────────────────────────────────────
+            function renderScreenshots(platform) {
+                const grid = document.getElementById('screenshot-display');
+                const images = screenshotData[platform] || [];
+
+                if (images.length === 0) {
+                    grid.innerHTML = `
+                        <div class="screenshot-slot portrait">
+                            <div class="slot-media"><span>No screenshots yet for this platform.</span></div>
+                        </div>`;
+                    return;
+                }
+
+                grid.innerHTML = images.map((src, i) => `
+                    <div class="screenshot-slot portrait">
+                        <div class="slot-media" style="padding:0;overflow:hidden;">
+                            <img src="${src}" alt="${screenshotLabels[i]}" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+                        </div>
+                        <p style="margin-top:0.5rem;font-size:var(--text-sm);color:var(--color-text-muted);text-align:center;">${screenshotLabels[i]}</p>
+                    </div>`
+                ).join('');
+            }
+
+            // ─── Filter Button Logic ─────────────────────────────────────────────────
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // 1. Update active state for primary buttons (Mobile, Tablet, etc.)
                     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
 
-                    // 2. Hide all sub-groups first, then show the relevant one
                     const category = btn.getAttribute('data-category');
                     document.querySelectorAll('.sub-filter-group').forEach(group => {
                         group.classList.remove('active');
-                        group.style.display = 'none'; // Ensure they are physically hidden
+                        group.style.display = 'none';
                     });
 
                     const activeGroup = document.getElementById(`sub-${category}`);
                     activeGroup.classList.add('active');
-                    activeGroup.style.display = 'flex'; // Reveal the relevant group
+                    activeGroup.style.display = 'flex';
 
-                    // 3. Automatically trigger the first platform in the newly shown group
                     const firstSub = activeGroup.querySelector('.sub-btn');
                     if (firstSub) firstSub.click();
                 });
@@ -980,17 +1079,15 @@
 
             document.querySelectorAll('.sub-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // Update active state for sub-buttons (iOS, Android, etc.)
                     document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
 
                     const platform = btn.getAttribute('data-platform');
-                    console.log("Switching to platform view:", platform);
-                    // This is where you will add your actual image source swapping later
+                    renderScreenshots(platform);
                 });
             });
 
-            // Initialize the view by clicking the active primary button on load
+            // Initialize on load
             const initialBtn = document.querySelector('.filter-btn.active');
             if (initialBtn) initialBtn.click();
 
