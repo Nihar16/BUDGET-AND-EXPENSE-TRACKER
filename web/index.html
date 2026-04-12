@@ -92,6 +92,12 @@
             --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
+        .card {
+            border: 1px solid #dcdcdc;
+            /* fallback */
+            border: 1px solid color-mix(in srgb, var(--color-primary) 12%, var(--color-border));
+        }
+
         *,
         *::before,
         *::after {
@@ -240,6 +246,16 @@
 
         .theme-toggle:hover {
             background: var(--color-surface-2);
+        }
+
+        .language-select {
+            min-height: 44px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            color: var(--color-text);
+            padding: 0 .9rem;
+            font-weight: 600;
         }
 
         /* Filter Navigation Styling */
@@ -700,15 +716,24 @@
             </a>
             <nav class="nav" aria-label="Primary">
                 <div class="nav-links">
-                    <a href="#features">Features</a>
-                    <a href="#platforms">Platforms</a>
-                    <a href="#screenshots">Screenshots</a>
-                    <a href="#how-it-works">How it works</a>
+                    <a href="#features" data-i18n="navFeatures">Features</a>
+                    <a href="#platforms" data-i18n="navPlatforms">Platforms</a>
+                    <a href="#screenshots" data-i18n="navScreenshots">Screenshots</a>
+                    <a href="#how-it-works" data-i18n="navHowItWorks">How it works</a>
                 </div>
+                <label for="lang-select" class="sr-only" style="position:absolute;left:-9999px;" data-i18n="languageSelectLabel">Language</label>
+                <select id="lang-select" class="language-select" aria-label="Language selector">
+                    <option value="system">🌐 System</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"
                     title="System theme">🌙</button>
-                <a class="btn btn-primary" href="" target="_blank" rel="noopener noreferrer">
-                    Open Zpender
+                <a class="btn btn-primary" href="" target="_blank" rel="noopener noreferrer" data-i18n="openZpendr">
+                    Open Zpendr
                 </a>
             </nav>
         </div>
@@ -720,13 +745,13 @@
         <section class="hero" id="top">
             <div class="container hero-grid">
                 <div>
-                    <span class="eyebrow">💸 Budget & Expense Tracker</span>
-                    <h1>Your money, under control.</h1>
-                    <p class="lead">Track income and expenses, set budgets by category, and never miss a bill. Zpendr
+                    <span class="eyebrow" data-i18n="heroEyebrow">💸 Budget & Expense Tracker</span>
+                    <h1 data-i18n="heroTitle">Your money, under control.</h1>
+                    <p class="lead" data-i18n="heroLead">Track income and expenses, set budgets by category, and never miss a bill. Zpendr
                         keeps your finances organized across every device you use.</p>
                     <div class="hero-actions">
-                        <a class="btn btn-primary" href="#download">Download the app</a>
-                        <a class="btn btn-secondary" href="#features">See what it does</a>
+                        <a class="btn btn-primary" href="#download" data-i18n="downloadApp">Download the app</a>
+                        <a class="btn btn-secondary" href="#features" data-i18n="seeFeatures">See what it does</a>
                     </div>
                     <div class="hero-meta">
                         <span>🔒 Local-first storage</span>
@@ -756,8 +781,8 @@
         <!-- Features -->
         <section class="section" id="features">
             <div class="container">
-                <h2>Powerful Features</h2>
-                <p class="section-intro">Everything you need to track, budget, and understand your finances in one app.
+                <h2 data-i18n="featuresTitle">Powerful Features</h2>
+                <p class="section-intro" data-i18n="featuresIntro">Everything you need to track, budget, and understand your finances in one app.
                 </p>
                 <div class="feature-grid">
                     <article class="feature-card">
@@ -803,8 +828,8 @@
         <!-- Platforms -->
         <section class="section alt-bg" id="platforms">
             <div class="container">
-                <h2>Available Everywhere</h2>
-                <p class="section-intro">Zpendr works seamlessly across all your devices.</p>
+                <h2 data-i18n="platformsTitle">Available Everywhere</h2>
+                <p class="section-intro" data-i18n="platformsIntro">Zpendr works seamlessly across all your devices.</p>
                 <div class="platforms-grid">
                     <div class="platform-item">
                         <span class="platform-emoji">📱</span>
@@ -927,6 +952,7 @@
         (function () {
             const root = document.documentElement;
             const toggle = document.getElementById('theme-toggle');
+            const languageSelect = document.getElementById('lang-select');
             const media = window.matchMedia('(prefers-color-scheme: dark)');
 
             function getMode() { return localStorage.getItem('theme'); }
@@ -959,6 +985,126 @@
                 if (!getMode()) { root.setAttribute('data-theme', e.matches ? 'dark' : 'light'); updateIcon(); }
             });
             updateIcon();
+
+            const translations = {
+                en: {
+                    navFeatures: 'Features',
+                    navPlatforms: 'Platforms',
+                    navScreenshots: 'Screenshots',
+                    navHowItWorks: 'How it works',
+                    languageSelectLabel: 'Language',
+                    openZpendr: 'Open Zpendr',
+                    heroEyebrow: '💸 Budget & Expense Tracker',
+                    heroTitle: 'Your money, under control.',
+                    heroLead: 'Track income and expenses, set budgets by category, and never miss a bill. Zpendr keeps your finances organized across every device you use.',
+                    downloadApp: 'Download the app',
+                    seeFeatures: 'See what it does',
+                    featuresTitle: 'Powerful Features',
+                    featuresIntro: 'Everything you need to track, budget, and understand your finances in one app.',
+                    platformsTitle: 'Available Everywhere',
+                    platformsIntro: 'Zpendr works seamlessly across all your devices.',
+                },
+                es: {
+                    navFeatures: 'Funciones',
+                    navPlatforms: 'Plataformas',
+                    navScreenshots: 'Capturas',
+                    navHowItWorks: 'Cómo funciona',
+                    languageSelectLabel: 'Idioma',
+                    openZpendr: 'Abrir Zpendr',
+                    heroEyebrow: '💸 Rastreador de Presupuesto y Gastos',
+                    heroTitle: 'Tu dinero, bajo control.',
+                    heroLead: 'Registra ingresos y gastos, crea presupuestos por categoría y no olvides ninguna factura. Zpendr mantiene tus finanzas organizadas en todos tus dispositivos.',
+                    downloadApp: 'Descargar la app',
+                    seeFeatures: 'Ver funciones',
+                    featuresTitle: 'Funciones Potentes',
+                    featuresIntro: 'Todo lo que necesitas para registrar, presupuestar y entender tus finanzas en una sola app.',
+                    platformsTitle: 'Disponible en Todas Partes',
+                    platformsIntro: 'Zpendr funciona sin problemas en todos tus dispositivos.',
+                },
+                fr: {
+                    navFeatures: 'Fonctionnalités',
+                    navPlatforms: 'Plateformes',
+                    navScreenshots: 'Captures',
+                    navHowItWorks: 'Fonctionnement',
+                    languageSelectLabel: 'Langue',
+                    openZpendr: 'Ouvrir Zpendr',
+                    heroEyebrow: '💸 Suivi Budget & Dépenses',
+                    heroTitle: 'Votre argent, sous contrôle.',
+                    heroLead: 'Suivez revenus et dépenses, créez des budgets par catégorie et ne manquez plus aucune facture. Zpendr organise vos finances sur tous vos appareils.',
+                    downloadApp: 'Télécharger l’app',
+                    seeFeatures: 'Voir les fonctionnalités',
+                    featuresTitle: 'Fonctionnalités Puissantes',
+                    featuresIntro: 'Tout ce qu’il faut pour suivre, budgétiser et comprendre vos finances dans une seule application.',
+                    platformsTitle: 'Disponible Partout',
+                    platformsIntro: 'Zpendr fonctionne parfaitement sur tous vos appareils.',
+                },
+                de: {
+                    navFeatures: 'Funktionen',
+                    navPlatforms: 'Plattformen',
+                    navScreenshots: 'Screenshots',
+                    navHowItWorks: 'So funktioniert’s',
+                    languageSelectLabel: 'Sprache',
+                    openZpendr: 'Zpendr öffnen',
+                    heroEyebrow: '💸 Budget- & Ausgaben-Tracker',
+                    heroTitle: 'Dein Geld, unter Kontrolle.',
+                    heroLead: 'Erfasse Einnahmen und Ausgaben, setze Budgets nach Kategorien und verpasse keine Rechnung. Zpendr organisiert deine Finanzen auf all deinen Geräten.',
+                    downloadApp: 'App herunterladen',
+                    seeFeatures: 'Funktionen ansehen',
+                    featuresTitle: 'Leistungsstarke Funktionen',
+                    featuresIntro: 'Alles, was du brauchst, um deine Finanzen in einer App zu erfassen, zu planen und zu verstehen.',
+                    platformsTitle: 'Überall Verfügbar',
+                    platformsIntro: 'Zpendr läuft nahtlos auf all deinen Geräten.',
+                },
+                hi: {
+                    navFeatures: 'फ़ीचर्स',
+                    navPlatforms: 'प्लेटफ़ॉर्म',
+                    navScreenshots: 'स्क्रीनशॉट्स',
+                    navHowItWorks: 'कैसे काम करता है',
+                    languageSelectLabel: 'भाषा',
+                    openZpendr: 'Zpendr खोलें',
+                    heroEyebrow: '💸 बजट और खर्च ट्रैकर',
+                    heroTitle: 'आपका पैसा, पूरी तरह नियंत्रण में।',
+                    heroLead: 'आय और खर्च ट्रैक करें, श्रेणी के अनुसार बजट बनाएं और कोई बिल मिस न करें। Zpendr आपके सभी डिवाइस पर वित्त को व्यवस्थित रखता है।',
+                    downloadApp: 'ऐप डाउनलोड करें',
+                    seeFeatures: 'फ़ीचर्स देखें',
+                    featuresTitle: 'शक्तिशाली फ़ीचर्स',
+                    featuresIntro: 'एक ही ऐप में अपनी वित्तीय जानकारी ट्रैक, बजट और समझने के लिए सब कुछ।',
+                    platformsTitle: 'हर जगह उपलब्ध',
+                    platformsIntro: 'Zpendr आपके सभी डिवाइस पर आसानी से काम करता है।',
+                },
+            };
+
+            function getSystemLanguage() {
+                const locale = (navigator.language || 'en').toLowerCase();
+                const code = locale.split('-')[0];
+                return translations[code] ? code : 'en';
+            }
+
+            function applyLanguage(selectedLanguage) {
+                const systemLanguage = getSystemLanguage();
+                const activeLanguage = selectedLanguage === 'system' ? systemLanguage : selectedLanguage;
+                const dictionary = translations[activeLanguage] || translations.en;
+
+                document.querySelectorAll('[data-i18n]').forEach((node) => {
+                    const key = node.getAttribute('data-i18n');
+                    if (dictionary[key]) {
+                        node.textContent = dictionary[key];
+                    }
+                });
+
+                root.lang = activeLanguage;
+                localStorage.setItem('language', selectedLanguage);
+            }
+
+            if (languageSelect) {
+                const savedLanguage = localStorage.getItem('language') || 'system';
+                languageSelect.value = savedLanguage;
+                applyLanguage(savedLanguage);
+
+                languageSelect.addEventListener('change', () => {
+                    applyLanguage(languageSelect.value);
+                });
+            }
 
             // ─── Screenshot Labels ───────────────────────────────────────────────────
             const screenshotLabels = [
@@ -1145,16 +1291,6 @@
                     href="terms.html">Terms</a> · <a href="contact.html">Contact</a></p>
         </div>
     </footer>
-
-
-    <script>
-        const langSelect = document.getElementById('lang-select');
-        if (langSelect) {
-            langSelect.addEventListener('change', () => {
-                document.documentElement.lang = langSelect.value;
-            });
-        }
-    </script>
 
 </body>
 
