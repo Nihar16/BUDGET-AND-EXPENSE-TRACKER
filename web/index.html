@@ -2063,7 +2063,7 @@
 
     <footer>
         <div class="container footer-inner">
-            <p>© 2026 Zpendr Budget Expense Tracker</p>
+            <p>&copy; <span id="copyrightYear">2026</span> Zpendr Budget Expense Tracker. All rights reserved.</p>
             <p class="footer-tagline">Local-first • Privacy-focused • Cross-platform</p>
             <p><a href="#faq">FAQ</a> · <a href="#support">Support</a> · <a href="#changelog">Changelog</a> · <a
                     href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a></p>
@@ -2102,6 +2102,8 @@
                 });
             });
         })();
+
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
     </script>
 
 </body>
