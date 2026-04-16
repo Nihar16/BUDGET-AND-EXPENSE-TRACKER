@@ -1385,6 +1385,7 @@
                     <option value="es">Español</option>
                     <option value="fr">Français</option>
                     <option value="de">Deutsch</option>
+                    <option value="zh">中文</option>
                     <option value="hi">हिन्दी</option>
                 </select>
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"
@@ -1396,13 +1397,13 @@
 
     <!-- Mobile nav drawer -->
     <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
-        <a href="#features">Features</a>
-        <a href="#platforms">Platforms</a>
-        <a href="#screenshots">Screenshots</a>
-        <a href="#how-it-works">How it works</a>
-        <a href="#download">Download</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
+        <a href="#features" data-i18n="navFeatures">Features</a>
+        <a href="#platforms" data-i18n="navPlatforms">Platforms</a>
+        <a href="#screenshots" data-i18n="navScreenshots">Screenshots</a>
+        <a href="#how-it-works" data-i18n="navHowItWorks">How it works</a>
+        <a href="#download" data-i18n="navDownload">Download</a>
+        <a href="#pricing" data-i18n="navPricing">Pricing</a>
+        <a href="#faq" data-i18n="navFaq">FAQ</a>
     </nav>
 
     <main id="main">
@@ -1929,6 +1930,9 @@
                     navPlatforms: 'Platforms',
                     navScreenshots: 'Screenshots',
                     navHowItWorks: 'How it works',
+                    navDownload: 'Download',
+                    navPricing: 'Pricing',
+                    navFaq: 'FAQ',
                     languageSelectLabel: 'Language',
                     openZpendr: 'Open Zpendr',
                     heroEyebrow: '💸 Budget & Expense Tracker',
@@ -1946,6 +1950,9 @@
                     navPlatforms: 'Plataformas',
                     navScreenshots: 'Capturas',
                     navHowItWorks: 'Cómo funciona',
+                    navDownload: 'Descargar',
+                    navPricing: 'Precios',
+                    navFaq: 'Preguntas frecuentes',
                     languageSelectLabel: 'Idioma',
                     openZpendr: 'Abrir Zpendr',
                     heroEyebrow: '💸 Rastreador de Presupuesto y Gastos',
@@ -1963,6 +1970,9 @@
                     navPlatforms: 'Plateformes',
                     navScreenshots: 'Captures',
                     navHowItWorks: 'Fonctionnement',
+                    navDownload: 'Télécharger',
+                    navPricing: 'Tarifs',
+                    navFaq: 'FAQ',
                     languageSelectLabel: 'Langue',
                     openZpendr: 'Ouvrir Zpendr',
                     heroEyebrow: '💸 Suivi Budget & Dépenses',
@@ -1980,6 +1990,9 @@
                     navPlatforms: 'Plattformen',
                     navScreenshots: 'Screenshots',
                     navHowItWorks: 'So funktioniert’s',
+                    navDownload: 'Download',
+                    navPricing: 'Preise',
+                    navFaq: 'FAQ',
                     languageSelectLabel: 'Sprache',
                     openZpendr: 'Zpendr öffnen',
                     heroEyebrow: '💸 Budget- & Ausgaben-Tracker',
@@ -1992,11 +2005,34 @@
                     platformsTitle: 'Überall Verfügbar',
                     platformsIntro: 'Zpendr läuft nahtlos auf all deinen Geräten.',
                 },
+                zh: {
+                    navFeatures: '功能',
+                    navPlatforms: '平台',
+                    navScreenshots: '截图',
+                    navHowItWorks: '使用方式',
+                    navDownload: '下载',
+                    navPricing: '价格',
+                    navFaq: '常见问题',
+                    languageSelectLabel: '语言',
+                    openZpendr: '打开 Zpendr',
+                    heroEyebrow: '💸 预算和支出追踪器',
+                    heroTitle: '掌控你的每一笔钱。',
+                    heroLead: '记录收入与支出，按类别设置预算，不再错过账单。Zpendr 在你的所有设备上帮助你有序管理财务。',
+                    downloadApp: '下载应用',
+                    seeFeatures: '查看功能',
+                    featuresTitle: '强大功能',
+                    featuresIntro: '在一个应用中完成记账、预算与财务分析。',
+                    platformsTitle: '全平台可用',
+                    platformsIntro: 'Zpendr 在你的所有设备上都能顺畅运行。',
+                },
                 hi: {
                     navFeatures: 'फ़ीचर्स',
                     navPlatforms: 'प्लेटफ़ॉर्म',
                     navScreenshots: 'स्क्रीनशॉट्स',
                     navHowItWorks: 'कैसे काम करता है',
+                    navDownload: 'डाउनलोड',
+                    navPricing: 'प्राइसिंग',
+                    navFaq: 'अक्सर पूछे जाने वाले प्रश्न',
                     languageSelectLabel: 'भाषा',
                     openZpendr: 'Zpendr खोलें',
                     heroEyebrow: '💸 बजट और खर्च ट्रैकर',
@@ -2012,9 +2048,35 @@
             };
 
             function getSystemLanguage() {
-                const locale = (navigator.language || 'en').toLowerCase();
-                const code = locale.split('-')[0];
-                return translations[code] ? code : 'en';
+                const localeCandidates = Array.isArray(navigator.languages) && navigator.languages.length
+                    ? navigator.languages
+                    : [navigator.language || Intl.DateTimeFormat().resolvedOptions().locale || 'en'];
+
+                const aliases = {
+                    'zh-cn': 'zh',
+                    'zh-sg': 'zh',
+                    'zh-hans': 'zh',
+                    'zh-hant': 'zh',
+                    'pt-br': 'pt',
+                    'en-us': 'en',
+                    'en-gb': 'en',
+                    'de-de': 'de',
+                    'fr-fr': 'fr',
+                    'es-es': 'es',
+                    'hi-in': 'hi',
+                };
+
+                for (const rawLocale of localeCandidates) {
+                    const locale = String(rawLocale || '').toLowerCase();
+                    if (!locale) continue;
+                    if (translations[locale]) return locale;
+                    if (aliases[locale] && translations[aliases[locale]]) return aliases[locale];
+
+                    const base = locale.split('-')[0];
+                    if (translations[base]) return base;
+                }
+
+                return 'en';
             }
 
             function applyLanguage(selectedLanguage) {
@@ -2040,6 +2102,13 @@
 
                 languageSelect.addEventListener('change', () => {
                     applyLanguage(languageSelect.value);
+                });
+
+                window.addEventListener('languagechange', () => {
+                    if ((localStorage.getItem('language') || 'system') === 'system') {
+                        applyLanguage('system');
+                        languageSelect.value = 'system';
+                    }
                 });
             }
 
