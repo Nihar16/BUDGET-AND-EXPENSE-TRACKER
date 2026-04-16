@@ -157,6 +157,8 @@
             border-bottom: 1px solid var(--color-border);
         }
 
+
+
         .header-inner {
             display: flex;
             align-items: center;
@@ -913,11 +915,22 @@
 
         .mobile-menu {
             display: none;
+            /* This is the magic fix: */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+
+            /* Ensure it's on top of everything */
+            z-index: 9999;
+
+            /* Your existing styling */
+            background-color: var(--bg-color);
             flex-direction: column;
-            gap: 0;
-            background: var(--color-surface);
-            border-top: 1px solid var(--color-border);
-            padding: var(--space-4) 0;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
         }
 
         .mobile-menu.open {
@@ -1625,16 +1638,21 @@
                 <div class="auth-socials">
                     <button class="auth-social-btn" type="button" data-provider="google" data-action="login">
                         <svg viewBox="0 0 48 48" aria-hidden="true">
-                            <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.6 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12S17.4 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34 6 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z" />
-                            <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34 6 29.3 4 24 4c-7.7 0-14.4 4.3-17.7 10.7z" />
-                            <path fill="#4CAF50" d="M24 44c5.2 0 9.8-2 13.2-5.2l-6.1-5.2c-2 1.5-4.4 2.4-7.1 2.4-5.1 0-9.5-3.2-11.2-7.7l-6.6 5.1C9.4 39.5 16.1 44 24 44z" />
-                            <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.4-2.4 4.4-4.6 5.8l.1-.1 6.1 5.2C36.5 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z" />
+                            <path fill="#FFC107"
+                                d="M43.6 20.5H42V20H24v8h11.3C33.6 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12S17.4 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34 6 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z" />
+                            <path fill="#FF3D00"
+                                d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34 6 29.3 4 24 4c-7.7 0-14.4 4.3-17.7 10.7z" />
+                            <path fill="#4CAF50"
+                                d="M24 44c5.2 0 9.8-2 13.2-5.2l-6.1-5.2c-2 1.5-4.4 2.4-7.1 2.4-5.1 0-9.5-3.2-11.2-7.7l-6.6 5.1C9.4 39.5 16.1 44 24 44z" />
+                            <path fill="#1976D2"
+                                d="M43.6 20.5H42V20H24v8h11.3c-.8 2.4-2.4 4.4-4.6 5.8l.1-.1 6.1 5.2C36.5 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z" />
                         </svg>
                         <span>Google</span>
                     </button>
                     <button class="auth-social-btn" type="button" data-provider="apple" data-action="login">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill="currentColor" d="M16.37 12.29c.03 3.22 2.82 4.29 2.85 4.3-.02.07-.44 1.54-1.46 3.05-.89 1.31-1.8 2.61-3.25 2.64-1.42.03-1.88-.84-3.5-.84-1.62 0-2.13.82-3.47.87-1.39.05-2.46-1.39-3.35-2.69C2.37 17.8 1 14.45 2.86 11.2c.92-1.62 2.57-2.65 4.37-2.68 1.37-.03 2.67.92 3.5.92.83 0 2.38-1.13 4.01-.96.68.03 2.57.27 3.78 2.05-.1.06-2.25 1.31-2.15 3.76zM13.66 6.66c.74-.89 1.24-2.13 1.1-3.36-1.06.04-2.34.71-3.1 1.6-.68.79-1.28 2.05-1.12 3.25 1.19.09 2.38-.6 3.12-1.49z" />
+                            <path fill="currentColor"
+                                d="M16.37 12.29c.03 3.22 2.82 4.29 2.85 4.3-.02.07-.44 1.54-1.46 3.05-.89 1.31-1.8 2.61-3.25 2.64-1.42.03-1.88-.84-3.5-.84-1.62 0-2.13.82-3.47.87-1.39.05-2.46-1.39-3.35-2.69C2.37 17.8 1 14.45 2.86 11.2c.92-1.62 2.57-2.65 4.37-2.68 1.37-.03 2.67.92 3.5.92.83 0 2.38-1.13 4.01-.96.68.03 2.57.27 3.78 2.05-.1.06-2.25 1.31-2.15 3.76zM13.66 6.66c.74-.89 1.24-2.13 1.1-3.36-1.06.04-2.34.71-3.1 1.6-.68.79-1.28 2.05-1.12 3.25 1.19.09 2.38-.6 3.12-1.49z" />
                         </svg>
                         <span>Apple</span>
                     </button>
@@ -1661,23 +1679,29 @@
                 <div class="auth-socials">
                     <button class="auth-social-btn" type="button" data-provider="google" data-action="signup">
                         <svg viewBox="0 0 48 48" aria-hidden="true">
-                            <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.6 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12S17.4 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34 6 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z" />
-                            <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34 6 29.3 4 24 4c-7.7 0-14.4 4.3-17.7 10.7z" />
-                            <path fill="#4CAF50" d="M24 44c5.2 0 9.8-2 13.2-5.2l-6.1-5.2c-2 1.5-4.4 2.4-7.1 2.4-5.1 0-9.5-3.2-11.2-7.7l-6.6 5.1C9.4 39.5 16.1 44 24 44z" />
-                            <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.4-2.4 4.4-4.6 5.8l.1-.1 6.1 5.2C36.5 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z" />
+                            <path fill="#FFC107"
+                                d="M43.6 20.5H42V20H24v8h11.3C33.6 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12S17.4 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34 6 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z" />
+                            <path fill="#FF3D00"
+                                d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C34 6 29.3 4 24 4c-7.7 0-14.4 4.3-17.7 10.7z" />
+                            <path fill="#4CAF50"
+                                d="M24 44c5.2 0 9.8-2 13.2-5.2l-6.1-5.2c-2 1.5-4.4 2.4-7.1 2.4-5.1 0-9.5-3.2-11.2-7.7l-6.6 5.1C9.4 39.5 16.1 44 24 44z" />
+                            <path fill="#1976D2"
+                                d="M43.6 20.5H42V20H24v8h11.3c-.8 2.4-2.4 4.4-4.6 5.8l.1-.1 6.1 5.2C36.5 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z" />
                         </svg>
                         <span>Google</span>
                     </button>
                     <button class="auth-social-btn" type="button" data-provider="apple" data-action="signup">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill="currentColor" d="M16.37 12.29c.03 3.22 2.82 4.29 2.85 4.3-.02.07-.44 1.54-1.46 3.05-.89 1.31-1.8 2.61-3.25 2.64-1.42.03-1.88-.84-3.5-.84-1.62 0-2.13.82-3.47.87-1.39.05-2.46-1.39-3.35-2.69C2.37 17.8 1 14.45 2.86 11.2c.92-1.62 2.57-2.65 4.37-2.68 1.37-.03 2.67.92 3.5.92.83 0 2.38-1.13 4.01-.96.68.03 2.57.27 3.78 2.05-.1.06-2.25 1.31-2.15 3.76zM13.66 6.66c.74-.89 1.24-2.13 1.1-3.36-1.06.04-2.34.71-3.1 1.6-.68.79-1.28 2.05-1.12 3.25 1.19.09 2.38-.6 3.12-1.49z" />
+                            <path fill="currentColor"
+                                d="M16.37 12.29c.03 3.22 2.82 4.29 2.85 4.3-.02.07-.44 1.54-1.46 3.05-.89 1.31-1.8 2.61-3.25 2.64-1.42.03-1.88-.84-3.5-.84-1.62 0-2.13.82-3.47.87-1.39.05-2.46-1.39-3.35-2.69C2.37 17.8 1 14.45 2.86 11.2c.92-1.62 2.57-2.65 4.37-2.68 1.37-.03 2.67.92 3.5.92.83 0 2.38-1.13 4.01-.96.68.03 2.57.27 3.78 2.05-.1.06-2.25 1.31-2.15 3.76zM13.66 6.66c.74-.89 1.24-2.13 1.1-3.36-1.06.04-2.34.71-3.1 1.6-.68.79-1.28 2.05-1.12 3.25 1.19.09 2.38-.6 3.12-1.49z" />
                         </svg>
                         <span>Apple</span>
                     </button>
                 </div>
             </section>
 
-            <p class="auth-note">Connect these actions to your backend/provider SDK (Firebase, Supabase, Auth0, or custom API).</p>
+            <p class="auth-note">Connect these actions to your backend/provider SDK (Firebase, Supabase, Auth0, or
+                custom API).</p>
         </div>
     </div>
 
@@ -2775,23 +2799,29 @@
 
         // ── Hamburger menu ────────────────────────────────────────────────────
         (function () {
-            const btn = document.getElementById('hamburger-btn');
-            const menu = document.getElementById('mobile-menu');
-            if (!btn || !menu) return;
-            btn.addEventListener('click', () => {
-                const open = menu.classList.toggle('open');
-                btn.classList.toggle('open', open);
-                btn.setAttribute('aria-expanded', open);
-            });
-            menu.querySelectorAll('a').forEach(a => {
-                a.addEventListener('click', () => {
-                    menu.classList.remove('open');
-                    btn.classList.remove('open');
-                    btn.setAttribute('aria-expanded', 'false');
-                });
-            });
-        })();
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
 
+            if (hamburgerBtn && mobileMenu) {
+                hamburgerBtn.addEventListener('click', function () {
+                    // This toggles the animation on the bars and shows the menu
+                    const isOpen = hamburgerBtn.classList.toggle('open');
+                    mobileMenu.classList.toggle('open');
+
+                    // Updates accessibility state
+                    hamburgerBtn.setAttribute('aria-expanded', isOpen);
+                });
+
+                // Closes the menu automatically when a link is clicked
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburgerBtn.classList.remove('open');
+                        mobileMenu.classList.remove('open');
+                        hamburgerBtn.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
+        })();
         document.getElementById('copyrightYear').textContent = new Date().getFullYear();
     </script>
     <script>
