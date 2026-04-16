@@ -1,5 +1,0 @@
-# Replace __SITE_URL__ with your production domain before go-live.
-User-agent: *
-Allow: /
-
-Sitemap: __SITE_URL__/sitemap.xml
