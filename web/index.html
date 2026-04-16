@@ -248,6 +248,21 @@
             background: var(--color-surface-2);
         }
 
+        .auth-toggle {
+            min-height: 44px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            color: var(--color-text);
+            padding: 0 .95rem;
+            font-weight: 600;
+            transition: .2s ease;
+        }
+
+        .auth-toggle:hover {
+            background: var(--color-surface-2);
+        }
+
         .language-select {
             min-height: 44px;
             border-radius: var(--radius-full);
@@ -688,6 +703,134 @@
         .footer-tagline {
             font-size: var(--text-sm);
             opacity: 0.8;
+        }
+
+        .auth-modal {
+            position: fixed;
+            inset: 0;
+            background: color-mix(in srgb, #000 50%, transparent);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 60;
+        }
+
+        .auth-modal.open {
+            display: flex;
+        }
+
+        .auth-modal-panel {
+            width: min(100%, 430px);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            background: var(--color-bg);
+            box-shadow: var(--shadow-md);
+            padding: 1.1rem;
+        }
+
+        .auth-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: .9rem;
+        }
+
+        .auth-modal-title {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .auth-close {
+            min-height: 40px;
+            width: 40px;
+            border: 1px solid var(--color-border);
+            border-radius: 999px;
+            background: var(--color-surface);
+        }
+
+        .auth-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .5rem;
+            margin-bottom: .9rem;
+        }
+
+        .auth-tab {
+            min-height: 40px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            background: var(--color-surface);
+            color: var(--color-text-muted);
+            font-weight: 600;
+        }
+
+        .auth-tab.active {
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+        }
+
+        .auth-pane {
+            display: none;
+        }
+
+        .auth-pane.active {
+            display: block;
+        }
+
+        .auth-field {
+            display: block;
+            margin-bottom: .7rem;
+        }
+
+        .auth-field span {
+            display: inline-block;
+            margin-bottom: .35rem;
+            font-weight: 600;
+            font-size: var(--text-sm);
+        }
+
+        .auth-field input {
+            width: 100%;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            color: var(--color-text);
+            padding: .7rem .75rem;
+        }
+
+        .auth-submit {
+            width: 100%;
+            margin-top: .2rem;
+        }
+
+        .auth-divider {
+            margin: .9rem 0 .7rem;
+            color: var(--color-text-faint);
+            text-align: center;
+            font-size: var(--text-sm);
+        }
+
+        .auth-socials {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .55rem;
+        }
+
+        .auth-social-btn {
+            min-height: 42px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        .auth-note {
+            margin: .8rem 0 0;
+            font-size: var(--text-xs);
+            color: var(--color-text-faint);
         }
 
         /* ── Hamburger Menu ─────────────────────────────────────────── */
@@ -1388,6 +1531,7 @@
                     <option value="zh">中文</option>
                     <option value="hi">हिन्दी</option>
                 </select>
+                <button class="auth-toggle" id="auth-toggle" data-i18n="navAuth">Login / Sign up</button>
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"
                     title="System theme">🌙</button>
 
@@ -1405,6 +1549,59 @@
         <a href="#pricing" data-i18n="navPricing">Pricing</a>
         <a href="#faq" data-i18n="navFaq">FAQ</a>
     </nav>
+
+    <div class="auth-modal" id="auth-modal" aria-hidden="true">
+        <div class="auth-modal-panel" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+            <div class="auth-modal-header">
+                <h2 class="auth-modal-title" id="auth-modal-title">Account Access</h2>
+                <button class="auth-close" id="auth-close" aria-label="Close auth dialog">✕</button>
+            </div>
+
+            <div class="auth-tabs" role="tablist" aria-label="Authentication tabs">
+                <button class="auth-tab active" type="button" role="tab" id="tab-login" aria-controls="pane-login"
+                    aria-selected="true">Login</button>
+                <button class="auth-tab" type="button" role="tab" id="tab-signup" aria-controls="pane-signup"
+                    aria-selected="false">Sign up</button>
+            </div>
+
+            <section class="auth-pane active" id="pane-login" role="tabpanel" aria-labelledby="tab-login">
+                <label class="auth-field">
+                    <span>Email</span>
+                    <input type="email" id="login-email" autocomplete="email" placeholder="you@example.com" />
+                </label>
+                <label class="auth-field">
+                    <span>Password</span>
+                    <input type="password" id="login-password" autocomplete="current-password" placeholder="********" />
+                </label>
+                <button class="btn btn-primary auth-submit" type="button" id="login-submit">Login with Email</button>
+                <p class="auth-divider">or continue with</p>
+                <div class="auth-socials">
+                    <button class="auth-social-btn" type="button" data-provider="google" data-action="login">Google</button>
+                    <button class="auth-social-btn" type="button" data-provider="apple" data-action="login">Apple</button>
+                </div>
+            </section>
+
+            <section class="auth-pane" id="pane-signup" role="tabpanel" aria-labelledby="tab-signup">
+                <label class="auth-field">
+                    <span>Email</span>
+                    <input type="email" id="signup-email" autocomplete="email" placeholder="you@example.com" />
+                </label>
+                <label class="auth-field">
+                    <span>Password</span>
+                    <input type="password" id="signup-password" autocomplete="new-password"
+                        placeholder="Create a strong password" />
+                </label>
+                <button class="btn btn-primary auth-submit" type="button" id="signup-submit">Sign up with Email</button>
+                <p class="auth-divider">or continue with</p>
+                <div class="auth-socials">
+                    <button class="auth-social-btn" type="button" data-provider="google" data-action="signup">Google</button>
+                    <button class="auth-social-btn" type="button" data-provider="apple" data-action="signup">Apple</button>
+                </div>
+            </section>
+
+            <p class="auth-note">Connect these actions to your backend/provider SDK (Firebase, Supabase, Auth0, or custom API).</p>
+        </div>
+    </div>
 
     <main id="main">
 
@@ -1891,6 +2088,9 @@
             const root = document.documentElement;
             const toggle = document.getElementById('theme-toggle');
             const languageSelect = document.getElementById('lang-select');
+            const authToggle = document.getElementById('auth-toggle');
+            const authModal = document.getElementById('auth-modal');
+            const authClose = document.getElementById('auth-close');
             const media = window.matchMedia('(prefers-color-scheme: dark)');
 
             function getMode() { return localStorage.getItem('theme'); }
@@ -1933,6 +2133,7 @@
                     navDownload: 'Download',
                     navPricing: 'Pricing',
                     navFaq: 'FAQ',
+                    navAuth: 'Login / Sign up',
                     languageSelectLabel: 'Language',
                     openZpendr: 'Open Zpendr',
                     heroEyebrow: '💸 Budget & Expense Tracker',
@@ -1953,6 +2154,7 @@
                     navDownload: 'Descargar',
                     navPricing: 'Precios',
                     navFaq: 'Preguntas frecuentes',
+                    navAuth: 'Iniciar sesión / Registrarse',
                     languageSelectLabel: 'Idioma',
                     openZpendr: 'Abrir Zpendr',
                     heroEyebrow: '💸 Rastreador de Presupuesto y Gastos',
@@ -1973,6 +2175,7 @@
                     navDownload: 'Télécharger',
                     navPricing: 'Tarifs',
                     navFaq: 'FAQ',
+                    navAuth: 'Connexion / Inscription',
                     languageSelectLabel: 'Langue',
                     openZpendr: 'Ouvrir Zpendr',
                     heroEyebrow: '💸 Suivi Budget & Dépenses',
@@ -1993,6 +2196,7 @@
                     navDownload: 'Download',
                     navPricing: 'Preise',
                     navFaq: 'FAQ',
+                    navAuth: 'Anmelden / Registrieren',
                     languageSelectLabel: 'Sprache',
                     openZpendr: 'Zpendr öffnen',
                     heroEyebrow: '💸 Budget- & Ausgaben-Tracker',
@@ -2013,6 +2217,7 @@
                     navDownload: '下载',
                     navPricing: '价格',
                     navFaq: '常见问题',
+                    navAuth: '登录 / 注册',
                     languageSelectLabel: '语言',
                     openZpendr: '打开 Zpendr',
                     heroEyebrow: '💸 预算和支出追踪器',
@@ -2033,6 +2238,7 @@
                     navDownload: 'डाउनलोड',
                     navPricing: 'प्राइसिंग',
                     navFaq: 'अक्सर पूछे जाने वाले प्रश्न',
+                    navAuth: 'लॉगिन / साइन अप',
                     languageSelectLabel: 'भाषा',
                     openZpendr: 'Zpendr खोलें',
                     heroEyebrow: '💸 बजट और खर्च ट्रैकर',
@@ -2111,6 +2317,63 @@
                     }
                 });
             }
+
+            function openAuthModal() {
+                if (!authModal) return;
+                authModal.classList.add('open');
+                authModal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeAuthModal() {
+                if (!authModal) return;
+                authModal.classList.remove('open');
+                authModal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            function switchAuthPane(target) {
+                const isSignup = target === 'signup';
+                document.getElementById('tab-login')?.classList.toggle('active', !isSignup);
+                document.getElementById('tab-signup')?.classList.toggle('active', isSignup);
+                document.getElementById('tab-login')?.setAttribute('aria-selected', String(!isSignup));
+                document.getElementById('tab-signup')?.setAttribute('aria-selected', String(isSignup));
+                document.getElementById('pane-login')?.classList.toggle('active', !isSignup);
+                document.getElementById('pane-signup')?.classList.toggle('active', isSignup);
+            }
+
+            authToggle?.addEventListener('click', openAuthModal);
+            authClose?.addEventListener('click', closeAuthModal);
+            authModal?.addEventListener('click', (event) => {
+                if (event.target === authModal) closeAuthModal();
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && authModal?.classList.contains('open')) {
+                    closeAuthModal();
+                }
+            });
+
+            document.getElementById('tab-login')?.addEventListener('click', () => switchAuthPane('login'));
+            document.getElementById('tab-signup')?.addEventListener('click', () => switchAuthPane('signup'));
+
+            function wireAuthButton(id, message) {
+                document.getElementById(id)?.addEventListener('click', () => {
+                    alert(message);
+                });
+            }
+
+            wireAuthButton('login-submit', 'Email login action placeholder: connect this button to your auth API.');
+            wireAuthButton('signup-submit', 'Email signup action placeholder: connect this button to your auth API.');
+
+            document.querySelectorAll('.auth-social-btn').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const provider = button.getAttribute('data-provider');
+                    const action = button.getAttribute('data-action');
+                    const verb = action === 'signup' ? 'Signup' : 'Login';
+                    alert(verb + ' with ' + provider + ' placeholder: connect provider SDK flow here.');
+                });
+            });
 
             // ─── Screenshot Labels ───────────────────────────────────────────────────
             const screenshotLabels = [
