@@ -800,6 +800,41 @@
             padding: .7rem .75rem;
         }
 
+        .auth-feedback {
+            min-height: 1rem;
+            margin-top: .35rem;
+            font-size: var(--text-xs);
+            color: var(--color-text-faint);
+        }
+
+        .auth-feedback.ok {
+            color: #16a34a;
+        }
+
+        .auth-feedback.warn {
+            color: #d97706;
+        }
+
+        .auth-feedback.error {
+            color: #dc2626;
+        }
+
+        .strength-meter {
+            width: 100%;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--color-surface-2);
+            margin-top: .35rem;
+            overflow: hidden;
+        }
+
+        .strength-meter-fill {
+            height: 100%;
+            width: 0%;
+            background: #dc2626;
+            transition: width .2s ease, background-color .2s ease;
+        }
+
         .auth-submit {
             width: 100%;
             margin-top: .2rem;
@@ -1579,6 +1614,7 @@
                 <label class="auth-field">
                     <span>Email</span>
                     <input type="email" id="login-email" autocomplete="email" placeholder="you@example.com" />
+                    <div class="auth-feedback" id="login-email-feedback" aria-live="polite"></div>
                 </label>
                 <label class="auth-field">
                     <span>Password</span>
@@ -1609,11 +1645,16 @@
                 <label class="auth-field">
                     <span>Email</span>
                     <input type="email" id="signup-email" autocomplete="email" placeholder="you@example.com" />
+                    <div class="auth-feedback" id="signup-email-feedback" aria-live="polite"></div>
                 </label>
                 <label class="auth-field">
                     <span>Password</span>
                     <input type="password" id="signup-password" autocomplete="new-password"
                         placeholder="Create a strong password" />
+                    <div class="strength-meter" aria-hidden="true">
+                        <div class="strength-meter-fill" id="signup-password-strength-fill"></div>
+                    </div>
+                    <div class="auth-feedback" id="signup-password-feedback" aria-live="polite"></div>
                 </label>
                 <button class="btn btn-primary auth-submit" type="button" id="signup-submit">Sign up with Email</button>
                 <p class="auth-divider">or continue with</p>
@@ -2394,14 +2435,128 @@
             document.getElementById('tab-login')?.addEventListener('click', () => switchAuthPane('login'));
             document.getElementById('tab-signup')?.addEventListener('click', () => switchAuthPane('signup'));
 
-            function wireAuthButton(id, message) {
-                document.getElementById(id)?.addEventListener('click', () => {
-                    alert(message);
-                });
+            const blockedDisposableDomains = new Set([
+                '10minutemail.com', 'guerrillamail.com', 'mailinator.com', 'tempmail.com', 'trashmail.com',
+                'yopmail.com', 'getnada.com', 'throwawaymail.com', 'temp-mail.org', 'dispostable.com'
+            ]);
+
+            const likelyDomainTypos = {
+                'gmial.com': 'gmail.com',
+                'gamil.com': 'gmail.com',
+                'gnail.com': 'gmail.com',
+                'hotnail.com': 'hotmail.com',
+                'outllok.com': 'outlook.com',
+                'yaho.com': 'yahoo.com'
+            };
+
+            function setFeedback(node, text, status) {
+                if (!node) return;
+                node.textContent = text || '';
+                node.classList.remove('ok', 'warn', 'error');
+                if (status) node.classList.add(status);
             }
 
-            wireAuthButton('login-submit', 'Email login action placeholder: connect this button to your auth API.');
-            wireAuthButton('signup-submit', 'Email signup action placeholder: connect this button to your auth API.');
+            function validateEmailAddress(rawEmail) {
+                const email = String(rawEmail || '').trim().toLowerCase();
+                if (!email) {
+                    return { ok: false, status: 'error', message: 'Email is required.' };
+                }
+                const basicFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!basicFormat.test(email)) {
+                    return { ok: false, status: 'error', message: 'Enter a valid email address.' };
+                }
+
+                const domain = email.split('@')[1];
+                if (blockedDisposableDomains.has(domain)) {
+                    return { ok: false, status: 'error', message: 'Disposable email domains are not allowed.' };
+                }
+                if (domain.includes('temp') || domain.includes('fake') || domain.includes('mailinator')) {
+                    return { ok: false, status: 'warn', message: 'This domain looks temporary. Please use a primary inbox.' };
+                }
+                if (likelyDomainTypos[domain]) {
+                    return { ok: true, status: 'warn', message: 'Did you mean ' + likelyDomainTypos[domain] + '?' };
+                }
+                return { ok: true, status: 'ok', message: 'Email looks good.' };
+            }
+
+            function evaluatePasswordStrength(rawPassword) {
+                const password = String(rawPassword || '');
+                let score = 0;
+                if (password.length >= 8) score += 1;
+                if (password.length >= 12) score += 1;
+                if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score += 1;
+                if (/\d/.test(password)) score += 1;
+                if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+                const levels = [
+                    { label: 'Very weak', color: '#dc2626', width: 10, ok: false },
+                    { label: 'Weak', color: '#ef4444', width: 25, ok: false },
+                    { label: 'Fair', color: '#f59e0b', width: 45, ok: false },
+                    { label: 'Good', color: '#84cc16', width: 70, ok: true },
+                    { label: 'Strong', color: '#22c55e', width: 90, ok: true },
+                    { label: 'Very strong', color: '#16a34a', width: 100, ok: true }
+                ];
+                const level = levels[Math.min(score, levels.length - 1)];
+                if (!password) {
+                    return { ok: false, label: 'Enter a password.', color: '#9ca3af', width: 0 };
+                }
+                return { ok: level.ok, label: 'Password strength: ' + level.label, color: level.color, width: level.width };
+            }
+
+            const loginEmailInput = document.getElementById('login-email');
+            const signupEmailInput = document.getElementById('signup-email');
+            const signupPasswordInput = document.getElementById('signup-password');
+            const loginEmailFeedback = document.getElementById('login-email-feedback');
+            const signupEmailFeedback = document.getElementById('signup-email-feedback');
+            const signupPasswordFeedback = document.getElementById('signup-password-feedback');
+            const signupPasswordStrengthFill = document.getElementById('signup-password-strength-fill');
+
+            function validateAndRenderEmail(inputNode, feedbackNode) {
+                const result = validateEmailAddress(inputNode?.value);
+                setFeedback(feedbackNode, result.message, result.status);
+                return result.ok;
+            }
+
+            function validateAndRenderPassword() {
+                const result = evaluatePasswordStrength(signupPasswordInput?.value);
+                if (signupPasswordStrengthFill) {
+                    signupPasswordStrengthFill.style.width = result.width + '%';
+                    signupPasswordStrengthFill.style.backgroundColor = result.color;
+                }
+                setFeedback(signupPasswordFeedback, result.label, result.ok ? 'ok' : 'warn');
+                return result.ok;
+            }
+
+            loginEmailInput?.addEventListener('input', () => validateAndRenderEmail(loginEmailInput, loginEmailFeedback));
+            signupEmailInput?.addEventListener('input', () => validateAndRenderEmail(signupEmailInput, signupEmailFeedback));
+            signupPasswordInput?.addEventListener('input', validateAndRenderPassword);
+
+            function wireAuthButton(id, handler) {
+                document.getElementById(id)?.addEventListener('click', handler);
+            }
+
+            wireAuthButton('login-submit', () => {
+                const emailValid = validateAndRenderEmail(loginEmailInput, loginEmailFeedback);
+                if (!emailValid) {
+                    alert('Please use a valid, non-disposable email before login.');
+                    return;
+                }
+                alert('Email login action placeholder: connect this button to your auth API.');
+            });
+
+            wireAuthButton('signup-submit', () => {
+                const emailValid = validateAndRenderEmail(signupEmailInput, signupEmailFeedback);
+                const passwordStrong = validateAndRenderPassword();
+                if (!emailValid) {
+                    alert('Please use a valid, non-disposable email before signup.');
+                    return;
+                }
+                if (!passwordStrong) {
+                    alert('Please choose a stronger password before signup.');
+                    return;
+                }
+                alert('Email signup action placeholder: connect this button to your auth API.');
+            });
 
             document.querySelectorAll('.auth-social-btn').forEach((button) => {
                 button.addEventListener('click', () => {
