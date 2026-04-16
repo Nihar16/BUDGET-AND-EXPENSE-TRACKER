@@ -1,0 +1,4 @@
+# Host selection pending - keep generic fallback.
+# Netlify uses this file directly.
+# Safe to keep in repo even if using other hosts.
+/ /index.html 200
