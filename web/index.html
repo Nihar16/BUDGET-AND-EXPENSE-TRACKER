@@ -802,6 +802,49 @@
             padding: .7rem .75rem;
         }
 
+        .auth-field input.input-invalid {
+            border-color: #dc2626;
+            background: color-mix(in srgb, #dc2626 6%, var(--color-surface));
+        }
+
+        .auth-field input.input-valid {
+            border-color: #16a34a;
+        }
+
+        .password-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-wrap input {
+            padding-right: 2.6rem !important;
+        }
+
+        .pw-toggle {
+            position: absolute;
+            right: .65rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            padding: .25rem;
+            cursor: pointer;
+            color: var(--color-text-faint);
+            line-height: 0;
+            transition: color .15s;
+        }
+
+        .pw-toggle:hover {
+            color: var(--color-text);
+        }
+
+        .pw-toggle svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+        }
+
         .auth-feedback {
             min-height: 1rem;
             margin-top: .35rem;
@@ -1631,7 +1674,18 @@
                 </label>
                 <label class="auth-field">
                     <span>Password</span>
-                    <input type="password" id="login-password" autocomplete="current-password" placeholder="********" />
+                    <div class="password-wrap">
+                        <input type="password" id="login-password" autocomplete="current-password"
+                            placeholder="••••••••" />
+                        <button type="button" class="pw-toggle" id="login-pw-toggle" aria-label="Show password"
+                            aria-pressed="false">
+                            <svg id="login-pw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </button>
+                    </div>
                 </label>
                 <button class="btn btn-primary auth-submit" type="button" id="login-submit">Login with Email</button>
                 <p class="auth-divider">or continue with</p>
@@ -1667,8 +1721,18 @@
                 </label>
                 <label class="auth-field">
                     <span>Password</span>
-                    <input type="password" id="signup-password" autocomplete="new-password"
-                        placeholder="Create a strong password" />
+                    <div class="password-wrap">
+                        <input type="password" id="signup-password" autocomplete="new-password"
+                            placeholder="Create a strong password" />
+                        <button type="button" class="pw-toggle" id="signup-pw-toggle" aria-label="Show password"
+                            aria-pressed="false">
+                            <svg id="signup-pw-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </button>
+                    </div>
                     <div class="strength-meter" aria-hidden="true">
                         <div class="strength-meter-fill" id="signup-password-strength-fill"></div>
                     </div>
@@ -2459,18 +2523,54 @@
             document.getElementById('tab-login')?.addEventListener('click', () => switchAuthPane('login'));
             document.getElementById('tab-signup')?.addEventListener('click', () => switchAuthPane('signup'));
 
-            const blockedDisposableDomains = new Set([
-                '10minutemail.com', 'guerrillamail.com', 'mailinator.com', 'tempmail.com', 'trashmail.com',
-                'yopmail.com', 'getnada.com', 'throwawaymail.com', 'temp-mail.org', 'dispostable.com'
+            // ── Email Allowlist ───────────────────────────────────────────────────────
+            // Only well-known, legitimate email providers are accepted.
+            const allowedEmailDomains = new Set([
+                // Google
+                'gmail.com', 'googlemail.com',
+                // Microsoft
+                'outlook.com', 'hotmail.com', 'hotmail.co.uk', 'hotmail.fr', 'hotmail.de',
+                'hotmail.es', 'hotmail.it', 'live.com', 'live.co.uk', 'live.fr', 'live.ca',
+                'live.com.au', 'msn.com', 'passport.com',
+                // Apple
+                'icloud.com', 'me.com', 'mac.com',
+                // Yahoo
+                'yahoo.com', 'yahoo.co.uk', 'yahoo.fr', 'yahoo.de', 'yahoo.es',
+                'yahoo.it', 'yahoo.ca', 'yahoo.com.au', 'yahoo.co.in', 'ymail.com',
+                // ProtonMail
+                'proton.me', 'protonmail.com', 'protonmail.ch',
+                // Zoho
+                'zoho.com', 'zohomail.com',
+                // AOL / Verizon
+                'aol.com', 'aim.com', 'verizon.net',
+                // Other reputable providers
+                'mail.com', 'gmx.com', 'gmx.net', 'gmx.de', 'gmx.co.uk',
+                'tutanota.com', 'tutamail.com', 'tuta.io',
+                'fastmail.com', 'fastmail.fm', 'hey.com',
+                'pm.me', 'skiff.com',
+                // Regional / common
+                'yandex.com', 'yandex.ru', 'mail.ru', 'inbox.com',
+                'seznam.cz', 'web.de', 't-online.de', 'freenet.de',
+                'orange.fr', 'wanadoo.fr', 'sfr.fr', 'laposte.net',
+                'shaw.ca', 'rogers.com', 'telus.net', 'bell.net', 'videotron.ca',
+                'bigpond.com', 'optusnet.com.au', 'iinet.net.au',
+                'btinternet.com', 'sky.com', 'virginmedia.com', 'talktalk.net',
+                'comcast.net', 'att.net', 'sbcglobal.net', 'bellsouth.net', 'cox.net',
+                'charter.net', 'earthlink.net', 'mindspring.com',
             ]);
 
+            // Common typo corrections shown as a helpful hint
             const likelyDomainTypos = {
-                'gmial.com': 'gmail.com',
-                'gamil.com': 'gmail.com',
-                'gnail.com': 'gmail.com',
-                'hotnail.com': 'hotmail.com',
-                'outllok.com': 'outlook.com',
-                'yaho.com': 'yahoo.com'
+                'gmial.com': 'gmail.com', 'gamil.com': 'gmail.com', 'gnail.com': 'gmail.com',
+                'gmal.com': 'gmail.com', 'gmali.com': 'gmail.com', 'gmai.com': 'gmail.com',
+                'gmaill.com': 'gmail.com', 'gmailcom': 'gmail.com',
+                'hotnail.com': 'hotmail.com', 'hotmial.com': 'hotmail.com',
+                'hotmal.com': 'hotmail.com', 'hotmil.com': 'hotmail.com',
+                'outllok.com': 'outlook.com', 'outlok.com': 'outlook.com',
+                'outloook.com': 'outlook.com', 'outlookcom': 'outlook.com',
+                'iclould.com': 'icloud.com', 'iclod.com': 'icloud.com',
+                'yaho.com': 'yahoo.com', 'yahooo.com': 'yahoo.com', 'yhoo.com': 'yahoo.com',
+                'protonmial.com': 'protonmail.com', 'protonmil.com': 'protonmail.com',
             };
 
             function setFeedback(node, text, status) {
@@ -2485,22 +2585,34 @@
                 if (!email) {
                     return { ok: false, status: 'error', message: 'Email is required.' };
                 }
-                const basicFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!basicFormat.test(email)) {
-                    return { ok: false, status: 'error', message: 'Enter a valid email address.' };
+
+                // Must match user@domain.tld — no spaces, exactly one @, domain has a dot
+                const strictFormat = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+                if (!strictFormat.test(email)) {
+                    return { ok: false, status: 'error', message: 'Enter a valid email address (e.g. you@gmail.com).' };
                 }
 
-                const domain = email.split('@')[1];
-                if (blockedDisposableDomains.has(domain)) {
-                    return { ok: false, status: 'error', message: 'Disposable email domains are not allowed.' };
+                // Reject double dots, leading/trailing dots in local part
+                const [local, domain] = email.split('@');
+                if (/\.{2,}/.test(email) || local.startsWith('.') || local.endsWith('.')) {
+                    return { ok: false, status: 'error', message: 'Email format is invalid (check for extra dots).' };
                 }
-                if (domain.includes('temp') || domain.includes('fake') || domain.includes('mailinator')) {
-                    return { ok: false, status: 'warn', message: 'This domain looks temporary. Please use a primary inbox.' };
-                }
+
+                // Typo hint — check before allowlist so user sees correction suggestion
                 if (likelyDomainTypos[domain]) {
-                    return { ok: true, status: 'warn', message: 'Did you mean ' + likelyDomainTypos[domain] + '?' };
+                    return { ok: false, status: 'warn', message: '✏️ Did you mean @' + likelyDomainTypos[domain] + '?' };
                 }
-                return { ok: true, status: 'ok', message: 'Email looks good.' };
+
+                // Strict allowlist check
+                if (!allowedEmailDomains.has(domain)) {
+                    return {
+                        ok: false,
+                        status: 'error',
+                        message: 'Please use a recognised email provider (e.g. Gmail, Outlook, iCloud, Yahoo).'
+                    };
+                }
+
+                return { ok: true, status: 'ok', message: '✓ Email address accepted.' };
             }
 
             function evaluatePasswordStrength(rawPassword) {
@@ -2538,6 +2650,10 @@
             function validateAndRenderEmail(inputNode, feedbackNode) {
                 const result = validateEmailAddress(inputNode?.value);
                 setFeedback(feedbackNode, result.message, result.status);
+                if (inputNode) {
+                    inputNode.classList.toggle('input-invalid', !result.ok && inputNode.value.length > 0);
+                    inputNode.classList.toggle('input-valid', result.ok);
+                }
                 return result.ok;
             }
 
@@ -2590,6 +2706,27 @@
                     alert(verb + ' with ' + provider + ' placeholder: connect provider SDK flow here.');
                 });
             });
+
+            // ── Password Show / Hide Toggles ──────────────────────────────────────────
+            const EYE_OPEN = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+            const EYE_SHUT = `<path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+
+            function wirePasswordToggle(toggleId, inputId) {
+                const btn = document.getElementById(toggleId);
+                const input = document.getElementById(inputId);
+                if (!btn || !input) return;
+                const icon = btn.querySelector('svg');
+                btn.addEventListener('click', function () {
+                    const isVisible = input.type === 'text';
+                    input.type = isVisible ? 'password' : 'text';
+                    btn.setAttribute('aria-label', isVisible ? 'Show password' : 'Hide password');
+                    btn.setAttribute('aria-pressed', String(!isVisible));
+                    if (icon) icon.innerHTML = isVisible ? EYE_OPEN : EYE_SHUT;
+                });
+            }
+
+            wirePasswordToggle('login-pw-toggle', 'login-password');
+            wirePasswordToggle('signup-pw-toggle', 'signup-password');
 
             // ─── Screenshot Labels ───────────────────────────────────────────────────
             const screenshotLabels = [
