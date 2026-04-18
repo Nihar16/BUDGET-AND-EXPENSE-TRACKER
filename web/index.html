@@ -445,6 +445,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: var(--space-4);
+            align-items: stretch;
         }
 
         .feature-card,
@@ -455,6 +456,16 @@
             box-shadow: var(--shadow-sm);
             padding: var(--space-6);
             transition: .2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card h3 {
+            margin-bottom: var(--space-2);
+        }
+
+        .feature-card p {
+            flex: 1;
         }
 
         .feature-card:hover {
@@ -1098,12 +1109,15 @@
 
         /* ── Download section ────────────────────────────────────────── */
         .download-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: stretch;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: var(--space-4);
             margin-top: var(--space-8);
+        }
+
+        /* 5th card (Web) — center it in a new row spanning all 4 cols */
+        .download-card:last-child {
+            grid-column: 2 / 4;
         }
 
         .download-card {
@@ -1116,9 +1130,6 @@
             gap: var(--space-3);
             transition: .2s ease;
             box-shadow: var(--shadow-sm);
-            flex: 1 1 240px;
-            min-width: 220px;
-            max-width: 340px;
         }
 
         .download-card:hover {
@@ -1621,25 +1632,68 @@
         .proof-strip {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-4);
+            gap: var(--space-5);
         }
 
         .proof-item {
             background: var(--color-surface);
             border: 1px solid var(--color-border);
             border-radius: var(--radius-lg);
-            padding: var(--space-5);
+            padding: var(--space-6);
             box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .proof-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(ellipse at top left, color-mix(in srgb, var(--color-primary) 8%, transparent), transparent 65%);
+            pointer-events: none;
+        }
+
+        .proof-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+        }
+
+        .proof-item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
         }
 
         .proof-item strong {
             display: block;
-            margin-bottom: .35rem;
+            font-size: var(--text-base);
+            font-weight: 700;
+            line-height: 1.3;
         }
 
         .proof-item span {
             color: var(--color-text-muted);
             font-size: var(--text-sm);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 700px) {
+            .proof-strip {
+                grid-template-columns: 1fr;
+            }
         }
 
         .privacy-grid {
@@ -1650,7 +1704,7 @@
 
         .faq-list {
             display: grid;
-            gap: var(--space-4);
+            gap: var(--space-3);
             margin-top: var(--space-8);
         }
 
@@ -1658,17 +1712,94 @@
             background: var(--color-surface);
             border: 1px solid var(--color-border);
             border-radius: var(--radius-lg);
-            padding: var(--space-5) var(--space-6);
+            padding: 0;
             box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .faq-item[open] {
+            border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border));
+            box-shadow: var(--shadow-md);
         }
 
         .faq-item summary {
             cursor: pointer;
             font-weight: 700;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-4);
+            padding: var(--space-5) var(--space-6);
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        .faq-item p {
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-item summary::after {
+            content: '';
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid var(--color-border);
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 3v8M3 7h8' stroke='%234a5f52' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/12px no-repeat;
+            transition: transform .25s ease, border-color .2s, background-color .2s;
+        }
+
+        .faq-item[open] summary::after {
+            transform: rotate(45deg);
+            border-color: var(--color-primary);
+            background-color: color-mix(in srgb, var(--color-primary) 12%, transparent);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 3v8M3 7h8' stroke='%23157347' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+        }
+
+        [data-theme="dark"] .faq-item summary::after {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 3v8M3 7h8' stroke='%23aec1b2' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+        }
+
+        [data-theme="dark"] .faq-item[open] summary::after {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 3v8M3 7h8' stroke='%235fcb8b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+        }
+
+        .faq-item summary:hover {
+            background: var(--color-surface-2);
+        }
+
+        .faq-item[open] summary {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .faq-body {
+            padding: var(--space-5) var(--space-6);
+        }
+
+        .faq-body p {
+            color: var(--color-text-muted);
+            line-height: 1.7;
+        }
+
+        .faq-body .faq-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem;
             margin-top: var(--space-3);
+        }
+
+        .faq-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            border-radius: var(--radius-full);
+            padding: .2rem .65rem;
+            font-size: var(--text-xs);
+            font-weight: 700;
         }
 
         @media (max-width: 900px) {
@@ -1677,6 +1808,100 @@
             .privacy-grid {
                 grid-template-columns: 1fr;
             }
+        }
+
+        /* ── Consent Modal ───────────────────────────────────────────── */
+        .consent-modal {
+            position: fixed;
+            inset: 0;
+            background: color-mix(in srgb, #000 60%, transparent);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 80;
+        }
+
+        .consent-modal.open {
+            display: flex;
+        }
+
+        .consent-panel {
+            width: min(100%, 480px);
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--space-8);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-5);
+        }
+
+        .consent-panel h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-lg);
+            margin: 0;
+        }
+
+        .consent-panel p {
+            color: var(--color-text-muted);
+            font-size: var(--text-sm);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .consent-checks {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .consent-check-row {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            font-size: var(--text-sm);
+        }
+
+        .consent-check-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            accent-color: var(--color-primary);
+            cursor: pointer;
+        }
+
+        .consent-check-row label {
+            cursor: pointer;
+            line-height: 1.5;
+            color: var(--color-text-muted);
+        }
+
+        .consent-check-row label a {
+            color: var(--color-primary);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .consent-actions {
+            display: flex;
+            gap: var(--space-3);
+            justify-content: flex-end;
+        }
+
+        .consent-agree-btn {
+            opacity: 0.45;
+            cursor: not-allowed;
+            pointer-events: none;
+            transition: opacity .2s;
+        }
+
+        .consent-agree-btn.enabled {
+            opacity: 1;
+            cursor: pointer;
+            pointer-events: auto;
         }
     </style>
 
@@ -1954,15 +2179,30 @@
             </div>
         </section>
 
-        <section class="section" aria-label="Trust highlights" style="padding-top:0;">
+        <!-- Trust highlights -->
+        <section aria-label="Trust highlights" style="padding: 0 0 var(--space-4);">
             <div class="container">
-                <div class="proof-strip reveal">
-                    <div class="proof-item"><strong>Private by design</strong><span>Data stays on your device unless you
-                            choose sync.</span></div>
-                    <div class="proof-item"><strong>Built for real routines</strong><span>Track income, bills, budgets,
-                            and reports in one place.</span></div>
-                    <div class="proof-item"><strong>Ready anywhere</strong><span>Use Zpendr on mobile, desktop, or
-                            directly in the browser.</span></div>
+                <div class="proof-strip">
+
+                    <div class="proof-item reveal">
+                        <div class="proof-item-icon" aria-hidden="true">🔒</div>
+                        <strong>Private by design</strong>
+                        <span>Data stays on your device unless you choose to sync. No tracking, no ads, no selling your
+                            data.</span>
+                    </div>
+
+                    <div class="proof-item reveal">
+                        <div class="proof-item-icon" aria-hidden="true">📊</div>
+                        <strong>Built for real routines</strong>
+                        <span>Track income, bills, budgets, and reports in one place — without a learning curve.</span>
+                    </div>
+
+                    <div class="proof-item reveal">
+                        <div class="proof-item-icon" aria-hidden="true">🌐</div>
+                        <strong>Ready anywhere</strong>
+                        <span>Use Zpendr on mobile, desktop, or directly in the browser. One app, every platform.</span>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -2012,11 +2252,16 @@
                             when and if to back up.</p>
                     </article>
                     <article class="feature-card reveal"
-                        style="border-color: color-mix(in srgb, #a78bfa 30%, var(--color-border));">
-                        <span class="feature-icon">✦</span>
-                        <h3>AI Financial Insights <span class="ai-badge">Pro</span></h3>
-                        <p class="muted">Get plain-language summaries of your spending, automatic transaction
-                            categorization, monthly forecasts, and instant alerts when something looks off.</p>
+                        style="border-color: color-mix(in srgb, #a78bfa 30%, var(--color-border)); grid-column: 1 / -1; flex-direction: row; align-items: flex-start; gap: var(--space-6);">
+                        <div style="flex-shrink:0;">
+                            <span class="feature-icon" style="margin-bottom:0;">✦</span>
+                        </div>
+                        <div>
+                            <h3 style="margin-bottom:var(--space-2);">AI Financial Insights <span
+                                    class="ai-badge">Pro</span></h3>
+                            <p class="muted">Get plain-language summaries of your spending, automatic transaction
+                                categorization, monthly forecasts, and instant alerts when something looks off.</p>
+                        </div>
                     </article>
                 </div>
             </div>
@@ -2134,24 +2379,47 @@
         <section class="section" id="who-its-for">
             <div class="container">
                 <h2>Who it is for</h2>
-                <p class="section-intro">Zpendr is designed for everyday budgeting, but it is especially useful when
-                    your finances span multiple devices, recurring payments, or currencies.</p>
+                <p class="section-intro">Zpendr is built for anyone who wants a clearer picture of their money — whether
+                    you're managing solo expenses, running a household, or tracking income across borders.</p>
                 <div class="feature-grid">
+
                     <article class="feature-card reveal">
+                        <span class="feature-icon">🎓</span>
                         <h3>Students</h3>
                         <p class="muted">Track monthly spending limits, tuition-related expenses, and recurring bills
                             without dealing with a complicated finance app.</p>
                     </article>
+
                     <article class="feature-card reveal">
+                        <span class="feature-icon">💼</span>
                         <h3>Freelancers</h3>
-                        <p class="muted">Separate income and expenses, monitor categories, and export clean summaries
-                            for invoicing or tax prep.</p>
+                        <p class="muted">Separate income streams and expenses, monitor categories, and export clean
+                            summaries for invoicing or tax prep.</p>
                     </article>
+
                     <article class="feature-card reveal">
+                        <span class="feature-icon">✈️</span>
                         <h3>Travelers</h3>
                         <p class="muted">Record spending in multiple currencies and keep one clear base-currency view
                             when you are on the move.</p>
                     </article>
+
+                    <article class="feature-card reveal"
+                        style="border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border)); grid-column: span 2;">
+                        <span class="feature-icon">🏠</span>
+                        <h3>Families</h3>
+                        <p class="muted">Pool income from multiple earners, set a shared household budget, and track
+                            spending by category — groceries, utilities, school fees, and more. Everyone stays on the
+                            same page without sharing passwords.</p>
+                    </article>
+
+                    <article class="feature-card reveal">
+                        <span class="feature-icon">🙋</span>
+                        <h3>Everyone</h3>
+                        <p class="muted">No finance background needed. If you earn money and spend money, Zpendr gives
+                            you a simple, private place to see where it all goes — and plan for what comes next.</p>
+                    </article>
+
                 </div>
             </div>
         </section>
@@ -3123,31 +3391,94 @@
             <h2>Frequently Asked Questions</h2>
             <p class="section-intro">Quick answers for users worldwide.</p>
             <div class="faq-list">
+
                 <details class="faq-item reveal">
                     <summary>Do I need an account to use Zpendr?</summary>
-                    <p class="muted">No. Core tracking, budgeting, and reminders are designed to work without forcing
-                        signup first.</p>
+                    <div class="faq-body">
+                        <p>No. You can start tracking expenses, setting budgets, and managing bills the moment you open
+                            the app — no signup required. Your data is saved locally on your device automatically.</p>
+                        <p style="margin-top:var(--space-3);">Creating a free account unlocks the ability to back up
+                            your data and restore it if you switch devices. A <strong>Pro subscription</strong> adds
+                            real-time cloud sync across all your devices.</p>
+                        <div class="faq-tags">
+                            <span class="faq-tag">🔒 Local save — free, always</span>
+                            <span class="faq-tag">☁️ Cloud sync — Pro</span>
+                        </div>
+                    </div>
                 </details>
+
+                <details class="faq-item reveal">
+                    <summary>How is my data saved without an account?</summary>
+                    <div class="faq-body">
+                        <p>All your transactions, budgets, and bill reminders are stored directly on your device using
+                            local storage. Nothing is sent to any server. Your data stays completely private and works
+                            fully offline.</p>
+                        <p style="margin-top:var(--space-3);">If you uninstall the app or clear app data, local records
+                            will be removed — so exporting a backup beforehand is recommended.</p>
+                        <div class="faq-tags">
+                            <span class="faq-tag">📱 On-device storage</span>
+                            <span class="faq-tag">🚫 No server upload</span>
+                            <span class="faq-tag">📤 Export anytime</span>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="faq-item reveal">
+                    <summary>What does cloud sync do on the paid plan?</summary>
+                    <div class="faq-body">
+                        <p>With a Pro subscription, your data is encrypted and synced securely to the cloud. This
+                            means your transactions, budgets, and settings are always up to date across every device
+                            you use — phone, tablet, and desktop.</p>
+                        <p style="margin-top:var(--space-3);">You also get automatic daily backups, so you can restore
+                            your full history at any time without manual exports.</p>
+                        <div class="faq-tags">
+                            <span class="faq-tag">🔄 Real-time sync</span>
+                            <span class="faq-tag">🔐 Encrypted backups</span>
+                            <span class="faq-tag">📲 All devices</span>
+                        </div>
+                    </div>
+                </details>
+
                 <details class="faq-item reveal">
                     <summary>How does sync work with a local-first app?</summary>
-                    <p class="muted">Your default experience stays local. Sync can remain optional for people who want
-                        backups or cross-device continuity through a connected account.</p>
+                    <div class="faq-body">
+                        <p>Your default experience stays local — the app works fully without internet. When cloud sync
+                            is enabled (Pro), changes made on any device are merged automatically the next time
+                            you come online. Local data always takes priority so you never lose offline edits.</p>
+                    </div>
                 </details>
+
                 <details class="faq-item reveal">
                     <summary>Can I export my data anytime?</summary>
-                    <p class="muted">Yes. Exports help you keep ownership of your records and make reporting easier when
-                        you need a PDF or spreadsheet view.</p>
+                    <div class="faq-body">
+                        <p>Yes, on both free and paid plans. Export your full transaction history as a PDF or Excel
+                            spreadsheet at any time — useful for tax reporting, sharing with an accountant, or keeping
+                            a personal backup outside the app.</p>
+                    </div>
                 </details>
+
                 <details class="faq-item reveal">
                     <summary>What happens if I change phones or laptops?</summary>
-                    <p class="muted">If you use local storage only, you should export or back up your data before moving
-                        devices. Optional sync is intended to make that process easier.</p>
+                    <div class="faq-body">
+                        <p>If you use local storage only, export your data before switching devices. On the Pro plan,
+                            just sign in on your new device and your full history syncs automatically — nothing to
+                            transfer manually.</p>
+                        <div class="faq-tags">
+                            <span class="faq-tag">🆓 Free — export before switching</span>
+                            <span class="faq-tag">⭐ Pro — sign in and sync</span>
+                        </div>
+                    </div>
                 </details>
+
                 <details class="faq-item reveal">
                     <summary>Are AI features required?</summary>
-                    <p class="muted">No. AI tools are presented as optional extras for insights, categorization, and
-                        forecasting rather than a requirement for basic budgeting.</p>
+                    <div class="faq-body">
+                        <p>No. AI tools are optional extras — available on Pro — for spending insights, automatic
+                            transaction categorisation, and monthly forecasts. Core budgeting works completely without
+                            them.</p>
+                    </div>
                 </details>
+
             </div>
     </section>
 
@@ -3176,13 +3507,49 @@
                 <p class="muted" style="max-width:60ch;">Download Zpendr for your device or open it in the browser to
                     see how simple local-first budgeting can feel.</p>
                 <div class="hero-actions" style="margin-top:0;">
-                    <a class="btn btn-primary" href="#download">Download free</a>
-                    <a class="btn btn-secondary" href="privacy.html" target="_blank" rel="noopener noreferrer">Read
-                        privacy policy</a>
+                    <button class="btn btn-primary" id="cta-download-btn" type="button">Download free</button>
+                    <button class="btn btn-secondary" id="cta-terms-btn" type="button">Read privacy policy &amp;
+                        terms</button>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Consent Modal -->
+    <div class="consent-modal" id="consent-modal" aria-hidden="true" role="dialog" aria-modal="true"
+        aria-labelledby="consent-title">
+        <div class="consent-panel">
+            <h3 id="consent-title">Before you download</h3>
+            <p>Please read and agree to both documents before downloading Zpendr. Your data stays private — we just need
+                you to acknowledge our policies.</p>
+
+            <div class="consent-checks">
+                <div class="consent-check-row">
+                    <input type="checkbox" id="consent-privacy" />
+                    <label for="consent-privacy">
+                        I have read and agree to the
+                        <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+                        Your data stays on your device — we never sell it.
+                    </label>
+                </div>
+                <div class="consent-check-row">
+                    <input type="checkbox" id="consent-terms" />
+                    <label for="consent-terms">
+                        I have read and agree to the
+                        <a href="terms.html" target="_blank" rel="noopener">Terms of Use</a>.
+                        This covers fair use and your rights as a user.
+                    </label>
+                </div>
+            </div>
+
+            <div class="consent-actions">
+                <button class="btn btn-secondary" id="consent-cancel" type="button">Cancel</button>
+                <a class="btn btn-primary consent-agree-btn" id="consent-agree" href="#download" aria-disabled="true">
+                    I Agree &amp; Download
+                </a>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="container footer-inner">
@@ -3274,6 +3641,77 @@
                     }
                     priceWrap.classList.remove('swapping');
                 }, 180);
+            });
+        })();
+    </script>
+
+    <script>
+        // ── Consent Modal ─────────────────────────────────────────────────────
+        (function () {
+            const modal = document.getElementById('consent-modal');
+            const agreeBtn = document.getElementById('consent-agree');
+            const cancelBtn = document.getElementById('consent-cancel');
+            const ctaDownload = document.getElementById('cta-download-btn');
+            const ctaTerms = document.getElementById('cta-terms-btn');
+            const cbPrivacy = document.getElementById('consent-privacy');
+            const cbTerms = document.getElementById('consent-terms');
+
+            function openModal() {
+                if (!modal) return;
+                // Reset checkboxes each time modal opens
+                cbPrivacy.checked = false;
+                cbTerms.checked = false;
+                updateAgreeBtn();
+                modal.classList.add('open');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                if (!modal) return;
+                modal.classList.remove('open');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            function updateAgreeBtn() {
+                const allChecked = cbPrivacy.checked && cbTerms.checked;
+                agreeBtn.classList.toggle('enabled', allChecked);
+                agreeBtn.setAttribute('aria-disabled', String(!allChecked));
+            }
+
+            // Both CTA buttons open the consent modal
+            ctaDownload?.addEventListener('click', openModal);
+            ctaTerms?.addEventListener('click', openModal);
+
+            // Cancel closes without doing anything
+            cancelBtn?.addEventListener('click', closeModal);
+
+            // Click outside panel closes
+            modal?.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+
+            // Escape key closes
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal?.classList.contains('open')) closeModal();
+            });
+
+            // Enable agree button only when both boxes are ticked
+            cbPrivacy?.addEventListener('change', updateAgreeBtn);
+            cbTerms?.addEventListener('change', updateAgreeBtn);
+
+            // Agree button — scroll to download section and close modal
+            agreeBtn?.addEventListener('click', function (e) {
+                if (!cbPrivacy.checked || !cbTerms.checked) {
+                    e.preventDefault();
+                    return;
+                }
+                closeModal();
+                const downloadSection = document.getElementById('download');
+                if (downloadSection) {
+                    downloadSection.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         })();
     </script>
