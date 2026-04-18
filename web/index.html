@@ -1161,7 +1161,7 @@
         /* ── Testimonials ────────────────────────────────────────────── */
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: var(--space-4);
             margin-top: var(--space-8);
         }
@@ -1547,9 +1547,12 @@
         }
 
         @media (max-width: 640px) {
-            .download-card {
-                min-width: calc(50% - var(--space-2));
-                max-width: none;
+            .download-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .download-card:last-child {
+                grid-column: 1 / -1;
             }
 
             .changelog-item {
@@ -1563,8 +1566,12 @@
         }
 
         @media (max-width: 420px) {
-            .download-card {
-                min-width: 100%;
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .download-card:last-child {
+                grid-column: 1;
             }
         }
 
@@ -2159,6 +2166,8 @@
                         <span>·</span>
                         <span>📱 All platforms</span>
                         <span>·</span>
+                        <span>👨‍👩‍👧 Family budgeting</span>
+                        <span>·</span>
                         <span>🆓 Free to use</span>
                     </div>
                 </div>
@@ -2174,6 +2183,10 @@
                                 class="muted">Smart reminders</span></div>
                         <div class="stat"><span class="muted">Review</span><strong>Reports</strong><span
                                 class="muted">Charts & exports</span></div>
+                        <div class="stat"><span class="muted">Share</span><strong>Family</strong><span
+                                class="muted">Household budgets</span></div>
+                        <div class="stat"><span class="muted">Sync</span><strong>All devices</strong><span
+                                class="muted">Pro cloud backup</span></div>
                     </div>
                 </aside>
             </div>
@@ -2274,21 +2287,25 @@
                     data starts local, stays readable to you, and only leaves your device when you decide it should.</p>
                 <div class="privacy-grid">
                     <article class="feature-card reveal">
+                        <span class="feature-icon">📱</span>
                         <h3>Local-first storage</h3>
                         <p class="muted">Your financial records stay on your device by default, so you can start
                             tracking without creating an account first.</p>
                     </article>
                     <article class="feature-card reveal">
+                        <span class="feature-icon">🙈</span>
                         <h3>No account required</h3>
                         <p class="muted">Use core budgeting features immediately. Optional account features can be
                             reserved for sync, backup, and advanced tools.</p>
                     </article>
                     <article class="feature-card reveal">
+                        <span class="feature-icon">📶</span>
                         <h3>Offline-friendly</h3>
                         <p class="muted">Log transactions, review budgets, and check upcoming bills even when you are
                             not constantly connected.</p>
                     </article>
                     <article class="feature-card reveal">
+                        <span class="feature-icon">📤</span>
                         <h3>Export anytime</h3>
                         <p class="muted">Keep control of your data with PDF and Excel exports for reporting, backup, or
                             sharing with your accountant.</p>
@@ -2431,18 +2448,21 @@
                 <p class="section-intro">Three simple steps to take control of your finances.</p>
                 <div class="steps">
                     <article class="step reveal">
+                        <span class="feature-icon">⬇️</span>
                         <div class="step-number">Step 01</div>
                         <h3>Download Zpendr</h3>
                         <p class="muted">Choose your platform and get started instantly. No signup required — your data
                             stays on your device.</p>
                     </article>
                     <article class="step reveal">
+                        <span class="feature-icon">✏️</span>
                         <div class="step-number">Step 02</div>
                         <h3>Log your transactions</h3>
                         <p class="muted">Add income and expenses as they happen. Use categories to turn daily activity
                             into a clear monthly picture.</p>
                     </article>
                     <article class="step reveal">
+                        <span class="feature-icon">🎯</span>
                         <div class="step-number">Step 03</div>
                         <h3>Set budgets & reminders</h3>
                         <p class="muted">Create spending limits and keep bills visible. Track progress so your plan
@@ -2545,6 +2565,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="testimonial-card reveal">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-quote">"My partner and I finally have one place for our household budget. We
+                        can both add expenses and see where we stand at a glance — no more end-of-month surprises."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">NP</div>
+                        <div>
+                            <div class="author-name">Nadia P.</div>
+                            <div class="author-title">Parent of two · Mumbai, IN</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2612,6 +2644,7 @@
                         <li>Cloud sync across devices</li>
                         <li>Automatic backups</li>
                         <li>Advanced reports &amp; trends</li>
+                        <li>Family shared budgets (up to 6 members)</li>
                         <li>Priority support</li>
                         <li>Early access to new features</li>
                         <li class="ai-feature">AI spend insights &amp; summaries <span class="ai-badge">✦ AI</span></li>
@@ -2623,9 +2656,6 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    </div>
     </section>
 
     <!-- Feature Comparison -->
@@ -2695,6 +2725,11 @@
                         </tr>
                         <tr>
                             <td class="feature-name">Priority support</td>
+                            <td><span class="cross">–</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Family shared budgets (up to 6 members)</td>
                             <td><span class="cross">–</span></td>
                             <td><span class="check">✓</span></td>
                         </tr>
@@ -3487,13 +3522,8 @@
             <h2>Support</h2>
             <p class="section-intro">Need help? Reach out by email or through the support page.</p>
             <div class="cta-box" style="gap:var(--space-4);">
-                <p class="muted">Email: <a
-                        href="/cdn-cgi/l/email-protection#22515752524d5056625b4d57500f464d4f434b4c0c414d4f"><span
-                            class="__cf_email__"
-                            data-cfemail="4635333636293432063f2933346b22292b272f286825292b">[email&#160;protected]</span></a>
-                </p>
-                <a class="btn btn-primary"
-                    href="/cdn-cgi/l/email-protection#80f3f5f0f0eff2f4c0f9eff5f2ade4efede1e9eeaee3efed">Contact
+                <p class="muted">Email: <a href="mailto:support@zpendr.com">support@zpendr.com</a></p>
+                <a class="btn btn-primary" href="mailto:support@zpendr.com?subject=Support%20Request">Contact
                     Support</a>
             </div>
         </div>
@@ -3508,6 +3538,7 @@
                     see how simple local-first budgeting can feel.</p>
                 <div class="hero-actions" style="margin-top:0;">
                     <button class="btn btn-primary" id="cta-download-btn" type="button">Download free</button>
+
                 </div>
             </div>
         </div>
@@ -3646,6 +3677,7 @@
     <script>
         // ── Consent Modal ─────────────────────────────────────────────────────
         (function () {
+            const CONSENT_KEY = 'zpendr_consent_v1';
             const modal = document.getElementById('consent-modal');
             const agreeBtn = document.getElementById('consent-agree');
             const cancelBtn = document.getElementById('consent-cancel');
@@ -3654,15 +3686,24 @@
             const cbPrivacy = document.getElementById('consent-privacy');
             const cbTerms = document.getElementById('consent-terms');
 
+            function hasConsented() {
+                try { return localStorage.getItem(CONSENT_KEY) === 'agreed'; } catch (e) { return false; }
+            }
+
+            function saveConsent() {
+                try { localStorage.setItem(CONSENT_KEY, 'agreed'); } catch (e) { }
+            }
+
             function openModal() {
                 if (!modal) return;
-                // Reset checkboxes each time modal opens
                 cbPrivacy.checked = false;
                 cbTerms.checked = false;
                 updateAgreeBtn();
                 modal.classList.add('open');
                 modal.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
+                // Focus first checkbox for accessibility
+                setTimeout(() => cbPrivacy?.focus(), 50);
             }
 
             function closeModal() {
@@ -3672,44 +3713,41 @@
                 document.body.style.overflow = '';
             }
 
+            function scrollToDownload() {
+                const downloadSection = document.getElementById('download');
+                if (downloadSection) downloadSection.scrollIntoView({ behavior: 'smooth' });
+            }
+
             function updateAgreeBtn() {
                 const allChecked = cbPrivacy.checked && cbTerms.checked;
                 agreeBtn.classList.toggle('enabled', allChecked);
                 agreeBtn.setAttribute('aria-disabled', String(!allChecked));
             }
 
-            // Both CTA buttons open the consent modal
-            ctaDownload?.addEventListener('click', openModal);
+            // CTA buttons: skip modal if already consented
+            ctaDownload?.addEventListener('click', () => {
+                if (hasConsented()) { scrollToDownload(); } else { openModal(); }
+            });
             ctaTerms?.addEventListener('click', openModal);
 
-            // Cancel closes without doing anything
             cancelBtn?.addEventListener('click', closeModal);
 
-            // Click outside panel closes
             modal?.addEventListener('click', (e) => {
                 if (e.target === modal) closeModal();
             });
 
-            // Escape key closes
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modal?.classList.contains('open')) closeModal();
             });
 
-            // Enable agree button only when both boxes are ticked
             cbPrivacy?.addEventListener('change', updateAgreeBtn);
             cbTerms?.addEventListener('change', updateAgreeBtn);
 
-            // Agree button — scroll to download section and close modal
             agreeBtn?.addEventListener('click', function (e) {
-                if (!cbPrivacy.checked || !cbTerms.checked) {
-                    e.preventDefault();
-                    return;
-                }
+                if (!cbPrivacy.checked || !cbTerms.checked) { e.preventDefault(); return; }
+                saveConsent();
                 closeModal();
-                const downloadSection = document.getElementById('download');
-                if (downloadSection) {
-                    downloadSection.scrollIntoView({ behavior: 'smooth' });
-                }
+                scrollToDownload();
             });
         })();
     </script>
