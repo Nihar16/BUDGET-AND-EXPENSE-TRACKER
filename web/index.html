@@ -894,28 +894,59 @@
 
         .auth-socials {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: .55rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: .5rem;
         }
 
         .auth-social-btn {
-            min-height: 42px;
+            min-height: 56px;
             border: 1px solid var(--color-border);
             border-radius: var(--radius-md);
             background: var(--color-surface);
             color: var(--color-text);
             font-weight: 600;
             display: inline-flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: .45rem;
-            padding: 0 .7rem;
+            gap: .28rem;
+            padding: .5rem .35rem .45rem;
+            transition: background .15s, border-color .15s, transform .15s;
+        }
+
+        .auth-social-btn:hover {
+            background: var(--color-surface-2);
+            border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border));
+            transform: translateY(-1px);
         }
 
         .auth-social-btn svg {
-            width: 18px;
-            height: 18px;
-            flex: 0 0 18px;
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .auth-social-btn .social-label {
+            font-size: 0.67rem;
+            color: var(--color-text-muted);
+            font-weight: 600;
+            letter-spacing: .01em;
+            white-space: nowrap;
+        }
+
+        .auth-request-access {
+            display: inline-block;
+            margin-top: .4rem;
+            font-size: var(--text-xs);
+            color: var(--color-primary);
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: opacity .15s;
+        }
+
+        .auth-request-access:hover {
+            opacity: .75;
         }
 
         .auth-note {
@@ -1671,6 +1702,10 @@
                     <span>Email</span>
                     <input type="email" id="login-email" autocomplete="email" placeholder="you@example.com" />
                     <div class="auth-feedback" id="login-email-feedback" aria-live="polite"></div>
+                    <a href="mailto:support@zpendr.com?subject=Work%20Email%20Access%20Request"
+                        id="login-request-access" class="auth-request-access" style="display:none;" aria-live="polite">
+                        Using a work email? Request access →
+                    </a>
                 </label>
                 <label class="auth-field">
                     <span>Password</span>
@@ -1690,6 +1725,25 @@
                 <button class="btn btn-primary auth-submit" type="button" id="login-submit">Login with Email</button>
                 <p class="auth-divider">or continue with</p>
                 <div class="auth-socials">
+                    <!-- SSO -->
+                    <button class="auth-social-btn" type="button" data-provider="sso" data-action="login">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <rect width="24" height="24" rx="5" fill="#2d2d2d" />
+                            <path
+                                d="M12 5a4 4 0 0 0-4 4v1H7a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1h-1V9a4 4 0 0 0-4-4zm0 1.5A2.5 2.5 0 0 1 14.5 9v1h-5V9A2.5 2.5 0 0 1 12 6.5zm0 5.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"
+                                fill="#ffffff" />
+                        </svg>
+                        <span class="social-label">SSO</span>
+                    </button>
+                    <!-- Apple -->
+                    <button class="auth-social-btn" type="button" data-provider="apple" data-action="login">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="currentColor"
+                                d="M16.37 12.29c.03 3.22 2.82 4.29 2.85 4.3-.02.07-.44 1.54-1.46 3.05-.89 1.31-1.8 2.61-3.25 2.64-1.42.03-1.88-.84-3.5-.84-1.62 0-2.13.82-3.47.87-1.39.05-2.46-1.39-3.35-2.69C2.37 17.8 1 14.45 2.86 11.2c.92-1.62 2.57-2.65 4.37-2.68 1.37-.03 2.67.92 3.5.92.83 0 2.38-1.13 4.01-.96.68.03 2.57.27 3.78 2.05-.1.06-2.25 1.31-2.15 3.76zM13.66 6.66c.74-.89 1.24-2.13 1.1-3.36-1.06.04-2.34.71-3.1 1.6-.68.79-1.28 2.05-1.12 3.25 1.19.09 2.38-.6 3.12-1.49z" />
+                        </svg>
+                        <span class="social-label">Apple</span>
+                    </button>
+                    <!-- Google -->
                     <button class="auth-social-btn" type="button" data-provider="google" data-action="login">
                         <svg viewBox="0 0 48 48" aria-hidden="true">
                             <path fill="#FFC107"
@@ -1701,14 +1755,17 @@
                             <path fill="#1976D2"
                                 d="M43.6 20.5H42V20H24v8h11.3c-.8 2.4-2.4 4.4-4.6 5.8l.1-.1 6.1 5.2C36.5 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z" />
                         </svg>
-                        <span>Google</span>
+                        <span class="social-label">Google</span>
                     </button>
-                    <button class="auth-social-btn" type="button" data-provider="apple" data-action="login">
+                    <!-- Microsoft -->
+                    <button class="auth-social-btn" type="button" data-provider="microsoft" data-action="login">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill="currentColor"
-                                d="M16.37 12.29c.03 3.22 2.82 4.29 2.85 4.3-.02.07-.44 1.54-1.46 3.05-.89 1.31-1.8 2.61-3.25 2.64-1.42.03-1.88-.84-3.5-.84-1.62 0-2.13.82-3.47.87-1.39.05-2.46-1.39-3.35-2.69C2.37 17.8 1 14.45 2.86 11.2c.92-1.62 2.57-2.65 4.37-2.68 1.37-.03 2.67.92 3.5.92.83 0 2.38-1.13 4.01-.96.68.03 2.57.27 3.78 2.05-.1.06-2.25 1.31-2.15 3.76zM13.66 6.66c.74-.89 1.24-2.13 1.1-3.36-1.06.04-2.34.71-3.1 1.6-.68.79-1.28 2.05-1.12 3.25 1.19.09 2.38-.6 3.12-1.49z" />
+                            <rect x="1" y="1" width="10" height="10" fill="#F25022" />
+                            <rect x="13" y="1" width="10" height="10" fill="#7FBA00" />
+                            <rect x="1" y="13" width="10" height="10" fill="#00A4EF" />
+                            <rect x="13" y="13" width="10" height="10" fill="#FFB900" />
                         </svg>
-                        <span>Apple</span>
+                        <span class="social-label">Microsoft</span>
                     </button>
                 </div>
             </section>
@@ -1718,6 +1775,10 @@
                     <span>Email</span>
                     <input type="email" id="signup-email" autocomplete="email" placeholder="you@example.com" />
                     <div class="auth-feedback" id="signup-email-feedback" aria-live="polite"></div>
+                    <a href="mailto:support@zpendr.com?subject=Work%20Email%20Access%20Request"
+                        id="signup-request-access" class="auth-request-access" style="display:none;" aria-live="polite">
+                        Using a work email? Request access →
+                    </a>
                 </label>
                 <label class="auth-field">
                     <span>Password</span>
@@ -1741,6 +1802,25 @@
                 <button class="btn btn-primary auth-submit" type="button" id="signup-submit">Sign up with Email</button>
                 <p class="auth-divider">or continue with</p>
                 <div class="auth-socials">
+                    <!-- SSO -->
+                    <button class="auth-social-btn" type="button" data-provider="sso" data-action="signup">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <rect width="24" height="24" rx="5" fill="#2d2d2d" />
+                            <path
+                                d="M12 5a4 4 0 0 0-4 4v1H7a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1h-1V9a4 4 0 0 0-4-4zm0 1.5A2.5 2.5 0 0 1 14.5 9v1h-5V9A2.5 2.5 0 0 1 12 6.5zm0 5.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"
+                                fill="#ffffff" />
+                        </svg>
+                        <span class="social-label">SSO</span>
+                    </button>
+                    <!-- Apple -->
+                    <button class="auth-social-btn" type="button" data-provider="apple" data-action="signup">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="currentColor"
+                                d="M16.37 12.29c.03 3.22 2.82 4.29 2.85 4.3-.02.07-.44 1.54-1.46 3.05-.89 1.31-1.8 2.61-3.25 2.64-1.42.03-1.88-.84-3.5-.84-1.62 0-2.13.82-3.47.87-1.39.05-2.46-1.39-3.35-2.69C2.37 17.8 1 14.45 2.86 11.2c.92-1.62 2.57-2.65 4.37-2.68 1.37-.03 2.67.92 3.5.92.83 0 2.38-1.13 4.01-.96.68.03 2.57.27 3.78 2.05-.1.06-2.25 1.31-2.15 3.76zM13.66 6.66c.74-.89 1.24-2.13 1.1-3.36-1.06.04-2.34.71-3.1 1.6-.68.79-1.28 2.05-1.12 3.25 1.19.09 2.38-.6 3.12-1.49z" />
+                        </svg>
+                        <span class="social-label">Apple</span>
+                    </button>
+                    <!-- Google -->
                     <button class="auth-social-btn" type="button" data-provider="google" data-action="signup">
                         <svg viewBox="0 0 48 48" aria-hidden="true">
                             <path fill="#FFC107"
@@ -1752,14 +1832,17 @@
                             <path fill="#1976D2"
                                 d="M43.6 20.5H42V20H24v8h11.3c-.8 2.4-2.4 4.4-4.6 5.8l.1-.1 6.1 5.2C36.5 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z" />
                         </svg>
-                        <span>Google</span>
+                        <span class="social-label">Google</span>
                     </button>
-                    <button class="auth-social-btn" type="button" data-provider="apple" data-action="signup">
+                    <!-- Microsoft -->
+                    <button class="auth-social-btn" type="button" data-provider="microsoft" data-action="signup">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill="currentColor"
-                                d="M16.37 12.29c.03 3.22 2.82 4.29 2.85 4.3-.02.07-.44 1.54-1.46 3.05-.89 1.31-1.8 2.61-3.25 2.64-1.42.03-1.88-.84-3.5-.84-1.62 0-2.13.82-3.47.87-1.39.05-2.46-1.39-3.35-2.69C2.37 17.8 1 14.45 2.86 11.2c.92-1.62 2.57-2.65 4.37-2.68 1.37-.03 2.67.92 3.5.92.83 0 2.38-1.13 4.01-.96.68.03 2.57.27 3.78 2.05-.1.06-2.25 1.31-2.15 3.76zM13.66 6.66c.74-.89 1.24-2.13 1.1-3.36-1.06.04-2.34.71-3.1 1.6-.68.79-1.28 2.05-1.12 3.25 1.19.09 2.38-.6 3.12-1.49z" />
+                            <rect x="1" y="1" width="10" height="10" fill="#F25022" />
+                            <rect x="13" y="1" width="10" height="10" fill="#7FBA00" />
+                            <rect x="1" y="13" width="10" height="10" fill="#00A4EF" />
+                            <rect x="13" y="13" width="10" height="10" fill="#FFB900" />
                         </svg>
-                        <span>Apple</span>
+                        <span class="social-label">Microsoft</span>
                     </button>
                 </div>
             </section>
@@ -2523,40 +2606,28 @@
             document.getElementById('tab-login')?.addEventListener('click', () => switchAuthPane('login'));
             document.getElementById('tab-signup')?.addEventListener('click', () => switchAuthPane('signup'));
 
-            // ── Email Allowlist ───────────────────────────────────────────────────────
-            // Only well-known, legitimate email providers are accepted.
+            // ── Email Allowlist (personal providers only) ─────────────────────────────
+            // Exactly the domains specified in the product requirements.
             const allowedEmailDomains = new Set([
                 // Google
                 'gmail.com', 'googlemail.com',
                 // Microsoft
-                'outlook.com', 'hotmail.com', 'hotmail.co.uk', 'hotmail.fr', 'hotmail.de',
-                'hotmail.es', 'hotmail.it', 'live.com', 'live.co.uk', 'live.fr', 'live.ca',
-                'live.com.au', 'msn.com', 'passport.com',
+                'outlook.com', 'hotmail.com', 'hotmail.co.uk', 'hotmail.co.in',
+                'hotmail.fr', 'hotmail.de', 'hotmail.es', 'hotmail.it',
+                'live.com', 'live.co.uk', 'live.fr', 'live.ca', 'live.com.au',
+                'live.in', 'live.co.in', 'msn.com',
                 // Apple
                 'icloud.com', 'me.com', 'mac.com',
-                // Yahoo
-                'yahoo.com', 'yahoo.co.uk', 'yahoo.fr', 'yahoo.de', 'yahoo.es',
-                'yahoo.it', 'yahoo.ca', 'yahoo.com.au', 'yahoo.co.in', 'ymail.com',
-                // ProtonMail
-                'proton.me', 'protonmail.com', 'protonmail.ch',
-                // Zoho
-                'zoho.com', 'zohomail.com',
-                // AOL / Verizon
-                'aol.com', 'aim.com', 'verizon.net',
-                // Other reputable providers
-                'mail.com', 'gmx.com', 'gmx.net', 'gmx.de', 'gmx.co.uk',
-                'tutanota.com', 'tutamail.com', 'tuta.io',
-                'fastmail.com', 'fastmail.fm', 'hey.com',
-                'pm.me', 'skiff.com',
-                // Regional / common
-                'yandex.com', 'yandex.ru', 'mail.ru', 'inbox.com',
-                'seznam.cz', 'web.de', 't-online.de', 'freenet.de',
-                'orange.fr', 'wanadoo.fr', 'sfr.fr', 'laposte.net',
-                'shaw.ca', 'rogers.com', 'telus.net', 'bell.net', 'videotron.ca',
-                'bigpond.com', 'optusnet.com.au', 'iinet.net.au',
-                'btinternet.com', 'sky.com', 'virginmedia.com', 'talktalk.net',
-                'comcast.net', 'att.net', 'sbcglobal.net', 'bellsouth.net', 'cox.net',
-                'charter.net', 'earthlink.net', 'mindspring.com',
+                // Yahoo — all major country domains
+                'yahoo.com', 'ymail.com', 'rocketmail.com',
+                'yahoo.co.uk', 'yahoo.co.in', 'yahoo.co.jp', 'yahoo.co.nz',
+                'yahoo.co.id', 'yahoo.co.za', 'yahoo.co.ar',
+                'yahoo.com.au', 'yahoo.com.br', 'yahoo.com.mx', 'yahoo.com.ar',
+                'yahoo.com.ph', 'yahoo.com.sg', 'yahoo.com.hk', 'yahoo.com.tw',
+                'yahoo.fr', 'yahoo.de', 'yahoo.es', 'yahoo.it', 'yahoo.gr',
+                'yahoo.ca', 'yahoo.ie', 'yahoo.se', 'yahoo.dk', 'yahoo.no',
+                'yahoo.fi', 'yahoo.be', 'yahoo.at', 'yahoo.pl', 'yahoo.hu',
+                'yahoo.ro', 'yahoo.com.vn', 'yahoo.in',
             ]);
 
             // Common typo corrections shown as a helpful hint
@@ -2570,7 +2641,6 @@
                 'outloook.com': 'outlook.com', 'outlookcom': 'outlook.com',
                 'iclould.com': 'icloud.com', 'iclod.com': 'icloud.com',
                 'yaho.com': 'yahoo.com', 'yahooo.com': 'yahoo.com', 'yhoo.com': 'yahoo.com',
-                'protonmial.com': 'protonmail.com', 'protonmil.com': 'protonmail.com',
             };
 
             function setFeedback(node, text, status) {
@@ -2580,39 +2650,84 @@
                 if (status) node.classList.add(status);
             }
 
-            function validateEmailAddress(rawEmail) {
+            // ── Signup-specific: tracks whether the domain is a custom/work domain
+            const signupSubmitBtn = document.getElementById('signup-submit');
+            const requestAccessLink = document.getElementById('signup-request-access');
+            const loginRequestAccessLink = document.getElementById('login-request-access');
+
+            function setSignupSubmitState(enabled) {
+                if (!signupSubmitBtn) return;
+                signupSubmitBtn.disabled = !enabled;
+                signupSubmitBtn.style.opacity = enabled ? '' : '0.45';
+                signupSubmitBtn.style.cursor = enabled ? '' : 'not-allowed';
+            }
+
+            function setRequestAccessVisible(visible) {
+                if (requestAccessLink) requestAccessLink.style.display = visible ? 'inline-block' : 'none';
+                if (loginRequestAccessLink) loginRequestAccessLink.style.display = visible ? 'inline-block' : 'none';
+            }
+
+            function validateEmailAddress(rawEmail, isSignup) {
                 const email = String(rawEmail || '').trim().toLowerCase();
+
                 if (!email) {
+                    setRequestAccessVisible(false);
+                    if (isSignup) setSignupSubmitState(false);
                     return { ok: false, status: 'error', message: 'Email is required.' };
                 }
 
-                // Must match user@domain.tld — no spaces, exactly one @, domain has a dot
+                // Must match user@domain.tld
                 const strictFormat = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
                 if (!strictFormat.test(email)) {
+                    setRequestAccessVisible(false);
+                    if (isSignup) setSignupSubmitState(false);
                     return { ok: false, status: 'error', message: 'Enter a valid email address (e.g. you@gmail.com).' };
                 }
 
-                // Reject double dots, leading/trailing dots in local part
+                // Reject double dots / leading-trailing dots in local part
                 const [local, domain] = email.split('@');
                 if (/\.{2,}/.test(email) || local.startsWith('.') || local.endsWith('.')) {
+                    setRequestAccessVisible(false);
+                    if (isSignup) setSignupSubmitState(false);
                     return { ok: false, status: 'error', message: 'Email format is invalid (check for extra dots).' };
                 }
 
-                // Typo hint — check before allowlist so user sees correction suggestion
+                // Typo hint
                 if (likelyDomainTypos[domain]) {
+                    setRequestAccessVisible(false);
+                    if (isSignup) setSignupSubmitState(false);
                     return { ok: false, status: 'warn', message: '✏️ Did you mean @' + likelyDomainTypos[domain] + '?' };
                 }
 
-                // Strict allowlist check
-                if (!allowedEmailDomains.has(domain)) {
+                // ── Signup-specific allowlist check ───────────────────────────────────
+                if (isSignup) {
+                    if (allowedEmailDomains.has(domain)) {
+                        setSignupSubmitState(true);
+                        setRequestAccessVisible(false);
+                        return { ok: true, status: 'ok', message: '✓ Supported provider.' };
+                    } else {
+                        setSignupSubmitState(false);
+                        setRequestAccessVisible(true);
+                        return {
+                            ok: false,
+                            status: 'error',
+                            message: 'Please use Gmail, Outlook, iCloud, or Yahoo.'
+                        };
+                    }
+                }
+
+                // ── Login — same allowlist, show request-access for work domains ─────
+                if (allowedEmailDomains.has(domain)) {
+                    setRequestAccessVisible(false);
+                    return { ok: true, status: 'ok', message: '✓ Supported provider.' };
+                } else {
+                    setRequestAccessVisible(true);
                     return {
                         ok: false,
                         status: 'error',
-                        message: 'Please use a recognised email provider (e.g. Gmail, Outlook, iCloud, Yahoo).'
+                        message: 'Please use Gmail, Outlook, iCloud, or Yahoo.'
                     };
                 }
-
-                return { ok: true, status: 'ok', message: '✓ Email address accepted.' };
             }
 
             function evaluatePasswordStrength(rawPassword) {
@@ -2647,8 +2762,8 @@
             const signupPasswordFeedback = document.getElementById('signup-password-feedback');
             const signupPasswordStrengthFill = document.getElementById('signup-password-strength-fill');
 
-            function validateAndRenderEmail(inputNode, feedbackNode) {
-                const result = validateEmailAddress(inputNode?.value);
+            function validateAndRenderEmail(inputNode, feedbackNode, isSignup) {
+                const result = validateEmailAddress(inputNode?.value, isSignup);
                 setFeedback(feedbackNode, result.message, result.status);
                 if (inputNode) {
                     inputNode.classList.toggle('input-invalid', !result.ok && inputNode.value.length > 0);
@@ -2667,16 +2782,19 @@
                 return result.ok;
             }
 
-            loginEmailInput?.addEventListener('input', () => validateAndRenderEmail(loginEmailInput, loginEmailFeedback));
-            signupEmailInput?.addEventListener('input', () => validateAndRenderEmail(signupEmailInput, signupEmailFeedback));
+            loginEmailInput?.addEventListener('input', () => validateAndRenderEmail(loginEmailInput, loginEmailFeedback, false));
+            signupEmailInput?.addEventListener('input', () => validateAndRenderEmail(signupEmailInput, signupEmailFeedback, true));
             signupPasswordInput?.addEventListener('input', validateAndRenderPassword);
+
+            // Initialise signup submit button as disabled until a valid personal email is entered
+            setSignupSubmitState(false);
 
             function wireAuthButton(id, handler) {
                 document.getElementById(id)?.addEventListener('click', handler);
             }
 
             wireAuthButton('login-submit', () => {
-                const emailValid = validateAndRenderEmail(loginEmailInput, loginEmailFeedback);
+                const emailValid = validateAndRenderEmail(loginEmailInput, loginEmailFeedback, false);
                 if (!emailValid) {
                     alert('Please use a valid, non-disposable email before login.');
                     return;
@@ -2685,10 +2803,10 @@
             });
 
             wireAuthButton('signup-submit', () => {
-                const emailValid = validateAndRenderEmail(signupEmailInput, signupEmailFeedback);
+                const emailValid = validateAndRenderEmail(signupEmailInput, signupEmailFeedback, true);
                 const passwordStrong = validateAndRenderPassword();
                 if (!emailValid) {
-                    alert('Please use a valid, non-disposable email before signup.');
+                    alert('Please use a valid personal email (Gmail, Outlook, iCloud, or Yahoo) before signup.');
                     return;
                 }
                 if (!passwordStrong) {
