@@ -1617,6 +1617,67 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .proof-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-4);
+        }
+
+        .proof-item {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .proof-item strong {
+            display: block;
+            margin-bottom: .35rem;
+        }
+
+        .proof-item span {
+            color: var(--color-text-muted);
+            font-size: var(--text-sm);
+        }
+
+        .privacy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-4);
+        }
+
+        .faq-list {
+            display: grid;
+            gap: var(--space-4);
+            margin-top: var(--space-8);
+        }
+
+        .faq-item {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5) var(--space-6);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .faq-item summary {
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .faq-item p {
+            margin-top: var(--space-3);
+        }
+
+        @media (max-width: 900px) {
+
+            .proof-strip,
+            .privacy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 
     <link rel="canonical" href="https://your-domain.com" />
@@ -1647,6 +1708,7 @@
                     <a href="#features" data-i18n="navFeatures">Features</a>
                     <a href="#platforms" data-i18n="navPlatforms">Platforms</a>
                     <a href="#screenshots" data-i18n="navScreenshots">Screenshots</a>
+                    <a href="#privacy-first" data-i18n="navPrivacy">Privacy</a>
                     <a href="#how-it-works" data-i18n="navHowItWorks">How it works</a>
                 </div>
                 <button class="hamburger" id="hamburger-btn" aria-label="Toggle navigation" aria-expanded="false"
@@ -1664,7 +1726,7 @@
                     <option value="zh">中文</option>
                     <option value="hi">हिन्दी</option>
                 </select>
-                <button class="auth-toggle" id="auth-toggle" data-i18n="navAuth">Login / Sign up</button>
+                <button class="auth-toggle" id="auth-toggle" data-i18n="navAuth">Optional sync login</button>
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"
                     title="System theme">🌙</button>
 
@@ -1859,7 +1921,7 @@
             <div class="container hero-grid">
                 <div>
                     <span class="eyebrow reveal" data-i18n="heroEyebrow">💸 Budget & Expense Tracker</span>
-                    <h1 class="reveal" data-i18n="heroTitle">Your money, under control.</h1>
+                    <h1 class="reveal" data-i18n="heroTitle">Private budgeting that works across every device.</h1>
                     <p class="lead reveal" data-i18n="heroLead">Track income and expenses, set budgets by category, and
                         never miss a bill. Zpendr
                         keeps your finances organized across every device you use.</p>
@@ -1889,6 +1951,19 @@
                                 class="muted">Charts & exports</span></div>
                     </div>
                 </aside>
+            </div>
+        </section>
+
+        <section class="section" aria-label="Trust highlights" style="padding-top:0;">
+            <div class="container">
+                <div class="proof-strip reveal">
+                    <div class="proof-item"><strong>Private by design</strong><span>Data stays on your device unless you
+                            choose sync.</span></div>
+                    <div class="proof-item"><strong>Built for real routines</strong><span>Track income, bills, budgets,
+                            and reports in one place.</span></div>
+                    <div class="proof-item"><strong>Ready anywhere</strong><span>Use Zpendr on mobile, desktop, or
+                            directly in the browser.</span></div>
+                </div>
             </div>
         </section>
 
@@ -1947,6 +2022,36 @@
             </div>
         </section>
 
+        <section class="section alt-bg" id="privacy-first">
+            <div class="container">
+                <h2>Privacy by default</h2>
+                <p class="section-intro">Zpendr is built for people who want control without giving up convenience. Your
+                    data starts local, stays readable to you, and only leaves your device when you decide it should.</p>
+                <div class="privacy-grid">
+                    <article class="feature-card reveal">
+                        <h3>Local-first storage</h3>
+                        <p class="muted">Your financial records stay on your device by default, so you can start
+                            tracking without creating an account first.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <h3>No account required</h3>
+                        <p class="muted">Use core budgeting features immediately. Optional account features can be
+                            reserved for sync, backup, and advanced tools.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <h3>Offline-friendly</h3>
+                        <p class="muted">Log transactions, review budgets, and check upcoming bills even when you are
+                            not constantly connected.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <h3>Export anytime</h3>
+                        <p class="muted">Keep control of your data with PDF and Excel exports for reporting, backup, or
+                            sharing with your accountant.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
         <!-- Platforms -->
         <section class="section alt-bg" id="platforms">
             <div class="container">
@@ -1985,8 +2090,9 @@
         <!-- Screenshots -->
         <section class="section" id="screenshots">
             <div class="container">
-                <h2>App Screenshots</h2>
-                <p class="section-intro">Explore the Zpendr interface across all your devices.</p>
+                <h2>See the product in action</h2>
+                <p class="section-intro">Preview the dashboard, budgeting flows, reports, and layouts across phone,
+                    tablet, desktop, and browser.</p>
 
                 <div class="filter-container">
                     <div class="filter-group">
@@ -2021,6 +2127,31 @@
                             <span>Your Screenshot Here</span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="who-its-for">
+            <div class="container">
+                <h2>Who it is for</h2>
+                <p class="section-intro">Zpendr is designed for everyday budgeting, but it is especially useful when
+                    your finances span multiple devices, recurring payments, or currencies.</p>
+                <div class="feature-grid">
+                    <article class="feature-card reveal">
+                        <h3>Students</h3>
+                        <p class="muted">Track monthly spending limits, tuition-related expenses, and recurring bills
+                            without dealing with a complicated finance app.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <h3>Freelancers</h3>
+                        <p class="muted">Separate income and expenses, monitor categories, and export clean summaries
+                            for invoicing or tax prep.</p>
+                    </article>
+                    <article class="feature-card reveal">
+                        <h3>Travelers</h3>
+                        <p class="muted">Record spending in multiple currencies and keep one clear base-currency view
+                            when you are on the move.</p>
+                    </article>
                 </div>
             </div>
         </section>
@@ -2386,8 +2517,8 @@
                     languageSelectLabel: 'Language',
                     openZpendr: 'Open Zpendr',
                     heroEyebrow: '💸 Budget & Expense Tracker',
-                    heroTitle: 'Your money, under control.',
-                    heroLead: 'Track income and expenses, set budgets by category, and never miss a bill. Zpendr keeps your finances organized across every device you use.',
+                    heroTitle: 'Private budgeting that works across every device.',
+                    heroLead: 'Track spending, set budgets, and stay ahead of bills with a privacy-first app that works on phone, desktop, and web.',
                     downloadApp: 'Download the app',
                     seeFeatures: 'See what it does',
                     featuresTitle: 'Powerful Features',
@@ -2991,25 +3122,33 @@
         <div class="container">
             <h2>Frequently Asked Questions</h2>
             <p class="section-intro">Quick answers for users worldwide.</p>
-            <div class="feature-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
-                <article class="feature-card reveal">
-                    <h3>Does Zpendr work offline?</h3>
-                    <p class="muted">Yes. It is local-first and designed to work without constant internet access.</p>
-                </article>
-                <article class="feature-card reveal">
-                    <h3>Can I use the web version?</h3>
-                    <p class="muted">Yes. The web version opens in a new tab for browser use.</p>
-                </article>
-                <article class="feature-card reveal">
-                    <h3>Is my data private?</h3>
-                    <p class="muted">Your data stays on your device by default, with optional sync if you enable it.</p>
-                </article>
-                <article class="feature-card reveal">
-                    <h3>Can I switch languages?</h3>
-                    <p class="muted">Yes. Use the language selector to choose your preferred language.</p>
-                </article>
+            <div class="faq-list">
+                <details class="faq-item reveal">
+                    <summary>Do I need an account to use Zpendr?</summary>
+                    <p class="muted">No. Core tracking, budgeting, and reminders are designed to work without forcing
+                        signup first.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>How does sync work with a local-first app?</summary>
+                    <p class="muted">Your default experience stays local. Sync can remain optional for people who want
+                        backups or cross-device continuity through a connected account.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Can I export my data anytime?</summary>
+                    <p class="muted">Yes. Exports help you keep ownership of your records and make reporting easier when
+                        you need a PDF or spreadsheet view.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>What happens if I change phones or laptops?</summary>
+                    <p class="muted">If you use local storage only, you should export or back up your data before moving
+                        devices. Optional sync is intended to make that process easier.</p>
+                </details>
+                <details class="faq-item reveal">
+                    <summary>Are AI features required?</summary>
+                    <p class="muted">No. AI tools are presented as optional extras for insights, categorization, and
+                        forecasting rather than a requirement for basic budgeting.</p>
+                </details>
             </div>
-        </div>
     </section>
 
     <section class="section alt-bg" id="support">
@@ -3025,6 +3164,22 @@
                 <a class="btn btn-primary"
                     href="/cdn-cgi/l/email-protection#80f3f5f0f0eff2f4c0f9eff5f2ade4efede1e9eeaee3efed">Contact
                     Support</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box reveal">
+                <span class="eyebrow">Ready to start</span>
+                <h2 style="margin:0;">Start tracking privately, on your terms.</h2>
+                <p class="muted" style="max-width:60ch;">Download Zpendr for your device or open it in the browser to
+                    see how simple local-first budgeting can feel.</p>
+                <div class="hero-actions" style="margin-top:0;">
+                    <a class="btn btn-primary" href="#download">Download free</a>
+                    <a class="btn btn-secondary" href="privacy.html" target="_blank" rel="noopener noreferrer">Read
+                        privacy policy</a>
+                </div>
             </div>
         </div>
     </section>
