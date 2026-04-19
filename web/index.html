@@ -483,7 +483,7 @@
 
         .feature-card:hover,
         .step:hover {
-            translateY: (-3px);
+            transform: translateY(-3px);
             box-shadow: var(--shadow-md);
         }
 
@@ -1826,6 +1826,48 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: var(--space-4);
+        }
+
+        .faq-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+            flex-wrap: wrap;
+        }
+
+        .faq-toggle-all {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            padding: .6rem 1.1rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            color: var(--color-text-muted);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            white-space: nowrap;
+            transition: .2s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-toggle-all:hover {
+            background: var(--color-surface-2);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .faq-toggle-all svg {
+            width: 14px;
+            height: 14px;
+            transition: transform .25s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-toggle-all.all-open svg {
+            transform: rotate(45deg);
         }
 
         .faq-list {
@@ -3531,8 +3573,18 @@
 
     <section class="section" id="faq">
         <div class="container">
-            <h2>Frequently Asked Questions</h2>
-            <p class="section-intro">Quick answers for users worldwide.</p>
+            <div class="faq-header">
+                <div>
+                    <h2>Frequently Asked Questions</h2>
+                    <p class="section-intro" style="margin-bottom:0;">Quick answers for users worldwide.</p>
+                </div>
+                <button class="faq-toggle-all" id="faq-toggle-all" aria-label="Open all FAQ items">
+                    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    <span>Open all</span>
+                </button>
+            </div>
             <div class="faq-list">
 
                 <details class="faq-item reveal">
@@ -3887,6 +3939,32 @@
         })();
     </script>
 
+    <script>
+        // ── FAQ Open All / Close All ──────────────────────────────────────────
+        (function () {
+            const btn = document.getElementById('faq-toggle-all');
+            const items = document.querySelectorAll('.faq-item');
+            if (!btn || !items.length) return;
+
+            function syncState() {
+                const allOpen = Array.from(items).every(el => el.open);
+                btn.classList.toggle('all-open', allOpen);
+                btn.querySelector('span').textContent = allOpen ? 'Close all' : 'Open all';
+                btn.setAttribute('aria-label', allOpen ? 'Close all FAQ items' : 'Open all FAQ items');
+            }
+
+            btn.addEventListener('click', function () {
+                const allOpen = Array.from(items).every(el => el.open);
+                items.forEach(el => { el.open = !allOpen; });
+                syncState();
+            });
+
+            // Keep button in sync when individual items are toggled
+            items.forEach(el => {
+                el.addEventListener('toggle', syncState);
+            });
+        })();
+    </script>
 </body>
 
 </html>
