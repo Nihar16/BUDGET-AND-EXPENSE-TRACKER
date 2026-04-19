@@ -109,6 +109,7 @@
         html {
             scroll-behavior: smooth;
             background: var(--color-bg);
+            overflow-x: hidden;
         }
 
         html.no-theme-transition *,
@@ -123,6 +124,7 @@
             line-height: 1.6;
             background: var(--color-bg);
             color: var(--color-text);
+            overflow-x: hidden;
         }
 
         img,
@@ -468,8 +470,20 @@
             flex: 1;
         }
 
-        .feature-card:hover {
-            transform: translateY(-3px);
+        .feature-card--wide {
+            grid-column: span 2;
+            border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
+        }
+
+        @media (max-width: 600px) {
+            .feature-card--wide {
+                grid-column: auto;
+            }
+        }
+
+        .feature-card:hover,
+        .step:hover {
+            translateY: (-3px);
             box-shadow: var(--shadow-md);
         }
 
@@ -651,9 +665,12 @@
         @media (max-width: 900px) {
 
             .hero-grid,
-            .feature-grid,
             .steps {
                 grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .platforms-grid {
@@ -674,11 +691,21 @@
             }
         }
 
-        @media (max-width: 520px) {
+        @media (max-width: 600px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card--wide {
+                grid-column: auto;
+            }
+
             .platforms-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+        }
 
+        @media (max-width: 520px) {
             .screenshots-grid {
                 grid-template-columns: 1fr;
             }
@@ -1000,43 +1027,115 @@
 
         .mobile-menu {
             display: none;
-            /* This is the magic fix: */
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-
-            /* Ensure it's on top of everything */
             z-index: 9999;
-
-            /* Your existing styling */
-            background-color: var(--bg-color);
+            background-color: var(--color-bg);
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
+            align-items: stretch;
+            justify-content: flex-start;
+            padding: 0;
+            overflow-y: auto;
         }
 
         .mobile-menu.open {
             display: flex;
         }
 
-        .mobile-menu a {
-            padding: var(--space-3) var(--space-6);
-            font-weight: 600;
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            background: var(--color-bg);
+            z-index: 1;
+        }
+
+        .mobile-menu-brand {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .mobile-menu-brand svg {
+            width: 28px;
+            height: 28px;
+            color: var(--color-primary);
+        }
+
+        .mobile-menu-close {
+            min-height: 44px;
+            width: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            font-size: 1.2rem;
             color: var(--color-text-muted);
+            cursor: pointer;
             transition: .15s;
         }
 
-        .mobile-menu a:hover {
+        .mobile-menu-close:hover {
+            background: var(--color-surface-2);
+            color: var(--color-text);
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-4) var(--space-4);
+            gap: var(--space-2);
+            flex: 1;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: var(--space-4) var(--space-4);
+            font-weight: 600;
+            font-size: var(--text-lg);
+            color: var(--color-text-muted);
+            border-radius: var(--radius-md);
+            transition: .15s;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a:active {
             color: var(--color-text);
             background: var(--color-surface-2);
+        }
+
+        .mobile-menu-footer {
+            padding: var(--space-6);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .mobile-menu-footer .btn {
+            width: 100%;
+            justify-content: center;
         }
 
         @media (max-width: 900px) {
             .hamburger {
                 display: flex;
+            }
+
+            .language-select,
+            .auth-toggle {
+                display: none;
             }
         }
 
@@ -1115,9 +1214,36 @@
             margin-top: var(--space-8);
         }
 
-        /* 5th card (Web) — center it in a new row spanning all 4 cols */
+        /* Web card — centered in second row on desktop */
         .download-card:last-child {
             grid-column: 2 / 4;
+        }
+
+        /* Tablet: 2×2 */
+        @media (max-width: 860px) {
+            .download-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .download-card:last-child {
+                grid-column: 1 / -1;
+                max-width: 320px;
+                margin-inline: auto;
+                width: 100%;
+            }
+        }
+
+        /* Mobile: single column */
+        @media (max-width: 480px) {
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .download-card:last-child {
+                grid-column: auto;
+                max-width: 100%;
+                margin-inline: 0;
+            }
         }
 
         .download-card {
@@ -1161,7 +1287,7 @@
         /* ── Testimonials ────────────────────────────────────────────── */
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: var(--space-4);
             margin-top: var(--space-8);
         }
@@ -1547,12 +1673,9 @@
         }
 
         @media (max-width: 640px) {
-            .download-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .download-card:last-child {
-                grid-column: 1 / -1;
+            .download-card {
+                min-width: calc(50% - var(--space-2));
+                max-width: none;
             }
 
             .changelog-item {
@@ -1566,12 +1689,8 @@
         }
 
         @media (max-width: 420px) {
-            .download-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .download-card:last-child {
-                grid-column: 1;
+            .download-card {
+                min-width: 100%;
             }
         }
 
@@ -1958,7 +2077,7 @@
                     <option value="zh">中文</option>
                     <option value="hi">हिन्दी</option>
                 </select>
-                <button class="auth-toggle" id="auth-toggle" data-i18n="navAuth">Optional sync login</button>
+                <button class="auth-toggle" id="auth-toggle" data-i18n="navAuth">Login / Sign up</button>
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"
                     title="System theme">🌙</button>
 
@@ -1968,13 +2087,31 @@
 
     <!-- Mobile nav drawer -->
     <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
-        <a href="#features" data-i18n="navFeatures">Features</a>
-        <a href="#platforms" data-i18n="navPlatforms">Platforms</a>
-        <a href="#screenshots" data-i18n="navScreenshots">Screenshots</a>
-        <a href="#how-it-works" data-i18n="navHowItWorks">How it works</a>
-        <a href="#download" data-i18n="navDownload">Download</a>
-        <a href="#pricing" data-i18n="navPricing">Pricing</a>
-        <a href="#faq" data-i18n="navFaq">FAQ</a>
+        <div class="mobile-menu-header">
+            <a class="mobile-menu-brand" href="#top" aria-label="Zpendr home">
+                <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                    <rect x="6" y="10" width="52" height="44" rx="12" stroke="currentColor" stroke-width="4" />
+                    <path d="M18 24h28M18 32h18M18 40h24" stroke="currentColor" stroke-width="4"
+                        stroke-linecap="round" />
+                </svg>
+                <span>Zpendr</span>
+            </a>
+            <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">✕</button>
+        </div>
+        <div class="mobile-menu-links">
+            <a href="#features" data-i18n="navFeatures">Features</a>
+            <a href="#platforms" data-i18n="navPlatforms">Platforms</a>
+            <a href="#screenshots" data-i18n="navScreenshots">Screenshots</a>
+            <a href="#privacy-first">Privacy</a>
+            <a href="#how-it-works" data-i18n="navHowItWorks">How it works</a>
+            <a href="#download" data-i18n="navDownload">Download</a>
+            <a href="#pricing" data-i18n="navPricing">Pricing</a>
+            <a href="#faq" data-i18n="navFaq">FAQ</a>
+        </div>
+        <div class="mobile-menu-footer">
+            <button class="btn btn-primary" id="mobile-cta-download">Download Free</button>
+            <button class="btn btn-secondary" id="mobile-auth-toggle">Login / Sign up</button>
+        </div>
     </nav>
 
     <div class="auth-modal" id="auth-modal" aria-hidden="true">
@@ -2166,8 +2303,6 @@
                         <span>·</span>
                         <span>📱 All platforms</span>
                         <span>·</span>
-                        <span>👨‍👩‍👧 Family budgeting</span>
-                        <span>·</span>
                         <span>🆓 Free to use</span>
                     </div>
                 </div>
@@ -2183,10 +2318,6 @@
                                 class="muted">Smart reminders</span></div>
                         <div class="stat"><span class="muted">Review</span><strong>Reports</strong><span
                                 class="muted">Charts & exports</span></div>
-                        <div class="stat"><span class="muted">Share</span><strong>Family</strong><span
-                                class="muted">Household budgets</span></div>
-                        <div class="stat"><span class="muted">Sync</span><strong>All devices</strong><span
-                                class="muted">Pro cloud backup</span></div>
                     </div>
                 </aside>
             </div>
@@ -2287,25 +2418,21 @@
                     data starts local, stays readable to you, and only leaves your device when you decide it should.</p>
                 <div class="privacy-grid">
                     <article class="feature-card reveal">
-                        <span class="feature-icon">📱</span>
                         <h3>Local-first storage</h3>
                         <p class="muted">Your financial records stay on your device by default, so you can start
                             tracking without creating an account first.</p>
                     </article>
                     <article class="feature-card reveal">
-                        <span class="feature-icon">🙈</span>
                         <h3>No account required</h3>
                         <p class="muted">Use core budgeting features immediately. Optional account features can be
                             reserved for sync, backup, and advanced tools.</p>
                     </article>
                     <article class="feature-card reveal">
-                        <span class="feature-icon">📶</span>
                         <h3>Offline-friendly</h3>
                         <p class="muted">Log transactions, review budgets, and check upcoming bills even when you are
                             not constantly connected.</p>
                     </article>
                     <article class="feature-card reveal">
-                        <span class="feature-icon">📤</span>
                         <h3>Export anytime</h3>
                         <p class="muted">Keep control of your data with PDF and Excel exports for reporting, backup, or
                             sharing with your accountant.</p>
@@ -2421,8 +2548,7 @@
                             when you are on the move.</p>
                     </article>
 
-                    <article class="feature-card reveal"
-                        style="border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border)); grid-column: span 2;">
+                    <article class="feature-card feature-card--wide reveal">
                         <span class="feature-icon">🏠</span>
                         <h3>Families</h3>
                         <p class="muted">Pool income from multiple earners, set a shared household budget, and track
@@ -2448,21 +2574,18 @@
                 <p class="section-intro">Three simple steps to take control of your finances.</p>
                 <div class="steps">
                     <article class="step reveal">
-                        <span class="feature-icon">⬇️</span>
                         <div class="step-number">Step 01</div>
                         <h3>Download Zpendr</h3>
                         <p class="muted">Choose your platform and get started instantly. No signup required — your data
                             stays on your device.</p>
                     </article>
                     <article class="step reveal">
-                        <span class="feature-icon">✏️</span>
                         <div class="step-number">Step 02</div>
                         <h3>Log your transactions</h3>
                         <p class="muted">Add income and expenses as they happen. Use categories to turn daily activity
                             into a clear monthly picture.</p>
                     </article>
                     <article class="step reveal">
-                        <span class="feature-icon">🎯</span>
                         <div class="step-number">Step 03</div>
                         <h3>Set budgets & reminders</h3>
                         <p class="muted">Create spending limits and keep bills visible. Track progress so your plan
@@ -2565,18 +2688,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card reveal">
-                    <div class="stars">★★★★★</div>
-                    <p class="testimonial-quote">"My partner and I finally have one place for our household budget. We
-                        can both add expenses and see where we stand at a glance — no more end-of-month surprises."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">NP</div>
-                        <div>
-                            <div class="author-name">Nadia P.</div>
-                            <div class="author-title">Parent of two · Mumbai, IN</div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -2644,7 +2755,6 @@
                         <li>Cloud sync across devices</li>
                         <li>Automatic backups</li>
                         <li>Advanced reports &amp; trends</li>
-                        <li>Family shared budgets (up to 6 members)</li>
                         <li>Priority support</li>
                         <li>Early access to new features</li>
                         <li class="ai-feature">AI spend insights &amp; summaries <span class="ai-badge">✦ AI</span></li>
@@ -2656,6 +2766,9 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    </div>
     </section>
 
     <!-- Feature Comparison -->
@@ -2725,11 +2838,6 @@
                         </tr>
                         <tr>
                             <td class="feature-name">Priority support</td>
-                            <td><span class="cross">–</span></td>
-                            <td><span class="check">✓</span></td>
-                        </tr>
-                        <tr>
-                            <td class="feature-name">Family shared budgets (up to 6 members)</td>
                             <td><span class="cross">–</span></td>
                             <td><span class="check">✓</span></td>
                         </tr>
@@ -3522,8 +3630,13 @@
             <h2>Support</h2>
             <p class="section-intro">Need help? Reach out by email or through the support page.</p>
             <div class="cta-box" style="gap:var(--space-4);">
-                <p class="muted">Email: <a href="mailto:support@zpendr.com">support@zpendr.com</a></p>
-                <a class="btn btn-primary" href="mailto:support@zpendr.com?subject=Support%20Request">Contact
+                <p class="muted">Email: <a
+                        href="/cdn-cgi/l/email-protection#22515752524d5056625b4d57500f464d4f434b4c0c414d4f"><span
+                            class="__cf_email__"
+                            data-cfemail="4635333636293432063f2933346b22292b272f286825292b">[email&#160;protected]</span></a>
+                </p>
+                <a class="btn btn-primary"
+                    href="/cdn-cgi/l/email-protection#80f3f5f0f0eff2f4c0f9eff5f2ade4efede1e9eeaee3efed">Contact
                     Support</a>
             </div>
         </div>
@@ -3607,24 +3720,53 @@
         (function () {
             const hamburgerBtn = document.getElementById('hamburger-btn');
             const mobileMenu = document.getElementById('mobile-menu');
+            const closeBtn = document.getElementById('mobile-menu-close');
+            const mobileAuthToggle = document.getElementById('mobile-auth-toggle');
+            const mobileCtaDownload = document.getElementById('mobile-cta-download');
+            const authToggle = document.getElementById('auth-toggle');
+            const ctaDownloadBtn = document.getElementById('cta-download-btn');
+
+            function openMenu() {
+                hamburgerBtn.classList.add('open');
+                mobileMenu.classList.add('open');
+                hamburgerBtn.setAttribute('aria-expanded', 'true');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMenu() {
+                hamburgerBtn.classList.remove('open');
+                mobileMenu.classList.remove('open');
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
 
             if (hamburgerBtn && mobileMenu) {
                 hamburgerBtn.addEventListener('click', function () {
-                    // This toggles the animation on the bars and shows the menu
-                    const isOpen = hamburgerBtn.classList.toggle('open');
-                    mobileMenu.classList.toggle('open');
-
-                    // Updates accessibility state
-                    hamburgerBtn.setAttribute('aria-expanded', isOpen);
+                    const isOpen = hamburgerBtn.classList.contains('open');
+                    isOpen ? closeMenu() : openMenu();
                 });
+
+                closeBtn?.addEventListener('click', closeMenu);
 
                 // Closes the menu automatically when a link is clicked
                 mobileMenu.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        hamburgerBtn.classList.remove('open');
-                        mobileMenu.classList.remove('open');
-                        hamburgerBtn.setAttribute('aria-expanded', 'false');
-                    });
+                    link.addEventListener('click', closeMenu);
+                });
+
+                // Mobile footer buttons
+                mobileAuthToggle?.addEventListener('click', function () {
+                    closeMenu();
+                    authToggle?.click();
+                });
+
+                mobileCtaDownload?.addEventListener('click', function () {
+                    closeMenu();
+                    // Trigger the consent modal or scroll to download
+                    if (ctaDownloadBtn) {
+                        ctaDownloadBtn.click();
+                    } else {
+                        document.getElementById('download')?.scrollIntoView({ behavior: 'smooth' });
+                    }
                 });
             }
         })();
@@ -3677,7 +3819,6 @@
     <script>
         // ── Consent Modal ─────────────────────────────────────────────────────
         (function () {
-            const CONSENT_KEY = 'zpendr_consent_v1';
             const modal = document.getElementById('consent-modal');
             const agreeBtn = document.getElementById('consent-agree');
             const cancelBtn = document.getElementById('consent-cancel');
@@ -3686,24 +3827,15 @@
             const cbPrivacy = document.getElementById('consent-privacy');
             const cbTerms = document.getElementById('consent-terms');
 
-            function hasConsented() {
-                try { return localStorage.getItem(CONSENT_KEY) === 'agreed'; } catch (e) { return false; }
-            }
-
-            function saveConsent() {
-                try { localStorage.setItem(CONSENT_KEY, 'agreed'); } catch (e) { }
-            }
-
             function openModal() {
                 if (!modal) return;
+                // Reset checkboxes each time modal opens
                 cbPrivacy.checked = false;
                 cbTerms.checked = false;
                 updateAgreeBtn();
                 modal.classList.add('open');
                 modal.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
-                // Focus first checkbox for accessibility
-                setTimeout(() => cbPrivacy?.focus(), 50);
             }
 
             function closeModal() {
@@ -3713,41 +3845,44 @@
                 document.body.style.overflow = '';
             }
 
-            function scrollToDownload() {
-                const downloadSection = document.getElementById('download');
-                if (downloadSection) downloadSection.scrollIntoView({ behavior: 'smooth' });
-            }
-
             function updateAgreeBtn() {
                 const allChecked = cbPrivacy.checked && cbTerms.checked;
                 agreeBtn.classList.toggle('enabled', allChecked);
                 agreeBtn.setAttribute('aria-disabled', String(!allChecked));
             }
 
-            // CTA buttons: skip modal if already consented
-            ctaDownload?.addEventListener('click', () => {
-                if (hasConsented()) { scrollToDownload(); } else { openModal(); }
-            });
+            // Both CTA buttons open the consent modal
+            ctaDownload?.addEventListener('click', openModal);
             ctaTerms?.addEventListener('click', openModal);
 
+            // Cancel closes without doing anything
             cancelBtn?.addEventListener('click', closeModal);
 
+            // Click outside panel closes
             modal?.addEventListener('click', (e) => {
                 if (e.target === modal) closeModal();
             });
 
+            // Escape key closes
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modal?.classList.contains('open')) closeModal();
             });
 
+            // Enable agree button only when both boxes are ticked
             cbPrivacy?.addEventListener('change', updateAgreeBtn);
             cbTerms?.addEventListener('change', updateAgreeBtn);
 
+            // Agree button — scroll to download section and close modal
             agreeBtn?.addEventListener('click', function (e) {
-                if (!cbPrivacy.checked || !cbTerms.checked) { e.preventDefault(); return; }
-                saveConsent();
+                if (!cbPrivacy.checked || !cbTerms.checked) {
+                    e.preventDefault();
+                    return;
+                }
                 closeModal();
-                scrollToDownload();
+                const downloadSection = document.getElementById('download');
+                if (downloadSection) {
+                    downloadSection.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         })();
     </script>
