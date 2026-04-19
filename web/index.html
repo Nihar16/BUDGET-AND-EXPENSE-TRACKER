@@ -2083,6 +2083,533 @@
     <meta name="twitter:title" content="Zpendr — Budget & Expense Tracker" />
     <meta name="twitter:description" content="Track spending, plan budgets, and manage bills on every device." />
 
+
+    <style>
+        /* ── 1. Phone Mockup ───────────────────────────────────────────────── */
+        .hero-mockup {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-shell {
+            width: 220px;
+            background: var(--color-surface);
+            border: 2px solid var(--color-border);
+            border-radius: 36px;
+            padding: 14px 10px;
+            box-shadow: 0 32px 64px rgba(0, 0, 0, .18), 0 0 0 6px color-mix(in srgb, var(--color-primary) 10%, var(--color-border));
+        }
+
+        .phone-notch {
+            width: 60px;
+            height: 10px;
+            background: var(--color-border);
+            border-radius: 8px;
+            margin: 0 auto 10px;
+        }
+
+        .phone-screen {
+            background: var(--color-bg);
+            border-radius: 22px;
+            overflow: hidden;
+            padding: var(--space-4);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .phone-screen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .phone-balance {
+            font-size: .65rem;
+            color: var(--color-text-faint);
+        }
+
+        .phone-balance strong {
+            display: block;
+            font-size: 1.3rem;
+            color: var(--color-text);
+            font-family: var(--font-display);
+            line-height: 1.1;
+        }
+
+        .phone-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--color-primary-highlight);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .75rem;
+        }
+
+        .phone-bar-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .phone-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: .55rem;
+            color: var(--color-text-muted);
+        }
+
+        .phone-bar-track {
+            height: 6px;
+            background: var(--color-surface-2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .phone-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: var(--color-primary);
+        }
+
+        .phone-txn-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .phone-txn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .55rem;
+            color: var(--color-text-muted);
+        }
+
+        .phone-txn-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 8px;
+            background: var(--color-primary-highlight);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            flex-shrink: 0;
+        }
+
+        .phone-txn-name {
+            flex: 1;
+        }
+
+        .phone-txn-amt {
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .phone-txn-amt.neg {
+            color: #ef4444;
+        }
+
+        .phone-pill {
+            display: inline-flex;
+            gap: 4px;
+            align-items: center;
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            border-radius: var(--radius-full);
+            padding: .2rem .5rem;
+            font-size: .55rem;
+            font-weight: 700;
+            margin-top: var(--space-2);
+        }
+
+        /* ── 2. Live counter ───────────────────────────────────────────────── */
+        .live-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(.7)
+            }
+        }
+
+        /* ── 3. Back to top ────────────────────────────────────────────────── */
+        .back-to-top {
+            position: fixed;
+            bottom: var(--space-6);
+            right: var(--space-6);
+            z-index: 50;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity .3s ease, transform .3s ease;
+            pointer-events: none;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ── 4. Cookie banner ──────────────────────────────────────────────── */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 70;
+            background: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, .1);
+            padding: var(--space-4) var(--space-6);
+            display: flex;
+            align-items: center;
+            gap: var(--space-6);
+            flex-wrap: wrap;
+            transform: translateY(100%);
+            transition: transform .4s ease;
+        }
+
+        .cookie-banner.visible {
+            transform: translateY(0);
+        }
+
+        .cookie-banner p {
+            flex: 1;
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            min-width: 200px;
+        }
+
+        .cookie-banner p a {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        .cookie-actions {
+            display: flex;
+            gap: var(--space-2);
+            flex-shrink: 0;
+        }
+
+        .cookie-btn {
+            padding: .5rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            border: 1px solid var(--color-border);
+            background: var(--color-surface-2);
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: .15s;
+        }
+
+        .cookie-btn.primary {
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            border-color: var(--color-primary);
+        }
+
+        .cookie-btn:hover {
+            filter: brightness(1.08);
+        }
+
+        /* ── 5. Share strip ────────────────────────────────────────────────── */
+        .share-strip {
+            background: var(--color-primary-highlight);
+            border: 1px solid color-mix(in srgb, var(--color-primary) 20%, var(--color-border));
+            border-radius: var(--radius-lg);
+            padding: var(--space-6) var(--space-8);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-6);
+            flex-wrap: wrap;
+            margin-top: var(--space-8);
+        }
+
+        .share-strip-text strong {
+            display: block;
+            font-size: var(--text-base);
+            color: var(--color-text);
+            margin-bottom: .25rem;
+        }
+
+        .share-strip-text span {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+        }
+
+        .share-btns {
+            display: flex;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .55rem 1rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: .15s;
+        }
+
+        .share-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background: var(--color-surface-2);
+        }
+
+        .share-btn svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+        }
+
+        .share-copy-feedback {
+            font-size: var(--text-xs);
+            color: var(--color-primary);
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+
+        .share-copy-feedback.show {
+            opacity: 1;
+        }
+
+        /* ── 6. Keyboard shortcuts modal ───────────────────────────────────── */
+        .kbd-modal {
+            position: fixed;
+            inset: 0;
+            background: color-mix(in srgb, #000 50%, transparent);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 90;
+        }
+
+        .kbd-modal.open {
+            display: flex;
+        }
+
+        .kbd-panel {
+            width: min(100%, 460px);
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--space-6);
+        }
+
+        .kbd-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-5);
+        }
+
+        .kbd-header h3 {
+            font-size: 1.1rem;
+            font-family: var(--font-display);
+            margin: 0;
+        }
+
+        .kbd-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-muted);
+            font-size: 1rem;
+        }
+
+        .kbd-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .kbd-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+        }
+
+        .kbd-desc {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+        }
+
+        .kbd-keys {
+            display: flex;
+            gap: .3rem;
+            align-items: center;
+        }
+
+        kbd {
+            display: inline-block;
+            padding: .2rem .5rem;
+            border-radius: .3rem;
+            border: 1px solid var(--color-border);
+            background: var(--color-surface-2);
+            font-family: var(--font-body);
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--color-text);
+            box-shadow: 0 2px 0 var(--color-border);
+        }
+
+        .kbd-hint {
+            position: fixed;
+            bottom: var(--space-6);
+            left: var(--space-6);
+            z-index: 40;
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .4rem .75rem;
+            border-radius: var(--radius-full);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            font-size: var(--text-xs);
+            color: var(--color-text-faint);
+            cursor: pointer;
+            transition: .15s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .kbd-hint:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .kbd-hint kbd {
+            font-size: .65rem;
+            padding: .1rem .35rem;
+        }
+
+        /* ── 7. Skeleton loaders ───────────────────────────────────────────── */
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0
+            }
+
+            100% {
+                background-position: -200% 0
+            }
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, var(--color-surface-2) 25%, color-mix(in srgb, var(--color-primary) 8%, var(--color-surface-2)) 50%, var(--color-surface-2) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.6s ease-in-out infinite;
+            border-radius: var(--radius-md);
+        }
+
+        .skeleton-screen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 16px;
+        }
+
+        .skeleton-bar {
+            border-radius: 4px;
+        }
+
+        @media (max-width:600px) {
+            .cookie-banner {
+                flex-direction: column;
+                gap: var(--space-3);
+            }
+
+            .cookie-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .kbd-hint {
+                display: none;
+            }
+
+            .share-strip {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .phone-shell {
+                width: 180px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -2346,6 +2873,11 @@
                         <span>📱 All platforms</span>
                         <span>·</span>
                         <span>🆓 Free to use</span>
+                        <span>·</span>
+                        <span class="live-counter">
+                            <span class="live-dot"></span>
+                            <span id="currency-count">150+</span> currencies tracked
+                        </span>
                     </div>
                 </div>
                 <aside class="hero-card" aria-label="Product summary">
@@ -2555,7 +3087,50 @@
                 <div class="screenshots-grid" id="screenshot-display">
                     <div class="screenshot-slot portrait">
                         <div class="slot-media">
-                            <span>Your Screenshot Here</span>
+                            <div class="skeleton-screen">
+                                <div class="skeleton skeleton-bar" style="height:12px;width:60%;"></div>
+                                <div class="skeleton skeleton-bar" style="height:80px;width:100%;"></div>
+                                <div class="skeleton skeleton-bar" style="height:12px;width:80%;"></div>
+                                <div class="skeleton skeleton-bar" style="height:12px;width:50%;"></div>
+                                <div class="skeleton skeleton-bar" style="height:40px;width:100%;"></div>
+                                <div class="skeleton skeleton-bar" style="height:12px;width:70%;"></div>
+                            </div>
+                        </div>
+                        <div class="slot-info">
+                            <span class="slot-label">iOS · Dashboard</span>
+                            <span class="slot-caption skeleton skeleton-bar"
+                                style="height:10px;width:55%;display:block;margin-top:4px;"></span>
+                        </div>
+                    </div>
+                    <div class="screenshot-slot portrait">
+                        <div class="slot-media">
+                            <div class="skeleton-screen">
+                                <div class="skeleton skeleton-bar" style="height:12px;width:40%;"></div>
+                                <div class="skeleton skeleton-bar" style="height:60px;width:100%;"></div>
+                                <div class="skeleton skeleton-bar" style="height:12px;width:90%;"></div>
+                                <div class="skeleton skeleton-bar" style="height:12px;width:65%;"></div>
+                                <div class="skeleton skeleton-bar" style="height:50px;width:100%;"></div>
+                            </div>
+                        </div>
+                        <div class="slot-info">
+                            <span class="slot-label">iOS · Budgets</span>
+                            <span class="slot-caption skeleton skeleton-bar"
+                                style="height:10px;width:45%;display:block;margin-top:4px;"></span>
+                        </div>
+                    </div>
+                    <div class="screenshot-slot portrait">
+                        <div class="slot-media">
+                            <div class="skeleton-screen">
+                                <div class="skeleton skeleton-bar" style="height:12px;width:55%;"></div>
+                                <div class="skeleton skeleton-bar" style="height:100px;width:100%;"></div>
+                                <div class="skeleton skeleton-bar" style="height:12px;width:75%;"></div>
+                                <div class="skeleton skeleton-bar" style="height:12px;width:40%;"></div>
+                            </div>
+                        </div>
+                        <div class="slot-info">
+                            <span class="slot-label">iOS · Reports</span>
+                            <span class="slot-caption skeleton skeleton-bar"
+                                style="height:10px;width:60%;display:block;margin-top:4px;"></span>
                         </div>
                     </div>
                 </div>
@@ -3709,6 +4284,47 @@
         </div>
     </section>
 
+    <!-- Share strip -->
+    <section class="section" style="padding-top:0;">
+        <div class="container">
+            <div class="share-strip">
+                <div class="share-strip-text">
+                    <strong>🙌 Enjoying Zpendr? Share it.</strong>
+                    <span>Help a friend take control of their finances — it's free.</span>
+                </div>
+                <div class="share-btns">
+                    <button class="share-btn" id="share-copy">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                        Copy link
+                    </button>
+                    <a class="share-btn"
+                        href="https://twitter.com/intent/tweet?text=I%27ve%20been%20using%20Zpendr%20to%20track%20my%20budget%20privately%20%E2%80%94%20no%20account%20needed.%20Check%20it%20out!&url=https://your-domain.com"
+                        target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                        Share on X
+                    </a>
+                    <a class="share-btn"
+                        href="https://www.reddit.com/submit?url=https://your-domain.com&title=Zpendr%20%E2%80%94%20Private%20budget%20tracker%20that%20works%20offline"
+                        target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z" />
+                        </svg>
+                        Reddit
+                    </a>
+                    <span class="share-copy-feedback" id="share-feedback">✓ Copied!</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Consent Modal -->
     <div class="consent-modal" id="consent-modal" aria-hidden="true" role="dialog" aria-modal="true"
         aria-labelledby="consent-title">
@@ -3965,6 +4581,181 @@
             });
         })();
     </script>
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6" />
+        </svg>
+    </button>
+
+    <!-- Cookie / privacy banner -->
+    <div class="cookie-banner" id="cookie-banner" role="region" aria-label="Privacy notice">
+        <p>🍪 Zpendr doesn't use tracking cookies. We only use essential storage to save your preferences locally. <a
+                href="privacy.html">Privacy Policy</a>.</p>
+        <div class="cookie-actions">
+            <button class="cookie-btn" id="cookie-decline">Decline non-essential</button>
+            <button class="cookie-btn primary" id="cookie-accept">Got it</button>
+        </div>
+    </div>
+
+    <!-- Keyboard shortcuts modal -->
+    <div class="kbd-modal" id="kbd-modal" aria-hidden="true" role="dialog" aria-modal="true"
+        aria-labelledby="kbd-title">
+        <div class="kbd-panel">
+            <div class="kbd-header">
+                <h3 id="kbd-title">Keyboard Shortcuts</h3>
+                <button class="kbd-close" id="kbd-close" aria-label="Close shortcuts">✕</button>
+            </div>
+            <div class="kbd-list">
+                <div class="kbd-row">
+                    <span class="kbd-desc">Show keyboard shortcuts</span>
+                    <div class="kbd-keys"><kbd>?</kbd></div>
+                </div>
+                <div class="kbd-row">
+                    <span class="kbd-desc">Go to top</span>
+                    <div class="kbd-keys"><kbd>G</kbd> then <kbd>T</kbd></div>
+                </div>
+                <div class="kbd-row">
+                    <span class="kbd-desc">Jump to Features</span>
+                    <div class="kbd-keys"><kbd>G</kbd> then <kbd>F</kbd></div>
+                </div>
+                <div class="kbd-row">
+                    <span class="kbd-desc">Jump to Pricing</span>
+                    <div class="kbd-keys"><kbd>G</kbd> then <kbd>P</kbd></div>
+                </div>
+                <div class="kbd-row">
+                    <span class="kbd-desc">Jump to Download</span>
+                    <div class="kbd-keys"><kbd>G</kbd> then <kbd>D</kbd></div>
+                </div>
+                <div class="kbd-row">
+                    <span class="kbd-desc">Toggle dark / light mode</span>
+                    <div class="kbd-keys"><kbd>Shift</kbd> + <kbd>T</kbd></div>
+                </div>
+                <div class="kbd-row">
+                    <span class="kbd-desc">Close any modal</span>
+                    <div class="kbd-keys"><kbd>Esc</kbd></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Keyboard hint pill -->
+    <button class="kbd-hint" id="kbd-hint" aria-label="Show keyboard shortcuts">
+        <kbd>?</kbd> Shortcuts
+    </button>
+
+
+    <script>
+        (function () {
+
+            // ── 3. Back to top ─────────────────────────────────────────────────
+            const btt = document.getElementById('back-to-top');
+            if (btt) {
+                window.addEventListener('scroll', function () {
+                    btt.classList.toggle('visible', window.scrollY > 400);
+                }, { passive: true });
+                btt.addEventListener('click', function () {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            // ── 4. Cookie banner ───────────────────────────────────────────────
+            const cookieBanner = document.getElementById('cookie-banner');
+            const cookieAccept = document.getElementById('cookie-accept');
+            const cookieDecline = document.getElementById('cookie-decline');
+            if (cookieBanner && !localStorage.getItem('cookie-consent')) {
+                setTimeout(() => cookieBanner.classList.add('visible'), 1200);
+            }
+            function dismissCookie(choice) {
+                localStorage.setItem('cookie-consent', choice);
+                if (cookieBanner) {
+                    cookieBanner.style.transition = 'transform .4s ease';
+                    cookieBanner.classList.remove('visible');
+                }
+            }
+            cookieAccept?.addEventListener('click', () => dismissCookie('accepted'));
+            cookieDecline?.addEventListener('click', () => dismissCookie('declined'));
+
+            // ── 5. Share — copy link ───────────────────────────────────────────
+            const shareCopy = document.getElementById('share-copy');
+            const shareFeedback = document.getElementById('share-feedback');
+            shareCopy?.addEventListener('click', function () {
+                navigator.clipboard.writeText(window.location.href).then(function () {
+                    shareFeedback?.classList.add('show');
+                    setTimeout(() => shareFeedback?.classList.remove('show'), 2000);
+                });
+            });
+
+            // ── 6. Keyboard shortcuts ──────────────────────────────────────────
+            const kbdModal = document.getElementById('kbd-modal');
+            const kbdClose = document.getElementById('kbd-close');
+            const kbdHint = document.getElementById('kbd-hint');
+
+            function openKbd() { kbdModal?.classList.add('open'); kbdModal?.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
+            function closeKbd() { kbdModal?.classList.remove('open'); kbdModal?.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
+
+            kbdHint?.addEventListener('click', openKbd);
+            kbdClose?.addEventListener('click', closeKbd);
+            kbdModal?.addEventListener('click', e => { if (e.target === kbdModal) closeKbd(); });
+
+            let gPressed = false, gTimer;
+            document.addEventListener('keydown', function (e) {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+
+                // ? — toggle shortcuts
+                if (e.key === '?') {
+                    kbdModal?.classList.contains('open') ? closeKbd() : openKbd();
+                    return;
+                }
+                // Escape — close any open modal
+                if (e.key === 'Escape') { closeKbd(); return; }
+
+                // Shift+T — toggle theme
+                if (e.key === 'T' && e.shiftKey) {
+                    document.getElementById('theme-toggle')?.click();
+                    return;
+                }
+
+                // G + key navigation
+                if (e.key.toLowerCase() === 'g' && !e.shiftKey) {
+                    gPressed = true;
+                    clearTimeout(gTimer);
+                    gTimer = setTimeout(() => { gPressed = false; }, 1000);
+                    return;
+                }
+                if (gPressed) {
+                    gPressed = false;
+                    clearTimeout(gTimer);
+                    const map = { t: '#top', f: '#features', p: '#pricing', d: '#download', s: '#screenshots' };
+                    const target = map[e.key.toLowerCase()];
+                    if (target) {
+                        const el = document.querySelector(target);
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+
+            // ── 2. Live currency counter ───────────────────────────────────────
+            const el = document.getElementById('currency-count');
+            if (el) {
+                const currencies = ['USD', 'EUR', 'GBP', 'INR', 'CAD', 'AUD', 'JPY', 'CHF', 'CNY', 'SGD', 'MXN', 'BRL', 'KRW', 'ZAR', 'AED', 'SEK', 'NOK', 'DKK', 'HKD', 'NZD'];
+                let idx = 0;
+                setInterval(function () {
+                    idx = (idx + 1) % currencies.length;
+                    el.style.opacity = '0';
+                    setTimeout(function () {
+                        el.textContent = currencies[idx];
+                        el.style.opacity = '1';
+                    }, 200);
+                }, 2000);
+                el.style.transition = 'opacity .2s ease';
+            }
+
+        })();
+    </script>
+
 </body>
 
 </html>
