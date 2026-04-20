@@ -2609,6 +2609,351 @@
                 width: 180px;
             }
         }
+
+        /* ── Currency Converter ─────────────────────────────────────────── */
+        .converter-card {
+            background: var(--color-surface);
+            border: 1px solid color-mix(in srgb, var(--color-primary) 20%, var(--color-border));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--space-8);
+            max-width: 780px;
+            margin-inline: auto;
+        }
+
+        .converter-row {
+            display: flex;
+            gap: var(--space-4);
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .converter-field {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .conv-label {
+            font-size: var(--text-xs);
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--color-text-faint);
+        }
+
+        .conv-input {
+            min-height: 52px;
+            background: var(--color-surface-2);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: var(--text-base);
+            font-weight: 600;
+            padding: 0 var(--space-4);
+            transition: .2s ease;
+            outline: none;
+            width: 100%;
+        }
+
+        .conv-input:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 18%, transparent);
+        }
+
+        /* Custom dropdown */
+        .conv-dropdown {
+            position: relative;
+            width: 100%;
+        }
+
+        .conv-dd-trigger {
+            min-height: 52px;
+            width: 100%;
+            background: var(--color-surface-2);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: var(--text-base);
+            font-weight: 600;
+            padding: 0 var(--space-3) 0 var(--space-3);
+            display: flex;
+            align-items: center;
+            gap: .45rem;
+            transition: .2s ease;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .conv-dd-trigger:hover,
+        .conv-dropdown[aria-expanded="true"] .conv-dd-trigger {
+            border-color: var(--color-primary);
+            background: var(--color-surface);
+        }
+
+        .conv-dropdown[aria-expanded="true"] .conv-dd-trigger {
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 18%, transparent);
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        }
+
+        .conv-dd-flag {
+            font-size: 1.3rem;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .conv-dd-code {
+            font-weight: 700;
+            letter-spacing: .03em;
+            flex-shrink: 0;
+        }
+
+        .conv-dd-sym {
+            color: var(--color-primary);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .conv-dd-arrow {
+            width: 16px;
+            height: 16px;
+            margin-left: auto;
+            flex-shrink: 0;
+            color: var(--color-text-faint);
+            transition: transform .2s ease;
+        }
+
+        .conv-dropdown[aria-expanded="true"] .conv-dd-arrow {
+            transform: rotate(180deg);
+        }
+
+        .conv-dd-panel {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--color-surface);
+            border: 1px solid var(--color-primary);
+            border-top: none;
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+            box-shadow: var(--shadow-md);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .conv-dropdown[aria-expanded="true"] .conv-dd-panel {
+            display: block;
+        }
+
+        .conv-dd-search-wrap {
+            padding: var(--space-2) var(--space-3);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .conv-dd-search {
+            width: 100%;
+            background: var(--color-surface-2);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: var(--text-sm);
+            padding: .45rem var(--space-3);
+            outline: none;
+        }
+
+        .conv-dd-search:focus {
+            border-color: var(--color-primary);
+        }
+
+        .conv-dd-list {
+            max-height: 220px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        .conv-dd-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .conv-dd-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .conv-dd-list::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 3px;
+        }
+
+        .conv-dd-option {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .55rem var(--space-3);
+            cursor: pointer;
+            font-size: var(--text-sm);
+            transition: background .12s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            color: var(--color-text);
+        }
+
+        .conv-dd-option:hover,
+        .conv-dd-option.active {
+            background: var(--color-surface-2);
+        }
+
+        .conv-dd-option.active {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .conv-dd-opt-flag {
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .conv-dd-opt-code {
+            font-weight: 700;
+            flex-shrink: 0;
+            min-width: 2.8rem;
+        }
+
+        .conv-dd-opt-sym {
+            color: var(--color-primary);
+            font-weight: 700;
+            flex-shrink: 0;
+            min-width: 1.8rem;
+        }
+
+        .conv-dd-opt-name {
+            color: var(--color-text-muted);
+            font-size: var(--text-xs);
+        }
+
+        .conv-swap {
+            min-height: 52px;
+            width: 52px;
+            flex-shrink: 0;
+            background: var(--color-primary-highlight);
+            border: 1px solid color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
+            border-radius: var(--radius-md);
+            color: var(--color-primary);
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .2s ease;
+            align-self: flex-end;
+        }
+
+        .conv-swap:hover {
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            transform: rotate(180deg);
+        }
+
+        .conv-result {
+            margin-top: var(--space-6);
+            padding: var(--space-6);
+            background: var(--color-surface-2);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: var(--space-2);
+            transition: .2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .conv-result.loading::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--color-primary) 8%, transparent) 50%, transparent 100%);
+            animation: conv-shimmer 1.2s infinite;
+        }
+
+        @keyframes conv-shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .conv-result-amount {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            line-height: 1.1;
+            color: var(--color-text);
+            transition: .3s ease;
+        }
+
+        .conv-result-amount.flash {
+            color: var(--color-primary);
+        }
+
+        .conv-result-rate {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+        }
+
+        .conv-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-4);
+            flex-wrap: wrap;
+            gap: var(--space-2);
+        }
+
+        .conv-updated {
+            font-size: var(--text-xs);
+            color: var(--color-text-faint);
+        }
+
+        .conv-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            font-size: var(--text-xs);
+            font-weight: 700;
+            padding: .3rem .75rem;
+            border-radius: var(--radius-full);
+        }
+
+        .conv-error {
+            color: #e05c5c;
+            font-size: var(--text-sm);
+        }
+
+        @media (max-width: 600px) {
+            .converter-row {
+                flex-direction: column;
+            }
+
+            .conv-swap {
+                width: 100%;
+                align-self: auto;
+            }
+        }
     </style>
 </head>
 
@@ -2981,6 +3326,86 @@
                                 categorization, monthly forecasts, and instant alerts when something looks off.</p>
                         </div>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Currency Converter -->
+        <section class="section" id="currency-converter">
+            <div class="container">
+                <h2 class="reveal">Live Currency Converter</h2>
+                <p class="section-intro reveal">See Zpendr's multi-currency support in action. All <strong>~170 world
+                        currencies</strong> are listed. Live rates are available for the <strong>32 currencies</strong>
+                    supported by the European Central Bank. Others are shown for reference.</p>
+
+                <div class="converter-card reveal">
+                    <div class="converter-row">
+                        <div class="converter-field">
+                            <label for="conv-amount" class="conv-label">Amount</label>
+                            <input type="number" id="conv-amount" class="conv-input" value="100" min="0" step="any"
+                                inputmode="decimal" autocomplete="off" />
+                        </div>
+                        <div class="converter-field">
+                            <span class="conv-label" id="conv-from-label">From</span>
+                            <div class="conv-dropdown" id="conv-from-wrap" role="combobox" aria-haspopup="listbox"
+                                aria-expanded="false" aria-labelledby="conv-from-label">
+                                <button class="conv-dd-trigger" type="button" id="conv-from-btn"
+                                    title="Select source currency">
+                                    <span class="conv-dd-flag" id="conv-from-flag"></span>
+                                    <span class="conv-dd-code" id="conv-from-code"></span>
+                                    <span class="conv-dd-sym" id="conv-from-sym"></span>
+                                    <svg class="conv-dd-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 9l6 6 6-6" />
+                                    </svg>
+                                </button>
+                                <div class="conv-dd-panel" id="conv-from-panel" role="listbox"
+                                    aria-label="Select source currency">
+                                    <div class="conv-dd-search-wrap">
+                                        <input class="conv-dd-search" type="text" placeholder="Search currency…"
+                                            autocomplete="off" id="conv-from-search" />
+                                    </div>
+                                    <div class="conv-dd-list" id="conv-from-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="conv-swap" id="conv-swap" aria-label="Swap currencies"
+                            title="Swap currencies">⇄</button>
+                        <div class="converter-field">
+                            <span class="conv-label" id="conv-to-label">To</span>
+                            <div class="conv-dropdown" id="conv-to-wrap" role="combobox" aria-haspopup="listbox"
+                                aria-expanded="false" aria-labelledby="conv-to-label">
+                                <button class="conv-dd-trigger" type="button" id="conv-to-btn"
+                                    title="Select target currency">
+                                    <span class="conv-dd-flag" id="conv-to-flag"></span>
+                                    <span class="conv-dd-code" id="conv-to-code"></span>
+                                    <span class="conv-dd-sym" id="conv-to-sym"></span>
+                                    <svg class="conv-dd-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 9l6 6 6-6" />
+                                    </svg>
+                                </button>
+                                <div class="conv-dd-panel" id="conv-to-panel" role="listbox"
+                                    aria-label="Select target currency">
+                                    <div class="conv-dd-search-wrap">
+                                        <input class="conv-dd-search" type="text" placeholder="Search currency…"
+                                            autocomplete="off" id="conv-to-search" />
+                                    </div>
+                                    <div class="conv-dd-list" id="conv-to-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="conv-result" id="conv-result" aria-live="polite">
+                        <div class="conv-result-amount" id="conv-result-amount">—</div>
+                        <div class="conv-result-rate" id="conv-result-rate"></div>
+                    </div>
+
+                    <div class="conv-footer">
+                        <span class="conv-updated" id="conv-updated">Fetching live rates…</span>
+                        <span class="conv-badge">🌍 ~170 currencies listed · 32 with live rates</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -4752,6 +5177,340 @@
                 }, 2000);
                 el.style.transition = 'opacity .2s ease';
             }
+
+            // ── 7. Currency Converter ──────────────────────────────────────────
+            (function () {
+                // [code, name, symbol, flag]
+                // All 32 currencies supported by the Frankfurter API (ECB data).
+                // There are ~180 world currencies total; full coverage requires a paid API.
+                var CURRENCIES = [
+                    // All ~170 active ISO 4217 currencies.
+                    // Rates via Frankfurter/ECB (32 supported). Others show "unavailable".
+                    ['AED', 'UAE Dirham', 'د.إ', '🇦🇪'],
+                    ['AFN', 'Afghan Afghani', '؋', '🇦🇫'],
+                    ['ALL', 'Albanian Lek', 'L', '🇦🇱'],
+                    ['AMD', 'Armenian Dram', '֏', '🇦🇲'],
+                    ['ANG', 'Neth. Antillean Guilder', 'ƒ', '🇨🇼'],
+                    ['AOA', 'Angolan Kwanza', 'Kz', '🇦🇴'],
+                    ['ARS', 'Argentine Peso', '$', '🇦🇷'],
+                    ['AUD', 'Australian Dollar', '$', '🇦🇺'],
+                    ['AWG', 'Aruban Florin', 'ƒ', '🇦🇼'],
+                    ['AZN', 'Azerbaijani Manat', '₼', '🇦🇿'],
+                    ['BAM', 'Bosnia-Herzegovina Mark', 'KM', '🇧🇦'],
+                    ['BBD', 'Barbadian Dollar', '$', '🇧🇧'],
+                    ['BDT', 'Bangladeshi Taka', '৳', '🇧🇩'],
+                    ['BGN', 'Bulgarian Lev', 'лв', '🇧🇬'],
+                    ['BHD', 'Bahraini Dinar', 'BD', '🇧🇭'],
+                    ['BIF', 'Burundian Franc', 'Fr', '🇧🇮'],
+                    ['BMD', 'Bermudian Dollar', '$', '🇧🇲'],
+                    ['BND', 'Brunei Dollar', '$', '🇧🇳'],
+                    ['BOB', 'Bolivian Boliviano', 'Bs.', '🇧🇴'],
+                    ['BRL', 'Brazilian Real', 'R$', '🇧🇷'],
+                    ['BSD', 'Bahamian Dollar', '$', '🇧🇸'],
+                    ['BTN', 'Bhutanese Ngultrum', 'Nu', '🇧🇹'],
+                    ['BWP', 'Botswana Pula', 'P', '🇧🇼'],
+                    ['BYN', 'Belarusian Ruble', 'Br', '🇧🇾'],
+                    ['BZD', 'Belize Dollar', '$', '🇧🇿'],
+                    ['CAD', 'Canadian Dollar', '$', '🇨🇦'],
+                    ['CDF', 'Congolese Franc', 'Fr', '🇨🇩'],
+                    ['CHF', 'Swiss Franc', 'Fr', '🇨🇭'],
+                    ['CLP', 'Chilean Peso', '$', '🇨🇱'],
+                    ['CNY', 'Chinese Yuan', '¥', '🇨🇳'],
+                    ['COP', 'Colombian Peso', '$', '🇨🇴'],
+                    ['CRC', 'Costa Rican Colón', '₡', '🇨🇷'],
+                    ['CUP', 'Cuban Peso', '$', '🇨🇺'],
+                    ['CVE', 'Cape Verdean Escudo', '$', '🇨🇻'],
+                    ['CZK', 'Czech Koruna', 'Kč', '🇨🇿'],
+                    ['DJF', 'Djiboutian Franc', 'Fr', '🇩🇯'],
+                    ['DKK', 'Danish Krone', 'kr', '🇩🇰'],
+                    ['DOP', 'Dominican Peso', '$', '🇩🇴'],
+                    ['DZD', 'Algerian Dinar', 'دج', '🇩🇿'],
+                    ['EGP', 'Egyptian Pound', '£', '🇪🇬'],
+                    ['ERN', 'Eritrean Nakfa', 'Nfk', '🇪🇷'],
+                    ['ETB', 'Ethiopian Birr', 'Br', '🇪🇹'],
+                    ['EUR', 'Euro', '€', '🇪🇺'],
+                    ['FJD', 'Fijian Dollar', '$', '🇫🇯'],
+                    ['FKP', 'Falkland Islands Pound', '£', '🇫🇰'],
+                    ['GBP', 'British Pound', '£', '🇬🇧'],
+                    ['GEL', 'Georgian Lari', '₾', '🇬🇪'],
+                    ['GHS', 'Ghanaian Cedi', '₵', '🇬🇭'],
+                    ['GIP', 'Gibraltar Pound', '£', '🇬🇮'],
+                    ['GMD', 'Gambian Dalasi', 'D', '🇬🇲'],
+                    ['GNF', 'Guinean Franc', 'Fr', '🇬🇳'],
+                    ['GTQ', 'Guatemalan Quetzal', 'Q', '🇬🇹'],
+                    ['GYD', 'Guyanese Dollar', '$', '🇬🇾'],
+                    ['HKD', 'Hong Kong Dollar', '$', '🇭🇰'],
+                    ['HNL', 'Honduran Lempira', 'L', '🇭🇳'],
+                    ['HTG', 'Haitian Gourde', 'G', '🇭🇹'],
+                    ['HUF', 'Hungarian Forint', 'Ft', '🇭🇺'],
+                    ['IDR', 'Indonesian Rupiah', 'Rp', '🇮🇩'],
+                    ['ILS', 'Israeli Shekel', '₪', '🇮🇱'],
+                    ['INR', 'Indian Rupee', '₹', '🇮🇳'],
+                    ['IQD', 'Iraqi Dinar', 'ع.د', '🇮🇶'],
+                    ['IRR', 'Iranian Rial', '﷼', '🇮🇷'],
+                    ['ISK', 'Icelandic Króna', 'kr', '🇮🇸'],
+                    ['JMD', 'Jamaican Dollar', '$', '🇯🇲'],
+                    ['JOD', 'Jordanian Dinar', 'JD', '🇯🇴'],
+                    ['JPY', 'Japanese Yen', '¥', '🇯🇵'],
+                    ['KES', 'Kenyan Shilling', 'KSh', '🇰🇪'],
+                    ['KGS', 'Kyrgystani Som', 'с', '🇰🇬'],
+                    ['KHR', 'Cambodian Riel', '៛', '🇰🇭'],
+                    ['KMF', 'Comorian Franc', 'Fr', '🇰🇲'],
+                    ['KRW', 'South Korean Won', '₩', '🇰🇷'],
+                    ['KWD', 'Kuwaiti Dinar', 'KD', '🇰🇼'],
+                    ['KYD', 'Cayman Islands Dollar', '$', '🇰🇾'],
+                    ['KZT', 'Kazakhstani Tenge', '₸', '🇰🇿'],
+                    ['LAK', 'Laotian Kip', '₭', '🇱🇦'],
+                    ['LBP', 'Lebanese Pound', '£', '🇱🇧'],
+                    ['LKR', 'Sri Lankan Rupee', '₨', '🇱🇰'],
+                    ['LRD', 'Liberian Dollar', '$', '🇱🇷'],
+                    ['LSL', 'Lesotho Loti', 'L', '🇱🇸'],
+                    ['LYD', 'Libyan Dinar', 'LD', '🇱🇾'],
+                    ['MAD', 'Moroccan Dirham', 'MAD', '🇲🇦'],
+                    ['MDL', 'Moldovan Leu', 'L', '🇲🇩'],
+                    ['MGA', 'Malagasy Ariary', 'Ar', '🇲🇬'],
+                    ['MKD', 'Macedonian Denar', 'ден', '🇲🇰'],
+                    ['MMK', 'Myanmar Kyat', 'K', '🇲🇲'],
+                    ['MNT', 'Mongolian Tögrög', '₮', '🇲🇳'],
+                    ['MOP', 'Macanese Pataca', 'P', '🇲🇴'],
+                    ['MRU', 'Mauritanian Ouguiya', 'UM', '🇲🇷'],
+                    ['MUR', 'Mauritian Rupee', '₨', '🇲🇺'],
+                    ['MVR', 'Maldivian Rufiyaa', 'Rf', '🇲🇻'],
+                    ['MWK', 'Malawian Kwacha', 'MK', '🇲🇼'],
+                    ['MXN', 'Mexican Peso', '$', '🇲🇽'],
+                    ['MYR', 'Malaysian Ringgit', 'RM', '🇲🇾'],
+                    ['MZN', 'Mozambican Metical', 'MT', '🇲🇿'],
+                    ['NAD', 'Namibian Dollar', '$', '🇳🇦'],
+                    ['NGN', 'Nigerian Naira', '₦', '🇳🇬'],
+                    ['NIO', 'Nicaraguan Córdoba', 'C$', '🇳🇮'],
+                    ['NOK', 'Norwegian Krone', 'kr', '🇳🇴'],
+                    ['NPR', 'Nepalese Rupee', '₨', '🇳🇵'],
+                    ['NZD', 'New Zealand Dollar', '$', '🇳🇿'],
+                    ['OMR', 'Omani Rial', '﷼', '🇴🇲'],
+                    ['PAB', 'Panamanian Balboa', 'B/.', '🇵🇦'],
+                    ['PEN', 'Peruvian Sol', 'S/.', '🇵🇪'],
+                    ['PGK', 'Papua New Guinean Kina', 'K', '🇵🇬'],
+                    ['PHP', 'Philippine Peso', '₱', '🇵🇭'],
+                    ['PKR', 'Pakistani Rupee', '₨', '🇵🇰'],
+                    ['PLN', 'Polish Zloty', 'zł', '🇵🇱'],
+                    ['PYG', 'Paraguayan Guaraní', '₲', '🇵🇾'],
+                    ['QAR', 'Qatari Rial', '﷼', '🇶🇦'],
+                    ['RON', 'Romanian Leu', 'lei', '🇷🇴'],
+                    ['RSD', 'Serbian Dinar', 'din', '🇷🇸'],
+                    ['RUB', 'Russian Ruble', '₽', '🇷🇺'],
+                    ['RWF', 'Rwandan Franc', 'Fr', '🇷🇼'],
+                    ['SAR', 'Saudi Riyal', 'SR', '🇸🇦'],
+                    ['SBD', 'Solomon Islands Dollar', '$', '🇸🇧'],
+                    ['SCR', 'Seychellois Rupee', '₨', '🇸🇨'],
+                    ['SDG', 'Sudanese Pound', '£', '🇸🇩'],
+                    ['SEK', 'Swedish Krona', 'kr', '🇸🇪'],
+                    ['SGD', 'Singapore Dollar', '$', '🇸🇬'],
+                    ['SHP', 'Saint Helena Pound', '£', '🇸🇭'],
+                    ['SLE', 'Sierra Leonean Leone', 'Le', '🇸🇱'],
+                    ['SOS', 'Somali Shilling', 'Sh', '🇸🇴'],
+                    ['SRD', 'Surinamese Dollar', '$', '🇸🇷'],
+                    ['STN', 'São Tomé & Príncipe Dobra', 'Db', '🇸🇹'],
+                    ['SYP', 'Syrian Pound', '£', '🇸🇾'],
+                    ['SZL', 'Swazi Lilangeni', 'L', '🇸🇿'],
+                    ['THB', 'Thai Baht', '฿', '🇹🇭'],
+                    ['TJS', 'Tajikistani Somoni', 'SM', '🇹🇯'],
+                    ['TMT', 'Turkmenistani Manat', 'T', '🇹🇲'],
+                    ['TND', 'Tunisian Dinar', 'DT', '🇹🇳'],
+                    ['TOP', 'Tongan Paʻanga', 'T$', '🇹🇴'],
+                    ['TRY', 'Turkish Lira', '₺', '🇹🇷'],
+                    ['TTD', 'Trinidad & Tobago Dollar', '$', '🇹🇹'],
+                    ['TWD', 'New Taiwan Dollar', '$', '🇹🇼'],
+                    ['TZS', 'Tanzanian Shilling', 'Sh', '🇹🇿'],
+                    ['UAH', 'Ukrainian Hryvnia', '₴', '🇺🇦'],
+                    ['UGX', 'Ugandan Shilling', 'Sh', '🇺🇬'],
+                    ['USD', 'US Dollar', '$', '🇺🇸'],
+                    ['UYU', 'Uruguayan Peso', '$', '🇺🇾'],
+                    ['UZS', 'Uzbekistani Som', 'сум', '🇺🇿'],
+                    ['VES', 'Venezuelan Bolívar', 'Bs.S', '🇻🇪'],
+                    ['VND', 'Vietnamese Dong', '₫', '🇻🇳'],
+                    ['VUV', 'Vanuatu Vatu', 'Vt', '🇻🇺'],
+                    ['WST', 'Samoan Tālā', 'T', '🇼🇸'],
+                    ['XAF', 'Central African CFA Franc', 'Fr', '🇨🇲'],
+                    ['XCD', 'East Caribbean Dollar', '$', '🇦🇬'],
+                    ['XOF', 'West African CFA Franc', 'Fr', '🇸🇳'],
+                    ['XPF', 'CFP Franc', 'Fr', '🇵🇫'],
+                    ['YER', 'Yemeni Rial', '﷼', '🇾🇪'],
+                    ['ZAR', 'South African Rand', 'R', '🇿🇦'],
+                    ['ZMW', 'Zambian Kwacha', 'ZK', '🇿🇲'],
+                    ['ZWL', 'Zimbabwean Dollar', '$', '🇿🇼'],
+                ]
+                var NO_DECIMALS = ['JPY', 'KRW', 'IDR', 'HUF', 'BIF', 'CLP', 'DJF', 'GNF', 'ISK', 'KMF', 'MGA', 'PYG', 'RWF', 'UGX', 'VND', 'VUV', 'XAF', 'XOF', 'XPF'];
+
+                // DOM refs
+                var amountInput = document.getElementById('conv-amount');
+                var resultAmount = document.getElementById('conv-result-amount');
+                var resultRate = document.getElementById('conv-result-rate');
+                var resultBox = document.getElementById('conv-result');
+                var updatedEl = document.getElementById('conv-updated');
+                var swapBtn = document.getElementById('conv-swap');
+
+                if (!amountInput) return;
+
+                var state = { from: 'USD', to: 'CAD' };
+                var ratesCache = {};
+                var debounceTimer;
+
+                // ── Build a custom dropdown ────────────────────────────────
+                function buildDropdown(wrapperId, listId, searchId, btnId, flagId, codeId, symId, which) {
+                    var wrap = document.getElementById(wrapperId);
+                    var list = document.getElementById(listId);
+                    var search = document.getElementById(searchId);
+                    var btn = document.getElementById(btnId);
+                    if (!wrap || !list || !search || !btn) return;
+
+                    function renderList(filter) {
+                        list.innerHTML = '';
+                        var q = (filter || '').toLowerCase();
+                        CURRENCIES.forEach(function (c) {
+                            var code = c[0], name = c[1], sym = c[2], flag = c[3];
+                            if (q && code.toLowerCase().indexOf(q) === -1 && name.toLowerCase().indexOf(q) === -1) return;
+                            var opt = document.createElement('button');
+                            opt.type = 'button';
+                            opt.className = 'conv-dd-option' + (state[which] === code ? ' active' : '');
+                            opt.setAttribute('role', 'option');
+                            opt.setAttribute('aria-selected', state[which] === code ? 'true' : 'false');
+                            opt.innerHTML =
+                                '<span class="conv-dd-opt-flag">' + flag + '</span>' +
+                                '<span class="conv-dd-opt-code">' + code + '</span>' +
+                                '<span class="conv-dd-opt-sym">' + sym + '</span>' +
+                                '<span class="conv-dd-opt-name">' + name + '</span>';
+                            opt.addEventListener('click', function () {
+                                state[which] = code;
+                                updateTrigger(which);
+                                closeDropdown(wrap);
+                                search.value = '';
+                                convert();
+                            });
+                            list.appendChild(opt);
+                        });
+                    }
+
+                    search.addEventListener('input', function () { renderList(this.value); });
+
+                    btn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        var isOpen = wrap.getAttribute('aria-expanded') === 'true';
+                        // Close all dropdowns first
+                        document.querySelectorAll('.conv-dropdown[aria-expanded="true"]').forEach(function (d) {
+                            d.setAttribute('aria-expanded', 'false');
+                        });
+                        if (!isOpen) {
+                            wrap.setAttribute('aria-expanded', 'true');
+                            renderList('');
+                            setTimeout(function () { search.focus(); }, 50);
+                        }
+                    });
+
+                    renderList('');
+                }
+
+                function updateTrigger(which) {
+                    var code = state[which];
+                    var cur = CURRENCIES.find(function (c) { return c[0] === code; });
+                    if (!cur) return;
+                    var flag = document.getElementById('conv-' + which + '-flag');
+                    var codeEl = document.getElementById('conv-' + which + '-code');
+                    var symEl = document.getElementById('conv-' + which + '-sym');
+                    if (flag) flag.textContent = cur[3];
+                    if (codeEl) codeEl.textContent = cur[0];
+                    if (symEl) symEl.textContent = cur[2];
+                }
+
+                function closeDropdown(wrap) {
+                    wrap.setAttribute('aria-expanded', 'false');
+                }
+
+                // Close on outside click
+                document.addEventListener('click', function () {
+                    document.querySelectorAll('.conv-dropdown[aria-expanded="true"]').forEach(function (d) {
+                        d.setAttribute('aria-expanded', 'false');
+                    });
+                });
+
+                // Build both dropdowns
+                buildDropdown('conv-from-wrap', 'conv-from-list', 'conv-from-search', 'conv-from-btn', 'conv-from-flag', 'conv-from-code', 'conv-from-sym', 'from');
+                buildDropdown('conv-to-wrap', 'conv-to-list', 'conv-to-search', 'conv-to-btn', 'conv-to-flag', 'conv-to-code', 'conv-to-sym', 'to');
+                updateTrigger('from');
+                updateTrigger('to');
+
+                // ── Conversion logic ──────────────────────────────────────
+                function formatAmount(n, code) {
+                    try {
+                        return new Intl.NumberFormat(undefined, {
+                            style: 'currency', currency: code,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: NO_DECIMALS.indexOf(code) !== -1 ? 0 : 2
+                        }).format(n);
+                    } catch (e) { return n.toFixed(2) + ' ' + code; }
+                }
+
+                async function fetchRates(base) {
+                    var cached = ratesCache[base];
+                    if (cached && Date.now() - cached.fetchedAt < 600000) return cached.rates;
+                    resultBox.classList.add('loading');
+                    try {
+                        var res = await fetch('https://api.frankfurter.app/latest?from=' + base);
+                        if (!res.ok) throw new Error('err');
+                        var data = await res.json();
+                        ratesCache[base] = { rates: data.rates, fetchedAt: Date.now() };
+                        var now = new Date();
+                        updatedEl.textContent = 'Rates updated ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        return data.rates;
+                    } catch (e) {
+                        updatedEl.textContent = 'Could not fetch live rates — check connection';
+                        return null;
+                    } finally { resultBox.classList.remove('loading'); }
+                }
+
+                async function convert() {
+                    var from = state.from, to = state.to;
+                    var amount = parseFloat(amountInput.value);
+                    if (isNaN(amount) || amount < 0) { resultAmount.textContent = '—'; resultRate.textContent = ''; return; }
+
+                    if (from === to) {
+                        resultAmount.textContent = formatAmount(amount, to);
+                        resultRate.textContent = '1 ' + from + ' = 1.0000 ' + to;
+                        return;
+                    }
+
+                    var rates = await fetchRates(from);
+                    if (!rates) { resultAmount.innerHTML = '<span class="conv-error">⚠ Rate unavailable</span>'; resultRate.textContent = ''; return; }
+                    if (!rates[to]) { resultAmount.innerHTML = '<span class="conv-error">⚠ No rate for ' + to + '</span>'; return; }
+
+                    var rate = rates[to];
+                    var converted = amount * rate;
+                    var prev = resultAmount.textContent;
+                    var fromCur = CURRENCIES.find(function (c) { return c[0] === from; });
+                    var toCur = CURRENCIES.find(function (c) { return c[0] === to; });
+                    resultAmount.textContent = formatAmount(converted, to);
+                    resultRate.textContent = (fromCur ? fromCur[3] + ' ' : '') + '1 ' + from + ' ' + (fromCur ? fromCur[2] : '') + ' = ' + rate.toFixed(4) + ' ' + to + ' ' + (toCur ? toCur[2] : '') + ' ' + (toCur ? toCur[3] : '');
+
+                    if (prev !== resultAmount.textContent) {
+                        resultAmount.classList.add('flash');
+                        setTimeout(function () { resultAmount.classList.remove('flash'); }, 500);
+                    }
+                }
+
+                function scheduleConvert() { clearTimeout(debounceTimer); debounceTimer = setTimeout(convert, 250); }
+
+                amountInput.addEventListener('input', scheduleConvert);
+
+                swapBtn.addEventListener('click', function () {
+                    var tmp = state.from; state.from = state.to; state.to = tmp;
+                    updateTrigger('from'); updateTrigger('to');
+                    // Re-render lists so active states update
+                    document.getElementById('conv-from-list') && buildDropdown('conv-from-wrap', 'conv-from-list', 'conv-from-search', 'conv-from-btn', 'conv-from-flag', 'conv-from-code', 'conv-from-sym', 'from');
+                    document.getElementById('conv-to-list') && buildDropdown('conv-to-wrap', 'conv-to-list', 'conv-to-search', 'conv-to-btn', 'conv-to-flag', 'conv-to-code', 'conv-to-sym', 'to');
+                    convert();
+                });
+
+                convert();
+            })();
 
         })();
     </script>
