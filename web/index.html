@@ -1563,6 +1563,22 @@
             transform: translateY(-6px);
         }
 
+        .checkout-embed-wrap {
+            margin-top: var(--space-8);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .checkout-embed {
+            width: 100%;
+            min-height: 740px;
+            border: 0;
+            background: transparent;
+        }
+
         /* ── Changelog ───────────────────────────────────────────────── */
         .changelog-list {
             display: flex;
@@ -3777,7 +3793,6 @@
 
                 <!-- Pro -->
                 <div class="pricing-card featured reveal">
-                    <div class="pricing-badge">Coming Soon</div>
                     <div class="pricing-tier">Pro</div>
                     <div class="pricing-price-wrap" id="pro-price-wrap">
                         <div class="pricing-price" id="pro-price-display">
@@ -3804,8 +3819,18 @@
                         <li class="ai-feature">Budget forecasting &amp; alerts <span class="ai-badge">✦ AI</span></li>
                         <li class="ai-feature">Anomaly &amp; overspend detection <span class="ai-badge">✦ AI</span></li>
                     </ul>
-                    <a class="btn btn-primary" href="#support" style="opacity:.6;pointer-events:none;">Notify Me</a>
+                    <a class="btn btn-primary" href="#subscription-checkout">Subscribe Now</a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="subscription-checkout">
+        <div class="container">
+            <h2 class="reveal" style="text-align:center;">Complete your Pro subscription</h2>
+            <p class="section-intro reveal" style="text-align:center;margin-inline:auto;">Secure checkout powered by Zpendr. Your selected theme is applied automatically in the payment form.</p>
+            <div class="checkout-embed-wrap reveal">
+                <iframe id="payment-checkout-frame" class="checkout-embed" src="payment.html" title="Zpendr Pro subscription checkout" loading="lazy"></iframe>
             </div>
         </div>
     </section>
@@ -3929,6 +3954,12 @@
             function getMode() { return localStorage.getItem('theme'); }
             function isDark() { return root.getAttribute('data-theme') === 'dark'; }
 
+            function syncPaymentTheme() {
+                const frame = document.getElementById('payment-checkout-frame');
+                if (!frame || !frame.contentWindow) return;
+                frame.contentWindow.postMessage({ type: 'zpendr-theme-sync', theme: isDark() ? 'dark' : 'light' }, '*');
+            }
+
             function updateIcon() {
                 const mode = getMode();
                 if (mode === 'dark') { toggle.textContent = '☀️'; toggle.title = 'Dark (click for light)'; }
@@ -3949,13 +3980,16 @@
                     root.setAttribute('data-theme', media.matches ? 'dark' : 'light');
                 }
                 updateIcon();
+                syncPaymentTheme();
             }
 
             toggle.addEventListener('click', cycleTheme);
             media.addEventListener('change', function (e) {
-                if (!getMode()) { root.setAttribute('data-theme', e.matches ? 'dark' : 'light'); updateIcon(); }
+                if (!getMode()) { root.setAttribute('data-theme', e.matches ? 'dark' : 'light'); updateIcon(); syncPaymentTheme(); }
             });
+            document.getElementById('payment-checkout-frame')?.addEventListener('load', syncPaymentTheme);
             updateIcon();
+            syncPaymentTheme();
 
             const translations = {
                 en: {
