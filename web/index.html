@@ -2072,34 +2072,49 @@
             pointer-events: auto;
         }
 
-        /* ── Payment Modal ───────────────────────────────────────────── */
+        /* ══════════════════════════════════════════════════════
+           UNIVERSAL GATEWAY — Payment Modal
+        ══════════════════════════════════════════════════════ */
         .pay-overlay {
             display: none;
             position: fixed;
             inset: 0;
             z-index: 100;
-            background: rgba(0, 0, 0, .55);
-            -webkit-backdrop-filter: blur(4px);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, .58);
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 1rem
         }
 
         .pay-overlay.open {
-            display: flex;
+            display: flex
         }
 
         .pay-dialog {
             background: var(--color-surface);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-md);
-            width: min(100%, 920px);
-            max-height: 90vh;
+            width: min(100%, 960px);
+            max-height: 92vh;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             border: 1px solid var(--color-border);
+            animation: paySlideIn .22s ease
+        }
+
+        @keyframes paySlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(14px) scale(.98)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
         }
 
         .pay-dialog-header {
@@ -2110,7 +2125,7 @@
             align-items: center;
             justify-content: space-between;
             border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-            flex-shrink: 0;
+            flex-shrink: 0
         }
 
         .pay-dialog-header h2 {
@@ -2118,13 +2133,13 @@
             font-size: var(--text-lg);
             font-weight: 400;
             color: inherit;
-            margin: 0;
+            margin: 0
         }
 
         .pay-dialog-header p {
             font-size: var(--text-sm);
             opacity: .82;
-            margin-top: .2rem;
+            margin-top: .2rem
         }
 
         .pay-close-btn {
@@ -2135,222 +2150,49 @@
             line-height: 1;
             padding: .4rem .55rem;
             border-radius: var(--radius-md);
-            transition: background .15s;
+            transition: background .15s
         }
 
         .pay-close-btn:hover {
-            background: rgba(255, 255, 255, .28);
+            background: rgba(255, 255, 255, .28)
         }
 
         .pay-body {
             display: flex;
             flex: 1;
-            min-height: 0;
+            min-height: 0
         }
 
-        /* Left – Order Summary */
+        /* Summary */
         .pay-summary {
-            width: 290px;
+            width: 300px;
             flex-shrink: 0;
             border-right: 1px solid var(--color-border);
             display: flex;
-            flex-direction: column;
+            flex-direction: column
         }
 
-        .pay-currency-wrap {
-            padding: var(--space-5) var(--space-5) var(--space-4);
-            border-bottom: 1px solid var(--color-border);
+        .pay-currency-wrap,
+        .pay-country-wrap {
+            padding: var(--space-4) var(--space-5);
+            border-bottom: 1px solid var(--color-border)
         }
 
-        /* Custom currency dropdown */
-        .pay-cur-dropdown {
-            position: relative;
-        }
-
-        .pay-cur-trigger {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            width: 100%;
-            padding: .72rem 1rem;
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            background: var(--color-surface);
-            color: var(--color-text);
-            font-family: var(--font-body);
-            font-size: var(--text-sm);
-            cursor: pointer;
-            text-align: left;
-            transition: border-color .15s, box-shadow .15s;
-        }
-
-        .pay-cur-trigger:focus,
-        .pay-cur-dropdown.open .pay-cur-trigger {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 14%, transparent);
-        }
-
-        .pay-cur-flag {
-            font-size: 1.1rem;
-            line-height: 1;
-            flex-shrink: 0;
-        }
-
-        .pay-cur-label {
-            flex: 1;
-            font-weight: 600;
-        }
-
-        .pay-cur-sym {
-            color: var(--color-text-faint);
-            font-size: var(--text-xs);
-        }
-
-        .pay-cur-chevron {
-            width: 16px;
-            height: 16px;
-            color: var(--color-text-faint);
-            transition: transform .2s;
-            flex-shrink: 0;
-        }
-
-        .pay-cur-dropdown.open .pay-cur-chevron {
-            transform: rotate(180deg);
-        }
-
-        .pay-cur-panel {
-            display: none;
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0;
-            right: 0;
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-md);
-            z-index: 50;
-            overflow: hidden;
-        }
-
-        .pay-cur-dropdown.open .pay-cur-panel {
-            display: block;
-        }
-
-        .pay-cur-search-wrap {
-            padding: var(--space-2) var(--space-3);
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .pay-cur-search {
-            width: 100%;
-            padding: .45rem .7rem;
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            background: var(--color-surface-2);
-            color: var(--color-text);
-            font-family: var(--font-body);
-            font-size: var(--text-sm);
-            outline: none;
-        }
-
-        .pay-cur-search:focus {
-            border-color: var(--color-primary);
-        }
-
-        .pay-cur-list {
-            max-height: 240px;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--color-border) transparent;
-        }
-
-        .pay-cur-list::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .pay-cur-list::-webkit-scrollbar-thumb {
-            background: var(--color-border);
-            border-radius: 3px;
-        }
-
-        .pay-cur-opt {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            padding: .5rem .9rem;
-            cursor: pointer;
-            font-size: var(--text-sm);
-            color: var(--color-text);
-            transition: background .1s;
-            width: 100%;
-            border: none;
-            background: none;
-            font-family: var(--font-body);
-            text-align: left;
-        }
-
-        .pay-cur-opt:hover {
-            background: var(--color-surface-2);
-        }
-
-        .pay-cur-opt.active {
-            background: var(--color-primary-highlight);
-            color: var(--color-primary);
-            font-weight: 600;
-        }
-
-        .pay-cur-opt-code {
-            font-weight: 700;
-            min-width: 36px;
-        }
-
-        .pay-cur-opt-name {
-            flex: 1;
-            color: var(--color-text-muted);
-            font-size: .75rem;
-        }
-
-        .pay-cur-opt.active .pay-cur-opt-name {
-            color: var(--color-primary);
-            opacity: .8;
-        }
-
-        .pay-cur-opt-sym {
-            color: var(--color-text-faint);
-            font-size: .75rem;
-            min-width: 20px;
-            text-align: right;
-        }
-
-        .pay-cur-divider {
-            padding: .3rem .9rem .15rem;
-            font-size: .65rem;
-            font-weight: 700;
-            letter-spacing: .07em;
-            text-transform: uppercase;
-            color: var(--color-text-faint);
-            background: var(--color-surface-2);
-            border-top: 1px solid var(--color-border);
-        }
-
-        .pay-cur-empty {
-            padding: var(--space-4) var(--space-4);
-            text-align: center;
-            font-size: var(--text-sm);
-            color: var(--color-text-faint);
+        .pay-country-wrap {
+            border-bottom: none;
+            padding-bottom: 0
         }
 
         .pay-summary-content {
             padding: var(--space-5);
-            flex: 1;
+            flex: 1
         }
 
         .pay-product-row {
             display: flex;
             align-items: center;
             gap: var(--space-3);
-            margin-bottom: var(--space-5);
+            margin-bottom: var(--space-5)
         }
 
         .pay-product-icon {
@@ -2363,19 +2205,19 @@
             align-items: center;
             justify-content: center;
             font-size: 1.4rem;
-            flex-shrink: 0;
+            flex-shrink: 0
         }
 
         .pay-product-name {
             font-weight: 700;
             font-size: var(--text-sm);
-            color: var(--color-text);
+            color: var(--color-text)
         }
 
         .pay-product-desc {
             font-size: var(--text-xs);
             color: var(--color-text-muted);
-            margin-top: .15rem;
+            margin-top: .15rem
         }
 
         .pay-breakdown {
@@ -2383,14 +2225,14 @@
             padding-top: var(--space-4);
             display: flex;
             flex-direction: column;
-            gap: var(--space-2);
+            gap: var(--space-2)
         }
 
         .pay-line {
             display: flex;
             justify-content: space-between;
             font-size: var(--text-sm);
-            color: var(--color-text-muted);
+            color: var(--color-text-muted)
         }
 
         .pay-line.total {
@@ -2399,7 +2241,15 @@
             margin-top: var(--space-1);
             color: var(--color-text);
             font-weight: 700;
-            font-size: var(--text-base);
+            font-size: var(--text-base)
+        }
+
+        .pay-line.vat {
+            display: none
+        }
+
+        .pay-line.vat.active {
+            display: flex
         }
 
         .pay-secure-badge {
@@ -2411,28 +2261,226 @@
             border-radius: var(--radius-md);
             padding: var(--space-3) var(--space-4);
             font-size: var(--text-xs);
-            color: var(--color-text-muted);
+            color: var(--color-text-muted)
         }
 
         .pay-secure-badge svg {
             color: var(--color-primary);
-            flex-shrink: 0;
+            flex-shrink: 0
         }
 
-        /* Right – Form */
+        /* Dropdowns (shared) */
+        .pay-cur-dropdown,
+        .pay-country-dropdown {
+            position: relative
+        }
+
+        .pay-cur-trigger,
+        .pay-country-trigger {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            width: 100%;
+            padding: .62rem 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: var(--text-sm);
+            cursor: pointer;
+            text-align: left;
+            transition: border-color .15s, box-shadow .15s
+        }
+
+        .pay-cur-trigger:focus,
+        .pay-cur-dropdown.open .pay-cur-trigger,
+        .pay-country-trigger:focus,
+        .pay-country-dropdown.open .pay-country-trigger {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 14%, transparent)
+        }
+
+        .pay-cur-flag {
+            font-size: 1rem;
+            line-height: 1;
+            flex-shrink: 0
+        }
+
+        .pay-cur-label {
+            flex: 1;
+            font-weight: 600
+        }
+
+        .pay-cur-sym {
+            color: var(--color-text-faint);
+            font-size: var(--text-xs)
+        }
+
+        .pay-cur-chevron,
+        .pay-country-chevron {
+            width: 16px;
+            height: 16px;
+            color: var(--color-text-faint);
+            transition: transform .2s;
+            flex-shrink: 0
+        }
+
+        .pay-cur-dropdown.open .pay-cur-chevron,
+        .pay-country-dropdown.open .pay-country-chevron {
+            transform: rotate(180deg)
+        }
+
+        .pay-cur-panel,
+        .pay-country-panel {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            z-index: 60;
+            overflow: hidden
+        }
+
+        .pay-cur-dropdown.open .pay-cur-panel,
+        .pay-country-dropdown.open .pay-country-panel {
+            display: block
+        }
+
+        .pay-cur-search-wrap {
+            padding: var(--space-2) var(--space-3);
+            border-bottom: 1px solid var(--color-border)
+        }
+
+        .pay-cur-search,
+        .pay-country-search {
+            width: 100%;
+            padding: .45rem .7rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface-2);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: var(--text-sm);
+            outline: none
+        }
+
+        .pay-cur-search:focus,
+        .pay-country-search:focus {
+            border-color: var(--color-primary)
+        }
+
+        .pay-cur-list,
+        .pay-country-list {
+            max-height: 220px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-border) transparent
+        }
+
+        .pay-cur-list::-webkit-scrollbar,
+        .pay-country-list::-webkit-scrollbar {
+            width: 5px
+        }
+
+        .pay-cur-list::-webkit-scrollbar-thumb,
+        .pay-country-list::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 3px
+        }
+
+        .pay-cur-opt,
+        .pay-country-opt {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: .5rem .9rem;
+            cursor: pointer;
+            font-size: var(--text-sm);
+            color: var(--color-text);
+            transition: background .1s;
+            width: 100%;
+            border: none;
+            background: none;
+            font-family: var(--font-body);
+            text-align: left
+        }
+
+        .pay-cur-opt:hover,
+        .pay-country-opt:hover {
+            background: var(--color-surface-2)
+        }
+
+        .pay-cur-opt.active,
+        .pay-country-opt.active {
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            font-weight: 600
+        }
+
+        .pay-cur-opt-code {
+            font-weight: 700;
+            min-width: 36px
+        }
+
+        .pay-cur-opt-name,
+        .pay-country-opt-name {
+            flex: 1;
+            color: var(--color-text-muted);
+            font-size: .75rem
+        }
+
+        .pay-cur-opt.active .pay-cur-opt-name,
+        .pay-country-opt.active .pay-country-opt-name {
+            color: var(--color-primary);
+            opacity: .8
+        }
+
+        .pay-cur-opt-sym {
+            color: var(--color-text-faint);
+            font-size: .75rem;
+            min-width: 20px;
+            text-align: right
+        }
+
+        .pay-cur-divider,
+        .pay-country-divider {
+            padding: .3rem .9rem .15rem;
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            color: var(--color-text-faint);
+            background: var(--color-surface-2);
+            border-top: 1px solid var(--color-border)
+        }
+
+        .pay-cur-empty,
+        .pay-country-empty {
+            padding: var(--space-4);
+            text-align: center;
+            font-size: var(--text-sm);
+            color: var(--color-text-faint)
+        }
+
+        /* Form col */
         .pay-form-col {
             flex: 1;
             padding: var(--space-6);
-            overflow-y: auto;
+            overflow-y: auto
         }
 
-        /* Shared input styles */
         .pay-label {
             display: block;
             font-size: var(--text-sm);
             font-weight: 600;
             color: var(--color-text-muted);
-            margin-bottom: var(--space-2);
+            margin-bottom: var(--space-2)
         }
 
         .pay-input {
@@ -2445,36 +2493,44 @@
             font-family: var(--font-body);
             font-size: var(--text-sm);
             transition: border-color .15s, box-shadow .15s;
-            outline: none;
+            outline: none
         }
 
         .pay-input:focus {
             border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 14%, transparent);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 14%, transparent)
         }
 
-        .pay-select-wrap {
-            position: relative;
+        .pay-input.shake {
+            animation: payShake .4s ease
         }
 
-        .pay-select-wrap select {
-            appearance: none;
-            -webkit-appearance: none;
-            padding-right: 2rem;
+        .pay-input.error {
+            border-color: #c0392b
         }
 
-        .pay-select-wrap::after {
-            content: '';
-            position: absolute;
-            right: .9rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 6px solid var(--color-text-muted);
-            pointer-events: none;
+        @keyframes payShake {
+
+            0%,
+            100% {
+                transform: translateX(0)
+            }
+
+            20% {
+                transform: translateX(-5px)
+            }
+
+            40% {
+                transform: translateX(5px)
+            }
+
+            60% {
+                transform: translateX(-4px)
+            }
+
+            80% {
+                transform: translateX(4px)
+            }
         }
 
         /* Tabs */
@@ -2484,11 +2540,11 @@
             margin-bottom: var(--space-5);
             overflow-x: auto;
             -ms-overflow-style: none;
-            scrollbar-width: none;
+            scrollbar-width: none
         }
 
         .pay-tabs::-webkit-scrollbar {
-            display: none;
+            display: none
         }
 
         .pay-tab {
@@ -2502,44 +2558,51 @@
             font-weight: 600;
             font-size: var(--text-sm);
             transition: color .15s, border-color .15s;
-            margin-bottom: -1px;
+            margin-bottom: -1px
         }
 
         .pay-tab:hover {
-            color: var(--color-text-muted);
+            color: var(--color-text-muted)
         }
 
         .pay-tab.active {
             color: var(--color-primary);
-            border-bottom-color: var(--color-primary);
+            border-bottom-color: var(--color-primary)
         }
 
-        /* Panels */
         .pay-panel {
-            display: none;
+            display: none
         }
 
         .pay-panel.active {
-            display: block;
+            display: block
         }
 
-        /* Radio cards */
+        #ptab-apm {
+            display: none
+        }
+
+        #ptab-apm.visible {
+            display: inline-flex
+        }
+
+        /* Radio */
         .pay-radio-grid {
             display: grid;
             gap: var(--space-3);
-            margin-bottom: var(--space-4);
+            margin-bottom: var(--space-4)
         }
 
         .pay-radio-grid.cols-2 {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr
         }
 
         .pay-radio-grid.cols-3 {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr)
         }
 
         .pay-radio-input {
-            display: none;
+            display: none
         }
 
         .pay-radio-label {
@@ -2551,16 +2614,16 @@
             border-radius: var(--radius-md);
             cursor: pointer;
             transition: border-color .15s, background .15s;
-            font-size: var(--text-sm);
+            font-size: var(--text-sm)
         }
 
         .pay-radio-label:hover {
-            border-color: var(--color-primary);
+            border-color: var(--color-primary)
         }
 
         .pay-radio-input:checked+.pay-radio-label {
             border-color: var(--color-primary);
-            background: var(--color-primary-highlight);
+            background: var(--color-primary-highlight)
         }
 
         .pay-radio-dot {
@@ -2572,11 +2635,11 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            transition: border-color .15s;
+            transition: border-color .15s
         }
 
         .pay-radio-input:checked+.pay-radio-label .pay-radio-dot {
-            border-color: var(--color-primary);
+            border-color: var(--color-primary)
         }
 
         .pay-radio-dot::after {
@@ -2585,34 +2648,34 @@
             height: 8px;
             background: var(--color-primary);
             border-radius: 50%;
-            display: none;
+            display: none
         }
 
         .pay-radio-input:checked+.pay-radio-label .pay-radio-dot::after {
-            display: block;
+            display: block
         }
 
         .pay-radio-label-stack {
             display: flex;
-            flex-direction: column;
+            flex-direction: column
         }
 
         .pay-radio-label-title {
             font-weight: 600;
-            color: var(--color-text);
+            color: var(--color-text)
         }
 
         .pay-radio-label-sub {
             font-size: var(--text-xs);
-            color: var(--color-text-muted);
+            color: var(--color-text-muted)
         }
 
-        /* Wallet grid */
+        /* Wallet */
         .pay-wallet-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: var(--space-3);
-            margin-bottom: var(--space-4);
+            margin-bottom: var(--space-4)
         }
 
         .pay-wallet-label {
@@ -2625,40 +2688,40 @@
             border-radius: var(--radius-md);
             cursor: pointer;
             transition: border-color .15s, background .15s;
-            text-align: center;
+            text-align: center
         }
 
         .pay-wallet-label:hover {
-            border-color: var(--color-primary);
+            border-color: var(--color-primary)
         }
 
         .pay-radio-input:checked+.pay-wallet-label {
             border-color: var(--color-primary);
-            background: var(--color-primary-highlight);
+            background: var(--color-primary-highlight)
         }
 
         .pay-wallet-icon {
             width: 36px;
-            height: 36px;
+            height: 36px
         }
 
         .pay-wallet-name {
             font-weight: 600;
             color: var(--color-text);
-            font-size: var(--text-sm);
+            font-size: var(--text-sm)
         }
 
         .pay-wallet-sub {
             font-size: var(--text-xs);
-            color: var(--color-text-muted);
+            color: var(--color-text-muted)
         }
 
         /* 3D Card */
         .pay-card-container {
             perspective: 1000px;
-            height: 190px;
-            max-width: 360px;
-            margin: 0 auto var(--space-5);
+            height: 185px;
+            max-width: 340px;
+            margin: 0 auto var(--space-5)
         }
 
         .pay-card-inner {
@@ -2666,25 +2729,24 @@
             width: 100%;
             height: 100%;
             transition: transform .6s;
-            transform-style: preserve-3d;
+            transform-style: preserve-3d
         }
 
         .pay-card-container.flipped .pay-card-inner {
-            transform: rotateY(180deg);
+            transform: rotateY(180deg)
         }
 
         .pay-card-face {
             backface-visibility: hidden;
             position: absolute;
-            inset: 0;
+            inset: 0
         }
 
         .pay-card-back-face {
-            transform: rotateY(180deg);
+            transform: rotateY(180deg)
         }
 
         .pay-card-visual {
-            background: linear-gradient(135deg, var(--color-primary-hover) 0%, var(--color-primary) 100%);
             border-radius: var(--radius-lg);
             padding: var(--space-5);
             height: 100%;
@@ -2693,55 +2755,72 @@
             justify-content: space-between;
             color: #fff;
             box-shadow: var(--shadow-md);
+            transition: background .5s;
+            background: linear-gradient(135deg, var(--color-primary-hover) 0%, var(--color-primary) 100%)
+        }
+
+        .pay-card-visual.skin-visa {
+            background: linear-gradient(135deg, #1a1f71 0%, #2962ff 100%)
+        }
+
+        .pay-card-visual.skin-mastercard {
+            background: linear-gradient(135deg, #eb001b 0%, #f79e1b 100%)
+        }
+
+        .pay-card-visual.skin-amex {
+            background: linear-gradient(135deg, #1a1a1a 0%, #7d6608 100%)
+        }
+
+        .pay-card-visual.skin-discover {
+            background: linear-gradient(135deg, #e65c00 0%, #f9d423 100%)
         }
 
         .pay-card-top {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: flex-start
         }
 
         .pay-card-brand {
             font-size: .65rem;
             font-weight: 700;
             letter-spacing: .12em;
-            opacity: .75;
+            opacity: .75
         }
 
         .pay-card-chip {
             width: 34px;
             height: 26px;
             background: linear-gradient(135deg, #d4a843, #f0c060);
-            border-radius: 5px;
+            border-radius: 5px
         }
 
         .pay-card-number {
             letter-spacing: .18em;
-            font-size: .95rem;
-            font-weight: 500;
+            font-size: .9rem;
+            font-weight: 500
         }
 
         .pay-card-bottom {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: flex-end
         }
 
         .pay-card-meta-label {
             font-size: .52rem;
             opacity: .65;
             letter-spacing: .06em;
-            text-transform: uppercase;
+            text-transform: uppercase
         }
 
         .pay-card-meta-val {
             font-weight: 600;
             font-size: .8rem;
-            margin-top: 2px;
+            margin-top: 2px
         }
 
         .pay-card-back-visual {
-            background: linear-gradient(135deg, var(--color-primary-hover) 0%, color-mix(in srgb, var(--color-primary) 60%, #000) 100%);
             border-radius: var(--radius-lg);
             height: 100%;
             display: flex;
@@ -2749,12 +2828,13 @@
             justify-content: center;
             box-shadow: var(--shadow-md);
             overflow: hidden;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)
         }
 
         .pay-card-stripe {
-            background: rgba(0, 0, 0, .45);
+            background: rgba(0, 0, 0, .55);
             height: 42px;
-            margin-bottom: var(--space-5);
+            margin-bottom: var(--space-5)
         }
 
         .pay-card-cvv-row {
@@ -2762,7 +2842,7 @@
             align-items: center;
             justify-content: flex-end;
             padding: 0 var(--space-5);
-            gap: var(--space-3);
+            gap: var(--space-3)
         }
 
         .pay-card-cvv-box {
@@ -2774,124 +2854,103 @@
             letter-spacing: .12em;
             min-width: 56px;
             text-align: center;
-            transition: opacity .25s ease;
+            transition: opacity .25s ease
         }
 
         .pay-card-cvv-box[data-masked='1'] {
-            opacity: 0;
+            opacity: 0
         }
 
         .pay-card-cvv-label {
             color: rgba(255, 255, 255, .65);
             font-size: .55rem;
             text-transform: uppercase;
-            letter-spacing: .1em;
+            letter-spacing: .1em
         }
 
-        /* Form grid */
+        /* Fields */
         .pay-field-grid {
             display: grid;
             gap: var(--space-4);
-            margin-bottom: var(--space-4);
+            margin-bottom: var(--space-4)
         }
 
         .pay-field-grid.cols-2 {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr
         }
 
         .pay-field {
             display: flex;
-            flex-direction: column;
+            flex-direction: column
         }
 
         .pay-field.full {
-            grid-column: 1 / -1;
+            grid-column: 1/-1
         }
 
-        /* Slider */
-        .pay-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 6px;
-            background: var(--color-border);
-            border-radius: 3px;
-            outline: none;
-            margin: var(--space-2) 0;
+        /* CVV eye toggle */
+        .pay-cvv-wrap {
+            position: relative
         }
 
-        .pay-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            background: var(--color-primary);
-            border-radius: 50%;
-            cursor: pointer;
+        .pay-cvv-wrap .pay-input {
+            padding-right: 2.8rem
         }
 
-        .pay-slider::-moz-range-thumb {
-            width: 18px;
-            height: 18px;
-            background: var(--color-primary);
-            border-radius: 50%;
-            cursor: pointer;
+        .pay-cvv-eye {
+            position: absolute;
+            right: .75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
             border: none;
-        }
-
-        .pay-slider-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: var(--text-xs);
             color: var(--color-text-faint);
-            margin-top: .2rem;
+            cursor: pointer;
+            padding: .2rem;
+            line-height: 1;
+            transition: color .15s
         }
 
-        /* Info box */
-        .pay-info-box {
-            background: var(--color-surface-2);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            padding: var(--space-4) var(--space-5);
-            margin-bottom: var(--space-4);
+        .pay-cvv-eye:hover {
+            color: var(--color-primary)
         }
 
-        .pay-info-box h4 {
+        /* Billing */
+        .pay-billing-section {
+            margin-top: var(--space-4);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--color-border)
+        }
+
+        .pay-billing-title {
             font-size: var(--text-sm);
-            font-weight: 600;
-            margin-bottom: var(--space-3);
-            color: var(--color-text);
-        }
-
-        .pay-breakdown-rows {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-2);
-        }
-
-        .pay-breakdown-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: var(--text-sm);
-            color: var(--color-text-muted);
-        }
-
-        .pay-breakdown-row.total {
-            border-top: 1px solid var(--color-border);
-            padding-top: var(--space-2);
-            margin-top: var(--space-1);
-            color: var(--color-text);
             font-weight: 700;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-3);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2)
         }
 
-        /* Provider logo */
-        .pay-provider-logo {
-            width: 26px;
-            height: 26px;
-            flex-shrink: 0;
+        /* Errors */
+        .pay-card-error {
+            display: none;
+            font-size: var(--text-xs);
+            color: #c0392b;
+            background: color-mix(in srgb, #c0392b 7%, var(--color-surface));
+            border: 1px solid color-mix(in srgb, #c0392b 22%, var(--color-border));
+            border-radius: var(--radius-md);
+            padding: .5rem .75rem;
+            margin-top: var(--space-2);
+            align-items: center;
+            gap: var(--space-2)
         }
 
-        /* Action button */
+        .pay-card-error.visible {
+            display: flex
+        }
+
+        /* Pay button */
         .pay-action-btn {
             width: 100%;
             padding: .95rem;
@@ -2903,12 +2962,41 @@
             font-size: var(--text-base);
             font-weight: 700;
             cursor: pointer;
-            transition: background .2s;
+            transition: background .2s, opacity .2s;
             margin-top: var(--space-4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2)
         }
 
-        .pay-action-btn:hover {
-            background: var(--color-primary-hover);
+        .pay-action-btn:hover:not(:disabled) {
+            background: var(--color-primary-hover)
+        }
+
+        .pay-action-btn:disabled {
+            opacity: .65;
+            cursor: not-allowed
+        }
+
+        .pay-spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, .35);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin .7s linear infinite
+        }
+
+        .pay-action-btn.processing .pay-spinner {
+            display: block
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
         }
 
         .pay-secure-note {
@@ -2918,57 +3006,115 @@
             gap: var(--space-2);
             margin-top: var(--space-3);
             font-size: var(--text-xs);
-            color: var(--color-text-faint);
+            color: var(--color-text-faint)
         }
 
-        /* Bank transfer */
-        .pay-bank-grid {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: var(--space-2) var(--space-4);
-            font-size: var(--text-sm);
-        }
-
-        .pay-bank-key {
-            font-weight: 600;
-            color: var(--color-text-muted);
-        }
-
-        .pay-bank-val {
-            color: var(--color-text);
-        }
-
-        .pay-warning-box {
-            background: color-mix(in srgb, #f0a30a 8%, var(--color-surface-2));
-            border: 1px solid color-mix(in srgb, #f0a30a 28%, var(--color-border));
-            border-radius: var(--radius-md);
-            padding: var(--space-3) var(--space-4);
-            font-size: var(--text-sm);
-            color: var(--color-text-muted);
+        /* 3DS */
+        .pay-3ds-indicator {
             display: flex;
-            gap: var(--space-3);
-            margin-top: var(--space-4);
+            align-items: center;
+            gap: var(--space-2);
+            font-size: var(--text-xs);
+            color: var(--color-text-faint);
+            margin-top: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+            background: var(--color-surface-2);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border)
         }
 
-        /* PayPal panel */
+        .pay-3ds-indicator svg {
+            color: var(--color-primary);
+            flex-shrink: 0
+        }
+
+        .pay-3ds-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            animation: pulse3ds 2s infinite;
+            flex-shrink: 0
+        }
+
+        @keyframes pulse3ds {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(.7)
+            }
+        }
+
+        .pay-tokenize-note {
+            font-size: var(--text-xs);
+            color: var(--color-text-faint);
+            text-align: center;
+            margin-top: var(--space-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .3rem
+        }
+
+        /* APM */
+        .pay-apm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: var(--space-3);
+            margin-bottom: var(--space-4)
+        }
+
+        .pay-apm-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-4) var(--space-3);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            color: var(--color-text);
+            cursor: pointer;
+            transition: border-color .15s, background .15s;
+            font-family: var(--font-body);
+            font-size: var(--text-sm);
+            font-weight: 600
+        }
+
+        .pay-apm-btn:hover {
+            border-color: var(--color-primary);
+            background: var(--color-primary-highlight)
+        }
+
+        .pay-apm-icon {
+            font-size: 1.6rem
+        }
+
+        /* PayPal */
         .pay-paypal-box {
             background: var(--color-surface-2);
             border: 1px solid var(--color-border);
             border-radius: var(--radius-lg);
             padding: var(--space-8);
-            text-align: center;
+            text-align: center
         }
 
         .pay-paypal-logo {
             width: 72px;
             height: 72px;
-            margin: 0 auto var(--space-4);
+            margin: 0 auto var(--space-4)
         }
 
         .pay-paypal-text {
             color: var(--color-text-muted);
             font-size: var(--text-sm);
-            margin-bottom: var(--space-5);
+            margin-bottom: var(--space-5)
         }
 
         .pay-paypal-btn {
@@ -2984,125 +3130,73 @@
             font-weight: 700;
             font-size: var(--text-sm);
             cursor: pointer;
-            transition: background .2s;
+            transition: background .2s
         }
 
         .pay-paypal-btn:hover {
-            background: #005ea6;
+            background: #005ea6
         }
 
-        /* Success overlay */
-        .pay-success-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 200;
-            background: rgba(0, 0, 0, .65);
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        .pay-success-overlay.open {
-            display: flex;
-        }
-
-        .pay-success-card {
-            background: var(--color-surface);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            padding: var(--space-8);
-            width: min(100%, 440px);
-            text-align: center;
+        /* Info box */
+        .pay-info-box {
+            background: var(--color-surface-2);
             border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-4) var(--space-5);
+            margin-bottom: var(--space-4)
         }
 
-        .pay-success-icon {
-            width: 64px;
-            height: 64px;
-            background: var(--color-primary-highlight);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto var(--space-5);
-        }
-
-        .pay-success-icon svg {
-            color: var(--color-primary);
-        }
-
-        .pay-success-title {
-            font-family: var(--font-display);
-            font-size: var(--text-xl);
-            margin-bottom: var(--space-2);
-        }
-
-        .pay-success-sub {
-            color: var(--color-text-muted);
+        .pay-info-box h4 {
             font-size: var(--text-sm);
-            margin-bottom: var(--space-6);
-        }
-
-        .pay-success-details {
-            border-top: 1px solid var(--color-border);
-            padding-top: var(--space-4);
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-2);
-            text-align: left;
-            margin-bottom: var(--space-6);
-        }
-
-        .pay-success-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: var(--text-sm);
-        }
-
-        .pay-success-row span:first-child {
-            color: var(--color-text-muted);
-        }
-
-        .pay-success-row span:last-child {
             font-weight: 600;
-            color: var(--color-text);
+            margin-bottom: var(--space-3)
         }
 
-        /* Mobile */
-        @media (max-width: 680px) {
-            .pay-body {
-                flex-direction: column;
-            }
-
-            .pay-summary {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid var(--color-border);
-            }
-
-            .pay-radio-grid.cols-3 {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .pay-wallet-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .pay-field-grid.cols-2 {
-                grid-template-columns: 1fr;
-            }
-
-            .pay-card-container {
-                max-width: 100%;
-            }
-
-            .bank-nav-row {
-                grid-template-columns: 1fr;
-            }
+        /* Security bar */
+        .pay-security-bar {
+            background: color-mix(in srgb, var(--color-primary) 5%, var(--color-surface-2));
+            border-top: 1px solid var(--color-border);
+            padding: var(--space-4) var(--space-6);
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3) var(--space-4);
+            align-items: center
         }
 
-        /* ── Payment auth gate ───────────────────────────────────────── */
+        .pay-security-bar-title {
+            font-size: var(--text-xs);
+            font-weight: 700;
+            color: var(--color-text-faint);
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            flex-basis: 100%
+        }
+
+        .pay-sec-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            font-size: .68rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            padding: .28rem .65rem
+        }
+
+        .pay-sec-badge svg {
+            color: var(--color-primary);
+            flex-shrink: 0
+        }
+
+        .pay-sec-badge.strong {
+            background: var(--color-primary-highlight);
+            border-color: color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
+            color: var(--color-primary)
+        }
+
+        /* Auth gate */
         .pay-auth-gate {
             padding: var(--space-8) var(--space-6);
             display: flex;
@@ -3110,7 +3204,7 @@
             align-items: center;
             gap: var(--space-5);
             min-height: 400px;
-            justify-content: center;
+            justify-content: center
         }
 
         .pay-auth-icon {
@@ -3121,20 +3215,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--color-primary);
+            color: var(--color-primary)
         }
 
         .pay-auth-title {
             font-family: var(--font-display);
             font-size: var(--text-xl);
-            text-align: center;
+            text-align: center
         }
 
         .pay-auth-sub {
             font-size: var(--text-sm);
             color: var(--color-text-muted);
             text-align: center;
-            max-width: 34ch;
+            max-width: 34ch
         }
 
         .pay-auth-form {
@@ -3142,7 +3236,7 @@
             max-width: 380px;
             display: flex;
             flex-direction: column;
-            gap: var(--space-3);
+            gap: var(--space-3)
         }
 
         .pay-auth-tabs {
@@ -3151,7 +3245,7 @@
             border-radius: var(--radius-full);
             padding: 3px;
             background: var(--color-surface-2);
-            margin-bottom: var(--space-1);
+            margin-bottom: var(--space-1)
         }
 
         .pay-auth-tab {
@@ -3165,13 +3259,13 @@
             font-weight: 600;
             font-size: var(--text-sm);
             cursor: pointer;
-            transition: background .15s, color .15s;
+            transition: background .15s, color .15s
         }
 
         .pay-auth-tab.active {
             background: var(--color-surface);
             color: var(--color-text);
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-sm)
         }
 
         .pay-auth-divider {
@@ -3179,7 +3273,7 @@
             align-items: center;
             gap: var(--space-3);
             font-size: var(--text-xs);
-            color: var(--color-text-faint);
+            color: var(--color-text-faint)
         }
 
         .pay-auth-divider::before,
@@ -3187,13 +3281,13 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: var(--color-border);
+            background: var(--color-border)
         }
 
         .pay-auth-social-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: var(--space-2);
+            gap: var(--space-2)
         }
 
         .pay-auth-social-btn {
@@ -3210,16 +3304,12 @@
             font-size: var(--text-sm);
             font-weight: 600;
             cursor: pointer;
-            transition: background .15s, border-color .15s;
+            transition: background .15s, border-color .15s
         }
 
         .pay-auth-social-btn:hover {
             background: var(--color-surface-2);
-            border-color: var(--color-primary);
-        }
-
-        .pay-auth-social-btn svg {
-            flex-shrink: 0;
+            border-color: var(--color-primary)
         }
 
         .pay-auth-error {
@@ -3229,13 +3319,14 @@
             background: color-mix(in srgb, #c0392b 8%, var(--color-surface));
             border: 1px solid color-mix(in srgb, #c0392b 22%, var(--color-border));
             border-radius: var(--radius-md);
-            padding: .5rem .75rem;
+            padding: .5rem .75rem
         }
 
         .pay-auth-error.visible {
-            display: block;
+            display: block
         }
 
+        /* Account bar */
         .pay-logged-in-bar {
             display: flex;
             align-items: center;
@@ -3245,7 +3336,7 @@
             border-radius: var(--radius-md);
             padding: var(--space-3) var(--space-4);
             margin-bottom: var(--space-5);
-            font-size: var(--text-sm);
+            font-size: var(--text-sm)
         }
 
         .pay-logged-in-avatar {
@@ -3259,13 +3350,13 @@
             justify-content: center;
             font-weight: 700;
             font-size: .7rem;
-            flex-shrink: 0;
+            flex-shrink: 0
         }
 
         .pay-logged-in-email {
             font-weight: 600;
             color: var(--color-text);
-            flex: 1;
+            flex: 1
         }
 
         .pay-logged-in-badge {
@@ -3276,7 +3367,7 @@
             background: var(--color-primary);
             color: var(--color-text-inverse);
             border-radius: var(--radius-full);
-            padding: .2rem .55rem;
+            padding: .2rem .55rem
         }
 
         .pay-switch-account {
@@ -3287,141 +3378,169 @@
             font-size: var(--text-xs);
             cursor: pointer;
             text-decoration: underline;
-            text-underline-offset: 2px;
-            padding: 0;
+            text-underline-offset: 2px
         }
 
         .pay-switch-account:hover {
-            color: var(--color-text-muted);
+            color: var(--color-text-muted)
         }
 
-        /* hide pay-body when auth gate is showing */
-        .pay-dialog.auth-required .pay-body {
+        /* Success */
+        .pay-success-overlay {
             display: none;
-        }
-
-        .pay-dialog.auth-required .pay-auth-gate {
-            display: flex;
-        }
-
-        .pay-dialog:not(.auth-required) .pay-auth-gate {
-            display: none;
-        }
-
-        /* ── Security trust bar ──────────────────────────────────────── */
-        .pay-security-bar {
-            background: color-mix(in srgb, var(--color-primary) 5%, var(--color-surface-2));
-            border-top: 1px solid var(--color-border);
-            padding: var(--space-4) var(--space-6);
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-3) var(--space-4);
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(0, 0, 0, .65);
             align-items: center;
+            justify-content: center;
+            padding: 1rem
         }
 
-        .pay-security-bar-title {
-            font-size: var(--text-xs);
-            font-weight: 700;
-            color: var(--color-text-faint);
-            text-transform: uppercase;
-            letter-spacing: .07em;
-            flex-basis: 100%;
+        .pay-success-overlay.open {
+            display: flex
         }
 
-        .pay-sec-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: .35rem;
-            font-size: .68rem;
-            font-weight: 600;
-            color: var(--color-text-muted);
+        .pay-success-card {
             background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-full);
-            padding: .28rem .65rem;
-        }
-
-        .pay-sec-badge svg {
-            color: var(--color-primary);
-            flex-shrink: 0;
-        }
-
-        .pay-sec-badge.strong {
-            background: var(--color-primary-highlight);
-            border-color: color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
-            color: var(--color-primary);
-        }
-
-        /* ── Card validation error ───────────────────────────────────── */
-        .pay-card-error {
-            display: none;
-            font-size: var(--text-xs);
-            color: #c0392b;
-            background: color-mix(in srgb, #c0392b 7%, var(--color-surface));
-            border: 1px solid color-mix(in srgb, #c0392b 22%, var(--color-border));
-            border-radius: var(--radius-md);
-            padding: .5rem .75rem;
-            margin-top: var(--space-2);
-            display: none;
-            align-items: center;
-            gap: var(--space-2);
-        }
-
-        .pay-card-error.visible {
-            display: flex;
-        }
-
-        /* ── 3DS / MFA indicator ─────────────────────────────────────── */
-        .pay-3ds-indicator {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            font-size: var(--text-xs);
-            color: var(--color-text-faint);
-            margin-top: var(--space-3);
-            padding: var(--space-2) var(--space-3);
-            background: var(--color-surface-2);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--color-border);
-        }
-
-        .pay-3ds-indicator svg {
-            color: var(--color-primary);
-            flex-shrink: 0;
-        }
-
-        .pay-3ds-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--color-primary);
-            border-radius: 50%;
-            animation: pulse3ds 2s infinite;
-            flex-shrink: 0;
-        }
-
-        @keyframes pulse3ds {
-
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: .4;
-                transform: scale(.7);
-            }
-        }
-
-        .pay-tokenize-note {
-            font-size: var(--text-xs);
-            color: var(--color-text-faint);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--space-8);
+            width: min(100%, 480px);
             text-align: center;
-            margin-top: var(--space-2);
+            border: 1px solid var(--color-border);
+            animation: paySlideIn .22s ease
+        }
+
+        .pay-success-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--color-primary-highlight);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: .3rem;
+            margin: 0 auto var(--space-5)
+        }
+
+        .pay-success-icon svg {
+            color: var(--color-primary)
+        }
+
+        .pay-success-title {
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-2)
+        }
+
+        .pay-success-sub {
+            color: var(--color-text-muted);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-6)
+        }
+
+        .pay-success-details {
+            border-top: 1px solid var(--color-border);
+            padding-top: var(--space-4);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+            text-align: left;
+            margin-bottom: var(--space-5)
+        }
+
+        .pay-success-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--text-sm)
+        }
+
+        .pay-success-row span:first-child {
+            color: var(--color-text-muted)
+        }
+
+        .pay-success-row span:last-child {
+            font-weight: 600;
+            color: var(--color-text)
+        }
+
+        .pay-success-actions {
+            display: flex;
+            gap: var(--space-3)
+        }
+
+        .pay-receipt-btn {
+            flex: 1;
+            padding: .75rem;
+            background: var(--color-surface-2);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: var(--text-sm);
+            cursor: pointer;
+            transition: background .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2)
+        }
+
+        .pay-receipt-btn:hover {
+            background: var(--color-primary-highlight);
+            border-color: var(--color-primary)
+        }
+
+        /* Auth gate visibility */
+        .pay-dialog.auth-required .pay-body {
+            display: none
+        }
+
+        .pay-dialog.auth-required .pay-auth-gate {
+            display: flex
+        }
+
+        .pay-dialog:not(.auth-required) .pay-auth-gate {
+            display: none
+        }
+
+        /* Responsive */
+        @media(max-width:700px) {
+            .pay-body {
+                flex-direction: column
+            }
+
+            .pay-summary {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--color-border)
+            }
+
+            .pay-radio-grid.cols-2,
+            .pay-radio-grid.cols-3 {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .pay-wallet-grid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .pay-field-grid.cols-2 {
+                grid-template-columns: 1fr
+            }
+
+            .pay-card-container {
+                max-width: 100%
+            }
+
+            .pay-apm-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .pay-success-actions {
+                flex-direction: column
+            }
         }
     </style>
 
@@ -4343,7 +4462,7 @@
                     <option value="zh">中文</option>
                     <option value="hi">हिन्दी</option>
                 </select>
-                <button class="auth-toggle" id="auth-toggle" data-i18n="navAuth">My Account</button>
+                <button class="auth-toggle" id="auth-toggle" data-i18n="navAuth">Login / Sign up</button>
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"
                     title="System theme">🌙</button>
 
@@ -6868,21 +6987,25 @@
     </script>
 
     <!-- ── Payment / Subscription Modal ─────────────────────────────── -->
+    <!-- ══════════════════════════════════════════════════════════
+         UNIVERSAL GATEWAY — Payment Modal
+    ══════════════════════════════════════════════════════════ -->
     <div class="pay-overlay" id="pay-overlay" role="dialog" aria-modal="true" aria-labelledby="pay-dialog-title">
-        <div class="pay-dialog">
+        <div class="pay-dialog" id="pay-dialog">
+
+            <!-- Header -->
             <div class="pay-dialog-header">
                 <div>
                     <h2 id="pay-dialog-title">Subscribe to Zpendr Pro</h2>
                     <p id="pay-plan-label">Monthly plan · $4.99 / month</p>
                 </div>
-                <button class="pay-close-btn" id="pay-close-btn" aria-label="Close payment dialog">✕</button>
+                <button class="pay-close-btn" id="pay-close-btn" aria-label="Close">✕</button>
             </div>
 
-            <!-- Auth Gate (shown when not signed in) -->
+            <!-- Auth Gate -->
             <div class="pay-auth-gate" id="pay-auth-gate">
                 <div class="pay-auth-icon">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        aria-hidden="true">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
                     </svg>
@@ -6891,18 +7014,14 @@
                     <h3 class="pay-auth-title">Sign in to continue</h3>
                     <p class="pay-auth-sub">Your subscription will be linked to your Zpendr account.</p>
                 </div>
-
                 <div class="pay-auth-form">
-                    <!-- Sign in / Sign up toggle -->
                     <div class="pay-auth-tabs" role="tablist">
                         <button class="pay-auth-tab active" id="pgat-login-tab" role="tab">Sign in</button>
                         <button class="pay-auth-tab" id="pgat-signup-tab" role="tab">Create account</button>
                     </div>
-
-                    <!-- Social auth -->
                     <div class="pay-auth-social-row">
                         <button class="pay-auth-social-btn" id="pgat-google">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                                 <path
                                     d="M21.5 12c0-.82-.07-1.61-.2-2.37H12v4.49h5.36c-.23 1.19-.93 2.2-1.98 2.87v2.39h3.2C20.42 17.41 21.5 14.89 21.5 12z"
                                     fill="#4285F4" />
@@ -6919,7 +7038,7 @@
                             Google
                         </button>
                         <button class="pay-auth-social-btn" id="pgat-apple">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                 <path
                                     d="M18.71 12.68C18.72 10.99 19.7 9.43 21.21 8.61A8.6 8.6 0 0017.38 6.48c-1.6-.17-3.13.94-3.94.94-.82 0-2.08-.91-3.43-.88C8.2 6.58 6.58 7.59 5.68 9.13 3.78 12.21 5.15 16.79 7 19.21c.92 1.18 1.98 2.5 3.39 2.45 1.38-.05 1.9-.87 3.55-.87 1.62 0 2.07.87 3.5.84 1.47-.02 2.44-1.18 3.33-2.37a10.98 10.98 0 001.83-3.9c-1.84-.79-3-2.54-3.6-3.68z" />
                                 <path
@@ -6928,15 +7047,13 @@
                             Apple
                         </button>
                     </div>
-
                     <div class="pay-auth-divider">or continue with email</div>
-
                     <div class="pay-field">
                         <label class="pay-label" for="pgat-email">Email</label>
                         <input type="email" id="pgat-email" class="pay-input" placeholder="you@example.com"
                             autocomplete="email" inputmode="email">
                     </div>
-                    <div class="pay-field" id="pgat-pw-wrap">
+                    <div class="pay-field">
                         <label class="pay-label" for="pgat-password">Password</label>
                         <input type="password" id="pgat-password" class="pay-input" placeholder="••••••••"
                             autocomplete="current-password">
@@ -6946,14 +7063,41 @@
                         <input type="text" id="pgat-name" class="pay-input" placeholder="Your name" autocomplete="name">
                     </div>
                     <div class="pay-auth-error" id="pgat-error"></div>
-                    <button class="pay-action-btn" id="pgat-submit" style="margin-top:0;">Sign in &amp;
-                        Continue</button>
+                    <button class="pay-action-btn" id="pgat-submit" style="margin-top:0;"><span
+                            class="pay-spinner"></span>Sign in &amp; Continue</button>
                 </div>
             </div>
 
+            <!-- Main body -->
             <div class="pay-body">
-                <!-- Left: Order Summary -->
+
+                <!-- ── Left: Order Summary ─────────────────────────── -->
                 <div class="pay-summary">
+
+                    <!-- Country selector -->
+                    <div class="pay-country-wrap">
+                        <label class="pay-label" for="pay-country-search">Country</label>
+                        <div class="pay-country-dropdown" id="pay-country-dropdown">
+                            <button type="button" class="pay-country-trigger" id="pay-country-trigger"
+                                aria-haspopup="listbox" aria-expanded="false">
+                                <span class="pay-cur-flag" id="pay-country-flag">🇨🇦</span>
+                                <span class="pay-cur-label" id="pay-country-name-label">Canada</span>
+                                <svg class="pay-country-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </button>
+                            <div class="pay-country-panel" role="listbox">
+                                <div class="pay-cur-search-wrap">
+                                    <input type="search" class="pay-country-search" id="pay-country-search"
+                                        placeholder="Search country…" autocomplete="off">
+                                </div>
+                                <div class="pay-country-list" id="pay-country-list"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Currency selector -->
                     <div class="pay-currency-wrap">
                         <label class="pay-label" for="pay-cur-search">Currency</label>
                         <div class="pay-cur-dropdown" id="pay-cur-dropdown">
@@ -6963,20 +7107,21 @@
                                 <span class="pay-cur-label" id="pay-cur-code-label">CAD</span>
                                 <span class="pay-cur-sym" id="pay-cur-sym-label">Canadian Dollar · C$</span>
                                 <svg class="pay-cur-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" aria-hidden="true">
+                                    stroke-width="2">
                                     <polyline points="6 9 12 15 18 9" />
                                 </svg>
                             </button>
-                            <div class="pay-cur-panel" role="listbox" aria-label="Select currency">
+                            <div class="pay-cur-panel" role="listbox">
                                 <div class="pay-cur-search-wrap">
                                     <input type="search" class="pay-cur-search" id="pay-cur-search"
-                                        placeholder="Search currency or country…" autocomplete="off"
-                                        aria-label="Search currencies">
+                                        placeholder="Search currency…" autocomplete="off">
                                 </div>
                                 <div class="pay-cur-list" id="pay-cur-list"></div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Order summary -->
                     <div class="pay-summary-content">
                         <h3 style="font-size:var(--text-base);font-weight:600;margin-bottom:var(--space-4);">Order
                             Summary</h3>
@@ -6989,12 +7134,15 @@
                         </div>
                         <div class="pay-breakdown">
                             <div class="pay-line"><span>Subscription</span><span id="pay-line-sub">C$6.79</span></div>
-                            <div class="pay-line"><span>Tax (13%)</span><span id="pay-line-tax">C$0.88</span></div>
-                            <div class="pay-line total"><span>Total</span><span id="pay-line-total">C$7.67</span></div>
+                            <div class="pay-line vat" id="pay-line-vat-row">
+                                <span id="pay-vat-label">Tax</span>
+                                <span id="pay-line-tax">C$0.00</span>
+                            </div>
+                            <div class="pay-line total"><span>Total</span><span id="pay-line-total">C$6.79</span></div>
                         </div>
                         <div class="pay-secure-badge">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" aria-hidden="true">
+                                stroke-width="2">
                                 <path
                                     d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                             </svg>
@@ -7003,15 +7151,17 @@
                     </div>
                 </div>
 
-                <!-- Right: Payment Form -->
+                <!-- ── Right: Payment Form ──────────────────────────── -->
                 <div class="pay-form-col">
-                    <!-- Account bar (shown when signed in) -->
-                    <div class="pay-logged-in-bar" id="pay-account-bar">
+
+                    <!-- Account bar -->
+                    <div class="pay-logged-in-bar" id="pay-account-bar" style="display:none;">
                         <div class="pay-logged-in-avatar" id="pay-avatar-initials">JD</div>
                         <span class="pay-logged-in-email" id="pay-account-email">jane@example.com</span>
                         <span class="pay-logged-in-badge">✓ Signed in</span>
                         <button class="pay-switch-account" id="pay-switch-account">Switch</button>
                     </div>
+
                     <h3 style="font-size:var(--text-base);font-weight:600;margin-bottom:var(--space-4);">Payment Method
                     </h3>
 
@@ -7022,36 +7172,34 @@
                             aria-controls="ppanel-wallet">Mobile Wallets</button>
                         <button class="pay-tab" id="ptab-paypal" role="tab" aria-selected="false"
                             aria-controls="ppanel-paypal">PayPal</button>
+                        <button class="pay-tab" id="ptab-apm" role="tab" aria-selected="false"
+                            aria-controls="ppanel-apm">Local Methods</button>
                     </div>
 
-                    <!-- Panel: Credit / Debit Card -->
+                    <!-- Credit/Debit Panel -->
                     <div class="pay-panel active" id="ppanel-card">
                         <div class="pay-radio-grid cols-2">
                             <input type="radio" id="pr-credit" name="pay-card-type" value="credit"
                                 class="pay-radio-input" checked>
                             <label for="pr-credit" class="pay-radio-label">
                                 <span class="pay-radio-dot"></span>
-                                <span class="pay-radio-label-stack">
-                                    <span class="pay-radio-label-title">Credit Card</span>
-                                    <span class="pay-radio-label-sub">Visa, MC, Amex…</span>
-                                </span>
+                                <span class="pay-radio-label-stack"><span class="pay-radio-label-title">Credit
+                                        Card</span><span class="pay-radio-label-sub">Visa, MC, Amex…</span></span>
                             </label>
                             <input type="radio" id="pr-debit" name="pay-card-type" value="debit"
                                 class="pay-radio-input">
                             <label for="pr-debit" class="pay-radio-label">
                                 <span class="pay-radio-dot"></span>
-                                <span class="pay-radio-label-stack">
-                                    <span class="pay-radio-label-title">Debit Card</span>
-                                    <span class="pay-radio-label-sub">Visa Debit, Maestro…</span>
-                                </span>
+                                <span class="pay-radio-label-stack"><span class="pay-radio-label-title">Debit
+                                        Card</span><span class="pay-radio-label-sub">Visa Debit, Maestro…</span></span>
                             </label>
                         </div>
 
-                        <!-- 3D card preview -->
+                        <!-- 3D card -->
                         <div class="pay-card-container" id="pay-card-3d">
                             <div class="pay-card-inner">
                                 <div class="pay-card-face">
-                                    <div class="pay-card-visual">
+                                    <div class="pay-card-visual" id="pay-card-visual">
                                         <div class="pay-card-top">
                                             <span class="pay-card-brand" id="pcard-brand">CARD</span>
                                             <div class="pay-card-chip"></div>
@@ -7081,6 +7229,7 @@
                             </div>
                         </div>
 
+                        <!-- Card fields -->
                         <div class="pay-field-grid cols-2">
                             <div class="pay-field full">
                                 <label class="pay-label" for="pf-name">Cardholder Name</label>
@@ -7093,7 +7242,7 @@
                                     maxlength="19" autocomplete="cc-number" inputmode="numeric">
                                 <div class="pay-card-error" id="pay-card-number-error">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" aria-hidden="true">
+                                        stroke-width="2">
                                         <circle cx="12" cy="12" r="10" />
                                         <line x1="12" y1="8" x2="12" y2="12" />
                                         <line x1="12" y1="16" x2="12.01" y2="16" />
@@ -7107,7 +7256,7 @@
                                     autocomplete="cc-exp" inputmode="numeric">
                                 <div class="pay-card-error" id="pay-expiry-error">
                                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" aria-hidden="true">
+                                        stroke-width="2">
                                         <circle cx="12" cy="12" r="10" />
                                         <line x1="12" y1="8" x2="12" y2="12" />
                                         <line x1="12" y1="16" x2="12.01" y2="16" />
@@ -7117,41 +7266,82 @@
                             </div>
                             <div class="pay-field">
                                 <label class="pay-label" for="pf-cvv">CVV</label>
-                                <input type="password" id="pf-cvv" class="pay-input" placeholder="123" maxlength="4"
-                                    autocomplete="cc-csc" inputmode="numeric">
+                                <div class="pay-cvv-wrap">
+                                    <input type="password" id="pf-cvv" class="pay-input" placeholder="123" maxlength="4"
+                                        autocomplete="cc-csc" inputmode="numeric">
+                                    <button type="button" class="pay-cvv-eye" id="pf-cvv-eye"
+                                        aria-label="Toggle CVV visibility">
+                                        <svg id="pf-cvv-eye-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="pay-3ds-indicator" aria-live="polite">
-                            <div class="pay-3ds-dot" aria-hidden="true"></div>
+                        <!-- Billing address -->
+                        <div class="pay-billing-section">
+                            <div class="pay-billing-title">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                                    <polyline points="9 22 9 12 15 12 15 22" />
+                                </svg>
+                                Billing Address
+                            </div>
+                            <div class="pay-field-grid cols-2">
+                                <div class="pay-field full">
+                                    <label class="pay-label" for="pf-address">Street Address</label>
+                                    <input type="text" id="pf-address" class="pay-input" placeholder="123 Main St"
+                                        autocomplete="street-address">
+                                </div>
+                                <div class="pay-field">
+                                    <label class="pay-label" for="pf-city">City</label>
+                                    <input type="text" id="pf-city" class="pay-input" placeholder="City"
+                                        autocomplete="address-level2">
+                                </div>
+                                <div class="pay-field">
+                                    <label class="pay-label" id="pf-postal-label" for="pf-postal">Postal Code</label>
+                                    <input type="text" id="pf-postal" class="pay-input" placeholder="A1B 2C3"
+                                        autocomplete="postal-code" inputmode="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pay-3ds-indicator">
+                            <div class="pay-3ds-dot"></div>
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" aria-hidden="true">
+                                stroke-width="2">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                             </svg>
                             <span>3-D Secure 2.0 active — your bank will verify this transaction</span>
                         </div>
                         <div class="pay-tokenize-note">
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" aria-hidden="true">
+                                stroke-width="2">
                                 <rect x="3" y="11" width="18" height="11" rx="2" />
                                 <path d="M7 11V7a5 5 0 0110 0v4" />
                             </svg>
-                            Card number is tokenized immediately — never stored in plain text
+                            Card tokenized immediately — never stored in plain text
                         </div>
 
-                        <button class="pay-action-btn" id="pay-card-btn">Pay <span
-                                class="pay-btn-amount">C$7.67</span></button>
+                        <button class="pay-action-btn" id="pay-card-btn">
+                            <span class="pay-spinner"></span>
+                            <span id="pay-card-btn-text">Pay <span class="pay-btn-amount">C$6.79</span></span>
+                        </button>
                         <div class="pay-secure-note">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" aria-hidden="true">
+                                stroke-width="2">
                                 <rect x="3" y="11" width="18" height="11" rx="2" />
                                 <path d="M7 11V7a5 5 0 0110 0v4" />
                             </svg>
-                            Secure checkout · 256-bit TLS/E2EE encryption
+                            PCI DSS Level 1 · 256-bit TLS · E2EE
                         </div>
                     </div>
 
-                    <!-- Panel: Mobile Wallets -->
+                    <!-- Mobile Wallets Panel -->
                     <div class="pay-panel" id="ppanel-wallet">
                         <div class="pay-wallet-grid">
                             <input type="radio" id="pr-apple" name="pay-wallet" value="apple" class="pay-radio-input"
@@ -7165,7 +7355,7 @@
                                         d="M16.8 4.58c.8-1 1.3-2.36 1.2-3.58-1.2.1-2.3.69-3.1 1.61-.7.8-1.3 2.08-1.1 3.37 1.3.08 2.3-.42 3-1.4z" />
                                 </svg>
                                 <span class="pay-wallet-name">Apple Pay</span>
-                                <span class="pay-wallet-sub">Pay with your Apple device</span>
+                                <span class="pay-wallet-sub">Apple device</span>
                             </label>
                             <input type="radio" id="pr-google" name="pay-wallet" value="google" class="pay-radio-input">
                             <label for="pr-google" class="pay-wallet-label">
@@ -7184,7 +7374,7 @@
                                         fill="#EA4335" />
                                 </svg>
                                 <span class="pay-wallet-name">Google Pay</span>
-                                <span class="pay-wallet-sub">Fast checkout with Google</span>
+                                <span class="pay-wallet-sub">Fast checkout</span>
                             </label>
                             <input type="radio" id="pr-samsung" name="pay-wallet" value="samsung"
                                 class="pay-radio-input">
@@ -7196,7 +7386,7 @@
                                     <circle cx="12" cy="12" r="3" fill="white" />
                                 </svg>
                                 <span class="pay-wallet-name">Samsung Pay</span>
-                                <span class="pay-wallet-sub">Pay with your Samsung device</span>
+                                <span class="pay-wallet-sub">Samsung device</span>
                             </label>
                         </div>
                         <div class="pay-info-box">
@@ -7204,15 +7394,14 @@
                             <ol
                                 style="list-style:decimal inside;display:flex;flex-direction:column;gap:.5rem;font-size:var(--text-sm);color:var(--color-text-muted);">
                                 <li>Click "Pay with Mobile Wallet" below</li>
-                                <li>A QR code will appear on your screen</li>
-                                <li>Scan the QR code with your mobile device</li>
-                                <li>Complete the payment in your wallet app</li>
+                                <li>Scan the QR code with your device</li>
+                                <li>Authenticate and confirm in your wallet app</li>
                             </ol>
                         </div>
-                        <button class="pay-action-btn">Pay with Mobile Wallet</button>
+                        <button class="pay-action-btn"><span class="pay-spinner"></span>Pay with Mobile Wallet</button>
                     </div>
 
-                    <!-- Panel: PayPal -->
+                    <!-- PayPal Panel -->
                     <div class="pay-panel" id="ppanel-paypal">
                         <div class="pay-paypal-box">
                             <svg class="pay-paypal-logo" viewBox="0 0 24 24" fill="none">
@@ -7221,10 +7410,10 @@
                                 <path d="M17.5 10.5C17.5 13 15.5 15 13 15H10L9 19H6L8 9H13C15.5 9 17.5 8 17.5 10.5Z"
                                     fill="#009CDE" />
                             </svg>
-                            <p class="pay-paypal-text">Click the button below to securely complete your subscription
-                                with PayPal.</p>
-                            <button class="pay-paypal-btn">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <p class="pay-paypal-text">Click below to securely complete your subscription with PayPal.
+                            </p>
+                            <button class="pay-paypal-btn" id="pay-paypal-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                                     <path d="M19.5 8.5C19.5 11 17.5 13 15 13H12L11 17H8L10 7H15C17.5 7 19.5 6 19.5 8.5Z"
                                         fill="white" />
                                     <path d="M17.5 10.5C17.5 13 15.5 15 13 15H10L9 19H6L8 9H13C15.5 9 17.5 8 17.5 10.5Z"
@@ -7235,91 +7424,82 @@
                         </div>
                     </div>
 
+                    <!-- Local / APM Panel -->
+                    <div class="pay-panel" id="ppanel-apm">
+                        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);"
+                            id="pay-apm-intro">Local payment methods for your region:</p>
+                        <div class="pay-apm-grid" id="pay-apm-grid">
+                            <!-- populated by JS -->
+                        </div>
+                        <div class="pay-info-box">
+                            <h4>How local methods work</h4>
+                            <p style="font-size:var(--text-sm);color:var(--color-text-muted);">Select your preferred
+                                local payment, follow the on-screen redirect, and your subscription activates instantly
+                                on confirmation.</p>
+                        </div>
+                        <button class="pay-action-btn" id="pay-apm-btn"><span class="pay-spinner"></span>Continue with
+                            Local Payment</button>
+                    </div>
+
                 </div>
             </div>
 
             <!-- Security Trust Bar -->
-            <div class="pay-security-bar" aria-label="Security certifications">
+            <div class="pay-security-bar">
                 <span class="pay-security-bar-title">Security &amp; Compliance</span>
-                <span class="pay-sec-badge strong">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        aria-hidden="true">
+                <span class="pay-sec-badge strong"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                    </svg>
-                    PCI DSS Level 1
-                </span>
-                <span class="pay-sec-badge strong">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        aria-hidden="true">
+                    </svg>PCI DSS L1</span>
+                <span class="pay-sec-badge strong"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5">
                         <rect x="3" y="11" width="18" height="11" rx="2" />
                         <path d="M7 11V7a5 5 0 0110 0v4" />
-                    </svg>
-                    E2E Encrypted
-                </span>
-                <span class="pay-sec-badge strong">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        aria-hidden="true">
+                    </svg>E2EE</span>
+                <span class="pay-sec-badge strong"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5">
                         <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    3-D Secure 2.0
-                </span>
-                <span class="pay-sec-badge">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        aria-hidden="true">
+                    </svg>3DS 2.0</span>
+                <span class="pay-sec-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5">
                         <circle cx="12" cy="12" r="10" />
                         <path d="M12 8v4l3 3" />
-                    </svg>
-                    Tokenized Payments
-                </span>
-                <span class="pay-sec-badge">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        aria-hidden="true">
+                    </svg>Tokenized</span>
+                <span class="pay-sec-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5">
                         <path d="M1 6l11 6 11-6" />
                         <path d="M1 18l11-6 11 6" />
-                    </svg>
-                    AI Fraud Detection
-                </span>
-                <span class="pay-sec-badge">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        aria-hidden="true">
+                    </svg>AI Fraud Detection</span>
+                <span class="pay-sec-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5">
                         <rect x="5" y="2" width="14" height="20" rx="2" />
                         <line x1="12" y1="18" x2="12.01" y2="18" />
-                    </svg>
-                    MFA Protected
-                </span>
-                <span class="pay-sec-badge">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        aria-hidden="true">
+                    </svg>MFA</span>
+                <span class="pay-sec-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5">
                         <path d="M12 2L2 7l10 5 10-5-10-5z" />
                         <path d="M2 17l10 5 10-5" />
                         <path d="M2 12l10 5 10-5" />
-                    </svg>
-                    WAF + Bot Shield
-                </span>
-                <span class="pay-sec-badge">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        aria-hidden="true">
+                    </svg>WAF + Bot Shield</span>
+                <span class="pay-sec-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5">
                         <line x1="12" y1="22" x2="12" y2="11" />
                         <path d="M17 11V6a5 5 0 00-10 0v5" />
                         <rect x="3" y="11" width="18" height="11" rx="2" />
-                    </svg>
-                    HTTPS + HSTS
-                </span>
-                <span class="pay-sec-badge">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        aria-hidden="true">
+                    </svg>HTTPS+HSTS</span>
+                <span class="pay-sec-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5">
                         <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                    </svg>
-                    Rate Limited
-                </span>
+                    </svg>Rate Limited</span>
             </div>
         </div>
     </div>
+
+    <!-- Success Modal -->
     <div class="pay-success-overlay" id="pay-success-overlay">
         <div class="pay-success-card">
             <div class="pay-success-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
             </div>
@@ -7327,146 +7507,305 @@
             <p class="pay-success-sub">Your subscription is now active. Enjoy all Zpendr Pro features across every
                 device.</p>
             <div class="pay-success-details">
-                <div class="pay-success-row"><span>Amount Paid:</span><span id="ps-amount">C$7.67</span></div>
-                <div class="pay-success-row"><span>Currency:</span><span id="ps-currency">CAD</span></div>
-                <div class="pay-success-row"><span>Plan:</span><span id="ps-plan">Zpendr Pro Monthly</span></div>
-                <div class="pay-success-row"><span>Payment Method:</span><span id="ps-method">Credit Card</span></div>
-                <div class="pay-success-row"><span>Transaction ID:</span><span>TXN-ZPRO-12345</span></div>
+                <div class="pay-success-row"><span>Amount Paid:</span><span id="ps-amount">—</span></div>
+                <div class="pay-success-row"><span>Currency:</span><span id="ps-currency">—</span></div>
+                <div class="pay-success-row"><span>Country:</span><span id="ps-country">—</span></div>
+                <div class="pay-success-row"><span>Plan:</span><span id="ps-plan">—</span></div>
+                <div class="pay-success-row"><span>Payment Method:</span><span id="ps-method">—</span></div>
+                <div class="pay-success-row"><span>Transaction ID:</span><span id="ps-txn">—</span></div>
+                <div class="pay-success-row"><span>Date:</span><span id="ps-date">—</span></div>
             </div>
-            <button class="btn btn-primary" id="pay-success-close" style="width:100%;">Start Using Pro</button>
+            <div class="pay-success-actions">
+                <button class="btn btn-primary" id="pay-success-close" style="flex:1;">Start Using Pro</button>
+                <button class="pay-receipt-btn" id="pay-download-receipt">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Receipt
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
-        // ── Payment Modal Logic ───────────────────────────────────────────
+        /* ══════════════════════════════════════════════════════════════
+           UNIVERSAL GATEWAY — Payment Logic
+        ══════════════════════════════════════════════════════════════ */
         (function () {
+            'use strict';
             var BASE_MONTHLY_USD = 4.99;
             var BASE_YEARLY_USD = 39.99;
-            var TAX_RATE = 0.13;
 
-            // ── Shared auth state ─────────────────────────────────────────
+            /* ── Shared auth state ───────────────────────────────────── */
             window.ZpendrAuth = window.ZpendrAuth || { user: null };
             function getUser() { return window.ZpendrAuth.user; }
             function setUser(u) { window.ZpendrAuth.user = u; onAuthChange(); }
             function clearUser() { window.ZpendrAuth.user = null; onAuthChange(); }
 
-            // ── All world currencies [code, name, symbol, flag, rate_vs_USD] ──
-            var POPULAR = ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'JPY', 'CHF', 'CNY', 'INR', 'SGD', 'HKD', 'NZD', 'MXN', 'BRL', 'ZAR', 'AED', 'SAR', 'KRW'];
-            var ALL_CURRENCIES = [
-                ['USD', 'US Dollar', '$', '🇺🇸', 1],
-                ['EUR', 'Euro', '€', '🇪🇺', 0.915],
-                ['GBP', 'British Pound', '£', '🇬🇧', 0.783],
-                ['JPY', 'Japanese Yen', '¥', '🇯🇵', 149.82],
-                ['CAD', 'Canadian Dollar', 'C$', '🇨🇦', 1.362],
-                ['AUD', 'Australian Dollar', 'A$', '🇦🇺', 1.512],
-                ['CHF', 'Swiss Franc', 'Fr', '🇨🇭', 0.887],
-                ['CNY', 'Chinese Yuan', '¥', '🇨🇳', 7.241],
-                ['HKD', 'Hong Kong Dollar', 'HK$', '🇭🇰', 7.821],
-                ['SGD', 'Singapore Dollar', 'S$', '🇸🇬', 1.341],
-                ['NZD', 'New Zealand Dollar', 'NZ$', '🇳🇿', 1.629],
-                ['SEK', 'Swedish Krona', 'kr', '🇸🇪', 10.41],
-                ['NOK', 'Norwegian Krone', 'kr', '🇳🇴', 10.56],
-                ['DKK', 'Danish Krone', 'kr', '🇩🇰', 6.82],
-                ['INR', 'Indian Rupee', '₹', '🇮🇳', 83.36],
-                ['MXN', 'Mexican Peso', '$', '🇲🇽', 16.73],
-                ['BRL', 'Brazilian Real', 'R$', '🇧🇷', 5.05],
-                ['ZAR', 'South African Rand', 'R', '🇿🇦', 18.31],
-                ['KRW', 'South Korean Won', '₩', '🇰🇷', 1318],
-                ['AED', 'UAE Dirham', 'د.إ', '🇦🇪', 3.673],
-                ['SAR', 'Saudi Riyal', '﷼', '🇸🇦', 3.750],
-                ['QAR', 'Qatari Riyal', '﷼', '🇶🇦', 3.641],
-                ['KWD', 'Kuwaiti Dinar', 'KD', '🇰🇼', 0.307],
-                ['BHD', 'Bahraini Dinar', 'BD', '🇧🇭', 0.376],
-                ['OMR', 'Omani Rial', '﷼', '🇴🇲', 0.385],
-                ['JOD', 'Jordanian Dinar', 'JD', '🇯🇴', 0.709],
-                ['PLN', 'Polish Złoty', 'zł', '🇵🇱', 3.98],
-                ['CZK', 'Czech Koruna', 'Kč', '🇨🇿', 22.83],
-                ['HUF', 'Hungarian Forint', 'Ft', '🇭🇺', 353.4],
-                ['RON', 'Romanian Leu', 'lei', '🇷🇴', 4.57],
-                ['BGN', 'Bulgarian Lev', 'лв', '🇧🇬', 1.79],
-                ['ISK', 'Icelandic Króna', 'kr', '🇮🇸', 136.7],
-                ['TRY', 'Turkish Lira', '₺', '🇹🇷', 32.14],
-                ['RUB', 'Russian Ruble', '₽', '🇷🇺', 92.30],
-                ['UAH', 'Ukrainian Hryvnia', '₴', '🇺🇦', 38.21],
-                ['GEL', 'Georgian Lari', '₾', '🇬🇪', 2.67],
-                ['AMD', 'Armenian Dram', '֏', '🇦🇲', 400.2],
-                ['AZN', 'Azerbaijani Manat', '₼', '🇦🇿', 1.70],
-                ['BYN', 'Belarusian Ruble', 'Br', '🇧🇾', 3.27],
-                ['MDL', 'Moldovan Leu', 'L', '🇲🇩', 17.67],
-                ['MKD', 'Macedonian Denar', 'ден', '🇲🇰', 56.43],
-                ['ALL', 'Albanian Lek', 'L', '🇦🇱', 100.5],
-                ['BAM', 'Bosnia Mark', 'KM', '🇧🇦', 1.79],
-                ['RSD', 'Serbian Dinar', 'РСД', '🇷🇸', 107.2],
-                ['ARS', 'Argentine Peso', '$', '🇦🇷', 912.5],
-                ['CLP', 'Chilean Peso', '$', '🇨🇱', 948.7],
-                ['COP', 'Colombian Peso', '$', '🇨🇴', 3912],
-                ['PEN', 'Peruvian Sol', 'S/', '🇵🇪', 3.78],
-                ['UYU', 'Uruguayan Peso', '$U', '🇺🇾', 39.12],
-                ['PYG', 'Paraguayan Guaraní', '₲', '🇵🇾', 7335],
-                ['BOB', 'Bolivian Boliviano', 'Bs', '🇧🇴', 6.91],
-                ['GTQ', 'Guatemalan Quetzal', 'Q', '🇬🇹', 7.80],
-                ['HNL', 'Honduran Lempira', 'L', '🇭🇳', 24.75],
-                ['CRC', 'Costa Rican Colón', '₡', '🇨🇷', 516.8],
-                ['DOP', 'Dominican Peso', 'RD$', '🇩🇴', 57.43],
-                ['JMD', 'Jamaican Dollar', 'J$', '🇯🇲', 155.9],
-                ['TTD', 'Trinidad Dollar', 'TT$', '🇹🇹', 6.79],
-                ['TWD', 'Taiwan Dollar', 'NT$', '🇹🇼', 31.95],
-                ['THB', 'Thai Baht', '฿', '🇹🇭', 35.12],
-                ['IDR', 'Indonesian Rupiah', 'Rp', '🇮🇩', 15732],
-                ['MYR', 'Malaysian Ringgit', 'RM', '🇲🇾', 4.712],
-                ['PHP', 'Philippine Peso', '₱', '🇵🇭', 56.21],
-                ['VND', 'Vietnamese Dong', '₫', '🇻🇳', 24412],
-                ['BDT', 'Bangladeshi Taka', '৳', '🇧🇩', 110.2],
-                ['PKR', 'Pakistani Rupee', '₨', '🇵🇰', 278.5],
-                ['LKR', 'Sri Lankan Rupee', '₨', '🇱🇰', 311.4],
-                ['NPR', 'Nepalese Rupee', '₨', '🇳🇵', 133.3],
-                ['MMK', 'Myanmar Kyat', 'K', '🇲🇲', 2098],
-                ['KHR', 'Cambodian Riel', '៛', '🇰🇭', 4077],
-                ['LAK', 'Lao Kip', '₭', '🇱🇦', 21253],
-                ['MNT', 'Mongolian Tögrög', '₮', '🇲🇳', 3412],
-                ['KZT', 'Kazakhstani Tenge', '₸', '🇰🇿', 451.2],
-                ['UZS', 'Uzbekistani Som', 'so\'m', '🇺🇿', 12412],
-                ['TJS', 'Tajikistani Somoni', 'SM', '🇹🇯', 10.91],
-                ['KGS', 'Kyrgyzstani Som', 'с', '🇰🇬', 89.12],
-                ['AFN', 'Afghan Afghani', '؋', '🇦🇫', 71.32],
-                ['IQD', 'Iraqi Dinar', 'ع.د', '🇮🇶', 1310],
-                ['ILS', 'Israeli Shekel', '₪', '🇮🇱', 3.712],
-                ['NGN', 'Nigerian Naira', '₦', '🇳🇬', 1490],
-                ['EGP', 'Egyptian Pound', '£', '🇪🇬', 48.91],
-                ['KES', 'Kenyan Shilling', 'KSh', '🇰🇪', 129.8],
-                ['GHS', 'Ghanaian Cedi', '₵', '🇬🇭', 12.41],
-                ['TZS', 'Tanzanian Shilling', 'TSh', '🇹🇿', 2512],
-                ['UGX', 'Ugandan Shilling', 'USh', '🇺🇬', 3791],
-                ['ETB', 'Ethiopian Birr', 'Br', '🇪🇹', 56.23],
-                ['MAD', 'Moroccan Dirham', 'MAD', '🇲🇦', 9.983],
-                ['TND', 'Tunisian Dinar', 'DT', '🇹🇳', 3.112],
-                ['DZD', 'Algerian Dinar', 'دج', '🇩🇿', 134.7],
-                ['ZMW', 'Zambian Kwacha', 'ZK', '🇿🇲', 26.12],
-                ['MWK', 'Malawian Kwacha', 'MK', '🇲🇼', 1731],
-                ['MZN', 'Mozambican Metical', 'MT', '🇲🇿', 63.92],
-                ['BWP', 'Botswana Pula', 'P', '🇧🇼', 13.61],
-                ['MUR', 'Mauritian Rupee', '₨', '🇲🇺', 45.12],
-                ['RWF', 'Rwandan Franc', 'FRw', '🇷🇼', 1301],
-                ['AOA', 'Angolan Kwanza', 'Kz', '🇦🇴', 831.4],
-                ['XAF', 'Central African CFA', 'Fr', '🌍', 600.1],
-                ['XOF', 'West African CFA', 'Fr', '🌍', 600.1],
-                ['NAD', 'Namibian Dollar', 'N$', '🇳🇦', 18.31],
-                ['FJD', 'Fijian Dollar', 'FJ$', '🇫🇯', 2.213],
-                ['PGK', 'Papua New Guinean Kina', 'K', '🇵🇬', 3.841],
-                ['XPF', 'CFP Franc', 'Fr', '🇵🇫', 109.4],
+            /* ── 197-Country Data ────────────────────────────────────── */
+            /* [code, name, flag, currency_code, vat_rate, postal_label, postal_placeholder, apms] */
+            var COUNTRIES = [
+                ['AF', 'Afghanistan', '🇦🇫', 'AFN', 0, 'Postal Code', '1001', []],
+                ['AL', 'Albania', '🇦🇱', 'ALL', 0.2, 'Postal Code', '1001', []],
+                ['DZ', 'Algeria', '🇩🇿', 'DZD', 0.19, 'Postal Code', '16000', []],
+                ['AD', 'Andorra', '🇦🇩', 'EUR', 0.045, 'Postal Code', 'AD100', []],
+                ['AO', 'Angola', '🇦🇴', 'AOA', 0.14, 'Postal Code', '1000', []],
+                ['AG', 'Antigua & Barbuda', '🇦🇬', 'USD', 0.15, 'Postal Code', '00000', []],
+                ['AR', 'Argentina', '🇦🇷', 'ARS', 0.21, 'Postal Code', '1000', ['MercadoPago']],
+                ['AM', 'Armenia', '🇦🇲', 'AMD', 0.2, 'Postal Code', '0001', []],
+                ['AU', 'Australia', '🇦🇺', 'AUD', 0.1, 'Postcode', '2000', []],
+                ['AT', 'Austria', '🇦🇹', 'EUR', 0.2, 'PLZ', '1010', []],
+                ['AZ', 'Azerbaijan', '🇦🇿', 'AZN', 0.18, 'Postal Code', '1000', []],
+                ['BS', 'Bahamas', '🇧🇸', 'USD', 0, 'Postal Code', '00000', []],
+                ['BH', 'Bahrain', '🇧🇭', 'BHD', 0.1, 'Postal Code', '100', []],
+                ['BD', 'Bangladesh', '🇧🇩', 'BDT', 0.15, 'PIN Code', '1000', []],
+                ['BB', 'Barbados', '🇧🇧', 'BBD', 0.175, 'Postal Code', '11000', []],
+                ['BY', 'Belarus', '🇧🇾', 'BYN', 0.2, 'Postal Code', '220000', []],
+                ['BE', 'Belgium', '🇧🇪', 'EUR', 0.21, 'Postal Code', '1000', []],
+                ['BZ', 'Belize', '🇧🇿', 'USD', 0.125, 'Postal Code', '00000', []],
+                ['BJ', 'Benin', '🇧🇯', 'XOF', 0.18, 'Postal Code', '229', []],
+                ['BT', 'Bhutan', '🇧🇹', 'INR', 0.07, 'PIN Code', '11001', []],
+                ['BO', 'Bolivia', '🇧🇴', 'BOB', 0.13, 'Postal Code', '0000', []],
+                ['BA', 'Bosnia & Herzegovina', '🇧🇦', 'BAM', 0.17, 'Postal Code', '71000', []],
+                ['BW', 'Botswana', '🇧🇼', 'BWP', 0.12, 'Postal Code', '000', []],
+                ['BR', 'Brazil', '🇧🇷', 'BRL', 0.17, 'CEP', '01310-100', ['Pix', 'Boleto']],
+                ['BN', 'Brunei', '🇧🇳', 'USD', 0, 'Postal Code', 'BA1118', []],
+                ['BG', 'Bulgaria', '🇧🇬', 'BGN', 0.2, 'Postal Code', '1000', []],
+                ['BF', 'Burkina Faso', '🇧🇫', 'XOF', 0.18, 'Postal Code', '00000', []],
+                ['BI', 'Burundi', '🇧🇮', 'BIF', 0.18, 'Postal Code', '00000', []],
+                ['CV', 'Cabo Verde', '🇨🇻', 'USD', 0.15, 'Postal Code', '7600', []],
+                ['KH', 'Cambodia', '🇰🇭', 'KHR', 0.1, 'Postal Code', '12000', []],
+                ['CM', 'Cameroon', '🇨🇲', 'XAF', 0.1925, 'Postal Code', '00000', []],
+                ['CA', 'Canada', '🇨🇦', 'CAD', 0.05, 'Postal Code', 'A1B 2C3', []],
+                ['CF', 'Central African Rep.', '🇨🇫', 'XAF', 0.19, 'Postal Code', '00000', []],
+                ['TD', 'Chad', '🇹🇩', 'XAF', 0.18, 'Postal Code', '00000', []],
+                ['CL', 'Chile', '🇨🇱', 'CLP', 0.19, 'Postal Code', '8320000', []],
+                ['CN', 'China', '🇨🇳', 'CNY', 0.13, 'Postal Code', '100000', ['Alipay', 'WeChat Pay']],
+                ['CO', 'Colombia', '🇨🇴', 'COP', 0.19, 'Postal Code', '110111', ['PSE']],
+                ['KM', 'Comoros', '🇰🇲', 'USD', 0.1, 'Postal Code', '00000', []],
+                ['CD', 'DR Congo', '🇨🇩', 'CDF', 0.16, 'Postal Code', '00000', []],
+                ['CG', 'Congo', '🇨🇬', 'XAF', 0.18, 'Postal Code', '00000', []],
+                ['CR', 'Costa Rica', '🇨🇷', 'CRC', 0.13, 'Postal Code', '10101', ['SINPE Móvil']],
+                ['CI', 'Côte d\'Ivoire', '🇨🇮', 'XOF', 0.18, 'Postal Code', '00000', ['Mobile Money']],
+                ['HR', 'Croatia', '🇭🇷', 'EUR', 0.25, 'Postal Code', '10000', []],
+                ['CU', 'Cuba', '🇨🇺', 'USD', 0, 'Postal Code', '10400', []],
+                ['CY', 'Cyprus', '🇨🇾', 'EUR', 0.19, 'Postal Code', '1010', []],
+                ['CZ', 'Czech Republic', '🇨🇿', 'CZK', 0.21, 'Postal Code (PSČ)', '110 00', []],
+                ['DK', 'Denmark', '🇩🇰', 'DKK', 0.25, 'Postnummer', '1000', []],
+                ['DJ', 'Djibouti', '🇩🇯', 'USD', 0.1, 'Postal Code', '00000', []],
+                ['DM', 'Dominica', '🇩🇲', 'USD', 0.15, 'Postal Code', '00000', []],
+                ['DO', 'Dominican Rep.', '🇩🇴', 'DOP', 0.18, 'Postal Code', '10101', []],
+                ['EC', 'Ecuador', '🇪🇨', 'USD', 0.12, 'Postal Code', '170518', []],
+                ['EG', 'Egypt', '🇪🇬', 'EGP', 0.14, 'Postal Code', '11511', ['Fawry', 'Vodafone Cash']],
+                ['SV', 'El Salvador', '🇸🇻', 'USD', 0.13, 'Postal Code', '01101', []],
+                ['GQ', 'Equatorial Guinea', '🇬🇶', 'XAF', 0.15, 'Postal Code', '00000', []],
+                ['ER', 'Eritrea', '🇪🇷', 'USD', 0, 'Postal Code', '00000', []],
+                ['EE', 'Estonia', '🇪🇪', 'EUR', 0.22, 'Postal Code', '10111', []],
+                ['SZ', 'Eswatini', '🇸🇿', 'SZL', 0.15, 'Postal Code', 'H100', []],
+                ['ET', 'Ethiopia', '🇪🇹', 'ETB', 0.15, 'Postal Code', '1000', []],
+                ['FJ', 'Fiji', '🇫🇯', 'FJD', 0.09, 'Postal Code', '00000', []],
+                ['FI', 'Finland', '🇫🇮', 'EUR', 0.24, 'Postal Code', '00100', []],
+                ['FR', 'France', '🇫🇷', 'EUR', 0.2, 'Code Postal', '75001', []],
+                ['GA', 'Gabon', '🇬🇦', 'XAF', 0.18, 'Postal Code', '00000', []],
+                ['GM', 'Gambia', '🇬🇲', 'USD', 0.15, 'Postal Code', '00000', []],
+                ['GE', 'Georgia', '🇬🇪', 'GEL', 0.18, 'Postal Code', '0100', []],
+                ['DE', 'Germany', '🇩🇪', 'EUR', 0.19, 'PLZ', '10115', []],
+                ['GH', 'Ghana', '🇬🇭', 'GHS', 0.15, 'Postal Code', '00233', ['Mobile Money']],
+                ['GR', 'Greece', '🇬🇷', 'EUR', 0.24, 'Postal Code (ΤΚ)', '106 71', []],
+                ['GD', 'Grenada', '🇬🇩', 'USD', 0.15, 'Postal Code', '00000', []],
+                ['GT', 'Guatemala', '🇬🇹', 'GTQ', 0.12, 'Postal Code', '01001', []],
+                ['GN', 'Guinea', '🇬🇳', 'USD', 0.18, 'Postal Code', '001', ['Orange Money']],
+                ['GW', 'Guinea-Bissau', '🇬🇼', 'XOF', 0.17, 'Postal Code', '1000', []],
+                ['GY', 'Guyana', '🇬🇾', 'USD', 0.14, 'Postal Code', '00000', []],
+                ['HT', 'Haiti', '🇭🇹', 'HTG', 0.1, 'Postal Code', 'HT6110', []],
+                ['HN', 'Honduras', '🇭🇳', 'HNL', 0.15, 'Postal Code', '11101', []],
+                ['HU', 'Hungary', '🇭🇺', 'HUF', 0.27, 'Irányítószám', '1011', []],
+                ['IS', 'Iceland', '🇮🇸', 'ISK', 0.24, 'Póstnúmer', '101', []],
+                ['IN', 'India', '🇮🇳', 'INR', 0.18, 'PIN Code', '110001', ['UPI', 'Paytm', 'PhonePe', 'NetBanking']],
+                ['ID', 'Indonesia', '🇮🇩', 'IDR', 0.11, 'Kode Pos', '10110', ['GoPay', 'OVO', 'Dana', 'QRIS']],
+                ['IR', 'Iran', '🇮🇷', 'IRR', 0.09, 'Postal Code', '1111111111', []],
+                ['IQ', 'Iraq', '🇮🇶', 'IQD', 0, 'Postal Code', '10001', []],
+                ['IE', 'Ireland', '🇮🇪', 'EUR', 0.23, 'Eircode', 'D01 F5P2', []],
+                ['IL', 'Israel', '🇮🇱', 'ILS', 0.17, 'Postal Code', '9210401', []],
+                ['IT', 'Italy', '🇮🇹', 'EUR', 0.22, 'CAP', '00118', []],
+                ['JM', 'Jamaica', '🇯🇲', 'JMD', 0.15, 'Postal Code', 'JMAAW11', []],
+                ['JP', 'Japan', '🇯🇵', 'JPY', 0.1, '〒 Postal Code', '100-0001', ['Konbini', 'PayPay']],
+                ['JO', 'Jordan', '🇯🇴', 'JOD', 0.16, 'Postal Code', '11110', []],
+                ['KZ', 'Kazakhstan', '🇰🇿', 'KZT', 0.12, 'Postal Code', '010000', ['Kaspi Pay']],
+                ['KE', 'Kenya', '🇰🇪', 'KES', 0.16, 'Postal Code', '00100', ['M-Pesa']],
+                ['KI', 'Kiribati', '🇰🇮', 'AUD', 0, 'Postal Code', '00000', []],
+                ['KP', 'North Korea', '🇰🇵', 'KRW', 0, 'Postal Code', '000000', []],
+                ['KR', 'South Korea', '🇰🇷', 'KRW', 0.1, '우편번호 (Zip)', '04524', ['KakaoPay', 'NaverPay', 'Toss']],
+                ['KW', 'Kuwait', '🇰🇼', 'KWD', 0, 'Postal Code', '13001', []],
+                ['KG', 'Kyrgyzstan', '🇰🇬', 'KGS', 0.12, 'Postal Code', '720000', []],
+                ['LA', 'Laos', '🇱🇦', 'LAK', 0.1, 'Postal Code', '01000', []],
+                ['LV', 'Latvia', '🇱🇻', 'EUR', 0.21, 'Postal Code (Indekss)', 'LV-1010', []],
+                ['LB', 'Lebanon', '🇱🇧', 'LBP', 0.11, 'Postal Code', '1107 2020', []],
+                ['LS', 'Lesotho', '🇱🇸', 'LSL', 0.14, 'Postal Code', '100', []],
+                ['LR', 'Liberia', '🇱🇷', 'USD', 0.1, 'Postal Code', '1000', []],
+                ['LY', 'Libya', '🇱🇾', 'LYD', 0, 'Postal Code', '00000', []],
+                ['LI', 'Liechtenstein', '🇱🇮', 'CHF', 0.077, 'PLZ', '9490', []],
+                ['LT', 'Lithuania', '🇱🇹', 'EUR', 0.21, 'Pašto kodas', '01001', []],
+                ['LU', 'Luxembourg', '🇱🇺', 'EUR', 0.17, 'Postal Code', '1009', []],
+                ['MG', 'Madagascar', '🇲🇬', 'MGA', 0.2, 'Code Postal', '101', []],
+                ['MW', 'Malawi', '🇲🇼', 'MWK', 0.165, 'Postal Code', '00000', []],
+                ['MY', 'Malaysia', '🇲🇾', 'MYR', 0.1, 'Postcode', '50000', ['FPX', 'Touch \'n Go', 'GrabPay']],
+                ['MV', 'Maldives', '🇲🇻', 'USD', 0.06, 'Postal Code', '20026', []],
+                ['ML', 'Mali', '🇲🇱', 'XOF', 0.18, 'Postal Code', '00000', ['Orange Money']],
+                ['MT', 'Malta', '🇲🇹', 'EUR', 0.18, 'Postal Code', 'VLT 1117', []],
+                ['MH', 'Marshall Islands', '🇲🇭', 'USD', 0, 'ZIP Code', '96960', []],
+                ['MR', 'Mauritania', '🇲🇷', 'USD', 0.16, 'Postal Code', '00000', []],
+                ['MU', 'Mauritius', '🇲🇺', 'MUR', 0.15, 'Postal Code', '11302', []],
+                ['MX', 'Mexico', '🇲🇽', 'MXN', 0.16, 'Código Postal', '06600', ['SPEI', 'OXXO']],
+                ['FM', 'Micronesia', '🇫🇲', 'USD', 0, 'ZIP Code', '96941', []],
+                ['MD', 'Moldova', '🇲🇩', 'MDL', 0.2, 'Postal Code', 'MD-2001', []],
+                ['MC', 'Monaco', '🇲🇨', 'EUR', 0.196, 'Code Postal', '98000', []],
+                ['MN', 'Mongolia', '🇲🇳', 'MNT', 0.1, 'Postal Code', '14200', []],
+                ['ME', 'Montenegro', '🇲🇪', 'EUR', 0.21, 'Postal Code', '81000', []],
+                ['MA', 'Morocco', '🇲🇦', 'MAD', 0.2, 'Code Postal', '20000', []],
+                ['MZ', 'Mozambique', '🇲🇿', 'MZN', 0.17, 'Postal Code', '1100', ['M-Pesa']],
+                ['MM', 'Myanmar', '🇲🇲', 'MMK', 0.05, 'Postal Code', '11181', ['KBZPay', 'Wave']],
+                ['NA', 'Namibia', '🇳🇦', 'NAD', 0.15, 'Postal Code', '10001', []],
+                ['NR', 'Nauru', '🇳🇷', 'AUD', 0, 'Postal Code', '00000', []],
+                ['NP', 'Nepal', '🇳🇵', 'NPR', 0.13, 'PIN Code', '44600', ['eSewa', 'Khalti']],
+                ['NL', 'Netherlands', '🇳🇱', 'EUR', 0.21, 'Postcode', '1011 AB', ['iDEAL']],
+                ['NZ', 'New Zealand', '🇳🇿', 'NZD', 0.15, 'Postcode', '1010', []],
+                ['NI', 'Nicaragua', '🇳🇮', 'USD', 0.15, 'Código Postal', '14000', []],
+                ['NE', 'Niger', '🇳🇪', 'XOF', 0.19, 'Code Postal', '8001', []],
+                ['NG', 'Nigeria', '🇳🇬', 'NGN', 0.075, 'Postal Code', '100001', ['Paystack', 'Flutterwave']],
+                ['NO', 'Norway', '🇳🇴', 'NOK', 0.25, 'Postnummer', '0010', ['Vipps']],
+                ['OM', 'Oman', '🇴🇲', 'OMR', 0, 'Postal Code', '100', []],
+                ['PK', 'Pakistan', '🇵🇰', 'PKR', 0.18, 'Postal Code', '44000', ['EasyPaisa', 'JazzCash']],
+                ['PW', 'Palau', '🇵🇼', 'USD', 0, 'ZIP Code', '96940', []],
+                ['PA', 'Panama', '🇵🇦', 'USD', 0.07, 'Zona Postal', '0801', []],
+                ['PG', 'Papua New Guinea', '🇵🇬', 'PGK', 0.1, 'Postal Code', '121', []],
+                ['PY', 'Paraguay', '🇵🇾', 'PYG', 0.1, 'Código Postal', '1209', []],
+                ['PE', 'Peru', '🇵🇪', 'PEN', 0.18, 'Código Postal', '15001', ['Yape', 'Plin']],
+                ['PH', 'Philippines', '🇵🇭', 'PHP', 0.12, 'ZIP Code', '1000', ['GCash', 'Maya']],
+                ['PL', 'Poland', '🇵🇱', 'PLN', 0.23, 'Kod pocztowy', '00-001', ['BLIK']],
+                ['PT', 'Portugal', '🇵🇹', 'EUR', 0.23, 'Código Postal', '1000-001', ['MB Way', 'Multibanco']],
+                ['QA', 'Qatar', '🇶🇦', 'QAR', 0, 'Postal Code', '10000', []],
+                ['RO', 'Romania', '🇷🇴', 'RON', 0.19, 'Cod poștal', '010011', []],
+                ['RU', 'Russia', '🇷🇺', 'RUB', 0.2, 'Почтовый индекс', '101000', ['SBP', 'YooMoney']],
+                ['RW', 'Rwanda', '🇷🇼', 'RWF', 0.18, 'Postal Code', '00000', ['MTN MoMo']],
+                ['KN', 'Saint Kitts & Nevis', '🇰🇳', 'USD', 0.17, 'Postal Code', '00000', []],
+                ['LC', 'Saint Lucia', '🇱🇨', 'USD', 0.125, 'Postal Code', '00000', []],
+                ['VC', 'Saint Vincent', '🇻🇨', 'USD', 0.15, 'Postal Code', '00000', []],
+                ['WS', 'Samoa', '🇼🇸', 'WST', 0.15, 'Postal Code', '00000', []],
+                ['SM', 'San Marino', '🇸🇲', 'EUR', 0.17, 'CAP', '47890', []],
+                ['ST', 'São Tomé & Príncipe', '🇸🇹', 'USD', 0.15, 'Postal Code', '0000', []],
+                ['SA', 'Saudi Arabia', '🇸🇦', 'SAR', 0.15, 'Postal Code', '11564', ['STC Pay', 'Mada']],
+                ['SN', 'Senegal', '🇸🇳', 'XOF', 0.18, 'Code Postal', '11500', ['Orange Money', 'Wave']],
+                ['RS', 'Serbia', '🇷🇸', 'RSD', 0.2, 'Poštanski broj', '11000', []],
+                ['SC', 'Seychelles', '🇸🇨', 'SCR', 0.15, 'Postal Code', '00000', []],
+                ['SL', 'Sierra Leone', '🇸🇱', 'USD', 0.15, 'Postal Code', '00232', []],
+                ['SG', 'Singapore', '🇸🇬', 'SGD', 0.09, 'Postal Code', '018956', ['PayNow', 'GrabPay']],
+                ['SK', 'Slovakia', '🇸🇰', 'EUR', 0.2, 'PSČ', '811 01', []],
+                ['SI', 'Slovenia', '🇸🇮', 'EUR', 0.22, 'Poštna številka', '1000', []],
+                ['SB', 'Solomon Islands', '🇸🇧', 'SBD', 0, 'Postal Code', '00000', []],
+                ['SO', 'Somalia', '🇸🇴', 'USD', 0, 'Postal Code', '00000', []],
+                ['ZA', 'South Africa', '🇿🇦', 'ZAR', 0.15, 'Postal Code', '8001', []],
+                ['SS', 'South Sudan', '🇸🇸', 'USD', 0, 'Postal Code', '00000', []],
+                ['ES', 'Spain', '🇪🇸', 'EUR', 0.21, 'Código Postal', '28001', ['Bizum']],
+                ['LK', 'Sri Lanka', '🇱🇰', 'LKR', 0.12, 'Postal Code', '00100', []],
+                ['SD', 'Sudan', '🇸🇩', 'SDG', 0.17, 'Postal Code', '11111', []],
+                ['SR', 'Suriname', '🇸🇷', 'USD', 0.1, 'Postal Code', '00000', []],
+                ['SE', 'Sweden', '🇸🇪', 'SEK', 0.25, 'Postnummer', '111 20', ['Swish']],
+                ['CH', 'Switzerland', '🇨🇭', 'CHF', 0.077, 'PLZ', '3000', ['TWINT']],
+                ['SY', 'Syria', '🇸🇾', 'SYP', 0, 'Postal Code', '00000', []],
+                ['TW', 'Taiwan', '🇹🇼', 'TWD', 0.05, '郵遞區號 (ZIP)', '100', ['LINE Pay']],
+                ['TJ', 'Tajikistan', '🇹🇯', 'TJS', 0.18, 'Postal Code', '734000', []],
+                ['TZ', 'Tanzania', '🇹🇿', 'TZS', 0.18, 'Postal Code', '40439', ['M-Pesa']],
+                ['TH', 'Thailand', '🇹🇭', 'THB', 0.07, 'Postal Code', '10330', ['PromptPay', 'TrueMoney']],
+                ['TL', 'Timor-Leste', '🇹🇱', 'USD', 0, 'Postal Code', '00000', []],
+                ['TG', 'Togo', '🇹🇬', 'XOF', 0.18, 'Code Postal', '00229', []],
+                ['TO', 'Tonga', '🇹🇴', 'TOP', 0, 'Postal Code', '00000', []],
+                ['TT', 'Trinidad & Tobago', '🇹🇹', 'TTD', 0.125, 'Postal Code', '000000', []],
+                ['TN', 'Tunisia', '🇹🇳', 'TND', 0.19, 'Code Postal', '1000', []],
+                ['TR', 'Turkey', '🇹🇷', 'TRY', 0.2, 'Posta Kodu', '34000', []],
+                ['TM', 'Turkmenistan', '🇹🇲', 'TMT', 0.15, 'Postal Code', '744000', []],
+                ['TV', 'Tuvalu', '🇹🇻', 'AUD', 0, 'Postal Code', '00000', []],
+                ['UG', 'Uganda', '🇺🇬', 'UGX', 0.18, 'Postal Code', '00256', ['MTN MoMo', 'Airtel Money']],
+                ['UA', 'Ukraine', '🇺🇦', 'UAH', 0.2, 'Поштовий індекс', '01001', []],
+                ['AE', 'United Arab Emirates', '🇦🇪', 'AED', 0.05, 'Postal Code', '00000', []],
+                ['GB', 'United Kingdom', '🇬🇧', 'GBP', 0.2, 'Postcode', 'SW1A 1AA', []],
+                ['US', 'United States', '🇺🇸', 'USD', 0, 'ZIP Code', '10001', []],
+                ['UY', 'Uruguay', '🇺🇾', 'UYU', 0.22, 'Código Postal', '11000', []],
+                ['UZ', 'Uzbekistan', '🇺🇿', 'UZS', 0.12, 'Postal Code', '100000', []],
+                ['VU', 'Vanuatu', '🇻🇺', 'VUV', 0.125, 'Postal Code', '00000', []],
+                ['VE', 'Venezuela', '🇻🇪', 'VES', 0.16, 'Código Postal', '1010', []],
+                ['VN', 'Vietnam', '🇻🇳', 'VND', 0.1, 'Mã bưu chính', '700000', ['MoMo', 'ZaloPay', 'VNPay']],
+                ['YE', 'Yemen', '🇾🇪', 'YER', 0.05, 'Postal Code', '15000', []],
+                ['ZM', 'Zambia', '🇿🇲', 'ZMW', 0.16, 'Postal Code', '10101', ['MTN MoMo']],
+                ['ZW', 'Zimbabwe', '🇿🇼', 'USD', 0.14, 'Postal Code', '00263', []],
             ];
 
-            var activeCurrency = { code: 'CAD', sym: 'C$', rate: 1.362, flag: '🇨🇦', name: 'Canadian Dollar' };
+            /* ── Currency data [code, name, symbol, flag, rate_vs_USD] ── */
+            var POPULAR_CURR = ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'JPY', 'CHF', 'CNY', 'INR', 'SGD', 'HKD', 'NZD', 'MXN', 'BRL', 'ZAR', 'AED', 'SAR', 'KRW'];
+            var ALL_CURRENCIES = [
+                ['USD', 'US Dollar', '$', '🇺🇸', 1], ['EUR', 'Euro', '€', '🇪🇺', 0.915],
+                ['GBP', 'British Pound', '£', '🇬🇧', 0.783], ['JPY', 'Japanese Yen', '¥', '🇯🇵', 149.82],
+                ['CAD', 'Canadian Dollar', 'C$', '🇨🇦', 1.362], ['AUD', 'Australian Dollar', 'A$', '🇦🇺', 1.512],
+                ['CHF', 'Swiss Franc', 'Fr', '🇨🇭', 0.887], ['CNY', 'Chinese Yuan', '¥', '🇨🇳', 7.241],
+                ['HKD', 'Hong Kong Dollar', 'HK$', '🇭🇰', 7.821], ['SGD', 'Singapore Dollar', 'S$', '🇸🇬', 1.341],
+                ['NZD', 'New Zealand Dollar', 'NZ$', '🇳🇿', 1.629], ['SEK', 'Swedish Krona', 'kr', '🇸🇪', 10.41],
+                ['NOK', 'Norwegian Krone', 'kr', '🇳🇴', 10.56], ['DKK', 'Danish Krone', 'kr', '🇩🇰', 6.82],
+                ['INR', 'Indian Rupee', '₹', '🇮🇳', 83.36], ['MXN', 'Mexican Peso', '$', '🇲🇽', 16.73],
+                ['BRL', 'Brazilian Real', 'R$', '🇧🇷', 5.05], ['ZAR', 'South African Rand', 'R', '🇿🇦', 18.31],
+                ['KRW', 'South Korean Won', '₩', '🇰🇷', 1318], ['AED', 'UAE Dirham', 'د.إ', '🇦🇪', 3.673],
+                ['SAR', 'Saudi Riyal', '﷼', '🇸🇦', 3.750], ['QAR', 'Qatari Riyal', '﷼', '🇶🇦', 3.641],
+                ['KWD', 'Kuwaiti Dinar', 'KD', '🇰🇼', 0.307], ['BHD', 'Bahraini Dinar', 'BD', '🇧🇭', 0.376],
+                ['OMR', 'Omani Rial', '﷼', '🇴🇲', 0.385], ['JOD', 'Jordanian Dinar', 'JD', '🇯🇴', 0.709],
+                ['PLN', 'Polish Złoty', 'zł', '🇵🇱', 3.98], ['CZK', 'Czech Koruna', 'Kč', '🇨🇿', 22.83],
+                ['HUF', 'Hungarian Forint', 'Ft', '🇭🇺', 353.4], ['RON', 'Romanian Leu', 'lei', '🇷🇴', 4.57],
+                ['BGN', 'Bulgarian Lev', 'лв', '🇧🇬', 1.79], ['ISK', 'Icelandic Króna', 'kr', '🇮🇸', 136.7],
+                ['TRY', 'Turkish Lira', '₺', '🇹🇷', 32.14], ['RUB', 'Russian Ruble', '₽', '🇷🇺', 92.30],
+                ['UAH', 'Ukrainian Hryvnia', '₴', '🇺🇦', 38.21], ['GEL', 'Georgian Lari', '₾', '🇬🇪', 2.67],
+                ['AMD', 'Armenian Dram', '֏', '🇦🇲', 400.2], ['AZN', 'Azerbaijani Manat', '₼', '🇦🇿', 1.70],
+                ['ARS', 'Argentine Peso', '$', '🇦🇷', 912.5], ['CLP', 'Chilean Peso', '$', '🇨🇱', 948.7],
+                ['COP', 'Colombian Peso', '$', '🇨🇴', 3912], ['PEN', 'Peruvian Sol', 'S/', '🇵🇪', 3.78],
+                ['UYU', 'Uruguayan Peso', '$U', '🇺🇾', 39.12], ['GTQ', 'Guatemalan Quetzal', 'Q', '🇬🇹', 7.80],
+                ['HNL', 'Honduran Lempira', 'L', '🇭🇳', 24.75], ['CRC', 'Costa Rican Colón', '₡', '🇨🇷', 516.8],
+                ['DOP', 'Dominican Peso', 'RD$', '🇩🇴', 57.43], ['TWD', 'Taiwan Dollar', 'NT$', '🇹🇼', 31.95],
+                ['THB', 'Thai Baht', '฿', '🇹🇭', 35.12], ['IDR', 'Indonesian Rupiah', 'Rp', '🇮🇩', 15732],
+                ['MYR', 'Malaysian Ringgit', 'RM', '🇲🇾', 4.712], ['PHP', 'Philippine Peso', '₱', '🇵🇭', 56.21],
+                ['VND', 'Vietnamese Dong', '₫', '🇻🇳', 24412], ['BDT', 'Bangladeshi Taka', '৳', '🇧🇩', 110.2],
+                ['PKR', 'Pakistani Rupee', '₨', '🇵🇰', 278.5], ['LKR', 'Sri Lankan Rupee', '₨', '🇱🇰', 311.4],
+                ['NPR', 'Nepalese Rupee', '₨', '🇳🇵', 133.3], ['KZT', 'Kazakhstani Tenge', '₸', '🇰🇿', 451.2],
+                ['NGN', 'Nigerian Naira', '₦', '🇳🇬', 1490], ['EGP', 'Egyptian Pound', '£', '🇪🇬', 48.91],
+                ['KES', 'Kenyan Shilling', 'KSh', '🇰🇪', 129.8], ['GHS', 'Ghanaian Cedi', '₵', '🇬🇭', 12.41],
+                ['TZS', 'Tanzanian Shilling', 'TSh', '🇹🇿', 2512], ['ETB', 'Ethiopian Birr', 'Br', '🇪🇹', 56.23],
+                ['MAD', 'Moroccan Dirham', 'MAD', '🇲🇦', 9.983], ['TND', 'Tunisian Dinar', 'DT', '🇹🇳', 3.112],
+                ['DZD', 'Algerian Dinar', 'دج', '🇩🇿', 134.7], ['ZMW', 'Zambian Kwacha', 'ZK', '🇿🇲', 26.12],
+                ['BWP', 'Botswana Pula', 'P', '🇧🇼', 13.61], ['MUR', 'Mauritian Rupee', '₨', '🇲🇺', 45.12],
+                ['XAF', 'Central African CFA', 'Fr', '🌍', 600.1], ['XOF', 'West African CFA', 'Fr', '🌍', 600.1],
+                ['FJD', 'Fijian Dollar', 'FJ$', '🇫🇯', 2.213], ['AFN', 'Afghan Afghani', '؋', '🇦🇫', 71.32],
+                ['ILS', 'Israeli Shekel', '₪', '🇮🇱', 3.712], ['MMK', 'Myanmar Kyat', 'K', '🇲🇲', 2098],
+                ['MNT', 'Mongolian Tögrög', '₮', '🇲🇳', 3412], ['UZS', 'Uzbekistani Som', 'so\'m', '🇺🇿', 12412],
+            ];
 
-            // ── DOM refs ──────────────────────────────────────────────────
+            /* ── Active state ────────────────────────────────────────── */
+            var activeCountry = COUNTRIES.find(function (c) { return c[0] === 'CA'; }) || COUNTRIES[0];
+            var activeCurrency = getCurrencyByCode('CAD');
+
+            function getCurrencyByCode(code) {
+                return ALL_CURRENCIES.find(function (c) { return c[0] === code; }) || ALL_CURRENCIES[0];
+            }
+            function getCountryByCode(code) {
+                return COUNTRIES.find(function (c) { return c[0] === code; }) || null;
+            }
+
+            /* ── DOM refs ────────────────────────────────────────────── */
             var overlay = document.getElementById('pay-overlay');
-            var payDialog = overlay.querySelector('.pay-dialog');
+            var payDialog = document.getElementById('pay-dialog');
             var closeBtn = document.getElementById('pay-close-btn');
             var proBtn = document.getElementById('pro-subscribe-btn');
             var billingToggle = document.getElementById('billing-toggle');
             var planLabel = document.getElementById('pay-plan-label');
 
-            // auth gate
+            // auth
             var gLoginTab = document.getElementById('pgat-login-tab');
             var gSignupTab = document.getElementById('pgat-signup-tab');
             var gEmailIn = document.getElementById('pgat-email');
@@ -7485,23 +7824,31 @@
             var accountEmail = document.getElementById('pay-account-email');
             var switchBtn = document.getElementById('pay-switch-account');
 
-            // pricing DOM refs
+            // pricing
             var subPriceEl = document.getElementById('pay-sub-price');
             var lineSubEl = document.getElementById('pay-line-sub');
+            var vatRow = document.getElementById('pay-line-vat-row');
+            var vatLabel = document.getElementById('pay-vat-label');
             var lineTaxEl = document.getElementById('pay-line-tax');
             var lineTotalEl = document.getElementById('pay-line-total');
             var btnAmounts = document.querySelectorAll('.pay-btn-amount');
             var psAmount = document.getElementById('ps-amount');
             var psCurrency = document.getElementById('ps-currency');
+            var psCountry = document.getElementById('ps-country');
             var psPlan = document.getElementById('ps-plan');
             var psMethod = document.getElementById('ps-method');
+            var psTxn = document.getElementById('ps-txn');
+            var psDate = document.getElementById('ps-date');
 
-            // card fields
+            // card
             var cardEl = document.getElementById('pay-card-3d');
+            var cardVisual = document.getElementById('pay-card-visual');
             var pfName = document.getElementById('pf-name');
             var pfNumber = document.getElementById('pf-number');
             var pfExpiry = document.getElementById('pf-expiry');
             var pfCvv = document.getElementById('pf-cvv');
+            var pfCvvEye = document.getElementById('pf-cvv-eye');
+            var pfCvvEyeIcon = document.getElementById('pf-cvv-eye-icon');
             var pcBrand = document.getElementById('pcard-brand');
             var pcNumber = document.getElementById('pcard-number');
             var pcName = document.getElementById('pcard-name');
@@ -7511,10 +7858,13 @@
             var cardNumErrMsg = document.getElementById('pay-card-number-error-msg');
             var expiryErr = document.getElementById('pay-expiry-error');
             var expiryErrMsg = document.getElementById('pay-expiry-error-msg');
+            var postalLabel = document.getElementById('pf-postal-label');
+            var postalInput = document.getElementById('pf-postal');
             var cvvLen = 3;
             var cvvTimer;
+            var cvvVisible = false;
 
-            // ── Custom currency dropdown ──────────────────────────────────
+            // dropdowns
             var curDropdown = document.getElementById('pay-cur-dropdown');
             var curTrigger = document.getElementById('pay-cur-trigger');
             var curFlag = document.getElementById('pay-cur-flag');
@@ -7522,158 +7872,68 @@
             var curSymLabel = document.getElementById('pay-cur-sym-label');
             var curSearch = document.getElementById('pay-cur-search');
             var curList = document.getElementById('pay-cur-list');
+            var countryDropdown = document.getElementById('pay-country-dropdown');
+            var countryTrigger = document.getElementById('pay-country-trigger');
+            var countryFlag = document.getElementById('pay-country-flag');
+            var countryLabel = document.getElementById('pay-country-name-label');
+            var countrySearch = document.getElementById('pay-country-search');
+            var countryList = document.getElementById('pay-country-list');
 
-            function renderCurrencyList(q) {
-                var filter = (q || '').toLowerCase().trim();
-                curList.innerHTML = '';
-                var shown = 0;
+            // APM
+            var apmTab = document.getElementById('ptab-apm');
+            var apmGrid = document.getElementById('pay-apm-grid');
+            var apmIntro = document.getElementById('pay-apm-intro');
 
-                function addDivider(label) {
-                    if (filter) return;
-                    var div = document.createElement('div');
-                    div.className = 'pay-cur-divider';
-                    div.textContent = label;
-                    curList.appendChild(div);
-                }
-
-                function addOption(c) {
-                    var code = c[0], name = c[1], sym = c[2], flag = c[3], rate = c[4];
-                    if (filter && code.toLowerCase().indexOf(filter) === -1 &&
-                        name.toLowerCase().indexOf(filter) === -1 &&
-                        sym.toLowerCase().indexOf(filter) === -1) return;
-                    var btn = document.createElement('button');
-                    btn.type = 'button';
-                    btn.className = 'pay-cur-opt' + (activeCurrency.code === code ? ' active' : '');
-                    btn.setAttribute('role', 'option');
-                    btn.setAttribute('aria-selected', activeCurrency.code === code ? 'true' : 'false');
-                    btn.innerHTML =
-                        '<span style="font-size:1rem;line-height:1;flex-shrink:0">' + flag + '</span>' +
-                        '<span class="pay-cur-opt-code">' + code + '</span>' +
-                        '<span class="pay-cur-opt-name">' + name + '</span>' +
-                        '<span class="pay-cur-opt-sym">' + sym + '</span>';
-                    btn.addEventListener('click', function () {
-                        activeCurrency = { code: code, sym: sym, rate: rate, flag: flag, name: name };
-                        curFlag.textContent = flag;
-                        curCodeLabel.textContent = code;
-                        curSymLabel.textContent = name + ' · ' + sym;
-                        closeCurDropdown();
-                        updatePrices();
-                    });
-                    curList.appendChild(btn);
-                    shown++;
-                }
-
-                if (filter) {
-                    ALL_CURRENCIES.forEach(function (c) { addOption(c); });
-                    if (shown === 0) {
-                        var empty = document.createElement('div');
-                        empty.className = 'pay-cur-empty';
-                        empty.textContent = 'No results for "' + q + '"';
-                        curList.appendChild(empty);
-                    }
-                } else {
-                    addDivider('★  Popular');
-                    ALL_CURRENCIES
-                        .filter(function (c) { return POPULAR.indexOf(c[0]) !== -1; })
-                        .sort(function (a, b) { return POPULAR.indexOf(a[0]) - POPULAR.indexOf(b[0]); })
-                        .forEach(addOption);
-                    addDivider('All Currencies  A – Z');
-                    ALL_CURRENCIES.slice()
-                        .sort(function (a, b) { return a[0].localeCompare(b[0]); })
-                        .forEach(addOption);
-                }
+            /* ── Helpers ─────────────────────────────────────────────── */
+            function isYearlyMode() { return billingToggle && billingToggle.classList.contains('yearly'); }
+            function fmt(n) { return n.toFixed(2); }
+            function genTxnId() { return 'TXN-ZP-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase(); }
+            function initials(e) {
+                var p = e.split('@')[0].split(/[.\-_]/);
+                return (p.length >= 2 ? p[0][0] + p[1][0] : e.slice(0, 2)).toUpperCase();
             }
 
-            function openCurDropdown() {
-                curDropdown.classList.add('open');
-                curTrigger.setAttribute('aria-expanded', 'true');
-                curSearch.value = '';
-                renderCurrencyList('');
-                // Scroll active item into view
-                setTimeout(function () {
-                    curSearch.focus();
-                    var active = curList.querySelector('.pay-cur-opt.active');
-                    if (active) active.scrollIntoView({ block: 'nearest' });
-                }, 30);
-            }
-            function closeCurDropdown() {
-                curDropdown.classList.remove('open');
-                curTrigger.setAttribute('aria-expanded', 'false');
-            }
-
-            curTrigger.addEventListener('click', function (e) {
-                e.stopPropagation();
-                curDropdown.classList.contains('open') ? closeCurDropdown() : openCurDropdown();
-            });
-            curSearch.addEventListener('input', function () { renderCurrencyList(this.value); });
-            document.addEventListener('click', function (e) {
-                if (curDropdown && !curDropdown.contains(e.target)) closeCurDropdown();
-            });
-            curDropdown.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') { closeCurDropdown(); curTrigger.focus(); }
-            });
-
-            // ── Helpers ───────────────────────────────────────────────────
-            function isYearlyMode() {
-                return billingToggle && billingToggle.classList.contains('yearly');
-            }
-            function initials(email) {
-                var parts = email.split('@')[0].split(/[.\-_]/);
-                return (parts.length >= 2 ? parts[0][0] + parts[1][0] : email.slice(0, 2)).toUpperCase();
-            }
-
-            // ── Card Security: Luhn Algorithm ─────────────────────────────
+            /* ── Luhn Algorithm ──────────────────────────────────────── */
             function luhn(num) {
-                var digits = num.replace(/\D/g, '');
-                var sum = 0, alt = false;
-                for (var i = digits.length - 1; i >= 0; i--) {
-                    var n = parseInt(digits[i], 10);
+                var d = num.replace(/\D/g, ''), s = 0, alt = false;
+                for (var i = d.length - 1; i >= 0; i--) {
+                    var n = parseInt(d[i], 10);
                     if (alt) { n *= 2; if (n > 9) n -= 9; }
-                    sum += n; alt = !alt;
+                    s += n; alt = !alt;
                 }
-                return sum % 10 === 0 && digits.length >= 12;
+                return s % 10 === 0 && d.length >= 12;
             }
-
-            var BLOCKED_CARDS = [
-                '4111111111111111', '4242424242424242', '4000056655665556',
+            var BLOCKED = ['4111111111111111', '4242424242424242', '4000056655665556',
                 '5555555555554444', '5105105105105100', '378282246310005',
-                '371449635398431', '6011111111111117', '3530111333300000',
-                '3566002020360505', '4000000000000002', '4000000000009995',
-                '4000000000000069', '4000000000000127', '1234567890123456',
-                '0000000000000000',
-            ];
-
-            function isRepeatingCard(num) {
-                var d = num.replace(/\D/g, '');
-                return d.length >= 12 && /^(\d)\1+$/.test(d);
-            }
-
+                '371449635398431', '6011111111111117', '4000000000000002',
+                '4000000000009995', '4000000000000069', '1234567890123456', '0000000000000000'];
+            function isRepeat(n) { var d = n.replace(/\D/g, ''); return d.length >= 12 && /^(\d)\1+$/.test(d); }
             function validateCard(raw) {
                 var d = raw.replace(/\D/g, '');
                 if (d.length < 12) return { ok: false, msg: 'Card number is too short.' };
-                if (BLOCKED_CARDS.indexOf(d) !== -1) return { ok: false, msg: 'Test or blocked card — please use a real payment card.' };
-                if (isRepeatingCard(d)) return { ok: false, msg: 'Invalid card — repeating digits detected.' };
-                if (!luhn(d)) return { ok: false, msg: 'Invalid card number — please check and re-enter.' };
+                if (BLOCKED.indexOf(d) !== -1) return { ok: false, msg: 'Test/blocked card — use a real card.' };
+                if (isRepeat(d)) return { ok: false, msg: 'Invalid card — repeating digits.' };
+                if (!luhn(d)) return { ok: false, msg: 'Invalid card number — please re-enter.' };
                 return { ok: true };
             }
-
-            // ── Expiry validation ─────────────────────────────────────────
             function validateExpiry(val) {
-                var parts = val.split('/');
-                if (parts.length !== 2) return { ok: false, msg: 'Enter expiry as MM/YY.' };
-                var mm = parseInt(parts[0], 10), yy = parseInt(parts[1], 10);
+                var p = val.split('/');
+                if (p.length !== 2) return { ok: false, msg: 'Format: MM/YY' };
+                var mm = parseInt(p[0], 10), yy = parseInt(p[1], 10);
                 if (isNaN(mm) || isNaN(yy) || mm < 1 || mm > 12) return { ok: false, msg: 'Invalid month.' };
-                var now = new Date(), expYear = 2000 + yy;
-                if (expYear < now.getFullYear() || (expYear === now.getFullYear() && mm < now.getMonth() + 1)) {
-                    return { ok: false, msg: 'This card has expired.' };
-                }
+                var now = new Date(), expY = 2000 + yy;
+                if (expY < now.getFullYear() || (expY === now.getFullYear() && mm < now.getMonth() + 1))
+                    return { ok: false, msg: 'Card expired.' };
                 return { ok: true };
             }
+            function showFieldErr(el, msgEl, msg) { msgEl.textContent = msg; el.classList.add('visible'); }
+            function hideFieldErr(el) { el.classList.remove('visible'); }
+            function shakeInput(inp) {
+                inp.classList.add('shake', 'error');
+                inp.addEventListener('animationend', function () { inp.classList.remove('shake'); }, { once: true });
+            }
 
-            function showCardError(el, msgEl, msg) { msgEl.textContent = msg; el.classList.add('visible'); }
-            function hideCardError(el) { el.classList.remove('visible'); }
-
-            // ── Auth state ────────────────────────────────────────────────
+            /* ── Auth ────────────────────────────────────────────────── */
             function onAuthChange() {
                 var u = getUser();
                 if (u) {
@@ -7681,140 +7941,235 @@
                     avatarEl.textContent = initials(u.email);
                     accountEmail.textContent = u.email;
                     accountBar.style.display = '';
-                    var navBtn = document.getElementById('auth-toggle');
-                    if (navBtn) navBtn.textContent = u.email.split('@')[0];
+                    var nb = document.getElementById('auth-toggle');
+                    if (nb) nb.textContent = u.email.split('@')[0];
                 } else {
                     payDialog.classList.add('auth-required');
                     accountBar.style.display = 'none';
                 }
             }
-
-            // ── Open / close modal ────────────────────────────────────────
-            function openModal() {
-                updatePlanLabel();
-                updatePrices();
-                if (getUser()) {
-                    payDialog.classList.remove('auth-required');
-                } else {
-                    payDialog.classList.add('auth-required');
-                    setGateMode(false);
-                }
-                overlay.classList.add('open');
-                document.body.style.overflow = 'hidden';
-                payDialog.scrollTop = 0;
-            }
-            function closeModal() {
-                overlay.classList.remove('open');
-                document.body.style.overflow = '';
-            }
-
-            if (proBtn) proBtn.addEventListener('click', openModal);
-            closeBtn.addEventListener('click', closeModal);
-            overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
-            });
-
-            // ── Auth gate ─────────────────────────────────────────────────
             function setGateMode(signup) {
                 gIsSignup = signup;
                 gLoginTab.classList.toggle('active', !signup);
                 gSignupTab.classList.toggle('active', signup);
                 gNameWrap.style.display = signup ? '' : 'none';
-                gPwIn.placeholder = signup ? 'Create a password (min 8 chars)' : '••••••••';
                 gPwIn.autocomplete = signup ? 'new-password' : 'current-password';
-                gSubmitBtn.textContent = signup ? 'Create account & Continue' : 'Sign in & Continue';
+                gPwIn.placeholder = signup ? 'Create a password (min 8 chars)' : '••••••••';
+                var btn = gSubmitBtn.querySelector('span:last-child') || gSubmitBtn;
+                gSubmitBtn.innerHTML = '<span class="pay-spinner"></span>' + (signup ? 'Create account &amp; Continue' : 'Sign in &amp; Continue');
                 gError.classList.remove('visible');
             }
-            gLoginTab.addEventListener('click', function () { setGateMode(false); });
-            gSignupTab.addEventListener('click', function () { setGateMode(true); });
-
-            function showGateError(msg) { gError.textContent = msg; gError.classList.add('visible'); }
-
             function attemptAuth(email, method) {
                 setUser({ email: email, method: method });
                 gEmailIn.value = ''; gPwIn.value = '';
                 if (gNameIn) gNameIn.value = '';
                 gError.classList.remove('visible');
             }
+            function showGateError(msg) { gError.textContent = msg; gError.classList.add('visible'); }
 
+            gLoginTab.addEventListener('click', function () { setGateMode(false); });
+            gSignupTab.addEventListener('click', function () { setGateMode(true); });
             gSubmitBtn.addEventListener('click', function () {
-                var email = gEmailIn.value.trim();
-                var pw = gPwIn.value;
-                var name = gNameIn ? gNameIn.value.trim() : '';
-                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                    showGateError('Please enter a valid email address.'); gEmailIn.focus(); return;
-                }
-                if (!pw || pw.length < (gIsSignup ? 8 : 6)) {
-                    showGateError(gIsSignup ? 'Password must be at least 8 characters.' : 'Please enter your password.');
-                    gPwIn.focus(); return;
-                }
-                if (gIsSignup && !name) {
-                    showGateError('Please enter your name.'); gNameIn.focus(); return;
-                }
-                attemptAuth(email, 'email');
+                var email = gEmailIn.value.trim(), pw = gPwIn.value, name = gNameIn ? gNameIn.value.trim() : '';
+                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showGateError('Valid email required.'); gEmailIn.focus(); return; }
+                if (!pw || pw.length < (gIsSignup ? 8 : 6)) { showGateError(gIsSignup ? 'Min 8 characters.' : 'Enter your password.'); gPwIn.focus(); return; }
+                if (gIsSignup && !name) { showGateError('Name required.'); gNameIn.focus(); return; }
+                setGateLoading(true);
+                setTimeout(function () { setGateLoading(false); attemptAuth(email, 'email'); }, 600);
             });
-
+            function setGateLoading(on) {
+                gSubmitBtn.disabled = on;
+                var sp = gSubmitBtn.querySelector('.pay-spinner');
+                if (sp) sp.style.display = on ? 'block' : '';
+            }
             gGoogleBtn.addEventListener('click', function () { attemptAuth('user@gmail.com', 'Google'); });
             gAppleBtn.addEventListener('click', function () { attemptAuth('user@icloud.com', 'Apple'); });
-            switchBtn.addEventListener('click', function () { clearUser(); });
+            switchBtn.addEventListener('click', function () { clearUser(); setGateMode(false); });
 
-            // Sync with nav auth modal
-            var navLoginSubmit = document.getElementById('login-submit');
-            var navSignupSubmit = document.getElementById('signup-submit');
-            var navLoginEmail = document.getElementById('login-email');
-            var navSignupEmail = document.getElementById('signup-email');
-            if (navLoginSubmit) {
-                navLoginSubmit.addEventListener('click', function () {
-                    var e = navLoginEmail && navLoginEmail.value.trim();
-                    if (e && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) setUser({ email: e, method: 'email' });
-                }, true);
-            }
-            if (navSignupSubmit) {
-                navSignupSubmit.addEventListener('click', function () {
-                    var e = navSignupEmail && navSignupEmail.value.trim();
-                    if (e && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) setUser({ email: e, method: 'email' });
-                }, true);
-            }
-            document.querySelectorAll('.auth-social-btn').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    var p = btn.getAttribute('data-provider') || 'sso';
-                    setUser({ email: p + '@example.com', method: p });
-                }, true);
+            // Sync with site nav auth
+            var nls = document.getElementById('login-submit');
+            var nss = document.getElementById('signup-submit');
+            var nle = document.getElementById('login-email');
+            var nse = document.getElementById('signup-email');
+            if (nls) nls.addEventListener('click', function () { var e = nle && nle.value.trim(); if (e && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) setUser({ email: e, method: 'email' }); }, true);
+            if (nss) nss.addEventListener('click', function () { var e = nse && nse.value.trim(); if (e && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) setUser({ email: e, method: 'email' }); }, true);
+            document.querySelectorAll('.auth-social-btn').forEach(function (b) {
+                b.addEventListener('click', function () { var p = b.getAttribute('data-provider') || 'sso'; setUser({ email: p + '@example.com', method: p }); }, true);
             });
 
-            // ── Plan label & pricing ──────────────────────────────────────
-            function updatePlanLabel() {
-                planLabel.textContent = isYearlyMode()
-                    ? 'Yearly plan · $39.99 / year (save 33%)'
-                    : 'Monthly plan · $4.99 / month';
+            /* ── Open / Close modal ──────────────────────────────────── */
+            function openModal() {
+                updatePlanLabel(); updatePrices();
+                if (getUser()) payDialog.classList.remove('auth-required');
+                else { payDialog.classList.add('auth-required'); setGateMode(false); }
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                payDialog.scrollTop = 0;
+            }
+            function closeModal() { overlay.classList.remove('open'); document.body.style.overflow = ''; }
+
+            if (proBtn) proBtn.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+            /* ── Country Dropdown ────────────────────────────────────── */
+            function renderCountryList(q) {
+                var f = (q || '').toLowerCase().trim();
+                countryList.innerHTML = '';
+                var shown = 0;
+                function addDiv(lbl) { if (f) return; var d = document.createElement('div'); d.className = 'pay-country-divider'; d.textContent = lbl; countryList.appendChild(d); }
+                function addC(c) {
+                    if (f && c[1].toLowerCase().indexOf(f) === -1 && c[0].toLowerCase().indexOf(f) === -1) return;
+                    var btn = document.createElement('button');
+                    btn.type = 'button'; btn.className = 'pay-country-opt' + (activeCountry[0] === c[0] ? ' active' : '');
+                    btn.setAttribute('role', 'option'); btn.setAttribute('aria-selected', activeCountry[0] === c[0] ? 'true' : 'false');
+                    btn.innerHTML = '<span style="font-size:1rem;line-height:1;flex-shrink:0">' + c[2] + '</span>' +
+                        '<span class="pay-country-opt-name">' + c[1] + '</span>' +
+                        '<span style="font-size:.7rem;color:var(--color-text-faint);flex-shrink:0">' + c[0] + '</span>';
+                    btn.addEventListener('click', function () { selectCountry(c); closeDd(countryDropdown, countryTrigger); });
+                    countryList.appendChild(btn); shown++;
+                }
+                if (!f) { addDiv('All 197 Countries  A–Z'); }
+                var sorted = COUNTRIES.slice().sort(function (a, b) { return a[1].localeCompare(b[1]); });
+                sorted.forEach(addC);
+                if (!shown) { var e = document.createElement('div'); e.className = 'pay-country-empty'; e.textContent = 'No results'; countryList.appendChild(e); }
             }
 
-            function fmt(n) { return n.toFixed(2); }
+            function selectCountry(c) {
+                activeCountry = c;
+                countryFlag.textContent = c[2];
+                countryLabel.textContent = c[1];
+                // Auto-match currency
+                var cc = getCurrencyByCode(c[3]);
+                if (cc) { activeCurrency = cc; updateCurrencyTrigger(); }
+                // Postal label
+                if (postalLabel) postalLabel.textContent = c[5];
+                if (postalInput) postalInput.placeholder = c[6];
+                // APMs
+                updateAPMs(c[7]);
+                updatePrices();
+            }
 
+            function updateAPMs(apms) {
+                if (!apms || !apms.length) {
+                    apmTab.classList.remove('visible');
+                    return;
+                }
+                apmTab.classList.add('visible');
+                apmGrid.innerHTML = '';
+                var icons = {
+                    'UPI': '💳', 'Pix': '🟢', 'iDEAL': '🏦', 'BLIK': '📱', 'Alipay': '🔵', 'WeChat Pay': '💚',
+                    'GoPay': '🟡', 'OVO': '💜', 'Dana': '🔷', 'QRIS': '📲', 'M-Pesa': '📡', 'MTN MoMo': '🟡',
+                    'KakaoPay': '💬', 'NaverPay': '🟩', 'Toss': '💙', 'PayNow': '🇸🇬', 'GrabPay': '💚',
+                    'Swish': '🔴', 'TWINT': '⬛', 'Vipps': '🟠', 'MB Way': '🔴', 'Multibanco': '🏧',
+                    'SBP': '⚡', 'Kaspi Pay': '🟡', 'FPX': '🇲🇾', 'Touch \'n Go': '🟢', 'Boleto': '🧾',
+                    'MercadoPago': '🔵', 'SPEI': '🇲🇽', 'OXXO': '🏪', 'PSE': '🇨🇴', 'Bizum': '🇪🇸',
+                    'Fawry': '🔷', 'Vodafone Cash': '🔴', 'STC Pay': '🇸🇦', 'Mada': '💳',
+                    'Paystack': '🟩', 'Flutterwave': '🌊', 'EasyPaisa': '🟢', 'JazzCash': '🔴',
+                    'Paytm': '🔵', 'PhonePe': '💜', 'NetBanking': '🏛️', 'LINE Pay': '💚',
+                    'PromptPay': '🇹🇭', 'TrueMoney': '🟡', 'MoMo': '🩷', 'ZaloPay': '🔵', 'VNPay': '🔴',
+                    'Yape': '🟣', 'Plin': '🔷', 'GCash': '🔵', 'Maya': '💚', 'SINPE Móvil': '🇨🇷',
+                    'Mobile Money': '📱', 'Orange Money': '🟠', 'eSewa': '🟢', 'Khalti': '💜',
+                    'Konbini': '🏪', 'PayPay': '🔴', 'KBZPay': '🇲🇲', 'Wave': '🌊', 'YooMoney': '🟡',
+                    'Airtel Money': '🔴', 'NetBanking': '🏛️',
+                };
+                apms.forEach(function (name) {
+                    var btn = document.createElement('button');
+                    btn.type = 'button'; btn.className = 'pay-apm-btn';
+                    btn.innerHTML = '<span class="pay-apm-icon">' + (icons[name] || '💳') + '</span><span>' + name + '</span>';
+                    btn.addEventListener('click', function () {
+                        document.querySelectorAll('.pay-apm-btn').forEach(function (b) { b.style.borderColor = ''; b.style.background = ''; });
+                        btn.style.borderColor = 'var(--color-primary)'; btn.style.background = 'var(--color-primary-highlight)';
+                    });
+                    apmGrid.appendChild(btn);
+                });
+                if (apmIntro) apmIntro.textContent = 'Local payment methods for ' + activeCountry[1] + ':';
+            }
+
+            function openDd(dd, trigger, renderFn, searchEl) {
+                dd.classList.add('open'); trigger.setAttribute('aria-expanded', 'true');
+                if (searchEl) { searchEl.value = ''; setTimeout(function () { searchEl.focus(); }, 30); }
+                renderFn('');
+                setTimeout(function () { var a = dd.querySelector('.active'); if (a) a.scrollIntoView({ block: 'nearest' }); }, 50);
+            }
+            function closeDd(dd, trigger) { dd.classList.remove('open'); trigger.setAttribute('aria-expanded', 'false'); }
+
+            countryTrigger.addEventListener('click', function (e) { e.stopPropagation(); countryDropdown.classList.contains('open') ? closeDd(countryDropdown, countryTrigger) : openDd(countryDropdown, countryTrigger, renderCountryList, countrySearch); });
+            countrySearch.addEventListener('input', function () { renderCountryList(this.value); });
+
+            /* ── Currency Dropdown ───────────────────────────────────── */
+            function updateCurrencyTrigger() {
+                curFlag.textContent = activeCurrency[3];
+                curCodeLabel.textContent = activeCurrency[0];
+                curSymLabel.textContent = activeCurrency[1] + ' · ' + activeCurrency[2];
+            }
+
+            function renderCurrencyList(q) {
+                var f = (q || '').toLowerCase().trim(); curList.innerHTML = ''; var shown = 0;
+                function addDiv(lbl) { if (f) return; var d = document.createElement('div'); d.className = 'pay-cur-divider'; d.textContent = lbl; curList.appendChild(d); }
+                function addOpt(c) {
+                    if (f && c[0].toLowerCase().indexOf(f) === -1 && c[1].toLowerCase().indexOf(f) === -1 && c[2].toLowerCase().indexOf(f) === -1) return;
+                    var btn = document.createElement('button'); btn.type = 'button';
+                    btn.className = 'pay-cur-opt' + (activeCurrency[0] === c[0] ? ' active' : '');
+                    btn.innerHTML = '<span style="font-size:1rem;line-height:1;flex-shrink:0">' + c[3] + '</span><span class="pay-cur-opt-code">' + c[0] + '</span><span class="pay-cur-opt-name">' + c[1] + '</span><span class="pay-cur-opt-sym">' + c[2] + '</span>';
+                    btn.addEventListener('click', function () { activeCurrency = c; updateCurrencyTrigger(); closeDd(curDropdown, curTrigger); updatePrices(); });
+                    curList.appendChild(btn); shown++;
+                }
+                if (!f) {
+                    addDiv('★  Popular');
+                    ALL_CURRENCIES.filter(function (c) { return POPULAR_CURR.indexOf(c[0]) !== -1; }).sort(function (a, b) { return POPULAR_CURR.indexOf(a[0]) - POPULAR_CURR.indexOf(b[0]); }).forEach(addOpt);
+                    addDiv('All Currencies  A–Z');
+                    ALL_CURRENCIES.slice().sort(function (a, b) { return a[0].localeCompare(b[0]); }).forEach(addOpt);
+                } else {
+                    ALL_CURRENCIES.forEach(addOpt);
+                    if (!shown) { var e = document.createElement('div'); e.className = 'pay-cur-empty'; e.textContent = 'No results for "' + q + '"'; curList.appendChild(e); }
+                }
+            }
+
+            curTrigger.addEventListener('click', function (e) { e.stopPropagation(); curDropdown.classList.contains('open') ? closeDd(curDropdown, curTrigger) : openDd(curDropdown, curTrigger, renderCurrencyList, curSearch); });
+            curSearch.addEventListener('input', function () { renderCurrencyList(this.value); });
+            document.addEventListener('click', function (e) {
+                if (!curDropdown.contains(e.target)) closeDd(curDropdown, curTrigger);
+                if (!countryDropdown.contains(e.target)) closeDd(countryDropdown, countryTrigger);
+            });
+            [curDropdown, countryDropdown].forEach(function (dd) { dd.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeDd(curDropdown, curTrigger); closeDd(countryDropdown, countryTrigger); } }); });
+
+            /* ── Pricing ─────────────────────────────────────────────── */
+            function updatePlanLabel() {
+                planLabel.textContent = isYearlyMode() ? 'Yearly plan · $39.99 / year (save 33%)' : 'Monthly plan · $4.99 / month';
+            }
             function updatePrices() {
                 var c = activeCurrency;
                 var yearly = isYearlyMode();
                 var base = yearly ? BASE_YEARLY_USD : BASE_MONTHLY_USD;
-                var sub = base * c.rate;
-                var tax = sub * TAX_RATE;
-                var total = sub + tax;
-                subPriceEl.textContent = c.sym + fmt(sub);
-                lineSubEl.textContent = c.sym + fmt(sub);
-                lineTaxEl.textContent = c.sym + fmt(tax);
-                lineTotalEl.textContent = c.sym + fmt(total);
-                btnAmounts.forEach(function (el) { el.textContent = c.sym + fmt(total); });
-                psAmount.textContent = c.sym + fmt(total);
-                psCurrency.textContent = c.code;
+                var sub = base * c[4];
+                var vat = activeCountry[4] || 0;
+                var taxAmt = sub * vat;
+                var total = sub + taxAmt;
+
+                subPriceEl.textContent = c[2] + fmt(sub);
+                lineSubEl.textContent = c[2] + fmt(sub);
+                lineTotalEl.textContent = c[2] + fmt(total);
+                btnAmounts.forEach(function (el) { el.textContent = c[2] + fmt(total); });
+                psAmount.textContent = c[2] + fmt(total);
+                psCurrency.textContent = c[0];
+                psCountry.textContent = activeCountry[1];
                 psPlan.textContent = 'Zpendr Pro ' + (yearly ? 'Yearly' : 'Monthly');
+
+                if (vat > 0) {
+                    vatRow.classList.add('active');
+                    vatLabel.textContent = 'VAT / Tax (' + Math.round(vat * 100) + '%)';
+                    lineTaxEl.textContent = c[2] + fmt(taxAmt);
+                } else {
+                    vatRow.classList.remove('active');
+                }
             }
 
-            // ── Payment method tabs ───────────────────────────────────────
+            /* ── Payment Tabs ────────────────────────────────────────── */
             document.querySelectorAll('.pay-tab').forEach(function (tab) {
                 tab.addEventListener('click', function () {
-                    document.querySelectorAll('.pay-tab').forEach(function (t) {
-                        t.classList.remove('active'); t.setAttribute('aria-selected', 'false');
-                    });
+                    document.querySelectorAll('.pay-tab').forEach(function (t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
                     document.querySelectorAll('.pay-panel').forEach(function (p) { p.classList.remove('active'); });
                     tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
                     var panel = document.getElementById(tab.getAttribute('aria-controls'));
@@ -7822,103 +8177,138 @@
                 });
             });
 
-            // ── 3D card preview + real-time card validation ───────────────
+            /* ── CVV Eye Toggle ──────────────────────────────────────── */
+            var EYE_OPEN = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+            var EYE_SHUT = '<path d="M17.94 17.94A10.94 10.94 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+            pfCvvEye.addEventListener('click', function () {
+                cvvVisible = !cvvVisible;
+                pfCvv.type = cvvVisible ? 'text' : 'password';
+                pfCvvEyeIcon.innerHTML = cvvVisible ? EYE_SHUT : EYE_OPEN;
+                pfCvvEye.setAttribute('aria-label', cvvVisible ? 'Hide CVV' : 'Show CVV');
+            });
+
+            /* ── Card 3D + Auto-Tab + Real-time validation ───────────── */
             pfName.addEventListener('input', function () { pcName.textContent = this.value || 'YOUR NAME'; });
 
             pfNumber.addEventListener('input', function () {
                 var v = this.value.replace(/\s+/g, '').replace(/[^0-9]/g, '');
-                var f = '';
-                for (var i = 0; i < v.length; i++) { if (i > 0 && i % 4 === 0) f += ' '; f += v[i]; }
-                this.value = f;
-                pcNumber.textContent = f || '•••• •••• •••• ••••';
-                if (v.startsWith('4')) { pcBrand.textContent = 'VISA'; cvvLen = 3; }
-                else if (/^5[1-5]/.test(v)) { pcBrand.textContent = 'MASTERCARD'; cvvLen = 3; }
-                else if (/^3[47]/.test(v)) { pcBrand.textContent = 'AMEX'; cvvLen = 4; }
-                else if (/^6(?:011|5)/.test(v)) { pcBrand.textContent = 'DISCOVER'; cvvLen = 3; }
+                var f = ''; for (var i = 0; i < v.length; i++) { if (i > 0 && i % 4 === 0) f += ' '; f += v[i]; }
+                this.value = f; pcNumber.textContent = f || '•••• •••• •••• ••••';
+                var skin = '';
+                if (v.startsWith('4')) { pcBrand.textContent = 'VISA'; cvvLen = 3; skin = 'skin-visa'; }
+                else if (/^5[1-5]/.test(v)) { pcBrand.textContent = 'MASTERCARD'; cvvLen = 3; skin = 'skin-mastercard'; }
+                else if (/^3[47]/.test(v)) { pcBrand.textContent = 'AMEX'; cvvLen = 4; skin = 'skin-amex'; }
+                else if (/^6(?:011|5)/.test(v)) { pcBrand.textContent = 'DISCOVER'; cvvLen = 3; skin = 'skin-discover'; }
                 else { pcBrand.textContent = 'CARD'; cvvLen = 3; }
+                cardVisual.className = 'pay-card-visual' + (skin ? ' ' + skin : '');
                 pfCvv.maxLength = cvvLen; pfCvv.placeholder = cvvLen === 4 ? '1234' : '123';
-                if (v.length >= 12) {
-                    var res = validateCard(v);
-                    res.ok ? hideCardError(cardNumErr) : showCardError(cardNumErr, cardNumErrMsg, res.msg);
-                } else { hideCardError(cardNumErr); }
+                if (v.length >= 12) { var r = validateCard(v); r.ok ? hideFieldErr(cardNumErr) : showFieldErr(cardNumErr, cardNumErrMsg, r.msg); }
+                else hideFieldErr(cardNumErr);
+                // Auto-tab to expiry on 16 digits
+                if (v.replace(/\D/g, '').length >= 16) pfExpiry.focus();
             });
 
             pfExpiry.addEventListener('input', function () {
                 var v = this.value.replace(/\D/g, '');
                 if (v.length > 2) v = v.slice(0, 2) + '/' + v.slice(2, 4);
-                this.value = v;
-                pcExpiry.textContent = v || 'MM/YY';
-                if (v.length === 5) {
-                    var res = validateExpiry(v);
-                    res.ok ? hideCardError(expiryErr) : showCardError(expiryErr, expiryErrMsg, res.msg);
-                } else { hideCardError(expiryErr); }
+                this.value = v; pcExpiry.textContent = v || 'MM/YY';
+                if (v.length === 5) { var r = validateExpiry(v); r.ok ? hideFieldErr(expiryErr) : showFieldErr(expiryErr, expiryErrMsg, r.msg); }
+                else hideFieldErr(expiryErr);
+                // Auto-tab to CVV
+                if (v.length === 5 && validateExpiry(v).ok) pfCvv.focus();
             });
 
             pfCvv.addEventListener('focus', function () { cardEl.classList.add('flipped'); });
-            pfCvv.addEventListener('blur', function () {
-                cardEl.classList.remove('flipped');
-                this.type = 'password';
-                if (pcCvv.textContent && !/^•+$/.test(pcCvv.textContent)) {
-                    pcCvv.textContent = '•'.repeat(cvvLen);
-                }
-            });
+            pfCvv.addEventListener('blur', function () { cardEl.classList.remove('flipped'); if (!cvvVisible) this.type = 'password'; if (pcCvv.textContent && !/^•+$/.test(pcCvv.textContent)) pcCvv.textContent = '•'.repeat(cvvLen); });
             pfCvv.addEventListener('input', function () {
                 var v = this.value.replace(/\D/g, '').slice(0, cvvLen);
-                this.value = v; this.type = 'text';
-                pcCvv.textContent = v || '•'.repeat(cvvLen);
-                pcCvv.removeAttribute('data-masked');
+                this.value = v; if (!cvvVisible) this.type = 'text';
+                pcCvv.textContent = v || '•'.repeat(cvvLen); pcCvv.removeAttribute('data-masked');
                 clearTimeout(cvvTimer);
                 cvvTimer = setTimeout(function () {
-                    pfCvv.type = 'password';
+                    if (!cvvVisible) pfCvv.type = 'password';
                     pcCvv.setAttribute('data-masked', '1');
-                    setTimeout(function () {
-                        if (pcCvv.getAttribute('data-masked') === '1') {
-                            pcCvv.textContent = '•'.repeat(cvvLen);
-                            pcCvv.removeAttribute('data-masked');
-                        }
-                    }, 300);
+                    setTimeout(function () { if (pcCvv.getAttribute('data-masked') === '1') { pcCvv.textContent = '•'.repeat(cvvLen); pcCvv.removeAttribute('data-masked'); } }, 300);
                 }, 1500);
             });
 
-            // ── Pay button ────────────────────────────────────────────────
+            /* ── Pay button + processing state ──────────────────────── */
             var successOverlay = document.getElementById('pay-success-overlay');
             var successClose = document.getElementById('pay-success-close');
+            var downloadReceipt = document.getElementById('pay-download-receipt');
+            var payCardBtn = document.getElementById('pay-card-btn');
+
+            function setPayBtnLoading(btn, on) {
+                btn.disabled = on; btn.classList.toggle('processing', on);
+            }
 
             function showSuccess(method) {
+                var txn = genTxnId();
                 psMethod.textContent = method;
+                psTxn.textContent = txn;
+                psDate.textContent = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
                 successOverlay.classList.add('open');
             }
-            successClose.addEventListener('click', function () {
-                successOverlay.classList.remove('open');
-                closeModal();
+
+            successClose.addEventListener('click', function () { successOverlay.classList.remove('open'); closeModal(); });
+
+            downloadReceipt.addEventListener('click', function () {
+                var lines = [
+                    'ZPENDR PRO — PAYMENT RECEIPT',
+                    '==============================',
+                    'Amount:  ' + (psAmount.textContent || '—'),
+                    'Currency:' + (psCurrency.textContent || '—'),
+                    'Country: ' + (psCountry.textContent || '—'),
+                    'Plan:    ' + (psPlan.textContent || '—'),
+                    'Method:  ' + (psMethod.textContent || '—'),
+                    'TXN ID:  ' + (psTxn.textContent || '—'),
+                    'Date:    ' + (psDate.textContent || '—'),
+                    '',
+                    'Thank you for subscribing to Zpendr Pro!',
+                ];
+                var blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+                var a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'zpendr-receipt-' + (psTxn.textContent || 'TXN') + '.txt';
+                a.click(); URL.revokeObjectURL(a.href);
             });
 
-            document.getElementById('pay-card-btn').addEventListener('click', function () {
-                var numVal = pfNumber.value.replace(/\s/g, '');
-                var expVal = pfExpiry.value;
-                var numRes = validateCard(numVal);
-                var expRes = validateExpiry(expVal);
+            payCardBtn.addEventListener('click', function () {
+                var numVal = pfNumber.value.replace(/\s/g, ''), expVal = pfExpiry.value;
+                var numRes = validateCard(numVal), expRes = validateExpiry(expVal);
                 var hasErr = false;
 
-                if (!numRes.ok) { showCardError(cardNumErr, cardNumErrMsg, numRes.msg); hasErr = true; }
-                else hideCardError(cardNumErr);
-                if (!expRes.ok) { showCardError(expiryErr, expiryErrMsg, expRes.msg); hasErr = true; }
-                else hideCardError(expiryErr);
-                if (!pfName.value.trim()) {
-                    pfName.focus(); pfName.style.borderColor = '#c0392b';
-                    setTimeout(function () { pfName.style.borderColor = ''; }, 2000);
-                    hasErr = true;
-                }
-                if (pfCvv.value.length < 3) { pfCvv.focus(); hasErr = true; }
+                if (!numRes.ok) { showFieldErr(cardNumErr, cardNumErrMsg, numRes.msg); shakeInput(pfNumber); hasErr = true; } else hideFieldErr(cardNumErr);
+                if (!expRes.ok) { showFieldErr(expiryErr, expiryErrMsg, expRes.msg); shakeInput(pfExpiry); hasErr = true; } else hideFieldErr(expiryErr);
+                if (!pfName.value.trim()) { shakeInput(pfName); hasErr = true; }
+                if (pfCvv.value.length < 3) { shakeInput(pfCvv); hasErr = true; }
                 if (hasErr) return;
 
-                var t = document.querySelector('input[name="pay-card-type"]:checked');
-                showSuccess((t && t.value === 'debit' ? 'Debit' : 'Credit') + ' Card (' + pcBrand.textContent + ')');
+                setPayBtnLoading(payCardBtn, true);
+                setTimeout(function () {
+                    setPayBtnLoading(payCardBtn, false);
+                    var t = document.querySelector('input[name="pay-card-type"]:checked');
+                    showSuccess((t && t.value === 'debit' ? 'Debit' : 'Credit') + ' Card (' + pcBrand.textContent + ')');
+                }, 1800);
             });
 
-            // ── Init ──────────────────────────────────────────────────────
+            document.getElementById('pay-paypal-btn').addEventListener('click', function () {
+                setPayBtnLoading(this, true);
+                setTimeout(function () { setPayBtnLoading(document.getElementById('pay-paypal-btn'), false); showSuccess('PayPal'); }, 1500);
+            });
+            document.getElementById('pay-apm-btn').addEventListener('click', function () {
+                var sel = apmGrid.querySelector('[style*="var(--color-primary)"]');
+                var name = sel ? sel.querySelector('span:last-child').textContent : 'Local Payment';
+                setPayBtnLoading(this, true);
+                setTimeout(function () { setPayBtnLoading(document.getElementById('pay-apm-btn'), false); showSuccess(name); }, 1500);
+            });
+
+            /* ── Init ────────────────────────────────────────────────── */
             setGateMode(false);
+            selectCountry(activeCountry);
+            updateCurrencyTrigger();
             onAuthChange();
+            updatePlanLabel();
             updatePrices();
         })();
     </script>
