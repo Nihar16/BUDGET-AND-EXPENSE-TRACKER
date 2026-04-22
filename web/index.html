@@ -2162,6 +2162,185 @@
             border-bottom: 1px solid var(--color-border);
         }
 
+        /* Custom currency dropdown */
+        .pay-cur-dropdown {
+            position: relative;
+        }
+
+        .pay-cur-trigger {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            width: 100%;
+            padding: .72rem 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: var(--text-sm);
+            cursor: pointer;
+            text-align: left;
+            transition: border-color .15s, box-shadow .15s;
+        }
+
+        .pay-cur-trigger:focus,
+        .pay-cur-dropdown.open .pay-cur-trigger {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 14%, transparent);
+        }
+
+        .pay-cur-flag {
+            font-size: 1.1rem;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .pay-cur-label {
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .pay-cur-sym {
+            color: var(--color-text-faint);
+            font-size: var(--text-xs);
+        }
+
+        .pay-cur-chevron {
+            width: 16px;
+            height: 16px;
+            color: var(--color-text-faint);
+            transition: transform .2s;
+            flex-shrink: 0;
+        }
+
+        .pay-cur-dropdown.open .pay-cur-chevron {
+            transform: rotate(180deg);
+        }
+
+        .pay-cur-panel {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            z-index: 50;
+            overflow: hidden;
+        }
+
+        .pay-cur-dropdown.open .pay-cur-panel {
+            display: block;
+        }
+
+        .pay-cur-search-wrap {
+            padding: var(--space-2) var(--space-3);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .pay-cur-search {
+            width: 100%;
+            padding: .45rem .7rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface-2);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: var(--text-sm);
+            outline: none;
+        }
+
+        .pay-cur-search:focus {
+            border-color: var(--color-primary);
+        }
+
+        .pay-cur-list {
+            max-height: 240px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-border) transparent;
+        }
+
+        .pay-cur-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .pay-cur-list::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 3px;
+        }
+
+        .pay-cur-opt {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: .5rem .9rem;
+            cursor: pointer;
+            font-size: var(--text-sm);
+            color: var(--color-text);
+            transition: background .1s;
+            width: 100%;
+            border: none;
+            background: none;
+            font-family: var(--font-body);
+            text-align: left;
+        }
+
+        .pay-cur-opt:hover {
+            background: var(--color-surface-2);
+        }
+
+        .pay-cur-opt.active {
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .pay-cur-opt-code {
+            font-weight: 700;
+            min-width: 36px;
+        }
+
+        .pay-cur-opt-name {
+            flex: 1;
+            color: var(--color-text-muted);
+            font-size: .75rem;
+        }
+
+        .pay-cur-opt.active .pay-cur-opt-name {
+            color: var(--color-primary);
+            opacity: .8;
+        }
+
+        .pay-cur-opt-sym {
+            color: var(--color-text-faint);
+            font-size: .75rem;
+            min-width: 20px;
+            text-align: right;
+        }
+
+        .pay-cur-divider {
+            padding: .3rem .9rem .15rem;
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            color: var(--color-text-faint);
+            background: var(--color-surface-2);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .pay-cur-empty {
+            padding: var(--space-4) var(--space-4);
+            text-align: center;
+            font-size: var(--text-sm);
+            color: var(--color-text-faint);
+        }
+
         .pay-summary-content {
             padding: var(--space-5);
             flex: 1;
@@ -6771,23 +6950,26 @@
                 <!-- Left: Order Summary -->
                 <div class="pay-summary">
                     <div class="pay-currency-wrap">
-                        <label class="pay-label" for="pay-currency">Currency</label>
-                        <div class="pay-select-wrap">
-                            <select id="pay-currency" class="pay-input">
-                                <option value="USD" data-symbol="$" data-rate="1">USD — US Dollar ($)</option>
-                                <option value="EUR" data-symbol="€" data-rate="0.91">EUR — Euro (€)</option>
-                                <option value="GBP" data-symbol="£" data-rate="0.78">GBP — British Pound (£)</option>
-                                <option value="JPY" data-symbol="¥" data-rate="149.82">JPY — Japanese Yen (¥)</option>
-                                <option value="CAD" data-symbol="C$" data-rate="1.36" selected>CAD — Canadian Dollar
-                                    (C$)</option>
-                                <option value="AUD" data-symbol="A$" data-rate="1.51">AUD — Australian Dollar (A$)
-                                </option>
-                                <option value="INR" data-symbol="₹" data-rate="83.36">INR — Indian Rupee (₹)</option>
-                                <option value="SGD" data-symbol="S$" data-rate="1.34">SGD — Singapore Dollar (S$)
-                                </option>
-                                <option value="BRL" data-symbol="R$" data-rate="5.05">BRL — Brazilian Real (R$)</option>
-                                <option value="MXN" data-symbol="$" data-rate="16.73">MXN — Mexican Peso ($)</option>
-                            </select>
+                        <label class="pay-label" for="pay-cur-search">Currency</label>
+                        <div class="pay-cur-dropdown" id="pay-cur-dropdown">
+                            <button type="button" class="pay-cur-trigger" id="pay-cur-trigger" aria-haspopup="listbox"
+                                aria-expanded="false">
+                                <span class="pay-cur-flag" id="pay-cur-flag">🇨🇦</span>
+                                <span class="pay-cur-label" id="pay-cur-code-label">CAD</span>
+                                <span class="pay-cur-sym" id="pay-cur-sym-label">Canadian Dollar · C$</span>
+                                <svg class="pay-cur-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" aria-hidden="true">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </button>
+                            <div class="pay-cur-panel" role="listbox" aria-label="Select currency">
+                                <div class="pay-cur-search-wrap">
+                                    <input type="search" class="pay-cur-search" id="pay-cur-search"
+                                        placeholder="Search currency or country…" autocomplete="off"
+                                        aria-label="Search currencies">
+                                </div>
+                                <div class="pay-cur-list" id="pay-cur-list"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="pay-summary-content">
@@ -7163,6 +7345,114 @@
             function setUser(u) { window.ZpendrAuth.user = u; onAuthChange(); }
             function clearUser() { window.ZpendrAuth.user = null; onAuthChange(); }
 
+            // ── All world currencies [code, name, symbol, flag, rate_vs_USD] ──
+            var POPULAR = ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'JPY', 'CHF', 'CNY', 'INR', 'SGD', 'HKD', 'NZD', 'MXN', 'BRL', 'ZAR', 'AED', 'SAR', 'KRW'];
+            var ALL_CURRENCIES = [
+                ['USD', 'US Dollar', '$', '🇺🇸', 1],
+                ['EUR', 'Euro', '€', '🇪🇺', 0.915],
+                ['GBP', 'British Pound', '£', '🇬🇧', 0.783],
+                ['JPY', 'Japanese Yen', '¥', '🇯🇵', 149.82],
+                ['CAD', 'Canadian Dollar', 'C$', '🇨🇦', 1.362],
+                ['AUD', 'Australian Dollar', 'A$', '🇦🇺', 1.512],
+                ['CHF', 'Swiss Franc', 'Fr', '🇨🇭', 0.887],
+                ['CNY', 'Chinese Yuan', '¥', '🇨🇳', 7.241],
+                ['HKD', 'Hong Kong Dollar', 'HK$', '🇭🇰', 7.821],
+                ['SGD', 'Singapore Dollar', 'S$', '🇸🇬', 1.341],
+                ['NZD', 'New Zealand Dollar', 'NZ$', '🇳🇿', 1.629],
+                ['SEK', 'Swedish Krona', 'kr', '🇸🇪', 10.41],
+                ['NOK', 'Norwegian Krone', 'kr', '🇳🇴', 10.56],
+                ['DKK', 'Danish Krone', 'kr', '🇩🇰', 6.82],
+                ['INR', 'Indian Rupee', '₹', '🇮🇳', 83.36],
+                ['MXN', 'Mexican Peso', '$', '🇲🇽', 16.73],
+                ['BRL', 'Brazilian Real', 'R$', '🇧🇷', 5.05],
+                ['ZAR', 'South African Rand', 'R', '🇿🇦', 18.31],
+                ['KRW', 'South Korean Won', '₩', '🇰🇷', 1318],
+                ['AED', 'UAE Dirham', 'د.إ', '🇦🇪', 3.673],
+                ['SAR', 'Saudi Riyal', '﷼', '🇸🇦', 3.750],
+                ['QAR', 'Qatari Riyal', '﷼', '🇶🇦', 3.641],
+                ['KWD', 'Kuwaiti Dinar', 'KD', '🇰🇼', 0.307],
+                ['BHD', 'Bahraini Dinar', 'BD', '🇧🇭', 0.376],
+                ['OMR', 'Omani Rial', '﷼', '🇴🇲', 0.385],
+                ['JOD', 'Jordanian Dinar', 'JD', '🇯🇴', 0.709],
+                ['PLN', 'Polish Złoty', 'zł', '🇵🇱', 3.98],
+                ['CZK', 'Czech Koruna', 'Kč', '🇨🇿', 22.83],
+                ['HUF', 'Hungarian Forint', 'Ft', '🇭🇺', 353.4],
+                ['RON', 'Romanian Leu', 'lei', '🇷🇴', 4.57],
+                ['BGN', 'Bulgarian Lev', 'лв', '🇧🇬', 1.79],
+                ['ISK', 'Icelandic Króna', 'kr', '🇮🇸', 136.7],
+                ['TRY', 'Turkish Lira', '₺', '🇹🇷', 32.14],
+                ['RUB', 'Russian Ruble', '₽', '🇷🇺', 92.30],
+                ['UAH', 'Ukrainian Hryvnia', '₴', '🇺🇦', 38.21],
+                ['GEL', 'Georgian Lari', '₾', '🇬🇪', 2.67],
+                ['AMD', 'Armenian Dram', '֏', '🇦🇲', 400.2],
+                ['AZN', 'Azerbaijani Manat', '₼', '🇦🇿', 1.70],
+                ['BYN', 'Belarusian Ruble', 'Br', '🇧🇾', 3.27],
+                ['MDL', 'Moldovan Leu', 'L', '🇲🇩', 17.67],
+                ['MKD', 'Macedonian Denar', 'ден', '🇲🇰', 56.43],
+                ['ALL', 'Albanian Lek', 'L', '🇦🇱', 100.5],
+                ['BAM', 'Bosnia Mark', 'KM', '🇧🇦', 1.79],
+                ['RSD', 'Serbian Dinar', 'РСД', '🇷🇸', 107.2],
+                ['ARS', 'Argentine Peso', '$', '🇦🇷', 912.5],
+                ['CLP', 'Chilean Peso', '$', '🇨🇱', 948.7],
+                ['COP', 'Colombian Peso', '$', '🇨🇴', 3912],
+                ['PEN', 'Peruvian Sol', 'S/', '🇵🇪', 3.78],
+                ['UYU', 'Uruguayan Peso', '$U', '🇺🇾', 39.12],
+                ['PYG', 'Paraguayan Guaraní', '₲', '🇵🇾', 7335],
+                ['BOB', 'Bolivian Boliviano', 'Bs', '🇧🇴', 6.91],
+                ['GTQ', 'Guatemalan Quetzal', 'Q', '🇬🇹', 7.80],
+                ['HNL', 'Honduran Lempira', 'L', '🇭🇳', 24.75],
+                ['CRC', 'Costa Rican Colón', '₡', '🇨🇷', 516.8],
+                ['DOP', 'Dominican Peso', 'RD$', '🇩🇴', 57.43],
+                ['JMD', 'Jamaican Dollar', 'J$', '🇯🇲', 155.9],
+                ['TTD', 'Trinidad Dollar', 'TT$', '🇹🇹', 6.79],
+                ['TWD', 'Taiwan Dollar', 'NT$', '🇹🇼', 31.95],
+                ['THB', 'Thai Baht', '฿', '🇹🇭', 35.12],
+                ['IDR', 'Indonesian Rupiah', 'Rp', '🇮🇩', 15732],
+                ['MYR', 'Malaysian Ringgit', 'RM', '🇲🇾', 4.712],
+                ['PHP', 'Philippine Peso', '₱', '🇵🇭', 56.21],
+                ['VND', 'Vietnamese Dong', '₫', '🇻🇳', 24412],
+                ['BDT', 'Bangladeshi Taka', '৳', '🇧🇩', 110.2],
+                ['PKR', 'Pakistani Rupee', '₨', '🇵🇰', 278.5],
+                ['LKR', 'Sri Lankan Rupee', '₨', '🇱🇰', 311.4],
+                ['NPR', 'Nepalese Rupee', '₨', '🇳🇵', 133.3],
+                ['MMK', 'Myanmar Kyat', 'K', '🇲🇲', 2098],
+                ['KHR', 'Cambodian Riel', '៛', '🇰🇭', 4077],
+                ['LAK', 'Lao Kip', '₭', '🇱🇦', 21253],
+                ['MNT', 'Mongolian Tögrög', '₮', '🇲🇳', 3412],
+                ['KZT', 'Kazakhstani Tenge', '₸', '🇰🇿', 451.2],
+                ['UZS', 'Uzbekistani Som', 'so\'m', '🇺🇿', 12412],
+                ['TJS', 'Tajikistani Somoni', 'SM', '🇹🇯', 10.91],
+                ['KGS', 'Kyrgyzstani Som', 'с', '🇰🇬', 89.12],
+                ['AFN', 'Afghan Afghani', '؋', '🇦🇫', 71.32],
+                ['IQD', 'Iraqi Dinar', 'ع.د', '🇮🇶', 1310],
+                ['ILS', 'Israeli Shekel', '₪', '🇮🇱', 3.712],
+                ['NGN', 'Nigerian Naira', '₦', '🇳🇬', 1490],
+                ['EGP', 'Egyptian Pound', '£', '🇪🇬', 48.91],
+                ['KES', 'Kenyan Shilling', 'KSh', '🇰🇪', 129.8],
+                ['GHS', 'Ghanaian Cedi', '₵', '🇬🇭', 12.41],
+                ['TZS', 'Tanzanian Shilling', 'TSh', '🇹🇿', 2512],
+                ['UGX', 'Ugandan Shilling', 'USh', '🇺🇬', 3791],
+                ['ETB', 'Ethiopian Birr', 'Br', '🇪🇹', 56.23],
+                ['MAD', 'Moroccan Dirham', 'MAD', '🇲🇦', 9.983],
+                ['TND', 'Tunisian Dinar', 'DT', '🇹🇳', 3.112],
+                ['DZD', 'Algerian Dinar', 'دج', '🇩🇿', 134.7],
+                ['ZMW', 'Zambian Kwacha', 'ZK', '🇿🇲', 26.12],
+                ['MWK', 'Malawian Kwacha', 'MK', '🇲🇼', 1731],
+                ['MZN', 'Mozambican Metical', 'MT', '🇲🇿', 63.92],
+                ['BWP', 'Botswana Pula', 'P', '🇧🇼', 13.61],
+                ['MUR', 'Mauritian Rupee', '₨', '🇲🇺', 45.12],
+                ['RWF', 'Rwandan Franc', 'FRw', '🇷🇼', 1301],
+                ['AOA', 'Angolan Kwanza', 'Kz', '🇦🇴', 831.4],
+                ['XAF', 'Central African CFA', 'Fr', '🌍', 600.1],
+                ['XOF', 'West African CFA', 'Fr', '🌍', 600.1],
+                ['NAD', 'Namibian Dollar', 'N$', '🇳🇦', 18.31],
+                ['FJD', 'Fijian Dollar', 'FJ$', '🇫🇯', 2.213],
+                ['PGK', 'Papua New Guinean Kina', 'K', '🇵🇬', 3.841],
+                ['XPF', 'CFP Franc', 'Fr', '🇵🇫', 109.4],
+            ];
+
+            var activeCurrency = { code: 'CAD', sym: 'C$', rate: 1.362, flag: '🇨🇦', name: 'Canadian Dollar' };
+
             // ── DOM refs ──────────────────────────────────────────────────
             var overlay = document.getElementById('pay-overlay');
             var payDialog = overlay.querySelector('.pay-dialog');
@@ -7190,8 +7480,7 @@
             var accountEmail = document.getElementById('pay-account-email');
             var switchBtn = document.getElementById('pay-switch-account');
 
-            // pricing
-            var currencySelect = document.getElementById('pay-currency');
+            // pricing DOM refs
             var subPriceEl = document.getElementById('pay-sub-price');
             var lineSubEl = document.getElementById('pay-line-sub');
             var lineTaxEl = document.getElementById('pay-line-tax');
@@ -7220,55 +7509,135 @@
             var cvvLen = 3;
             var cvvTimer;
 
+            // ── Custom currency dropdown ──────────────────────────────────
+            var curDropdown = document.getElementById('pay-cur-dropdown');
+            var curTrigger = document.getElementById('pay-cur-trigger');
+            var curFlag = document.getElementById('pay-cur-flag');
+            var curCodeLabel = document.getElementById('pay-cur-code-label');
+            var curSymLabel = document.getElementById('pay-cur-sym-label');
+            var curSearch = document.getElementById('pay-cur-search');
+            var curList = document.getElementById('pay-cur-list');
+
+            function renderCurrencyList(q) {
+                var filter = (q || '').toLowerCase().trim();
+                curList.innerHTML = '';
+                var shown = 0;
+
+                function addDivider(label) {
+                    if (filter) return;
+                    var div = document.createElement('div');
+                    div.className = 'pay-cur-divider';
+                    div.textContent = label;
+                    curList.appendChild(div);
+                }
+
+                function addOption(c) {
+                    var code = c[0], name = c[1], sym = c[2], flag = c[3], rate = c[4];
+                    if (filter && code.toLowerCase().indexOf(filter) === -1 &&
+                        name.toLowerCase().indexOf(filter) === -1 &&
+                        sym.toLowerCase().indexOf(filter) === -1) return;
+                    var btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'pay-cur-opt' + (activeCurrency.code === code ? ' active' : '');
+                    btn.setAttribute('role', 'option');
+                    btn.setAttribute('aria-selected', activeCurrency.code === code ? 'true' : 'false');
+                    btn.innerHTML =
+                        '<span style="font-size:1rem;line-height:1;flex-shrink:0">' + flag + '</span>' +
+                        '<span class="pay-cur-opt-code">' + code + '</span>' +
+                        '<span class="pay-cur-opt-name">' + name + '</span>' +
+                        '<span class="pay-cur-opt-sym">' + sym + '</span>';
+                    btn.addEventListener('click', function () {
+                        activeCurrency = { code: code, sym: sym, rate: rate, flag: flag, name: name };
+                        curFlag.textContent = flag;
+                        curCodeLabel.textContent = code;
+                        curSymLabel.textContent = name + ' · ' + sym;
+                        closeCurDropdown();
+                        updatePrices();
+                    });
+                    curList.appendChild(btn);
+                    shown++;
+                }
+
+                if (filter) {
+                    ALL_CURRENCIES.forEach(function (c) { addOption(c); });
+                    if (shown === 0) {
+                        var empty = document.createElement('div');
+                        empty.className = 'pay-cur-empty';
+                        empty.textContent = 'No results for "' + q + '"';
+                        curList.appendChild(empty);
+                    }
+                } else {
+                    addDivider('★  Popular');
+                    ALL_CURRENCIES
+                        .filter(function (c) { return POPULAR.indexOf(c[0]) !== -1; })
+                        .sort(function (a, b) { return POPULAR.indexOf(a[0]) - POPULAR.indexOf(b[0]); })
+                        .forEach(addOption);
+                    addDivider('All Currencies  A – Z');
+                    ALL_CURRENCIES.slice()
+                        .sort(function (a, b) { return a[0].localeCompare(b[0]); })
+                        .forEach(addOption);
+                }
+            }
+
+            function openCurDropdown() {
+                curDropdown.classList.add('open');
+                curTrigger.setAttribute('aria-expanded', 'true');
+                curSearch.value = '';
+                renderCurrencyList('');
+                // Scroll active item into view
+                setTimeout(function () {
+                    curSearch.focus();
+                    var active = curList.querySelector('.pay-cur-opt.active');
+                    if (active) active.scrollIntoView({ block: 'nearest' });
+                }, 30);
+            }
+            function closeCurDropdown() {
+                curDropdown.classList.remove('open');
+                curTrigger.setAttribute('aria-expanded', 'false');
+            }
+
+            curTrigger.addEventListener('click', function (e) {
+                e.stopPropagation();
+                curDropdown.classList.contains('open') ? closeCurDropdown() : openCurDropdown();
+            });
+            curSearch.addEventListener('input', function () { renderCurrencyList(this.value); });
+            document.addEventListener('click', function (e) {
+                if (curDropdown && !curDropdown.contains(e.target)) closeCurDropdown();
+            });
+            curDropdown.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') { closeCurDropdown(); curTrigger.focus(); }
+            });
+
             // ── Helpers ───────────────────────────────────────────────────
             function isYearlyMode() {
                 return billingToggle && billingToggle.classList.contains('yearly');
             }
             function initials(email) {
                 var parts = email.split('@')[0].split(/[.\-_]/);
-                return (parts.length >= 2
-                    ? parts[0][0] + parts[1][0]
-                    : email.slice(0, 2)
-                ).toUpperCase();
+                return (parts.length >= 2 ? parts[0][0] + parts[1][0] : email.slice(0, 2)).toUpperCase();
             }
 
             // ── Card Security: Luhn Algorithm ─────────────────────────────
             function luhn(num) {
                 var digits = num.replace(/\D/g, '');
-                var sum = 0;
-                var alt = false;
+                var sum = 0, alt = false;
                 for (var i = digits.length - 1; i >= 0; i--) {
                     var n = parseInt(digits[i], 10);
                     if (alt) { n *= 2; if (n > 9) n -= 9; }
-                    sum += n;
-                    alt = !alt;
+                    sum += n; alt = !alt;
                 }
                 return sum % 10 === 0 && digits.length >= 12;
             }
 
-            // Known test / fake / blocklisted BINs and patterns
-            // These are well-known public test numbers — blocking them prevents
-            // sandbox cards from being submitted to a live processor.
             var BLOCKED_CARDS = [
-                '4111111111111111', // Visa test
-                '4242424242424242', // Stripe Visa test
-                '4000056655665556', // Stripe Visa debit test
-                '5555555555554444', // Mastercard test
-                '5105105105105100', // Mastercard test
-                '378282246310005',  // Amex test
-                '371449635398431',  // Amex test
-                '6011111111111117', // Discover test
-                '3530111333300000', // JCB test
-                '3566002020360505', // JCB test
-                '4000000000000002', // Stripe decline test
-                '4000000000009995', // Stripe insufficient funds
-                '4000000000000069', // Stripe expired card
-                '4000000000000127', // Stripe incorrect CVC
-                '1234567890123456', // Sequential fake
-                '0000000000000000', // All zeros
+                '4111111111111111', '4242424242424242', '4000056655665556',
+                '5555555555554444', '5105105105105100', '378282246310005',
+                '371449635398431', '6011111111111117', '3530111333300000',
+                '3566002020360505', '4000000000000002', '4000000000009995',
+                '4000000000000069', '4000000000000127', '1234567890123456',
+                '0000000000000000',
             ];
 
-            // Repeating-digit cards (1111…, 2222…, 3333… etc.) are also fake
             function isRepeatingCard(num) {
                 var d = num.replace(/\D/g, '');
                 return d.length >= 12 && /^(\d)\1+$/.test(d);
@@ -7278,22 +7647,19 @@
                 var d = raw.replace(/\D/g, '');
                 if (d.length < 12) return { ok: false, msg: 'Card number is too short.' };
                 if (BLOCKED_CARDS.indexOf(d) !== -1) return { ok: false, msg: 'Test or blocked card — please use a real payment card.' };
-                if (isRepeatingCard(d)) return { ok: false, msg: 'Invalid card number — repeating digits detected.' };
+                if (isRepeatingCard(d)) return { ok: false, msg: 'Invalid card — repeating digits detected.' };
                 if (!luhn(d)) return { ok: false, msg: 'Invalid card number — please check and re-enter.' };
                 return { ok: true };
             }
 
-            // ── Card Security: Expiry validation ──────────────────────────
+            // ── Expiry validation ─────────────────────────────────────────
             function validateExpiry(val) {
                 var parts = val.split('/');
                 if (parts.length !== 2) return { ok: false, msg: 'Enter expiry as MM/YY.' };
-                var mm = parseInt(parts[0], 10);
-                var yy = parseInt(parts[1], 10);
+                var mm = parseInt(parts[0], 10), yy = parseInt(parts[1], 10);
                 if (isNaN(mm) || isNaN(yy) || mm < 1 || mm > 12) return { ok: false, msg: 'Invalid month.' };
-                var now = new Date();
-                var expYear = 2000 + yy;
-                var expMonth = mm; // card valid through end of this month
-                if (expYear < now.getFullYear() || (expYear === now.getFullYear() && expMonth < now.getMonth() + 1)) {
+                var now = new Date(), expYear = 2000 + yy;
+                if (expYear < now.getFullYear() || (expYear === now.getFullYear() && mm < now.getMonth() + 1)) {
                     return { ok: false, msg: 'This card has expired.' };
                 }
                 return { ok: true };
@@ -7302,7 +7668,7 @@
             function showCardError(el, msgEl, msg) { msgEl.textContent = msg; el.classList.add('visible'); }
             function hideCardError(el) { el.classList.remove('visible'); }
 
-            // ── Auth state change ─────────────────────────────────────────
+            // ── Auth state ────────────────────────────────────────────────
             function onAuthChange() {
                 var u = getUser();
                 if (u) {
@@ -7322,12 +7688,11 @@
             function openModal() {
                 updatePlanLabel();
                 updatePrices();
-                // If user already signed in → skip the gate entirely
                 if (getUser()) {
                     payDialog.classList.remove('auth-required');
                 } else {
                     payDialog.classList.add('auth-required');
-                    setGateMode(false); // reset to sign-in tab
+                    setGateMode(false);
                 }
                 overlay.classList.add('open');
                 document.body.style.overflow = 'hidden';
@@ -7345,7 +7710,7 @@
                 if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
             });
 
-            // ── Auth gate: tab switching ──────────────────────────────────
+            // ── Auth gate ─────────────────────────────────────────────────
             function setGateMode(signup) {
                 gIsSignup = signup;
                 gLoginTab.classList.toggle('active', !signup);
@@ -7359,7 +7724,6 @@
             gLoginTab.addEventListener('click', function () { setGateMode(false); });
             gSignupTab.addEventListener('click', function () { setGateMode(true); });
 
-            // ── Auth gate: submit ─────────────────────────────────────────
             function showGateError(msg) { gError.textContent = msg; gError.classList.add('visible'); }
 
             function attemptAuth(email, method) {
@@ -7388,15 +7752,13 @@
 
             gGoogleBtn.addEventListener('click', function () { attemptAuth('user@gmail.com', 'Google'); });
             gAppleBtn.addEventListener('click', function () { attemptAuth('user@icloud.com', 'Apple'); });
-
             switchBtn.addEventListener('click', function () { clearUser(); });
 
-            // ── Sync with existing nav auth modal ─────────────────────────
+            // Sync with nav auth modal
             var navLoginSubmit = document.getElementById('login-submit');
             var navSignupSubmit = document.getElementById('signup-submit');
             var navLoginEmail = document.getElementById('login-email');
             var navSignupEmail = document.getElementById('signup-email');
-
             if (navLoginSubmit) {
                 navLoginSubmit.addEventListener('click', function () {
                     var e = navLoginEmail && navLoginEmail.value.trim();
@@ -7411,27 +7773,22 @@
             }
             document.querySelectorAll('.auth-social-btn').forEach(function (btn) {
                 btn.addEventListener('click', function () {
-                    var provider = btn.getAttribute('data-provider') || 'sso';
-                    setUser({ email: provider + '@example.com', method: provider });
+                    var p = btn.getAttribute('data-provider') || 'sso';
+                    setUser({ email: p + '@example.com', method: p });
                 }, true);
             });
 
-            // ── Plan label ────────────────────────────────────────────────
+            // ── Plan label & pricing ──────────────────────────────────────
             function updatePlanLabel() {
                 planLabel.textContent = isYearlyMode()
                     ? 'Yearly plan · $39.99 / year (save 33%)'
                     : 'Monthly plan · $4.99 / month';
             }
 
-            // ── Pricing ───────────────────────────────────────────────────
-            function getCur() {
-                var opt = currencySelect.options[currencySelect.selectedIndex];
-                return { code: opt.value, sym: opt.dataset.symbol, rate: parseFloat(opt.dataset.rate) };
-            }
             function fmt(n) { return n.toFixed(2); }
 
             function updatePrices() {
-                var c = getCur();
+                var c = activeCurrency;
                 var yearly = isYearlyMode();
                 var base = yearly ? BASE_YEARLY_USD : BASE_MONTHLY_USD;
                 var sub = base * c.rate;
@@ -7446,9 +7803,8 @@
                 psCurrency.textContent = c.code;
                 psPlan.textContent = 'Zpendr Pro ' + (yearly ? 'Yearly' : 'Monthly');
             }
-            currencySelect.addEventListener('change', updatePrices);
 
-            // ── Tabs ──────────────────────────────────────────────────────
+            // ── Payment method tabs ───────────────────────────────────────
             document.querySelectorAll('.pay-tab').forEach(function (tab) {
                 tab.addEventListener('click', function () {
                     document.querySelectorAll('.pay-tab').forEach(function (t) {
@@ -7461,7 +7817,7 @@
                 });
             });
 
-            // ── Card preview + real-time validation ───────────────────────
+            // ── 3D card preview + real-time card validation ───────────────
             pfName.addEventListener('input', function () { pcName.textContent = this.value || 'YOUR NAME'; });
 
             pfNumber.addEventListener('input', function () {
@@ -7470,18 +7826,15 @@
                 for (var i = 0; i < v.length; i++) { if (i > 0 && i % 4 === 0) f += ' '; f += v[i]; }
                 this.value = f;
                 pcNumber.textContent = f || '•••• •••• •••• ••••';
-                // Detect brand
                 if (v.startsWith('4')) { pcBrand.textContent = 'VISA'; cvvLen = 3; }
                 else if (/^5[1-5]/.test(v)) { pcBrand.textContent = 'MASTERCARD'; cvvLen = 3; }
                 else if (/^3[47]/.test(v)) { pcBrand.textContent = 'AMEX'; cvvLen = 4; }
                 else if (/^6(?:011|5)/.test(v)) { pcBrand.textContent = 'DISCOVER'; cvvLen = 3; }
                 else { pcBrand.textContent = 'CARD'; cvvLen = 3; }
                 pfCvv.maxLength = cvvLen; pfCvv.placeholder = cvvLen === 4 ? '1234' : '123';
-                // Validate on complete number
                 if (v.length >= 12) {
                     var res = validateCard(v);
-                    if (!res.ok) { showCardError(cardNumErr, cardNumErrMsg, res.msg); }
-                    else { hideCardError(cardNumErr); }
+                    res.ok ? hideCardError(cardNumErr) : showCardError(cardNumErr, cardNumErrMsg, res.msg);
                 } else { hideCardError(cardNumErr); }
             });
 
@@ -7492,8 +7845,7 @@
                 pcExpiry.textContent = v || 'MM/YY';
                 if (v.length === 5) {
                     var res = validateExpiry(v);
-                    if (!res.ok) { showCardError(expiryErr, expiryErrMsg, res.msg); }
-                    else { hideCardError(expiryErr); }
+                    res.ok ? hideCardError(expiryErr) : showCardError(expiryErr, expiryErrMsg, res.msg);
                 } else { hideCardError(expiryErr); }
             });
 
@@ -7507,7 +7859,7 @@
                 cvvTimer = setTimeout(function () { pfCvv.type = 'password'; }, 1000);
             });
 
-            // ── Pay button: full validation before submit ─────────────────
+            // ── Pay button ────────────────────────────────────────────────
             var successOverlay = document.getElementById('pay-success-overlay');
             var successClose = document.getElementById('pay-success-close');
 
@@ -7528,21 +7880,15 @@
                 var hasErr = false;
 
                 if (!numRes.ok) { showCardError(cardNumErr, cardNumErrMsg, numRes.msg); hasErr = true; }
-                else { hideCardError(cardNumErr); }
-
+                else hideCardError(cardNumErr);
                 if (!expRes.ok) { showCardError(expiryErr, expiryErrMsg, expRes.msg); hasErr = true; }
-                else { hideCardError(expiryErr); }
-
+                else hideCardError(expiryErr);
                 if (!pfName.value.trim()) {
-                    pfName.focus();
-                    pfName.style.borderColor = '#c0392b';
+                    pfName.focus(); pfName.style.borderColor = '#c0392b';
                     setTimeout(function () { pfName.style.borderColor = ''; }, 2000);
                     hasErr = true;
                 }
-                if (pfCvv.value.length < 3) {
-                    pfCvv.focus(); hasErr = true;
-                }
-
+                if (pfCvv.value.length < 3) { pfCvv.focus(); hasErr = true; }
                 if (hasErr) return;
 
                 var t = document.querySelector('input[name="pay-card-type"]:checked');
@@ -7551,249 +7897,10 @@
 
             // ── Init ──────────────────────────────────────────────────────
             setGateMode(false);
-            onAuthChange(); // check if already logged in from nav modal
+            onAuthChange();
             updatePrices();
         })();
     </script>
-
-    // ── Shared auth state (readable by nav auth modal too) ────────
-    window.ZpendrAuth = window.ZpendrAuth || { user: null };
-
-    function getUser() { return window.ZpendrAuth.user; }
-    function setUser(u) { window.ZpendrAuth.user = u; onAuthChange(); }
-    function clearUser() { window.ZpendrAuth.user = null; onAuthChange(); }
-
-    // ── DOM refs ──────────────────────────────────────────────────
-    var overlay = document.getElementById('pay-overlay');
-    var payDialog = overlay.querySelector('.pay-dialog');
-    var closeBtn = document.getElementById('pay-close-btn');
-    var proBtn = document.getElementById('pro-subscribe-btn');
-    var billingToggle= document.getElementById('billing-toggle');
-    var planLabel = document.getElementById('pay-plan-label');
-
-    // auth gate
-    var authGate = document.getElementById('pay-auth-gate');
-    var gLoginTab = document.getElementById('pgat-login-tab');
-    var gSignupTab = document.getElementById('pgat-signup-tab');
-    var gEmailIn = document.getElementById('pgat-email');
-    var gPwIn = document.getElementById('pgat-password');
-    var gNameWrap = document.getElementById('pgat-name-wrap');
-    var gNameIn = document.getElementById('pgat-name');
-    var gSubmitBtn = document.getElementById('pgat-submit');
-    var gError = document.getElementById('pgat-error');
-    var gGoogleBtn = document.getElementById('pgat-google');
-    var gAppleBtn = document.getElementById('pgat-apple');
-    var gIsSignup = false;
-
-    // account bar
-    var accountBar = document.getElementById('pay-account-bar');
-    var avatarEl = document.getElementById('pay-avatar-initials');
-    var accountEmail = document.getElementById('pay-account-email');
-    var switchBtn = document.getElementById('pay-switch-account');
-
-    // pricing
-    var currencySelect = document.getElementById('pay-currency');
-    var subPriceEl = document.getElementById('pay-sub-price');
-    var lineSubEl = document.getElementById('pay-line-sub');
-    var lineTaxEl = document.getElementById('pay-line-tax');
-    var lineTotalEl = document.getElementById('pay-line-total');
-    var btnAmounts = document.querySelectorAll('.pay-btn-amount');
-    var psAmount = document.getElementById('ps-amount');
-    var psCurrency = document.getElementById('ps-currency');
-    var psPlan = document.getElementById('ps-plan');
-    var psMethod = document.getElementById('ps-method');
-
-    // ── Helpers ───────────────────────────────────────────────────
-    function isYearlyMode() {
-    return billingToggle && billingToggle.classList.contains('yearly');
-    }
-    function initials(email) {
-    var parts = email.split('@')[0].split(/[.\-_]/);
-    if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
-    return email.slice(0, 2).toUpperCase();
-    }
-
-    // ── Auth state change ─────────────────────────────────────────
-    function onAuthChange() {
-    var u = getUser();
-    if (u) {
-    // show payment body, hide gate
-    payDialog.classList.remove('auth-required');
-    avatarEl.textContent = initials(u.email);
-    accountEmail.textContent= u.email;
-    accountBar.style.display= '';
-    // also update nav button label if present
-    var navAuthBtn = document.getElementById('auth-toggle');
-    if (navAuthBtn) navAuthBtn.textContent = u.email.split('@')[0];
-    } else {
-    payDialog.classList.add('auth-required');
-    accountBar.style.display = 'none';
-    }
-    }
-
-    // ── Open / close modal ────────────────────────────────────────
-    function openModal() {
-    updatePlanLabel();
-    updatePrices();
-    // show gate only if not yet signed in
-    if (!getUser()) {
-    payDialog.classList.add('auth-required');
-    } else {
-    payDialog.classList.remove('auth-required');
-    }
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    payDialog.scrollTop = 0;
-    }
-    function closeModal() {
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-    }
-
-    if (proBtn) proBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
-    document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
-    });
-
-    // ── Auth gate: tab switching ──────────────────────────────────
-    function setGateMode(signup) {
-    gIsSignup = signup;
-    gLoginTab.classList.toggle('active', !signup);
-    gSignupTab.classList.toggle('active', signup);
-    gNameWrap.style.display = signup ? '' : 'none';
-    gPwIn.placeholder = signup ? 'Create a password' : '••••••••';
-    gPwIn.autocomplete = signup ? 'new-password' : 'current-password';
-    gSubmitBtn.textContent = signup ? 'Create account & Continue' : 'Sign in & Continue';
-    gError.classList.remove('visible');
-    gError.textContent = '';
-    }
-    gLoginTab.addEventListener('click', function () { setGateMode(false); });
-    gSignupTab.addEventListener('click', function () { setGateMode(true); });
-
-    // ── Auth gate: validation ─────────────────────────────────────
-    function showGateError(msg) {
-    gError.textContent = msg;
-    gError.classList.add('visible');
-    }
-
-    function attemptAuth(email, method) {
-    // Simulate successful auth — replace with real API call
-    setUser({ email: email, method: method });
-    gEmailIn.value = '';
-    gPwIn.value = '';
-    if (gNameIn) gNameIn.value = '';
-    gError.classList.remove('visible');
-    }
-
-    gSubmitBtn.addEventListener('click', function () {
-    var email = gEmailIn.value.trim();
-    var pw = gPwIn.value;
-    var name = gNameIn ? gNameIn.value.trim() : '';
-
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showGateError('Please enter a valid email address.');
-    gEmailIn.focus(); return;
-    }
-    if (!pw || pw.length < 6) { showGateError('Password must be at least 6 characters.'); gPwIn.focus(); return; } if
-        (gIsSignup && !name) { showGateError('Please enter your name.'); gNameIn.focus(); return; } // Placeholder —
-        connect to your auth API here attemptAuth(email, 'email' ); }); // Social auth buttons in gate
-        gGoogleBtn.addEventListener('click', function () { // Placeholder — trigger Google OAuth flow
-        attemptAuth('user@gmail.com', 'Google' ); }); gAppleBtn.addEventListener('click', function () { // Placeholder —
-        trigger Apple Sign-In flow attemptAuth('user@icloud.com', 'Apple' ); }); // "Switch account" — return to gate
-        switchBtn.addEventListener('click', function () { clearUser(); payDialog.classList.add('auth-required'); }); //
-        ── Hook into existing nav auth modal success ───────────────── // When the site's main Login modal fires a
-        successful submit, // share the session with the payment modal automatically. var
-        navLoginSubmit=document.getElementById('login-submit'); var
-        navSignupSubmit=document.getElementById('signup-submit'); var
-        navLoginEmail=document.getElementById('login-email'); var
-        navSignupEmail=document.getElementById('signup-email'); if (navLoginSubmit) {
-        navLoginSubmit.addEventListener('click', function () { var email=navLoginEmail && navLoginEmail.value.trim(); if
-        (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setUser({ email: email, method: 'email' }); } }, true); //
-        capture phase — runs before existing handler } if (navSignupSubmit) { navSignupSubmit.addEventListener('click',
-        function () { var email=navSignupEmail && navSignupEmail.value.trim(); if (email &&
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setUser({ email: email, method: 'email' }); } }, true); }
-        document.querySelectorAll('.auth-social-btn').forEach(function (btn) { btn.addEventListener('click', function ()
-        { var provider=btn.getAttribute('data-provider'); var fakeEmail=(provider || 'user' ) + '@example.com' ;
-        setUser({ email: fakeEmail, method: provider }); }, true); }); // ── Plan label
-        ──────────────────────────────────────────────── function updatePlanLabel() {
-        planLabel.textContent=isYearlyMode() ? 'Yearly plan · $39.99 / year (save 33%)' : 'Monthly plan · $4.99 / month'
-        ; } // ── Pricing ─────────────────────────────────────────────────── function getCur() { var
-        opt=currencySelect.options[currencySelect.selectedIndex]; return { code: opt.value, sym: opt.dataset.symbol,
-        rate: parseFloat(opt.dataset.rate) }; } function fmt(n) { return n.toFixed(2); } function updatePrices() { var
-        c=getCur(); var yearly=isYearlyMode(); var base=yearly ? BASE_YEARLY_USD : BASE_MONTHLY_USD; var sub=base *
-        c.rate; var tax=sub * TAX_RATE; var total=sub + tax; subPriceEl.textContent=c.sym + fmt(sub);
-        lineSubEl.textContent=c.sym + fmt(sub); lineTaxEl.textContent=c.sym + fmt(tax); lineTotalEl.textContent=c.sym +
-        fmt(total); btnAmounts.forEach(function (el) { el.textContent=c.sym + fmt(total); }); psAmount.textContent=c.sym
-        + fmt(total); psCurrency.textContent=c.code; psPlan.textContent='Zpendr Pro ' + (yearly ? 'Yearly' : 'Monthly'
-        ); } currencySelect.addEventListener('change', updatePrices); // ── Tabs
-        ────────────────────────────────────────────────────── document.querySelectorAll('.pay-tab').forEach(function
-        (tab) { tab.addEventListener('click', function () { document.querySelectorAll('.pay-tab').forEach(function (t) {
-        t.classList.remove('active'); t.setAttribute('aria-selected', 'false' ); });
-        document.querySelectorAll('.pay-panel').forEach(function (p) { p.classList.remove('active'); });
-        tab.classList.add('active'); tab.setAttribute('aria-selected', 'true' ); var
-        panel=document.getElementById(tab.getAttribute('aria-controls')); if (panel) panel.classList.add('active'); });
-        }); // ── 3-D card interactions ───────────────────────────────────── var
-        cardEl=document.getElementById('pay-card-3d'); var pfName=document.getElementById('pf-name'); var
-        pfNumber=document.getElementById('pf-number'); var pfExpiry=document.getElementById('pf-expiry'); var
-        pfCvv=document.getElementById('pf-cvv'); var pcBrand=document.getElementById('pcard-brand'); var
-        pcNumber=document.getElementById('pcard-number'); var pcName=document.getElementById('pcard-name'); var
-        pcExpiry=document.getElementById('pcard-expiry'); var pcCvv=document.getElementById('pcard-cvv'); var cvvLen=3;
-        var cvvTimer; pfName.addEventListener('input', function () { pcName.textContent=this.value || 'YOUR NAME' ; });
-        pfExpiry.addEventListener('input', function () { var v=this.value.replace(/\D/g, '' ); if (v.length> 2) v =
-        v.slice(0, 2) + '/' + v.slice(2, 4);
-        this.value = v;
-        pcExpiry.textContent = v || 'MM/YY';
-        });
-        pfNumber.addEventListener('input', function () {
-        var v = this.value.replace(/\s+/g, '').replace(/[^0-9]/g, '');
-        var f = '';
-        for (var i = 0; i < v.length; i++) { if (i> 0 && i % 4 === 0) f += ' '; f += v[i]; }
-            this.value = f;
-            pcNumber.textContent = f || '•••• •••• •••• ••••';
-            if (v.startsWith('4')) { pcBrand.textContent = 'VISA'; cvvLen = 3; }
-            else if (/^5[1-5]/.test(v)) { pcBrand.textContent = 'MASTERCARD'; cvvLen = 3; }
-            else if (/^3[47]/.test(v)) { pcBrand.textContent = 'AMEX'; cvvLen = 4; }
-            else if (/^6(?:011|5)/.test(v)) { pcBrand.textContent = 'DISCOVER'; cvvLen = 3; }
-            else { pcBrand.textContent = 'CARD'; cvvLen = 3; }
-            pfCvv.maxLength = cvvLen;
-            pfCvv.placeholder = cvvLen === 4 ? '1234' : '123';
-            });
-            pfCvv.addEventListener('focus', function () { cardEl.classList.add('flipped'); });
-            pfCvv.addEventListener('blur', function () { cardEl.classList.remove('flipped'); this.type = 'password'; });
-            pfCvv.addEventListener('input', function () {
-            var v = this.value.replace(/\D/g, '').slice(0, cvvLen);
-            this.value = v; this.type = 'text';
-            pcCvv.textContent = v || '•'.repeat(cvvLen);
-            clearTimeout(cvvTimer);
-            cvvTimer = setTimeout(function () { pfCvv.type = 'password'; }, 1000);
-            });
-
-            // ── Success modal ─────────────────────────────────────────────
-            var successOverlay = document.getElementById('pay-success-overlay');
-            var successClose = document.getElementById('pay-success-close');
-
-            function showSuccess(method) {
-            psMethod.textContent = method;
-            successOverlay.classList.add('open');
-            }
-            successClose.addEventListener('click', function () {
-            successOverlay.classList.remove('open');
-            closeModal();
-            });
-
-            document.getElementById('pay-card-btn').addEventListener('click', function () {
-            var t = document.querySelector('input[name="pay-card-type"]:checked');
-            showSuccess((t && t.value === 'debit' ? 'Debit' : 'Credit') + ' Card (' + pcBrand.textContent + ')');
-            });
-
-            // ── Init ──────────────────────────────────────────────────────
-            setGateMode(false);
-            onAuthChange();
-            updatePrices();
-            })();
-            </script>
 
 </body>
 
