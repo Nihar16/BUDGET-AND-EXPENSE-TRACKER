@@ -2774,6 +2774,11 @@
             letter-spacing: .12em;
             min-width: 56px;
             text-align: center;
+            transition: opacity .25s ease;
+        }
+
+        .pay-card-cvv-box[data-masked='1'] {
+            opacity: 0;
         }
 
         .pay-card-cvv-label {
@@ -7850,13 +7855,29 @@
             });
 
             pfCvv.addEventListener('focus', function () { cardEl.classList.add('flipped'); });
-            pfCvv.addEventListener('blur', function () { cardEl.classList.remove('flipped'); this.type = 'password'; });
+            pfCvv.addEventListener('blur', function () {
+                cardEl.classList.remove('flipped');
+                this.type = 'password';
+                if (pcCvv.textContent && !/^•+$/.test(pcCvv.textContent)) {
+                    pcCvv.textContent = '•'.repeat(cvvLen);
+                }
+            });
             pfCvv.addEventListener('input', function () {
                 var v = this.value.replace(/\D/g, '').slice(0, cvvLen);
                 this.value = v; this.type = 'text';
                 pcCvv.textContent = v || '•'.repeat(cvvLen);
+                pcCvv.removeAttribute('data-masked');
                 clearTimeout(cvvTimer);
-                cvvTimer = setTimeout(function () { pfCvv.type = 'password'; }, 1000);
+                cvvTimer = setTimeout(function () {
+                    pfCvv.type = 'password';
+                    pcCvv.setAttribute('data-masked', '1');
+                    setTimeout(function () {
+                        if (pcCvv.getAttribute('data-masked') === '1') {
+                            pcCvv.textContent = '•'.repeat(cvvLen);
+                            pcCvv.removeAttribute('data-masked');
+                        }
+                    }, 300);
+                }, 1500);
             });
 
             // ── Pay button ────────────────────────────────────────────────
