@@ -6359,86 +6359,6 @@ zpendr.on('payment.success', (evt) =&gt; {
         <!-- ═══════════════════════════════════════════════════════════
              FAQ — Trust & Transparency
              ═══════════════════════════════════════════════════════════ -->
-        <section class="section alt-bg" id="faq">
-            <div class="container">
-                <h2 class="reveal" style="text-align:center;">Frequently asked questions</h2>
-
-                <div class="faq-grid">
-                    <details class="faq-item reveal">
-                        <summary>
-                            <span class="faq-question">How secure is Zpendr?</span>
-                            <span class="faq-toggle">+</span>
-                        </summary>
-                        <div class="faq-answer">
-                            <p>Zpendr uses AES-256 encryption for data at rest and TLS 1.3 for data in transit. We're
-                                PCI-DSS Level 1 certified and have SOC 2 Type II attestation. All transactions are
-                                monitored with AI-powered fraud detection.</p>
-                        </div>
-                    </details>
-
-                    <details class="faq-item reveal">
-                        <summary>
-                            <span class="faq-question">What payment methods do you support?</span>
-                            <span class="faq-toggle">+</span>
-                        </summary>
-                        <div class="faq-answer">
-                            <p>We support 50+ payment methods including all major credit cards, digital wallets (Apple
-                                Pay, Google Pay), and local methods like UPI, Alipay, WeChat Pay, SEPA transfers, ACH,
-                                and regional options in 197 countries.</p>
-                        </div>
-                    </details>
-
-                    <details class="faq-item reveal">
-                        <summary>
-                            <span class="faq-question">Do you offer API access?</span>
-                            <span class="faq-toggle">+</span>
-                        </summary>
-                        <div class="faq-answer">
-                            <p>Yes, we provide a full-featured REST API and GraphQL endpoints. We also have SDKs for
-                                JavaScript, Python, Go, Java, Ruby, and PHP. All with comprehensive documentation,
-                                sandbox environment, and webhooks.</p>
-                        </div>
-                    </details>
-
-                    <details class="faq-item reveal">
-                        <summary>
-                            <span class="faq-question">What is your uptime SLA?</span>
-                            <span class="faq-toggle">+</span>
-                        </summary>
-                        <div class="faq-answer">
-                            <p>We guarantee 99.9% uptime with redundant systems across multiple regions. Our average
-                                latency is under 45ms globally. We maintain a public status page and incident response
-                                is under 15 minutes.</p>
-                        </div>
-                    </details>
-
-                    <details class="faq-item reveal">
-                        <summary>
-                            <span class="faq-question">Is subscription billing included?</span>
-                            <span class="faq-toggle">+</span>
-                        </summary>
-                        <div class="faq-answer">
-                            <p>Yes, subscription management is built in. Features include flexible billing cycles,
-                                proration, smart retry logic, dunning management, and detailed analytics. No additional
-                                configuration needed.</p>
-                        </div>
-                    </details>
-
-                    <details class="faq-item reveal">
-                        <summary>
-                            <span class="faq-question">How are you compliant with GDPR and CCPA?</span>
-                            <span class="faq-toggle">+</span>
-                        </summary>
-                        <div class="faq-answer">
-                            <p>We're fully GDPR and CCPA compliant with options for data residency, encryption at rest,
-                                automated compliance reporting, and data subject request handling. All with audit trails
-                                and documented policies.</p>
-                        </div>
-                    </details>
-                </div>
-            </div>
-        </section>
-
     </main>
 
 
@@ -7576,6 +7496,61 @@ zpendr.on('payment.success', (evt) =&gt; {
                     </div>
                 </details>
 
+                <details class="faq-item reveal">
+                    <summary>How secure is Zpendr?</summary>
+                    <div class="faq-body">
+                        <p>Zpendr uses AES-256 encryption for data at rest and TLS 1.3 for data in transit. We're
+                            PCI-DSS Level 1 certified and have SOC 2 Type II attestation. All transactions are monitored
+                            with AI-powered fraud detection.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item reveal">
+                    <summary>What payment methods do you support?</summary>
+                    <div class="faq-body">
+                        <p>We support 50+ payment methods including all major credit cards, digital wallets (Apple Pay,
+                            Google Pay), and local methods like UPI, Alipay, WeChat Pay, SEPA transfers, ACH, and other
+                            regional options in 197 countries.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item reveal">
+                    <summary>Do you offer API access?</summary>
+                    <div class="faq-body">
+                        <p>Yes, we provide a full-featured REST API and GraphQL endpoints. We also have SDKs for
+                            JavaScript, Python, Go, Java, Ruby, and PHP. All with comprehensive documentation, sandbox
+                            environment, and webhooks.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item reveal">
+                    <summary>What is your uptime SLA?</summary>
+                    <div class="faq-body">
+                        <p>We guarantee 99.9% uptime with redundant systems across multiple regions. Our average latency
+                            is under 45ms globally. We maintain a public status page and incident response is under 15
+                            minutes.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item reveal">
+                    <summary>Is subscription billing included?</summary>
+                    <div class="faq-body">
+                        <p>Yes, subscription management is built in. Features include flexible billing cycles,
+                            proration,
+                            smart retry logic, dunning management, and detailed analytics. No additional configuration
+                            needed.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item reveal">
+                    <summary>How are you compliant with GDPR and CCPA?</summary>
+                    <div class="faq-body">
+                        <p>We're fully GDPR and CCPA compliant with options for data residency, encryption at rest,
+                            automated compliance reporting, and data subject request handling. All with audit trails and
+                            documented policies.</p>
+                    </div>
+                </details>
+
             </div>
     </section>
 
@@ -8357,7 +8332,7 @@ zpendr.on('payment.success', (evt) =&gt; {
                     if (cached && Date.now() - cached.fetchedAt < 600000) return cached.rates;
                     resultBox.classList.add('loading');
                     try {
-                        var res = await fetch('https://api.exchangerate.host/latest?base=' + encodeURIComponent(base));
+                        var res = await fetch('https://api.exchangerate-api.com/v4/latest/' + encodeURIComponent(base));
                         if (!res.ok) throw new Error('err');
                         var data = await res.json();
                         ratesCache[base] = { rates: data.rates, fetchedAt: Date.now() };
