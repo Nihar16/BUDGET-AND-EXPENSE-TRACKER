@@ -12,7 +12,13 @@
     <script>
         (function () {
             var root = document.documentElement;
-            var saved = localStorage.getItem('theme');
+            root.classList.add('js');
+            var saved;
+            try {
+                saved = localStorage.getItem('theme');
+            } catch (e) {
+                saved = null;
+            }
             var osIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             root.classList.add('no-theme-transition');
             if (saved === 'dark' && !osIsDark) {
@@ -20,7 +26,9 @@
             } else if (saved === 'light' && osIsDark) {
                 root.setAttribute('data-theme', 'light');
             } else {
-                if (saved) localStorage.removeItem('theme');
+                if (saved) {
+                    try { localStorage.removeItem('theme'); } catch (e) { }
+                }
                 root.setAttribute('data-theme', osIsDark ? 'dark' : 'light');
             }
             window.addEventListener('load', function () {
@@ -1533,13 +1541,13 @@
         }
 
         /* ── Scroll-in animations ────────────────────────────────────── */
-        .reveal {
+        html.js .reveal {
             opacity: 0;
             transform: translateY(22px);
             transition: opacity 0.55s ease, transform 0.55s ease;
         }
 
-        .reveal.visible {
+        html.js .reveal.visible {
             opacity: 1;
             transform: none;
         }
@@ -6600,7 +6608,10 @@ zpendr.on('payment.success', (evt) =&gt; {
             const authClose = document.getElementById('auth-close');
             const media = window.matchMedia('(prefers-color-scheme: dark)');
 
-            function getMode() { return localStorage.getItem('theme'); }
+            function safeLocalStorageGet(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+            function safeLocalStorageSet(key, value) { try { localStorage.setItem(key, value); } catch (e) { } }
+            function safeLocalStorageRemove(key) { try { localStorage.removeItem(key); } catch (e) { } }
+            function getMode() { return safeLocalStorageGet('theme'); }
             function isDark() { return root.getAttribute('data-theme') === 'dark'; }
 
             function updateIcon() {
@@ -6615,11 +6626,11 @@ zpendr.on('payment.success', (evt) =&gt; {
                 document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
                 const mode = getMode();
                 if (mode === null) {
-                    root.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark');
+                    root.setAttribute('data-theme', 'dark'); safeLocalStorageSet('theme', 'dark');
                 } else if (mode === 'dark') {
-                    root.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light');
+                    root.setAttribute('data-theme', 'light'); safeLocalStorageSet('theme', 'light');
                 } else {
-                    localStorage.removeItem('theme');
+                    safeLocalStorageRemove('theme');
                     root.setAttribute('data-theme', media.matches ? 'dark' : 'light');
                 }
                 updateIcon();
@@ -6871,7 +6882,7 @@ zpendr.on('payment.success', (evt) =&gt; {
                 });
 
                 root.lang = activeLanguage;
-                localStorage.setItem('language', selectedLanguage);
+                safeLocalStorageSet('language', selectedLanguage);
             }
 
             const mobileLanguageSelect = document.getElementById('mobile-lang-select');
@@ -6947,7 +6958,7 @@ zpendr.on('payment.success', (evt) =&gt; {
                 buildLanguageOptions(languageSelect);
                 buildLanguageOptions(mobileLanguageSelect);
 
-                var savedLanguage = localStorage.getItem('language') || 'system';
+                var savedLanguage = safeLocalStorageGet('language') || 'system';
                 syncLanguageSelects(savedLanguage);
                 applyLanguage(savedLanguage);
 
@@ -6962,7 +6973,7 @@ zpendr.on('payment.success', (evt) =&gt; {
                 }
 
                 window.addEventListener('languagechange', function () {
-                    if ((localStorage.getItem('language') || 'system') === 'system') {
+                    if ((safeLocalStorageGet('language') || 'system') === 'system') {
                         handleLanguageChange('system');
                     }
                 });
@@ -7675,6 +7686,12 @@ zpendr.on('payment.success', (evt) =&gt; {
     <script>
         // ── Scroll-reveal ─────────────────────────────────────────────────────
         (function () {
+            const revealElements = document.querySelectorAll('.reveal');
+            if (!('IntersectionObserver' in window)) {
+                revealElements.forEach(el => el.classList.add('visible'));
+                return;
+            }
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(e => {
                     if (e.isIntersecting) {
@@ -7683,7 +7700,8 @@ zpendr.on('payment.success', (evt) =&gt; {
                     }
                 });
             }, { threshold: 0.12 });
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            revealElements.forEach(el => observer.observe(el));
         })();
 
         // ── Hamburger menu ────────────────────────────────────────────────────
@@ -7969,11 +7987,25 @@ zpendr.on('payment.success', (evt) =&gt; {
             const cookieAccept = document.getElementById('cookie-accept');
             const cookieRejectOptional = document.getElementById('cookie-reject-optional');
             const cookieDecline = document.getElementById('cookie-decline');
-            if (cookieBanner && !localStorage.getItem('cookie-consent')) {
+            function getCookieConsent() {
+                try {
+                    return localStorage.getItem('cookie-consent');
+                } catch (e) {
+                    return null;
+                }
+            }
+            function setCookieConsent(value) {
+                try {
+                    localStorage.setItem('cookie-consent', value);
+                } catch (e) {
+                    // ignore storage errors
+                }
+            }
+            if (cookieBanner && !getCookieConsent()) {
                 setTimeout(() => cookieBanner.classList.add('visible'), 1200);
             }
             function dismissCookie(choice) {
-                localStorage.setItem('cookie-consent', choice);
+                setCookieConsent(choice);
                 if (cookieBanner) {
                     cookieBanner.style.transition = 'transform .4s ease';
                     cookieBanner.classList.remove('visible');
