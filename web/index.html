@@ -267,6 +267,26 @@
             background: var(--color-surface-2);
         }
 
+        .language-select {
+            min-height: 44px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            color: var(--color-text);
+            padding: 0 .95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .language-select:hover {
+            background: var(--color-surface-2);
+        }
+
+        .language-select option {
+            font-weight: 600;
+        }
+
         /* ── Profile button (replaces auth-toggle when logged in) ─── */
         .profile-btn {
             min-height: 44px;
