@@ -4818,6 +4818,478 @@
                 align-self: auto;
             }
         }
+
+        /* ═══════════════════════════════════════════════════════════
+           SECURITY & TRUST SECTION — Enterprise-Grade Features
+           ═══════════════════════════════════════════════════════════ */
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .security-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            transition: all .3s ease;
+        }
+
+        .security-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 8px 24px rgba(21, 115, 71, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .security-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-4);
+            display: inline-block;
+        }
+
+        .security-card h3 {
+            margin-bottom: var(--space-2);
+            font-size: var(--text-lg);
+        }
+
+        .security-card p {
+            color: var(--color-text-muted);
+            font-size: var(--text-sm);
+        }
+
+        .compliance-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            margin-top: var(--space-8);
+            justify-content: center;
+        }
+
+        .badge {
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            padding: .6rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            border: 1px solid color-mix(in srgb, var(--color-primary) 20%, var(--color-border));
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           GLOBAL PAYMENTS SECTION
+           ═══════════════════════════════════════════════════════════ */
+        .payments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            margin-bottom: var(--space-12);
+        }
+
+        .payment-highlight {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            text-align: center;
+        }
+
+        .highlight-stat {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .highlight-label {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+        }
+
+        .local-methods-section {
+            margin-top: var(--space-12);
+        }
+
+        .local-methods-section h3 {
+            margin-bottom: var(--space-6);
+            text-align: center;
+        }
+
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .method-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+        }
+
+        .method-region {
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: var(--space-2);
+            font-size: var(--text-sm);
+        }
+
+        .method-list {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            word-break: break-word;
+        }
+
+        .multi-currency-features {
+            margin-top: var(--space-8);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: var(--space-6);
+        }
+
+        .multi-currency-features .feature {
+            display: flex;
+            gap: var(--space-4);
+        }
+
+        .multi-currency-features .feature-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .multi-currency-features h4 {
+            margin-bottom: var(--space-1);
+            font-size: var(--text-base);
+        }
+
+        .multi-currency-features p {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           STATS SECTION
+           ═══════════════════════════════════════════════════════════ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--space-6);
+            padding: var(--space-8) 0;
+        }
+
+        .stat-block {
+            text-align: center;
+            padding: var(--space-6);
+        }
+
+        .stat-value {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--color-primary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: var(--text-base);
+            color: var(--color-text-muted);
+            margin-top: var(--space-3);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           ENTERPRISE LOGOS SECTION
+           ═══════════════════════════════════════════════════════════ */
+        .logos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-6);
+            align-items: center;
+            justify-items: center;
+        }
+
+        .logo-item {
+            font-weight: 700;
+            font-size: var(--text-lg);
+            color: var(--color-text-muted);
+            padding: var(--space-6);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            transition: all .2s ease;
+            text-align: center;
+        }
+
+        .logo-item:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           DEVELOPER EXPERIENCE SECTION
+           ═══════════════════════════════════════════════════════════ */
+        .dev-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            margin-bottom: var(--space-12);
+        }
+
+        .dev-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            transition: all .3s ease;
+        }
+
+        .dev-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 12px 32px rgba(21, 115, 71, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .dev-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-4);
+        }
+
+        .dev-card h3 {
+            margin-bottom: var(--space-2);
+            font-size: var(--text-base);
+        }
+
+        .dev-card p {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            line-height: 1.6;
+        }
+
+        .code-preview {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: var(--space-8);
+        }
+
+        .code-header {
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            padding: var(--space-4) var(--space-6);
+            font-weight: 600;
+            font-size: var(--text-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .code-block {
+            padding: var(--space-6);
+            overflow-x: auto;
+            background: var(--color-bg);
+            margin: 0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: var(--text-sm);
+            line-height: 1.6;
+            color: var(--color-text);
+        }
+
+        .code-block code {
+            display: block;
+            white-space: pre;
+        }
+
+        .code-footer {
+            padding: var(--space-4) var(--space-6);
+            background: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            text-align: right;
+        }
+
+        .code-footer a {
+            color: var(--color-primary);
+            font-weight: 600;
+            font-size: var(--text-sm);
+            text-decoration: none;
+        }
+
+        .code-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           BUSINESS FEATURES SECTION
+           ═══════════════════════════════════════════════════════════ */
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .business-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            transition: all .3s ease;
+        }
+
+        .business-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 8px 20px rgba(21, 115, 71, 0.1);
+        }
+
+        .business-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-4);
+        }
+
+        .business-card h3 {
+            margin-bottom: var(--space-2);
+            font-size: var(--text-base);
+        }
+
+        .business-card p {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-4);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .feature-list li {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            padding-left: var(--space-4);
+            position: relative;
+        }
+
+        .feature-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           FAQ SECTION
+           ═══════════════════════════════════════════════════════════ */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .faq-item {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .faq-item summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-5) var(--space-6);
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            transition: background .2s ease;
+        }
+
+        .faq-item summary:hover {
+            background: var(--color-primary-highlight);
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: var(--text-base);
+            color: var(--color-text);
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            flex-shrink: 0;
+            transition: transform .3s ease;
+        }
+
+        .faq-item[open] summary .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 var(--space-6) var(--space-5);
+            color: var(--color-text-muted);
+            line-height: 1.7;
+            font-size: var(--text-sm);
+            border-top: 1px solid var(--color-border);
+        }
+
+        @media (max-width: 768px) {
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payments-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .security-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .methods-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dev-features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .business-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .payments-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logos-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .highlight-stat {
+                font-size: 2rem;
+            }
+
+            .stat-value {
+                font-size: 2.5rem;
+            }
+        }
     </style>
 </head>
 
@@ -5548,6 +6020,421 @@
                         <a class="btn btn-secondary" href="" target="_blank" rel="noopener">Open in browser</a>
                     </div>
 
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             SECURITY & TRUST — Enterprise-Grade Features
+             ═══════════════════════════════════════════════════════════ -->
+        <section class="section alt-bg" id="security">
+            <div class="container">
+                <h2 class="reveal">Enterprise-grade security</h2>
+                <p class="section-intro reveal">Bank-level encryption, compliance certifications, and fraud detection to
+                    protect every transaction.</p>
+
+                <div class="security-grid">
+                    <article class="security-card reveal">
+                        <div class="security-icon">🔐</div>
+                        <h3>AES-256 Encryption</h3>
+                        <p>Military-grade encryption for all data at rest. TLS 1.3 for data in transit.</p>
+                    </article>
+                    <article class="security-card reveal">
+                        <div class="security-icon">✓</div>
+                        <h3>PCI-DSS Level 1</h3>
+                        <p>Highest standard in payment card industry compliance and security audits.</p>
+                    </article>
+                    <article class="security-card reveal">
+                        <div class="security-icon">📋</div>
+                        <h3>SOC 2 Type II</h3>
+                        <p>Independent certification of security, availability, and confidentiality controls.</p>
+                    </article>
+                    <article class="security-card reveal">
+                        <div class="security-icon">🛡️</div>
+                        <h3>AI Fraud Detection</h3>
+                        <p>Real-time anomaly detection and risk scoring on every transaction.</p>
+                    </article>
+                    <article class="security-card reveal">
+                        <div class="security-icon">🔑</div>
+                        <h3>Tokenized Payments</h3>
+                        <p>Payment methods never directly exposed. Secure tokenization for all channels.</p>
+                    </article>
+                    <article class="security-card reveal">
+                        <div class="security-icon">🌍</div>
+                        <h3>GDPR / CCPA Ready</h3>
+                        <p>Full privacy compliance across 197 countries with data residency options.</p>
+                    </article>
+                </div>
+
+                <div class="compliance-badges reveal">
+                    <div class="badge">🔒 AES-256</div>
+                    <div class="badge">✓ PCI-DSS Level 1</div>
+                    <div class="badge">📋 SOC 2 Type II</div>
+                    <div class="badge">🌍 GDPR Compliant</div>
+                    <div class="badge">🛡️ ISO 27001</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             GLOBAL PAYMENTS — Reach Every Market
+             ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="global-payments">
+            <div class="container">
+                <h2 class="reveal">Global payments, local methods</h2>
+                <p class="section-intro reveal">Support 197 countries and 180+ currencies with real-time rates, instant
+                    settlement, and local payment methods customers prefer.</p>
+
+                <div class="payments-grid">
+                    <div class="payment-highlight reveal">
+                        <div class="highlight-stat">197</div>
+                        <div class="highlight-label">Countries</div>
+                        <p class="muted">Complete global coverage</p>
+                    </div>
+                    <div class="payment-highlight reveal">
+                        <div class="highlight-stat">180+</div>
+                        <div class="highlight-label">Currencies</div>
+                        <p class="muted">Real-time exchange rates</p>
+                    </div>
+                    <div class="payment-highlight reveal">
+                        <div class="highlight-stat">&lt;1s</div>
+                        <div class="highlight-label">Settlement</div>
+                        <p class="muted">Instant liquidity</p>
+                    </div>
+                    <div class="payment-highlight reveal">
+                        <div class="highlight-stat">50+</div>
+                        <div class="highlight-label">Payment Methods</div>
+                        <p class="muted">Local & international</p>
+                    </div>
+                </div>
+
+                <div class="local-methods-section">
+                    <h3 class="reveal">Local payment methods by region</h3>
+                    <div class="methods-grid">
+                        <div class="method-card reveal">
+                            <div class="method-region">🇮🇳 India</div>
+                            <div class="method-list">UPI • Paytm • PhonePe • NetBanking</div>
+                        </div>
+                        <div class="method-card reveal">
+                            <div class="method-region">🇧🇷 Brazil</div>
+                            <div class="method-list">Pix • Boleto • Mercado Pago</div>
+                        </div>
+                        <div class="method-card reveal">
+                            <div class="method-region">🇳🇱 Europe</div>
+                            <div class="method-list">iDEAL • SEPA • BLIK • Swish</div>
+                        </div>
+                        <div class="method-card reveal">
+                            <div class="method-region">🇨🇳 Asia-Pacific</div>
+                            <div class="method-list">Alipay • WeChat Pay • LINE Pay</div>
+                        </div>
+                        <div class="method-card reveal">
+                            <div class="method-region">🇲🇽 Latin America</div>
+                            <div class="method-list">SPEI • OXXO • PSE</div>
+                        </div>
+                        <div class="method-card reveal">
+                            <div class="method-region">🌍 Global</div>
+                            <div class="method-list">Apple Pay • Google Pay • Cards</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="multi-currency-features reveal">
+                    <div class="feature">
+                        <div class="feature-icon">💱</div>
+                        <div>
+                            <h4>Multi-currency wallets</h4>
+                            <p>Hold balances in any of 180+ currencies</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🚀</div>
+                        <div>
+                            <h4>Cross-border routing</h4>
+                            <p>Intelligent routing for optimal rates</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">⚡</div>
+                        <div>
+                            <h4>Instant conversion</h4>
+                            <p>Real-time FX with no hidden spreads</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             REAL-TIME STATS — Social Proof
+             ═══════════════════════════════════════════════════════════ -->
+        <section class="section alt-bg" id="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-block reveal">
+                        <div class="stat-value">$2.5B+</div>
+                        <div class="stat-label">Transactions processed</div>
+                    </div>
+                    <div class="stat-block reveal">
+                        <div class="stat-value">15M+</div>
+                        <div class="stat-label">Active users</div>
+                    </div>
+                    <div class="stat-block reveal">
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-label">Uptime SLA</div>
+                    </div>
+                    <div class="stat-block reveal">
+                        <div class="stat-value">45ms</div>
+                        <div class="stat-label">Avg latency</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             ENTERPRISE LOGOS — Trust & Partnerships
+             ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="enterprise-logos">
+            <div class="container">
+                <p class="section-intro" style="text-align:center;margin-bottom:var(--space-8);">Trusted by leading
+                    companies worldwide</p>
+                <div class="logos-grid">
+                    <div class="logo-item reveal">Stripe</div>
+                    <div class="logo-item reveal">Square</div>
+                    <div class="logo-item reveal">PayPal</div>
+                    <div class="logo-item reveal">Wise</div>
+                    <div class="logo-item reveal">Shopify</div>
+                    <div class="logo-item reveal">Klarna</div>
+                    <div class="logo-item reveal">Plaid</div>
+                    <div class="logo-item reveal">Adyen</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             DEVELOPER EXPERIENCE — API-First
+             ═══════════════════════════════════════════════════════════ -->
+        <section class="section alt-bg" id="developer-experience">
+            <div class="container">
+                <h2 class="reveal">Built for developers</h2>
+                <p class="section-intro reveal">API-first architecture with SDKs, webhooks, sandbox environment, and
+                    extensive documentation.</p>
+
+                <div class="dev-features-grid">
+                    <article class="dev-card reveal">
+                        <div class="dev-icon">📚</div>
+                        <h3>Comprehensive APIs</h3>
+                        <p>RESTful and GraphQL endpoints for complete payment and wallet management.</p>
+                    </article>
+                    <article class="dev-card reveal">
+                        <div class="dev-icon">📦</div>
+                        <h3>Multi-language SDKs</h3>
+                        <p>JavaScript • Python • Go • Java • Ruby • PHP • C# — with examples included.</p>
+                    </article>
+                    <article class="dev-card reveal">
+                        <div class="dev-icon">🔌</div>
+                        <h3>Webhooks & Events</h3>
+                        <p>Real-time event streaming for transactions, refunds, disputes, and more.</p>
+                    </article>
+                    <article class="dev-card reveal">
+                        <div class="dev-icon">🧪</div>
+                        <h3>Sandbox Environment</h3>
+                        <p>Full-featured testing with test payment methods and realistic scenarios.</p>
+                    </article>
+                    <article class="dev-card reveal">
+                        <div class="dev-icon">⚡</div>
+                        <h3>Quick Start Guide</h3>
+                        <p>Integration in minutes with copy-paste code samples for common use cases.</p>
+                    </article>
+                    <article class="dev-card reveal">
+                        <div class="dev-icon">🛠️</div>
+                        <h3>Developer Dashboard</h3>
+                        <p>API keys, logs, metrics, webhook testing, and team management tools.</p>
+                    </article>
+                </div>
+
+                <div class="code-preview reveal">
+                    <div class="code-header">Quick start — JavaScript</div>
+                    <pre class="code-block"><code>import Zpendr from '@zpendr/sdk';
+
+const zpendr = new Zpendr('pk_live_...');
+
+// Create payment
+const payment = await zpendr.payments.create({
+  amount: 2999,
+  currency: 'USD',
+  method: 'card'
+});
+
+// Listen for events
+zpendr.on('payment.success', (evt) =&gt; {
+  console.log('Payment completed:', evt);
+});</code></pre>
+                    <div class="code-footer">
+                        <a href="#">→ View full documentation</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             BUSINESS FEATURES — Enterprise Capabilities
+             ═══════════════════════════════════════════════════════════ -->
+        <section class="section" id="business-features">
+            <div class="container">
+                <h2 class="reveal">Enterprise features built-in</h2>
+                <p class="section-intro reveal">Subscription billing, invoicing, analytics, chargeback protection, and
+                    automated compliance.</p>
+
+                <div class="business-grid">
+                    <div class="business-card reveal">
+                        <div class="business-icon">📅</div>
+                        <h3>Subscription Billing</h3>
+                        <p>Recurring charges with flexible schedules, proration, and dunning management.</p>
+                        <ul class="feature-list">
+                            <li>Flexible billing cycles</li>
+                            <li>Smart retry logic</li>
+                            <li>Proration handling</li>
+                            <li>Metered billing</li>
+                        </ul>
+                    </div>
+                    <div class="business-card reveal">
+                        <div class="business-icon">📄</div>
+                        <h3>Smart Invoicing</h3>
+                        <p>Automated invoicing with compliance templates and multi-language support.</p>
+                        <ul class="feature-list">
+                            <li>Auto-generated PDFs</li>
+                            <li>Compliance templates</li>
+                            <li>Multi-language support</li>
+                            <li>Payment reminders</li>
+                        </ul>
+                    </div>
+                    <div class="business-card reveal">
+                        <div class="business-icon">📊</div>
+                        <h3>Analytics Dashboard</h3>
+                        <p>Real-time insights into payments, revenue, churn, and customer metrics.</p>
+                        <ul class="feature-list">
+                            <li>Revenue analytics</li>
+                            <li>Churn tracking</li>
+                            <li>Custom reports</li>
+                            <li>Data export</li>
+                        </ul>
+                    </div>
+                    <div class="business-card reveal">
+                        <div class="business-icon">🛡️</div>
+                        <h3>Dispute Protection</h3>
+                        <p>Automated chargeback protection, evidence collection, and settlement.</p>
+                        <ul class="feature-list">
+                            <li>Auto evidence collection</li>
+                            <li>Chargeback prediction</li>
+                            <li>Settlement negotiation</li>
+                            <li>Fraud prevention</li>
+                        </ul>
+                    </div>
+                    <div class="business-card reveal">
+                        <div class="business-icon">🧮</div>
+                        <h3>Tax Automation</h3>
+                        <p>Automatic tax calculation, compliance reporting, and settlement.</p>
+                        <ul class="feature-list">
+                            <li>Automatic tax calc</li>
+                            <li>Compliance reports</li>
+                            <li>Multi-jurisdiction</li>
+                            <li>Filing assistance</li>
+                        </ul>
+                    </div>
+                    <div class="business-card reveal">
+                        <div class="business-icon">👥</div>
+                        <h3>Team Management</h3>
+                        <p>Role-based access, audit logs, and team collaboration tools.</p>
+                        <ul class="feature-list">
+                            <li>RBAC permissions</li>
+                            <li>Audit logging</li>
+                            <li>SSO integration</li>
+                            <li>2FA enforcement</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+             FAQ — Trust & Transparency
+             ═══════════════════════════════════════════════════════════ -->
+        <section class="section alt-bg" id="faq">
+            <div class="container">
+                <h2 class="reveal" style="text-align:center;">Frequently asked questions</h2>
+
+                <div class="faq-grid">
+                    <details class="faq-item reveal">
+                        <summary>
+                            <span class="faq-question">How secure is Zpendr?</span>
+                            <span class="faq-toggle">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Zpendr uses AES-256 encryption for data at rest and TLS 1.3 for data in transit. We're
+                                PCI-DSS Level 1 certified and have SOC 2 Type II attestation. All transactions are
+                                monitored with AI-powered fraud detection.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item reveal">
+                        <summary>
+                            <span class="faq-question">What payment methods do you support?</span>
+                            <span class="faq-toggle">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>We support 50+ payment methods including all major credit cards, digital wallets (Apple
+                                Pay, Google Pay), and local methods like UPI, Alipay, WeChat Pay, SEPA transfers, ACH,
+                                and regional options in 197 countries.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item reveal">
+                        <summary>
+                            <span class="faq-question">Do you offer API access?</span>
+                            <span class="faq-toggle">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Yes, we provide a full-featured REST API and GraphQL endpoints. We also have SDKs for
+                                JavaScript, Python, Go, Java, Ruby, and PHP. All with comprehensive documentation,
+                                sandbox environment, and webhooks.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item reveal">
+                        <summary>
+                            <span class="faq-question">What is your uptime SLA?</span>
+                            <span class="faq-toggle">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>We guarantee 99.9% uptime with redundant systems across multiple regions. Our average
+                                latency is under 45ms globally. We maintain a public status page and incident response
+                                is under 15 minutes.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item reveal">
+                        <summary>
+                            <span class="faq-question">Is subscription billing included?</span>
+                            <span class="faq-toggle">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Yes, subscription management is built in. Features include flexible billing cycles,
+                                proration, smart retry logic, dunning management, and detailed analytics. No additional
+                                configuration needed.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item reveal">
+                        <summary>
+                            <span class="faq-question">How are you compliant with GDPR and CCPA?</span>
+                            <span class="faq-toggle">+</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>We're fully GDPR and CCPA compliant with options for data residency, encryption at rest,
+                                automated compliance reporting, and data subject request handling. All with audit trails
+                                and documented policies.</p>
+                        </div>
+                    </details>
                 </div>
             </div>
         </section>
