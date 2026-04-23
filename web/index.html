@@ -8001,8 +8001,15 @@ zpendr.on('payment.success', (evt) =&gt; {
                     // ignore storage errors
                 }
             }
-            if (cookieBanner && !getCookieConsent()) {
-                setTimeout(() => cookieBanner.classList.add('visible'), 1200);
+            if (cookieBanner) {
+                if (!getCookieConsent()) {
+                    cookieBanner.classList.add('visible');
+                    console.log('Cookie banner shown');
+                } else {
+                    console.log('Cookie consent already set:', getCookieConsent());
+                }
+            } else {
+                console.log('Cookie banner element not found');
             }
             function dismissCookie(choice) {
                 setCookieConsent(choice);
