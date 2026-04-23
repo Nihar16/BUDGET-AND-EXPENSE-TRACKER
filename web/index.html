@@ -5088,7 +5088,7 @@
                         <span>·</span>
                         <span class="live-counter">
                             <span class="live-dot"></span>
-                            <span id="currency-count">150+</span> currencies tracked
+                            <span id="currency-count">170+</span> currencies tracked
                         </span>
                     </div>
                 </div>
@@ -5202,8 +5202,8 @@
             <div class="container">
                 <h2 class="reveal">Live Currency Converter</h2>
                 <p class="section-intro reveal">See Zpendr's multi-currency support in action. All <strong>~170 world
-                        currencies</strong> are listed. Live rates are available for the <strong>32 currencies</strong>
-                    supported by the European Central Bank. Others are shown for reference.</p>
+                        currencies</strong> are listed, with live rates provided by exchangerate.host for most global
+                    currencies.</p>
 
                 <div class="converter-card reveal">
                     <div class="converter-row">
@@ -5990,6 +5990,46 @@
                     'zh-hans': 'zh',
                     'zh-hant': 'zh',
                     'pt-br': 'pt',
+                    'pt-pt': 'pt',
+                    'ru-ru': 'ru',
+                    'ja-jp': 'ja',
+                    'ko-kr': 'ko',
+                    'ar-sa': 'ar',
+                    'it-it': 'it',
+                    'nl-nl': 'nl',
+                    'sv-se': 'sv',
+                    'no-no': 'no',
+                    'da-dk': 'da',
+                    'fi-fi': 'fi',
+                    'id-id': 'id',
+                    'ms-my': 'ms',
+                    'th-th': 'th',
+                    'vi-vn': 'vi',
+                    'tr-tr': 'tr',
+                    'pl-pl': 'pl',
+                    'cs-cz': 'cs',
+                    'ro-ro': 'ro',
+                    'hu-hu': 'hu',
+                    'el-gr': 'el',
+                    'he-il': 'he',
+                    'ur-pk': 'ur',
+                    'bn-in': 'bn',
+                    'ca-es': 'ca',
+                    'sr-rs': 'sr',
+                    'sk-sk': 'sk',
+                    'uk-ua': 'uk',
+                    'lv-lv': 'lv',
+                    'lt-lt': 'lt',
+                    'et-ee': 'et',
+                    'hr-hr': 'hr',
+                    'sl-si': 'sl',
+                    'bg-bg': 'bg',
+                    'mk-mk': 'mk',
+                    'sq-al': 'sq',
+                    'fa-ir': 'fa',
+                    'sw-ke': 'sw',
+                    'am-et': 'am',
+                    'ga-ie': 'ga',
                     'en-us': 'en',
                     'en-gb': 'en',
                     'de-de': 'de',
@@ -7156,8 +7196,8 @@
             // ── 7. Currency Converter ──────────────────────────────────────────
             (function () {
                 // [code, name, symbol, flag]
-                // All 32 currencies supported by the Frankfurter API (ECB data).
-                // There are ~180 world currencies total; full coverage requires a paid API.
+                // All ~170 active ISO 4217 currencies.
+                // Uses exchangerate.host for live rates across most world currencies.
                 var CURRENCIES = [
                     // All ~170 active ISO 4217 currencies.
                     // Uses exchangerate.host for live rates across most world currencies.
@@ -8249,7 +8289,7 @@
 
             /* ── Currency data [code, name, symbol, flag, rate_vs_USD] ── */
             var POPULAR_CURR = ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'JPY', 'CHF', 'CNY', 'INR', 'SGD', 'HKD', 'NZD', 'MXN', 'BRL', 'ZAR', 'AED', 'SAR', 'KRW'];
-            
+
 
             /* ── Active state ────────────────────────────────────────── */
             var activeCountry = COUNTRIES.find(function (c) { return c[0] === 'CA'; }) || COUNTRIES[0];
