@@ -267,7 +267,375 @@
             background: var(--color-surface-2);
         }
 
-        .language-select {
+        /* ── Profile button (replaces auth-toggle when logged in) ─── */
+        .profile-btn {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            gap: .55rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            color: var(--color-text);
+            padding: .3rem .75rem .3rem .35rem;
+            font-weight: 600;
+            font-size: var(--text-sm);
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: .2s ease;
+            text-decoration: none;
+        }
+
+        .profile-btn:hover {
+            background: var(--color-surface-2);
+            border-color: var(--color-primary);
+        }
+
+        .profile-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid var(--color-primary);
+            display: block;
+        }
+
+        .profile-btn-text {
+            line-height: 1;
+        }
+
+        .profile-btn-name {
+            font-size: var(--text-xs);
+            color: var(--color-text-faint);
+            display: block;
+            margin-top: 1px;
+        }
+
+        /* ── Mobile profile button ───────────────────────────────── */
+        .mobile-profile-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            color: var(--color-text);
+            text-decoration: none;
+            font-family: var(--font-body);
+            font-weight: 600;
+            transition: .2s ease;
+        }
+
+        .mobile-profile-btn:hover {
+            background: var(--color-surface-2);
+        }
+
+        .mobile-profile-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--color-primary);
+        }
+
+        /* ── Verification Modal ──────────────────────────────────── */
+        .verify-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 150;
+            background: rgba(0, 0, 0, .55);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .verify-overlay.open {
+            display: flex;
+        }
+
+        .verify-card {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-md);
+            padding: var(--space-8) var(--space-8) var(--space-6);
+            width: min(100%, 420px);
+            text-align: center;
+            animation: verifySlide .22s ease;
+        }
+
+        @keyframes verifySlide {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .verify-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--color-primary-highlight);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-4);
+            font-size: 1.5rem;
+        }
+
+        .verify-title {
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-2);
+        }
+
+        .verify-sub {
+            color: var(--color-text-muted);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-6);
+        }
+
+        .verify-sub strong {
+            color: var(--color-text);
+        }
+
+        .verify-otp-row {
+            display: flex;
+            gap: var(--space-2);
+            justify-content: center;
+            margin-bottom: var(--space-5);
+        }
+
+        .verify-otp-input {
+            width: 48px;
+            height: 56px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            outline: none;
+            transition: border-color .15s;
+        }
+
+        .verify-otp-input:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 14%, transparent);
+        }
+
+        .verify-otp-input.filled {
+            border-color: var(--color-primary);
+            background: var(--color-primary-highlight);
+        }
+
+        .verify-otp-input.shake {
+            animation: verifyShake .4s ease;
+        }
+
+        @keyframes verifyShake {
+
+            0%,
+            100% {
+                transform: translateX(0)
+            }
+
+            20% {
+                transform: translateX(-5px)
+            }
+
+            40% {
+                transform: translateX(5px)
+            }
+
+            60% {
+                transform: translateX(-4px)
+            }
+
+            80% {
+                transform: translateX(4px)
+            }
+        }
+
+        .verify-error {
+            display: none;
+            color: #c0392b;
+            font-size: var(--text-xs);
+            background: color-mix(in srgb, #c0392b 8%, var(--color-surface));
+            border: 1px solid color-mix(in srgb, #c0392b 22%, var(--color-border));
+            border-radius: var(--radius-md);
+            padding: .45rem .75rem;
+            margin-bottom: var(--space-4);
+        }
+
+        .verify-error.visible {
+            display: block;
+        }
+
+        .verify-btn {
+            width: 100%;
+            padding: .85rem;
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            border: none;
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-size: var(--text-base);
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+        }
+
+        .verify-btn:hover {
+            background: var(--color-primary-hover);
+        }
+
+        .verify-btn:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+
+        .verify-resend {
+            margin-top: var(--space-4);
+            font-size: var(--text-xs);
+            color: var(--color-text-faint);
+        }
+
+        .verify-resend button {
+            background: none;
+            border: none;
+            color: var(--color-primary);
+            font-family: var(--font-body);
+            font-size: inherit;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* Success checkmark */
+        .verify-success-icon {
+            display: none;
+            width: 64px;
+            height: 64px;
+            background: var(--color-primary-highlight);
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-4);
+            color: var(--color-primary);
+            animation: successPop .4s ease;
+        }
+
+        .verify-success-icon.show {
+            display: flex;
+        }
+
+        @keyframes successPop {
+            0% {
+                transform: scale(.5);
+                opacity: 0
+            }
+
+            70% {
+                transform: scale(1.15)
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        /* ── Inactivity Toast ────────────────────────────────────── */
+        .inactivity-toast {
+            position: fixed;
+            bottom: var(--space-6);
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            z-index: 200;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            padding: var(--space-4) var(--space-5);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            max-width: 420px;
+            width: calc(100% - 2rem);
+            transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
+            pointer-events: all;
+        }
+
+        .inactivity-toast.visible {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .inactivity-toast-icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .inactivity-toast-body {
+            flex: 1;
+        }
+
+        .inactivity-toast-title {
+            font-weight: 700;
+            font-size: var(--text-sm);
+            color: var(--color-text);
+        }
+
+        .inactivity-toast-sub {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            margin-top: 2px;
+        }
+
+        .inactivity-countdown {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--color-primary);
+            flex-shrink: 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .inactivity-dismiss {
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            border: none;
+            border-radius: var(--radius-full);
+            padding: .35rem .85rem;
+            font-family: var(--font-body);
+            font-size: var(--text-xs);
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s;
+            flex-shrink: 0;
+        }
+
+        .inactivity-dismiss:hover {
+            background: var(--color-primary-hover);
+        }
+
+        .auth-toggle-v2 {
             min-height: 44px;
             border-radius: var(--radius-full);
             border: 1px solid var(--color-border);
@@ -5420,6 +5788,14 @@
                     root.setAttribute('data-theme', media.matches ? 'dark' : 'light');
                 }
                 updateIcon();
+                // Refresh profile avatar colour to match new theme
+                requestAnimationFrame(function () {
+                    const avatarImg = document.querySelector('.profile-btn .profile-avatar, .mobile-profile-btn .mobile-profile-avatar');
+                    if (avatarImg && avatarImg.src.indexOf('ui-avatars.com') !== -1 && typeof avatarUrl === 'function') {
+                        const user = window.ZpendrAuth && window.ZpendrAuth.user;
+                        if (user) avatarImg.src = avatarUrl(user.displayName || user.email);
+                    }
+                });
             }
 
             toggle.addEventListener('click', cycleTheme);
@@ -5851,32 +6227,37 @@
             wireAuthButton('login-submit', () => {
                 const emailValid = validateAndRenderEmail(loginEmailInput, loginEmailFeedback, false);
                 if (!emailValid) {
-                    alert('Please use a valid, non-disposable email before login.');
+                    loginEmailFeedback.textContent = 'Please enter a valid personal email address.';
+                    loginEmailFeedback.classList.add('error');
                     return;
                 }
-                alert('Email login action placeholder: connect this button to your auth API.');
+                // Defer to the global auth system (ZpendrAuth v2) which handles
+                // profile button, session persistence, and inactivity tracking.
+                // The new auth script's loginSubmit capture listener fires first.
             });
 
             wireAuthButton('signup-submit', () => {
                 const emailValid = validateAndRenderEmail(signupEmailInput, signupEmailFeedback, true);
                 const passwordStrong = validateAndRenderPassword();
                 if (!emailValid) {
-                    alert('Please use a valid personal email (Gmail, Outlook, iCloud, or Yahoo) before signup.');
+                    signupEmailFeedback.textContent = 'Please use a valid personal email (Gmail, Outlook, iCloud, or Yahoo).';
+                    signupEmailFeedback.classList.add('error');
                     return;
                 }
                 if (!passwordStrong) {
-                    alert('Please choose a stronger password before signup.');
+                    signupPasswordFeedback.textContent = 'Please choose a stronger password.';
+                    signupPasswordFeedback.classList.add('error');
                     return;
                 }
-                alert('Email signup action placeholder: connect this button to your auth API.');
+                // Validation passed — the global auth system's signup capture listener
+                // closes this modal and opens the email verification modal.
             });
 
             document.querySelectorAll('.auth-social-btn').forEach((button) => {
                 button.addEventListener('click', () => {
-                    const provider = button.getAttribute('data-provider');
-                    const action = button.getAttribute('data-action');
-                    const verb = action === 'signup' ? 'Signup' : 'Login';
-                    alert(verb + ' with ' + provider + ' placeholder: connect provider SDK flow here.');
+                    // Social OAuth handled by the global ZpendrAuth v2 system
+                    // (capture-phase listener in the auth script below).
+                    // No alert — the profile button appears automatically.
                 });
             });
 
@@ -7941,12 +8322,12 @@
                     avatarEl.textContent = initials(u.email);
                     accountEmail.textContent = u.email;
                     accountBar.style.display = '';
-                    var nb = document.getElementById('auth-toggle');
-                    if (nb) nb.textContent = u.email.split('@')[0];
                 } else {
                     payDialog.classList.add('auth-required');
                     accountBar.style.display = 'none';
                 }
+                // Delegate navbar profile button update to the global auth system
+                if (typeof updateNavUI === 'function') updateNavUI();
             }
             function setGateMode(signup) {
                 gIsSignup = signup;
@@ -8310,6 +8691,465 @@
             onAuthChange();
             updatePlanLabel();
             updatePrices();
+        })();
+    </script>
+
+    <!-- ── Email Verification Modal ──────────────────────────── -->
+    <div class="verify-overlay" id="verify-overlay" role="dialog" aria-modal="true" aria-labelledby="verify-title">
+        <div class="verify-card" id="verify-card">
+            <!-- Default state -->
+            <div id="verify-default-state">
+                <div class="verify-icon">✉️</div>
+                <h2 class="verify-title" id="verify-title">Verify your email</h2>
+                <p class="verify-sub">We sent a 6-digit code to <strong
+                        id="verify-email-display">you@example.com</strong>. Enter it below to activate your account.</p>
+                <div class="verify-otp-row" id="verify-otp-row">
+                    <input class="verify-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                        aria-label="Digit 1">
+                    <input class="verify-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                        aria-label="Digit 2">
+                    <input class="verify-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                        aria-label="Digit 3">
+                    <input class="verify-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                        aria-label="Digit 4">
+                    <input class="verify-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                        aria-label="Digit 5">
+                    <input class="verify-otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]"
+                        aria-label="Digit 6">
+                </div>
+                <div class="verify-error" id="verify-error">Incorrect code. Please try again.</div>
+                <button class="verify-btn" id="verify-submit-btn">
+                    <span id="verify-btn-spinner"
+                        style="display:none;width:15px;height:15px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;"></span>
+                    Verify &amp; Continue
+                </button>
+                <div class="verify-resend">
+                    Didn't receive it? <button id="verify-resend-btn">Resend code</button>
+                </div>
+            </div>
+            <!-- Success state (hidden until verified) -->
+            <div id="verify-success-state" style="display:none;">
+                <div class="verify-success-icon show" aria-hidden="true">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                <h2 class="verify-title">Account verified!</h2>
+                <p class="verify-sub">Your email has been confirmed. Welcome to Zpendr Pro!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Inactivity Toast ───────────────────────────────────── -->
+    <div class="inactivity-toast" id="inactivity-toast" role="alert" aria-live="assertive">
+        <span class="inactivity-toast-icon">⏱️</span>
+        <div class="inactivity-toast-body">
+            <div class="inactivity-toast-title">Session expiring soon</div>
+            <div class="inactivity-toast-sub">Click anywhere or tap Stay in to keep your session.</div>
+        </div>
+        <span class="inactivity-countdown" id="inactivity-countdown">30</span>
+        <button class="inactivity-dismiss" id="inactivity-dismiss">Stay in</button>
+    </div>
+
+    <script>
+        /* ══════════════════════════════════════════════════════════════
+           ZPENDR AUTH SYSTEM v2 — Profile button, Email verification,
+           Inactivity tracker, Cross-tab logout
+        ══════════════════════════════════════════════════════════════ */
+        (function () {
+            'use strict';
+
+            /* ── Config ─────────────────────────────────────────────── */
+            var MOCK_OTP = '123456';   // demo code shown in real app via email API
+            var INACTIVITY_MS = 15 * 60 * 1000; // 15 minutes
+            var COUNTDOWN_SEC = 30;
+            var AVATAR_BASE = 'https://ui-avatars.com/api/?size=128&rounded=true&bold=true&background=157347&color=f7fbf7&name=';
+            var ACCOUNT_PAGE = 'account.html';
+            var STORAGE_AUTH_KEY = 'zpendr_auth_v2';
+            var STORAGE_LOGOUT_KEY = 'zpendr_logout_signal';
+
+            /* ── State ──────────────────────────────────────────────── */
+            var pendingEmail = '';
+            var isVerified = false;
+            var inactivityTimer = null;
+            var countdownTimer = null;
+            var countdownLeft = COUNTDOWN_SEC;
+
+            /* ── DOM refs ───────────────────────────────────────────── */
+            var authToggleBtn = document.getElementById('auth-toggle');
+            var mobileAuthToggle = document.getElementById('mobile-auth-toggle');
+            var mobileMenuFooter = document.querySelector('.mobile-menu-footer');
+            var verifyOverlay = document.getElementById('verify-overlay');
+            var verifyEmailDisplay = document.getElementById('verify-email-display');
+            var verifyOtpInputs = Array.from(document.querySelectorAll('.verify-otp-input'));
+            var verifyError = document.getElementById('verify-error');
+            var verifySubmitBtn = document.getElementById('verify-submit-btn');
+            var verifyBtnSpinner = document.getElementById('verify-btn-spinner');
+            var verifyResendBtn = document.getElementById('verify-resend-btn');
+            var verifyDefaultState = document.getElementById('verify-default-state');
+            var verifySuccessState = document.getElementById('verify-success-state');
+            var toast = document.getElementById('inactivity-toast');
+            var toastCountdown = document.getElementById('inactivity-countdown');
+            var toastDismiss = document.getElementById('inactivity-dismiss');
+
+            /* ── Avatar URL helper (theme-aware) ────────────────────── */
+            function avatarUrl(emailOrName) {
+                var name = (emailOrName || 'User').split('@')[0].replace(/[^a-zA-Z0-9 ]/g, ' ').trim() || 'User';
+                var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+                var bg = dark ? '5fcb8b' : '157347';
+                var fg = dark ? '101712' : 'f7fbf7';
+                return 'https://ui-avatars.com/api/?size=128&rounded=true&bold=true&background=' + bg + '&color=' + fg + '&name=' + encodeURIComponent(name);
+            }
+
+            /* ── Profile button builder ─────────────────────────────── */
+            function buildProfileBtn(user) {
+                var btn = document.createElement('a');
+                btn.href = ACCOUNT_PAGE;
+                btn.target = '_blank';
+                btn.rel = 'noopener';
+                btn.className = 'profile-btn';
+                btn.setAttribute('aria-label', 'Open My Account');
+                var dispName = user.displayName || user.email.split('@')[0];
+                var url = user.photoURL || avatarUrl(dispName);
+                btn.innerHTML =
+                    '<img class="profile-avatar" src="' + url + '" alt="' + dispName + '" width="30" height="30">' +
+                    '<span class="profile-btn-text">' +
+                    'My Account' +
+                    '<span class="profile-btn-name">' + dispName + '</span>' +
+                    '</span>';
+                return btn;
+            }
+
+            function buildMobileProfileBtn(user) {
+                var btn = document.createElement('a');
+                btn.href = ACCOUNT_PAGE;
+                btn.target = '_blank';
+                btn.rel = 'noopener';
+                btn.className = 'mobile-profile-btn';
+                var dispName = user.displayName || user.email.split('@')[0];
+                var url = user.photoURL || avatarUrl(dispName);
+                btn.innerHTML =
+                    '<img class="mobile-profile-avatar" src="' + url + '" alt="' + dispName + '" width="36" height="36">' +
+                    '<span><strong>My Account</strong><br><small style="color:var(--color-text-faint)">' + dispName + '</small></span>';
+                return btn;
+            }
+
+            /* ── Main auth UI updater ───────────────────────────────── */
+            function updateNavUI() {
+                var user = window.ZpendrAuth && window.ZpendrAuth.user;
+
+                // Desktop nav
+                var parent = authToggleBtn && authToggleBtn.parentNode;
+                var existing = parent && parent.querySelector('.profile-btn');
+                if (user && isVerified) {
+                    if (authToggleBtn) authToggleBtn.style.display = 'none';
+                    if (existing) existing.remove();
+                    if (parent) parent.insertBefore(buildProfileBtn(user), authToggleBtn);
+                } else {
+                    if (authToggleBtn) authToggleBtn.style.display = '';
+                    if (existing) existing.remove();
+                    if (authToggleBtn) authToggleBtn.textContent = 'Login / Sign up';
+                }
+
+                // Mobile footer
+                if (mobileMenuFooter) {
+                    var existingMobile = mobileMenuFooter.querySelector('.mobile-profile-btn');
+                    if (existingMobile) existingMobile.remove();
+                    if (mobileAuthToggle) mobileAuthToggle.style.display = (user && isVerified) ? 'none' : '';
+                    if (user && isVerified) {
+                        mobileMenuFooter.insertBefore(buildMobileProfileBtn(user), mobileMenuFooter.firstChild);
+                    }
+                }
+
+                // Payment modal onAuthChange (already handled by payment script)
+            }
+
+            /* ── Intercept signup to trigger verification ────────────── */
+            var signupSubmit = document.getElementById('signup-submit');
+            if (signupSubmit) {
+                // Replace the existing click listeners by wrapping in capture phase
+                signupSubmit.addEventListener('click', function (e) {
+                    // Only proceed if basic validation already passed (handled by existing handler)
+                    // We hook AFTER existing handler runs by using a timeout of 0
+                    setTimeout(function () {
+                        var emailInput = document.getElementById('signup-email');
+                        var email = emailInput && emailInput.value.trim();
+                        if (!email || !email.includes('@')) return; // existing handler will show error
+
+                        var pwInput = document.getElementById('signup-password');
+                        var pw = pwInput && pwInput.value;
+                        if (!pw || pw.length < 8) return;
+
+                        // Temporarily store pending state
+                        pendingEmail = email;
+                        isVerified = false;
+
+                        // Set user in ZpendrAuth (unverified)
+                        window.ZpendrAuth = window.ZpendrAuth || { user: null };
+                        window.ZpendrAuth.user = { email: email, displayName: email.split('@')[0], photoURL: null, verified: false };
+
+                        // Close auth modal
+                        var authModal = document.getElementById('auth-modal');
+                        if (authModal) { authModal.classList.remove('open'); authModal.setAttribute('aria-hidden', 'true'); }
+                        document.body.style.overflow = '';
+
+                        // Open verification modal
+                        openVerifyModal(email);
+                    }, 0);
+                });
+            }
+
+            /* ── Login also sets state ───────────────────────────────── */
+            var loginSubmit = document.getElementById('login-submit');
+            if (loginSubmit) {
+                loginSubmit.addEventListener('click', function () {
+                    setTimeout(function () {
+                        var emailInput = document.getElementById('login-email');
+                        var email = emailInput && emailInput.value.trim();
+                        if (!email || !email.includes('@')) return;
+                        // Login is treated as already-verified
+                        pendingEmail = email;
+                        isVerified = true;
+                        window.ZpendrAuth = window.ZpendrAuth || { user: null };
+                        window.ZpendrAuth.user = { email: email, displayName: email.split('@')[0], photoURL: null, verified: true };
+                        var authModal = document.getElementById('auth-modal');
+                        if (authModal) { authModal.classList.remove('open'); authModal.setAttribute('aria-hidden', 'true'); }
+                        document.body.style.overflow = '';
+                        updateNavUI();
+                        persistAuth();
+                        startInactivityTracker();
+                    }, 0);
+                }, true);
+            }
+
+            // Social buttons → treated as verified
+            document.querySelectorAll('.auth-social-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    setTimeout(function () {
+                        var email = 'socialuser@example.com';
+                        pendingEmail = email;
+                        isVerified = true;
+                        window.ZpendrAuth = window.ZpendrAuth || { user: null };
+                        window.ZpendrAuth.user = { email: email, displayName: 'Social User', photoURL: null, verified: true };
+                        updateNavUI();
+                        persistAuth();
+                        startInactivityTracker();
+                    }, 50);
+                }, true);
+            });
+
+            /* ── Verification Modal ──────────────────────────────────── */
+            function openVerifyModal(email) {
+                verifyEmailDisplay.textContent = email;
+                verifyOtpInputs.forEach(function (inp) { inp.value = ''; inp.classList.remove('filled'); });
+                verifyError.classList.remove('visible');
+                verifyDefaultState.style.display = '';
+                verifySuccessState.style.display = 'none';
+                verifyOverlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                setTimeout(function () { verifyOtpInputs[0] && verifyOtpInputs[0].focus(); }, 100);
+            }
+
+            function closeVerifyModal() {
+                verifyOverlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            // OTP input logic: auto-advance, backspace, paste
+            verifyOtpInputs.forEach(function (inp, i) {
+                inp.addEventListener('input', function () {
+                    var v = inp.value.replace(/\D/g, '');
+                    inp.value = v.slice(-1);
+                    inp.classList.toggle('filled', inp.value !== '');
+                    verifyError.classList.remove('visible');
+                    if (inp.value && i < verifyOtpInputs.length - 1) verifyOtpInputs[i + 1].focus();
+                    // Auto-submit when all 6 filled
+                    var all = verifyOtpInputs.every(function (x) { return x.value !== ''; });
+                    if (all) submitOtp();
+                });
+                inp.addEventListener('keydown', function (e) {
+                    if (e.key === 'Backspace' && !inp.value && i > 0) verifyOtpInputs[i - 1].focus();
+                    if (e.key === 'ArrowLeft' && i > 0) verifyOtpInputs[i - 1].focus();
+                    if (e.key === 'ArrowRight' && i < verifyOtpInputs.length - 1) verifyOtpInputs[i + 1].focus();
+                });
+                inp.addEventListener('paste', function (e) {
+                    e.preventDefault();
+                    var pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+                    pasted.slice(0, 6).split('').forEach(function (ch, j) {
+                        if (verifyOtpInputs[j]) { verifyOtpInputs[j].value = ch; verifyOtpInputs[j].classList.add('filled'); }
+                    });
+                    var next = Math.min(pasted.length, 5);
+                    verifyOtpInputs[next].focus();
+                    var all = verifyOtpInputs.every(function (x) { return x.value !== ''; });
+                    if (all) submitOtp();
+                });
+            });
+
+            function getOtpValue() {
+                return verifyOtpInputs.map(function (inp) { return inp.value; }).join('');
+            }
+
+            function submitOtp() {
+                var otp = getOtpValue();
+                if (otp.length < 6) return;
+                verifySubmitBtn.disabled = true;
+                verifyBtnSpinner.style.display = 'block';
+                // Simulate server validation (500ms delay)
+                setTimeout(function () {
+                    verifyBtnSpinner.style.display = 'none';
+                    verifySubmitBtn.disabled = false;
+                    if (otp === MOCK_OTP) {
+                        // ── Success ──
+                        isVerified = true;
+                        if (window.ZpendrAuth && window.ZpendrAuth.user) window.ZpendrAuth.user.verified = true;
+                        verifyDefaultState.style.display = 'none';
+                        verifySuccessState.style.display = '';
+                        updateNavUI();
+                        persistAuth();
+                        startInactivityTracker();
+                        setTimeout(closeVerifyModal, 2200);
+                    } else {
+                        // ── Error ──
+                        verifyError.classList.add('visible');
+                        verifyOtpInputs.forEach(function (inp) {
+                            inp.classList.add('shake');
+                            inp.addEventListener('animationend', function () { inp.classList.remove('shake'); }, { once: true });
+                        });
+                        verifyOtpInputs.forEach(function (inp) { inp.value = ''; inp.classList.remove('filled'); });
+                        verifyOtpInputs[0].focus();
+                    }
+                }, 500);
+            }
+
+            verifySubmitBtn.addEventListener('click', submitOtp);
+            verifyResendBtn.addEventListener('click', function () {
+                verifyOtpInputs.forEach(function (inp) { inp.value = ''; inp.classList.remove('filled'); });
+                verifyError.classList.remove('visible');
+                verifyOtpInputs[0].focus();
+                verifyResendBtn.textContent = 'Sent!';
+                verifyResendBtn.disabled = true;
+                setTimeout(function () { verifyResendBtn.textContent = 'Resend code'; verifyResendBtn.disabled = false; }, 3000);
+            });
+
+            // Close on backdrop click
+            verifyOverlay.addEventListener('click', function (e) {
+                if (e.target === verifyOverlay) closeVerifyModal();
+            });
+
+            /* ── Persist auth to localStorage ───────────────────────── */
+            function persistAuth() {
+                var u = window.ZpendrAuth && window.ZpendrAuth.user;
+                if (u) {
+                    try { localStorage.setItem(STORAGE_AUTH_KEY, JSON.stringify({ email: u.email, displayName: u.displayName, photoURL: u.photoURL, verified: isVerified })); } catch (e) { }
+                } else {
+                    try { localStorage.removeItem(STORAGE_AUTH_KEY); } catch (e) { }
+                }
+            }
+
+            function restoreAuth() {
+                try {
+                    var raw = localStorage.getItem(STORAGE_AUTH_KEY);
+                    if (!raw) return;
+                    var data = JSON.parse(raw);
+                    if (data && data.email) {
+                        window.ZpendrAuth = window.ZpendrAuth || { user: null };
+                        window.ZpendrAuth.user = { email: data.email, displayName: data.displayName || data.email.split('@')[0], photoURL: data.photoURL || null, verified: data.verified };
+                        pendingEmail = data.email;
+                        isVerified = !!data.verified;
+                        updateNavUI();
+                        if (isVerified) startInactivityTracker();
+                    }
+                } catch (e) { }
+            }
+
+            /* ── Cross-tab logout via localStorage ───────────────────── */
+            window.addEventListener('storage', function (e) {
+                if (e.key === STORAGE_LOGOUT_KEY && e.newValue === 'true') {
+                    doLogout(false); // false = don't re-broadcast
+                }
+            });
+
+            function doLogout(broadcast) {
+                if (broadcast !== false) {
+                    try { localStorage.setItem(STORAGE_LOGOUT_KEY, 'true'); } catch (e) { }
+                    setTimeout(function () { try { localStorage.removeItem(STORAGE_LOGOUT_KEY); } catch (e) { } }, 200);
+                }
+                window.ZpendrAuth = window.ZpendrAuth || { user: null };
+                window.ZpendrAuth.user = null;
+                pendingEmail = '';
+                isVerified = false;
+                persistAuth();
+                stopInactivityTracker();
+                hideToast();
+                updateNavUI();
+                // Notify the payment modal's onAuthChange via a custom event
+                // (payment modal listens for ZpendrAuth.user becoming null)
+                try { document.dispatchEvent(new Event('zpendr:logout')); } catch (e) { }
+                window.ZpendrLogout = true;
+            }
+
+            // Listen for payment modal's own "switch account" which calls window.ZpendrAuth.user = null
+            // We hook into it so inactivity tracker stops correctly
+            document.addEventListener('zpendr:logout', function () {
+                if (isVerified) doLogout(false);
+            });
+
+            // Expose logout globally so account.html can call it
+            window.ZpendrSignOut = function () { doLogout(true); };
+
+            /* ── Inactivity Tracker ──────────────────────────────────── */
+            function resetInactivity() {
+                clearTimeout(inactivityTimer);
+                if (!isVerified || !(window.ZpendrAuth && window.ZpendrAuth.user)) return;
+                inactivityTimer = setTimeout(showWarningToast, INACTIVITY_MS);
+            }
+
+            function startInactivityTracker() {
+                var events = ['mousemove', 'scroll', 'keydown', 'click', 'touchstart', 'pointerdown'];
+                events.forEach(function (ev) {
+                    document.addEventListener(ev, resetInactivity, { passive: true });
+                });
+                resetInactivity();
+            }
+
+            function stopInactivityTracker() {
+                clearTimeout(inactivityTimer);
+                clearInterval(countdownTimer);
+                var events = ['mousemove', 'scroll', 'keydown', 'click', 'touchstart', 'pointerdown'];
+                events.forEach(function (ev) {
+                    document.removeEventListener(ev, resetInactivity);
+                });
+            }
+
+            function showWarningToast() {
+                countdownLeft = COUNTDOWN_SEC;
+                toastCountdown.textContent = countdownLeft;
+                toast.classList.add('visible');
+                countdownTimer = setInterval(function () {
+                    countdownLeft--;
+                    toastCountdown.textContent = countdownLeft;
+                    if (countdownLeft <= 0) {
+                        clearInterval(countdownTimer);
+                        hideToast();
+                        doLogout(true);
+                    }
+                }, 1000);
+            }
+
+            function hideToast() {
+                toast.classList.remove('visible');
+                clearInterval(countdownTimer);
+            }
+
+            // Any activity while toast visible = dismiss
+            document.addEventListener('mousemove', function () { if (toast.classList.contains('visible')) { hideToast(); resetInactivity(); } }, { passive: true });
+            document.addEventListener('keydown', function () { if (toast.classList.contains('visible')) { hideToast(); resetInactivity(); } }, { passive: true });
+            toastDismiss.addEventListener('click', function () { hideToast(); resetInactivity(); });
+
+            /* ── Init: restore session on page load ──────────────────── */
+            restoreAuth();
+
         })();
     </script>
 

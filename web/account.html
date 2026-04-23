@@ -1,26 +1,1169 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
-
+<html lang="en" data-theme="light">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>My Account</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account — Zpendr</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <meta name="description" content="Manage your Zpendr account, subscription, and security settings.">
+    <script>
+        (function () { var s = localStorage.getItem('theme'), d = window.matchMedia('(prefers-color-scheme:dark)').matches; document.documentElement.setAttribute('data-theme', (s === 'dark' || (!s && d)) ? 'dark' : 'light') })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
+        rel="stylesheet">
+    <style>
+        :root,
+        [data-theme="light"] {
+            --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+            --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+            --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+            --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+            --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+            --space-1: .25rem;
+            --space-2: .5rem;
+            --space-3: .75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --color-bg: #f6f7f2;
+            --color-surface: #ffffff;
+            --color-surface-2: #edf6ee;
+            --color-border: #d8e3d4;
+            --color-text: #102118;
+            --color-text-muted: #4a5f52;
+            --color-text-faint: #7e9185;
+            --color-text-inverse: #f7fbf7;
+            --color-primary: #157347;
+            --color-primary-hover: #0f5b38;
+            --color-primary-highlight: #d8efe1;
+            --color-danger: #c0392b;
+            --color-danger-highlight: #fdecea;
+            --shadow-sm: 0 1px 2px rgba(16, 33, 24, .06);
+            --shadow-md: 0 14px 34px rgba(16, 33, 24, .09);
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-full: 999px;
+            --content: 840px;
+            --font-body: 'Instrument Sans', sans-serif;
+            --font-display: 'Instrument Serif', serif
+        }
+
+        [data-theme="dark"] {
+            --color-bg: #101712;
+            --color-surface: #162019;
+            --color-surface-2: #1d2a21;
+            --color-border: #314236;
+            --color-text: #e5f0e7;
+            --color-text-muted: #aec1b2;
+            --color-text-faint: #778b7d;
+            --color-text-inverse: #101712;
+            --color-primary: #5fcb8b;
+            --color-primary-hover: #80d6a4;
+            --color-primary-highlight: #24372a;
+            --color-danger: #e57373;
+            --color-danger-highlight: #2c1010;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, .2);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, .3)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background: var(--color-bg)
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: var(--text-base);
+            line-height: 1.6;
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh
+        }
+
+        img {
+            display: block;
+            max-width: 100%
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer
+        }
+
+        .container {
+            width: min(calc(100% - 2rem), var(--content));
+            margin-inline: auto
+        }
+
+        /* Top bar */
+        .acc-topbar {
+            background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+            border-bottom: 1px solid var(--color-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 10
+        }
+
+        .acc-topbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-4) 0
+        }
+
+        .acc-brand {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--color-text)
+        }
+
+        .acc-brand svg {
+            width: 28px;
+            height: 28px;
+            color: var(--color-primary)
+        }
+
+        .acc-topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3)
+        }
+
+        .acc-theme-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: .2s ease
+        }
+
+        .acc-theme-btn:hover {
+            background: var(--color-surface-2)
+        }
+
+        .acc-back-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-text-muted);
+            background: none;
+            border: none;
+            padding: .3rem .5rem;
+            border-radius: var(--radius-md);
+            transition: .15s ease
+        }
+
+        .acc-back-btn:hover {
+            color: var(--color-text);
+            background: var(--color-surface-2)
+        }
+
+        /* Hero */
+        .acc-hero {
+            background: linear-gradient(180deg, color-mix(in srgb, var(--color-primary-highlight) 60%, var(--color-bg)) 0%, var(--color-bg) 100%);
+            padding: var(--space-12) 0 var(--space-8);
+            text-align: center;
+            border-bottom: 1px solid var(--color-border)
+        }
+
+        .acc-avatar-wrap {
+            position: relative;
+            display: inline-block;
+            margin-bottom: var(--space-4)
+        }
+
+        .acc-avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--color-primary);
+            box-shadow: var(--shadow-md);
+            display: block
+        }
+
+        .acc-avatar-edit {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            border: 2px solid var(--color-surface);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .75rem;
+            cursor: pointer;
+            transition: background .2s
+        }
+
+        .acc-avatar-edit:hover {
+            background: var(--color-primary-hover)
+        }
+
+        .acc-hero-name {
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-1)
+        }
+
+        .acc-hero-email {
+            color: var(--color-text-muted);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-4)
+        }
+
+        .acc-tier-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            background: linear-gradient(135deg, var(--color-primary-hover) 0%, var(--color-primary) 100%);
+            color: var(--color-text-inverse);
+            padding: .35rem .85rem;
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase
+        }
+
+        /* Main */
+        .acc-main {
+            padding: var(--space-8) 0 var(--space-16)
+        }
+
+        /* Card */
+        .acc-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-5);
+            overflow: hidden
+        }
+
+        .acc-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-5) var(--space-6) var(--space-4);
+            border-bottom: 1px solid var(--color-border)
+        }
+
+        .acc-card-title {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-weight: 700;
+            font-size: var(--text-base)
+        }
+
+        .acc-card-title-icon {
+            width: 34px;
+            height: 34px;
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .9rem;
+            flex-shrink: 0
+        }
+
+        .acc-card-action {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-primary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: opacity .15s
+        }
+
+        .acc-card-action:hover {
+            opacity: .75
+        }
+
+        .acc-card-body {
+            padding: var(--space-5) var(--space-6)
+        }
+
+        /* Field row */
+        .acc-field-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-3) 0;
+            border-bottom: 1px solid var(--color-border);
+            gap: var(--space-4)
+        }
+
+        .acc-field-row:last-child {
+            border-bottom: none
+        }
+
+        .acc-field-label {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            min-width: 130px;
+            flex-shrink: 0
+        }
+
+        .acc-field-value {
+            font-weight: 600;
+            font-size: var(--text-sm);
+            flex: 1
+        }
+
+        .acc-field-edit {
+            font-size: var(--text-xs);
+            color: var(--color-primary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 600;
+            padding: .2rem .5rem;
+            border-radius: var(--radius-md);
+            transition: background .15s
+        }
+
+        .acc-field-edit:hover {
+            background: var(--color-primary-highlight)
+        }
+
+        .acc-inline-input {
+            flex: 1;
+            padding: .45rem .75rem;
+            border: 1px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: var(--text-sm);
+            outline: none;
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 14%, transparent)
+        }
+
+        .acc-inline-actions {
+            display: flex;
+            gap: var(--space-2)
+        }
+
+        .acc-btn-save {
+            padding: .35rem .75rem;
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            border: none;
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-size: var(--text-xs);
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s
+        }
+
+        .acc-btn-save:hover {
+            background: var(--color-primary-hover)
+        }
+
+        .acc-btn-cancel {
+            padding: .35rem .75rem;
+            background: var(--color-surface-2);
+            color: var(--color-text-muted);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            cursor: pointer
+        }
+
+        /* Subscription */
+        .acc-sub-banner {
+            background: linear-gradient(135deg, var(--color-primary-hover) 0%, var(--color-primary) 100%);
+            color: var(--color-text-inverse);
+            border-radius: var(--radius-md);
+            padding: var(--space-5) var(--space-6);
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-5)
+        }
+
+        .acc-sub-icon {
+            font-size: 2rem;
+            flex-shrink: 0
+        }
+
+        .acc-sub-title {
+            font-family: var(--font-display);
+            font-size: var(--text-lg)
+        }
+
+        .acc-sub-desc {
+            font-size: var(--text-sm);
+            opacity: .85;
+            margin-top: 2px
+        }
+
+        .acc-sub-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-4)
+        }
+
+        .acc-sub-stat {
+            background: var(--color-surface-2);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--space-4)
+        }
+
+        .acc-sub-stat-label {
+            font-size: var(--text-xs);
+            color: var(--color-text-faint);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            margin-bottom: .35rem
+        }
+
+        .acc-sub-stat-val {
+            font-weight: 700;
+            font-size: var(--text-base);
+            color: var(--color-text)
+        }
+
+        .acc-sub-stat-val.primary {
+            color: var(--color-primary)
+        }
+
+        /* Toggles */
+        .acc-toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-4) 0;
+            border-bottom: 1px solid var(--color-border);
+            gap: var(--space-4)
+        }
+
+        .acc-toggle-row:last-of-type {
+            border-bottom: none
+        }
+
+        .acc-toggle-title {
+            font-weight: 600;
+            font-size: var(--text-sm)
+        }
+
+        .acc-toggle-desc {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            margin-top: 2px
+        }
+
+        .acc-toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0
+        }
+
+        .acc-toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            position: absolute
+        }
+
+        .acc-toggle-track {
+            position: absolute;
+            inset: 0;
+            background: var(--color-border);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: background .2s
+        }
+
+        .acc-toggle-switch input:checked+.acc-toggle-track {
+            background: var(--color-primary)
+        }
+
+        .acc-toggle-track::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform .2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .2)
+        }
+
+        .acc-toggle-switch input:checked+.acc-toggle-track::after {
+            transform: translateX(20px)
+        }
+
+        .acc-status-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: .3rem;
+            font-size: var(--text-xs);
+            font-weight: 600;
+            padding: .2rem .6rem;
+            border-radius: var(--radius-full)
+        }
+
+        .acc-status-chip.green {
+            background: var(--color-primary-highlight);
+            color: var(--color-primary)
+        }
+
+        .acc-status-chip.amber {
+            background: #fff3cd;
+            color: #856404
+        }
+
+        [data-theme="dark"] .acc-status-chip.amber {
+            background: #2c2000;
+            color: #ffc107
+        }
+
+        /* Danger zone */
+        .acc-danger-card {
+            background: var(--color-surface);
+            border: 1px solid color-mix(in srgb, var(--color-danger) 30%, var(--color-border));
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm)
+        }
+
+        .acc-danger-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-5) var(--space-6);
+            border-bottom: 1px solid color-mix(in srgb, var(--color-danger) 20%, var(--color-border))
+        }
+
+        .acc-danger-icon {
+            width: 34px;
+            height: 34px;
+            background: var(--color-danger-highlight);
+            color: var(--color-danger);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .9rem;
+            flex-shrink: 0
+        }
+
+        .acc-danger-title {
+            font-weight: 700;
+            font-size: var(--text-base);
+            color: var(--color-danger)
+        }
+
+        .acc-danger-body {
+            padding: var(--space-5) var(--space-6)
+        }
+
+        .acc-danger-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-3) 0;
+            border-bottom: 1px solid var(--color-border);
+            gap: var(--space-4)
+        }
+
+        .acc-danger-row:last-child {
+            border-bottom: none
+        }
+
+        .acc-danger-row-title {
+            font-weight: 600;
+            font-size: var(--text-sm)
+        }
+
+        .acc-danger-row-desc {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            margin-top: 2px
+        }
+
+        .acc-btn-danger {
+            padding: .45rem 1rem;
+            background: transparent;
+            color: var(--color-danger);
+            border: 1px solid var(--color-danger);
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-size: var(--text-xs);
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+            white-space: nowrap;
+            flex-shrink: 0
+        }
+
+        .acc-btn-danger:hover {
+            background: var(--color-danger);
+            color: #fff
+        }
+
+        .acc-btn-signout {
+            padding: .55rem 1.25rem;
+            background: var(--color-danger);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-size: var(--text-sm);
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity .2s;
+            display: flex;
+            align-items: center;
+            gap: .5rem
+        }
+
+        .acc-btn-signout:hover {
+            opacity: .85
+        }
+
+        /* Activity */
+        .acc-activity-row {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            padding: var(--space-3) 0;
+            border-bottom: 1px solid var(--color-border);
+            font-size: var(--text-sm)
+        }
+
+        .acc-activity-row:last-child {
+            border-bottom: none
+        }
+
+        .acc-activity-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            margin-top: .4rem;
+            flex-shrink: 0
+        }
+
+        .acc-activity-dot.muted {
+            background: var(--color-text-faint)
+        }
+
+        .acc-activity-desc {
+            flex: 1
+        }
+
+        .acc-activity-time {
+            color: var(--color-text-faint);
+            font-size: var(--text-xs);
+            white-space: nowrap
+        }
+
+        /* Toast */
+        .acc-toast {
+            position: fixed;
+            bottom: var(--space-6);
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            padding: var(--space-3) var(--space-5);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
+            z-index: 100;
+            pointer-events: none;
+            white-space: nowrap
+        }
+
+        .acc-toast.show {
+            transform: translateX(-50%) translateY(0)
+        }
+
+        /* Responsive */
+        @media(max-width:560px) {
+            .acc-hero {
+                padding: var(--space-8) 0 var(--space-6)
+            }
+
+            .acc-sub-banner {
+                flex-direction: column;
+                text-align: center
+            }
+
+            .acc-danger-row {
+                flex-direction: column;
+                align-items: flex-start
+            }
+
+            .acc-field-row {
+                flex-wrap: wrap
+            }
+        }
+
+        .faint {
+            color: var(--color-text-faint);
+        }
+    </style>
 </head>
 
 <body>
-    <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+    <header class="acc-topbar">
+        <div class="container acc-topbar-inner">
+            <a class="acc-brand" href="index.html" aria-label="Zpendr home">
+                <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                    <rect x="6" y="10" width="52" height="44" rx="12" stroke="currentColor" stroke-width="4" />
+                    <path d="M18 24h28M18 32h18M18 40h24" stroke="currentColor" stroke-width="4"
+                        stroke-linecap="round" />
+                </svg>
+                Zpendr
+            </a>
+            <div class="acc-topbar-actions">
+                <button class="acc-theme-btn" id="acc-theme-btn" aria-label="Toggle theme">🌙</button>
+                <a href="index.html" class="acc-back-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </header>
 
-    <script src="" async defer></script>
+    <section class="acc-hero">
+        <div class="container">
+            <div class="acc-avatar-wrap">
+                <img class="acc-avatar" id="acc-avatar-img"
+                    src="https://ui-avatars.com/api/?size=128&rounded=true&bold=true&background=157347&color=f7fbf7&name=User"
+                    alt="Profile photo" width="96" height="96">
+                <button class="acc-avatar-edit" id="acc-avatar-edit-btn" title="Change photo"
+                    aria-label="Change profile photo">✏️</button>
+                <input type="file" id="acc-avatar-file" accept="image/*" style="display:none;" aria-hidden="true">
+            </div>
+            <h1 class="acc-hero-name" id="acc-hero-name">Loading…</h1>
+            <p class="acc-hero-email" id="acc-hero-email">—</p>
+            <span class="acc-tier-badge">✦ Pro — Ultimate</span>
+        </div>
+    </section>
+
+    <main class="acc-main" id="acc-main">
+        <div class="container">
+
+            <!-- Personal Information -->
+            <div class="acc-card">
+                <div class="acc-card-header">
+                    <div class="acc-card-title">
+                        <div class="acc-card-title-icon">👤</div>Personal Information
+                    </div>
+                </div>
+                <div class="acc-card-body">
+                    <div class="acc-field-row" id="field-name">
+                        <span class="acc-field-label">Full Name</span>
+                        <span class="acc-field-value" id="fv-name">—</span>
+                        <button class="acc-field-edit" data-field="name" data-label="Full Name">Edit</button>
+                    </div>
+                    <div class="acc-field-row" id="field-email">
+                        <span class="acc-field-label">Email</span>
+                        <span class="acc-field-value" id="fv-email">—</span>
+                        <button class="acc-field-edit" data-field="email" data-label="Email">Edit</button>
+                    </div>
+                    <div class="acc-field-row" id="field-phone">
+                        <span class="acc-field-label">Phone</span>
+                        <span class="acc-field-value faint" id="fv-phone">Not set</span>
+                        <button class="acc-field-edit" data-field="phone" data-label="Phone">Add</button>
+                    </div>
+                    <div class="acc-field-row" id="field-country">
+                        <span class="acc-field-label">Country</span>
+                        <span class="acc-field-value faint" id="fv-country">Not set</span>
+                        <button class="acc-field-edit" data-field="country" data-label="Country">Add</button>
+                    </div>
+                    <div class="acc-field-row" id="field-lang">
+                        <span class="acc-field-label">Language</span>
+                        <span class="acc-field-value" id="fv-lang">English</span>
+                        <button class="acc-field-edit" data-field="lang" data-label="Language">Edit</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subscription -->
+            <div class="acc-card">
+                <div class="acc-card-header">
+                    <div class="acc-card-title">
+                        <div class="acc-card-title-icon">✦</div>Subscription
+                    </div>
+                    <button class="acc-card-action">Manage plan</button>
+                </div>
+                <div class="acc-card-body">
+                    <div class="acc-sub-banner">
+                        <div class="acc-sub-icon">🏆</div>
+                        <div>
+                            <div class="acc-sub-title">Zpendr Pro — Ultimate</div>
+                            <div class="acc-sub-desc">Full access including AI insights, cloud sync, multi-currency, and
+                                priority support.</div>
+                        </div>
+                    </div>
+                    <div class="acc-sub-details">
+                        <div class="acc-sub-stat">
+                            <div class="acc-sub-stat-label">Plan</div>
+                            <div class="acc-sub-stat-val primary">Pro Ultimate</div>
+                        </div>
+                        <div class="acc-sub-stat">
+                            <div class="acc-sub-stat-label">Billing</div>
+                            <div class="acc-sub-stat-val">Monthly</div>
+                        </div>
+                        <div class="acc-sub-stat">
+                            <div class="acc-sub-stat-label">Next renewal</div>
+                            <div class="acc-sub-stat-val" id="acc-renewal-date">—</div>
+                        </div>
+                        <div class="acc-sub-stat">
+                            <div class="acc-sub-stat-label">Status</div>
+                            <div class="acc-sub-stat-val"><span class="acc-status-chip green">● Active</span></div>
+                        </div>
+                        <div class="acc-sub-stat">
+                            <div class="acc-sub-stat-label">Payment</div>
+                            <div class="acc-sub-stat-val">Visa ···4242</div>
+                        </div>
+                        <div class="acc-sub-stat">
+                            <div class="acc-sub-stat-label">Member since</div>
+                            <div class="acc-sub-stat-val" id="acc-member-since">—</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Settings -->
+            <div class="acc-card">
+                <div class="acc-card-header">
+                    <div class="acc-card-title">
+                        <div class="acc-card-title-icon">🔐</div>Security Settings
+                    </div>
+                </div>
+                <div class="acc-card-body">
+                    <div class="acc-toggle-row">
+                        <div>
+                            <div class="acc-toggle-title">Two-Factor Authentication (2FA)</div>
+                            <div class="acc-toggle-desc">Require an authenticator code on every sign-in.</div>
+                        </div>
+                        <label class="acc-toggle-switch"><input type="checkbox" id="toggle-2fa"
+                                aria-label="Two-Factor Authentication"><span class="acc-toggle-track"></span></label>
+                    </div>
+                    <div class="acc-toggle-row">
+                        <div>
+                            <div class="acc-toggle-title">Login Alerts</div>
+                            <div class="acc-toggle-desc">Email notification on new sign-ins from unrecognised devices.
+                            </div>
+                        </div>
+                        <label class="acc-toggle-switch"><input type="checkbox" id="toggle-alerts" checked
+                                aria-label="Login Alerts"><span class="acc-toggle-track"></span></label>
+                    </div>
+                    <div class="acc-toggle-row">
+                        <div>
+                            <div class="acc-toggle-title">Auto-logout after inactivity</div>
+                            <div class="acc-toggle-desc">Automatically sign out after 15 minutes with no activity.</div>
+                        </div>
+                        <label class="acc-toggle-switch"><input type="checkbox" id="toggle-autologout" checked
+                                aria-label="Auto-logout after inactivity"><span class="acc-toggle-track"></span></label>
+                    </div>
+                    <div class="acc-field-row" style="margin-top:var(--space-2);">
+                        <span class="acc-field-label">Password</span>
+                        <span class="acc-field-value"><span class="acc-status-chip green">✓ Strong</span></span>
+                        <button class="acc-field-edit">Change</button>
+                    </div>
+                    <div class="acc-field-row">
+                        <span class="acc-field-label">Active sessions</span>
+                        <span class="acc-field-value">1 device — this browser</span>
+                        <button class="acc-field-edit">View all</button>
+                    </div>
+                    <div class="acc-field-row">
+                        <span class="acc-field-label">Email verified</span>
+                        <span class="acc-field-value"><span class="acc-status-chip green">✓ Verified</span></span>
+                        <button class="acc-field-edit" style="visibility:hidden;">—</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="acc-card">
+                <div class="acc-card-header">
+                    <div class="acc-card-title">
+                        <div class="acc-card-title-icon">📋</div>Recent Activity
+                    </div>
+                </div>
+                <div class="acc-card-body">
+                    <div class="acc-activity-row">
+                        <div class="acc-activity-dot"></div>
+                        <div class="acc-activity-desc">Signed in from this browser</div>
+                        <div class="acc-activity-time" id="acc-login-time-fmt">Just now</div>
+                    </div>
+                    <div class="acc-activity-row">
+                        <div class="acc-activity-dot muted"></div>
+                        <div class="acc-activity-desc">Subscription activated · Zpendr Pro Ultimate</div>
+                        <div class="acc-activity-time">Today</div>
+                    </div>
+                    <div class="acc-activity-row">
+                        <div class="acc-activity-dot muted"></div>
+                        <div class="acc-activity-desc">Email verified successfully</div>
+                        <div class="acc-activity-time">Today</div>
+                    </div>
+                    <div class="acc-activity-row">
+                        <div class="acc-activity-dot muted"></div>
+                        <div class="acc-activity-desc">Account created</div>
+                        <div class="acc-activity-time" id="acc-created-time">Today</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danger Zone -->
+            <div class="acc-danger-card">
+                <div class="acc-danger-header">
+                    <div class="acc-danger-icon">⚠️</div>
+                    <div class="acc-danger-title">Account Actions</div>
+                </div>
+                <div class="acc-danger-body">
+                    <div class="acc-danger-row">
+                        <div>
+                            <div class="acc-danger-row-title">Sign Out</div>
+                            <div class="acc-danger-row-desc">Sign out on this tab and all other open Zpendr tabs
+                                simultaneously.</div>
+                        </div>
+                        <button class="acc-btn-signout" id="acc-signout-btn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                                <polyline points="16 17 21 12 16 7" />
+                                <line x1="21" y1="12" x2="9" y2="12" />
+                            </svg>
+                            Sign Out
+                        </button>
+                    </div>
+                    <div class="acc-danger-row">
+                        <div>
+                            <div class="acc-danger-row-title">Cancel Subscription</div>
+                            <div class="acc-danger-row-desc">Pro access continues until the end of your current billing
+                                period.</div>
+                        </div>
+                        <button class="acc-btn-danger">Cancel plan</button>
+                    </div>
+                    <div class="acc-danger-row">
+                        <div>
+                            <div class="acc-danger-row-title">Delete Account</div>
+                            <div class="acc-danger-row-desc">Permanently remove your account and all data. This cannot
+                                be undone.</div>
+                        </div>
+                        <button class="acc-btn-danger">Delete account</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="acc-toast" id="acc-toast" role="status" aria-live="polite">
+        <span>✓</span> <span id="acc-toast-msg">Saved</span>
+    </div>
+
+    <script>
+        (function () {
+            'use strict';
+            var STORAGE_KEY = 'zpendr_auth_v2';
+            var LOGOUT_KEY = 'zpendr_logout_signal';
+            var AVATAR_BASE = 'https://ui-avatars.com/api/?size=128&rounded=true&bold=true&background=157347&color=f7fbf7&name=';
+
+            /* Theme */
+            var root = document.documentElement;
+            var themeBtn = document.getElementById('acc-theme-btn');
+            function isDark() { return root.getAttribute('data-theme') === 'dark'; }
+            function syncThemeBtn() { themeBtn.textContent = isDark() ? '☀️' : '🌙'; }
+            themeBtn.addEventListener('click', function () {
+                var next = isDark() ? 'light' : 'dark';
+                root.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                syncThemeBtn();
+                // Refresh avatar only if it's the generated placeholder (not an uploaded photo)
+                var img = document.getElementById('acc-avatar-img');
+                if (img && img.src.indexOf('ui-avatars.com') !== -1) {
+                    var name = (userData && (userData.displayName || (userData.email && userData.email.split('@')[0]))) || 'User';
+                    img.src = avatarUrl(name);
+                }
+            });
+            syncThemeBtn();
+
+            /* Load user */
+            var userData = null;
+            try { var r = localStorage.getItem(STORAGE_KEY); if (r) userData = JSON.parse(r); } catch (e) { }
+
+            function avatarUrl(name) {
+                var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+                var bg = dark ? '5fcb8b' : '157347';
+                var fg = dark ? '101712' : 'f7fbf7';
+                return AVATAR_BASE.replace('157347', bg).replace('f7fbf7', fg)
+                    + encodeURIComponent((name || 'User').replace(/[^a-zA-Z0-9 ]/g, ' ').trim() || 'User');
+            }
+
+            function renderUser() {
+                var name = (userData && (userData.displayName || (userData.email && userData.email.split('@')[0]))) || 'Zpendr User';
+                var email = (userData && userData.email) || '—';
+                var imgSrc = (userData && userData.photoURL) || avatarUrl(name);
+                document.getElementById('acc-avatar-img').src = imgSrc;
+                document.getElementById('acc-hero-name').textContent = name;
+                document.getElementById('acc-hero-email').textContent = email;
+                document.getElementById('fv-name').textContent = name;
+                document.getElementById('fv-email').textContent = email;
+                var renewal = new Date(); renewal.setDate(renewal.getDate() + 30);
+                document.getElementById('acc-renewal-date').textContent = renewal.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+                document.getElementById('acc-member-since').textContent = new Date().toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+                document.getElementById('acc-login-time-fmt').textContent = new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+                document.getElementById('acc-created-time').textContent = new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+            }
+            renderUser();
+
+            /* Avatar upload */
+            var avatarImg = document.getElementById('acc-avatar-img');
+            var avatarFile = document.getElementById('acc-avatar-file');
+            document.getElementById('acc-avatar-edit-btn').addEventListener('click', function () { avatarFile.click(); });
+            avatarFile.addEventListener('change', function () {
+                var file = avatarFile.files[0]; if (!file) return;
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    avatarImg.src = e.target.result;
+                    if (userData) { userData.photoURL = e.target.result; try { localStorage.setItem(STORAGE_KEY, JSON.stringify(userData)); } catch (err) { } }
+                    showToast('Profile photo updated ✓');
+                };
+                reader.readAsDataURL(file);
+            });
+
+            /* Toast */
+            function showToast(msg) {
+                var t = document.getElementById('acc-toast');
+                document.getElementById('acc-toast-msg').textContent = msg;
+                t.classList.add('show');
+                setTimeout(function () { t.classList.remove('show'); }, 2800);
+            }
+
+            /* Inline field editing — event delegation on document */
+            var LABELS = { name: 'Full Name', email: 'Email', phone: 'Phone', country: 'Country', lang: 'Language' };
+            document.addEventListener('click', function (e) {
+                var btn = e.target.closest('.acc-field-edit[data-field]');
+                if (!btn) return;
+                var field = btn.dataset.field;
+                var label = btn.dataset.label || LABELS[field] || field;
+                var row = document.getElementById('field-' + field);
+                var valEl = document.getElementById('fv-' + field);
+                if (!row || !valEl) return;
+                var current = (valEl.textContent === 'Not set' || valEl.textContent === '—') ? '' : valEl.textContent;
+
+                var inp = document.createElement('input');
+                inp.type = 'text'; inp.className = 'acc-inline-input'; inp.value = current; inp.placeholder = 'Enter ' + label.toLowerCase();
+                var acts = document.createElement('div'); acts.className = 'acc-inline-actions';
+                var save = document.createElement('button'); save.className = 'acc-btn-save'; save.textContent = 'Save';
+                var cancel = document.createElement('button'); cancel.className = 'acc-btn-cancel'; cancel.textContent = 'Cancel';
+                acts.appendChild(save); acts.appendChild(cancel);
+
+                while (row.firstChild) row.removeChild(row.firstChild);
+                var lbl = document.createElement('span'); lbl.className = 'acc-field-label'; lbl.textContent = label;
+                row.appendChild(lbl); row.appendChild(inp); row.appendChild(acts);
+                inp.focus(); inp.select();
+
+                function rebuild(val) {
+                    while (row.firstChild) row.removeChild(row.firstChild);
+                    var l2 = document.createElement('span'); l2.className = 'acc-field-label'; l2.textContent = label;
+                    var v2 = document.createElement('span'); v2.className = 'acc-field-value'; v2.id = 'fv-' + field;
+                    if (!val) { v2.textContent = 'Not set'; v2.style.color = 'var(--color-text-faint)'; } else { v2.textContent = val; }
+                    var b2 = document.createElement('button'); b2.className = 'acc-field-edit'; b2.dataset.field = field; b2.dataset.label = label;
+                    b2.textContent = val ? 'Edit' : 'Add';
+                    row.appendChild(l2); row.appendChild(v2); row.appendChild(b2);
+                }
+
+                save.addEventListener('click', function () {
+                    var val = inp.value.trim();
+                    if (val && userData) {
+                        if (field === 'name') { userData.displayName = val; document.getElementById('acc-hero-name').textContent = val; }
+                        if (field === 'email') { userData.email = val; document.getElementById('acc-hero-email').textContent = val; }
+                        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(userData)); } catch (err) { }
+                    }
+                    rebuild(val); showToast(label + ' updated ✓');
+                });
+                cancel.addEventListener('click', function () { rebuild(current); });
+                inp.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') save.click(); if (ev.key === 'Escape') cancel.click(); });
+            });
+
+            /* Security toggles */
+            document.getElementById('toggle-2fa').addEventListener('change', function () { showToast(this.checked ? '2FA enabled ✓' : '2FA disabled'); });
+            document.getElementById('toggle-alerts').addEventListener('change', function () { showToast(this.checked ? 'Login alerts on ✓' : 'Login alerts off'); });
+            document.getElementById('toggle-autologout').addEventListener('change', function () { showToast(this.checked ? 'Auto-logout enabled ✓' : 'Auto-logout disabled'); });
+
+            /* Sign out — cross-tab */
+            document.getElementById('acc-signout-btn').addEventListener('click', function () {
+                try { localStorage.setItem(LOGOUT_KEY, 'true'); } catch (e) { }
+                setTimeout(function () { try { localStorage.removeItem(LOGOUT_KEY); } catch (e) { } }, 200);
+                try { localStorage.removeItem(STORAGE_KEY); } catch (e) { }
+                window.location.href = 'index.html';
+            });
+
+            /* Listen for logout from index.html tab */
+            window.addEventListener('storage', function (e) {
+                if (e.key === LOGOUT_KEY && e.newValue === 'true') window.location.href = 'index.html';
+            });
+
+        })();
+    </script>
 </body>
 
 </html>
