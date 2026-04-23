@@ -7897,8 +7897,9 @@ zpendr.on('payment.success', (evt) =&gt; {
         <p>🍪 Zpendr doesn't use tracking cookies. We only use essential storage to save your preferences locally. <a
                 href="privacy.html">Privacy Policy</a>.</p>
         <div class="cookie-actions">
-            <button class="cookie-btn" id="cookie-decline">Decline non-essential</button>
-            <button class="cookie-btn primary" id="cookie-accept">Got it</button>
+            <button class="cookie-btn" id="cookie-reject-optional">Reject Optional</button>
+            <button class="cookie-btn primary" id="cookie-accept">I Agree</button>
+            <button class="cookie-btn" id="cookie-decline">I Decline</button>
         </div>
     </div>
 
@@ -7966,6 +7967,7 @@ zpendr.on('payment.success', (evt) =&gt; {
             // ── 4. Cookie banner ───────────────────────────────────────────────
             const cookieBanner = document.getElementById('cookie-banner');
             const cookieAccept = document.getElementById('cookie-accept');
+            const cookieRejectOptional = document.getElementById('cookie-reject-optional');
             const cookieDecline = document.getElementById('cookie-decline');
             if (cookieBanner && !localStorage.getItem('cookie-consent')) {
                 setTimeout(() => cookieBanner.classList.add('visible'), 1200);
@@ -7978,6 +7980,7 @@ zpendr.on('payment.success', (evt) =&gt; {
                 }
             }
             cookieAccept?.addEventListener('click', () => dismissCookie('accepted'));
+            cookieRejectOptional?.addEventListener('click', () => dismissCookie('rejected_optional'));
             cookieDecline?.addEventListener('click', () => dismissCookie('declined'));
 
             // ── 5. Share — copy link ───────────────────────────────────────────
